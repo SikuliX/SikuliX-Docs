@@ -1,24 +1,48 @@
 
-How to use Sikuli Script in your JAVA programs
-==============================================
+How to use SikuliX API in your JAVA programs
+============================================
 
 .. _howtojava:
 
-The core of Sikuli Script is written in Java, which means you can use Sikuli Script as a standard JAVA library in your program. This document lets you know how to do that. 
+The core of SikuliX is written in Java, which means you can use the SikuliX API as a standard JAVA library in your program. 
 
-After having setup Sikuli on your system, as recommended on the `download page <http://sikuli.org/download.shtml>`_, you have to do the following:
+After having setup SikuliX on your system, as recommended at `Getting started <http://www.sikulix.com/quickstart.html>`_, you have to do the following:
 
-1. Include sikuli-script.jar in the CLASSPATH of your Java project.
+1. Include sikulixapi.jar in the CLASSPATH of your Java project.
 ------------------------------------------------------------------- 
 
-We use Eclipse as an example. After adding sikuli-script.jar or preferably sikuli-java.jar as a library reference into your project, the project hierarchy should look like this.
+After adding sikulixapi.jar as a library reference into your project, the project hierarchy in Eclipse might look like this:
 
 .. image:: test-sikuli-project.png
+
+The same in Netbeans: 
+
+Project view
+
+.. image:: test-sikuli-project-nb.png
+
+Files view
+
+.. image:: test-sikuli-project-nbf.png
 
 2. Import the Sikuli classes you need
 -------------------------------------
 
-You can simply "import org.sikuli.script.*" or import the classes you need. In most cases, you would need at least :py:class:`Region` or :py:class:`Screen`.
+You can simply use 
+
+.. code-block:: java
+
+	import org.sikuli.script.*;
+
+or import the classes you need:
+
+.. code-block:: java
+
+	import org.sikuli.script.Screen;
+
+In most cases, you would need at least :py:class:`Screen` and/or :py:class:`Region`. 
+
+Other candidates are :py:class:`Pattern`, :py:class:`Match`, :py:class:`Location`, :py:class:`App` and some more.
 
 3. Write code!
 --------------
@@ -47,9 +71,16 @@ The program clicks on the spotlight icon on the screen, waits until spotlight's 
 
 	}
 
+A comment on projects using Maven
+---------------------------------
+
+It is planned, to publish sikulixapi.jar version 1.1.0+ on MavenCentral, so having a dependency in your project pom would be sufficient.
+
+Until then you either have to use a path-based dependency or manually import sikulixapi.jar appropriately into your local Maven repo.  
+
 See also
 --------
 Be aware, that some method signatures in the Java API differ from the scripting level.
- * `Javadoc of SikuliX <http://sikuli.org/doc/java-x/>`_.
+ * `Javadoc of SikuliX (temporary location) <https://dl.dropboxusercontent.com/u/42895525/docs/index.html>`_.
  * :doc:`/sikuli-script-index`.
 
