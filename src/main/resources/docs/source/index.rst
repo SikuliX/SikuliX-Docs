@@ -35,16 +35,25 @@ The documentation for the versions up to SikuliX-1.0rc3 is still available `here
 How to use this document
 ------------------------
 
-Sikuli at the top supports Jython (Python for the Java platform currently at language level 2.5 and later 2.7) as the first scripting language.
+Sikuli at the top supports scripting via SikuliX IDE (a basic script editor allowing to load, edit, save and run scripts). 
+
+The first scripting language is Python (language level 2.5 (stable) and 2.7 being in a beta state, but rather complete) supported by the Jython interpreter package. 
+
+As a second scripting language Ruby (language level 1.9/2.0) can be used, which internally is supported by the JRuby interpreter package. 
+
+Principally it is possible to implement more scripting languages, if some Java based interpreter package is available for that (possible candidates: BeanShell, Scala, JavaScript, ...).
+
 If you are new to
 programming, you can still enjoy using Sikuli to automate simple repetitive
-tasks without learning Python using the Sikuli IDE. A good start might be to have a look at the :doc:`tutorials <tutorials/index>`.
+tasks without learning one of the supported scripting languages using the SikuliX IDE. A good start might be to have a look at the :doc:`tutorials <tutorials/index>`.
 
 If you plan to write more powerful and
 complex scripts, which might even be structured in classes and modules, you have to dive into the `Python Language
-<http://www.jython.org/jythonbook/en/1.0/>`_.
+<http://www.jython.org/jythonbook/en/1.0/>`_ or the `Ruby Language <http://docs.ruby-doc.com/docs/ProgrammingRuby>`_.
 
-The features in Sikuli finally are implemented using Java. So you might as well use Sikuli on this Java level API in your Java projects or other Java aware environments. Though this documentation is targeted at the scripting people it contains basic information about the Java level API as well at places, where there are major differences between the two API levels.
+But be aware: Since the interpreters used are based on Java, the modules available for Python or Ruby might not be available in the Jython or JRuby environment. So before trying to use any non-standard modules are extension packages, you have to check, wether they are supported in this SikuliX environment.
+
+The features in Sikuli at the bottom line are implemented using Java. So you might as well use Sikuli on this Java level API in your Java projects or other Java aware environments (:doc:`see how to <faq/030-java-dev>`). Though this documentation is targeted at the scripting people it contains basic information about the Java level API as well at places, where there are major differences between the two API levels. Additionally you might look through the JavaDocs (`temporary location <https://dl.dropboxusercontent.com/u/42895525/docs/index.html>`_). 
 
 The preface of each chapter in this documentaton briefly describes 
 a class or a group of methods regarding its basic features. It
