@@ -81,6 +81,6 @@ Until then you either have to use a path-based dependency or manually import sik
 See also
 --------
 Be aware, that some method signatures in the Java API differ from the scripting level.
- * `Javadoc of SikuliX (temporary location) <https://dl.dropboxusercontent.com/u/42895525/docs/index.html>`_.
+ * `Javadoc of SikuliX (temporary location) <http://nightly.sikuli.de/docs/index.html>`_.
  * :doc:`/sikuli-script-index`.
 

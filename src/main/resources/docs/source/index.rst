@@ -32,6 +32,8 @@ how to get more information and help, please see the sidebar.
 
 **Documentation for previous versions**
 
+Might not be available any longer without notice or might not work properly. Feel free to post a bug in case.
+
 The documentation for the versions up to SikuliX-1.0rc3 is still available `here <http://doc.sikuli.org>`_.
 
 How to use this document
