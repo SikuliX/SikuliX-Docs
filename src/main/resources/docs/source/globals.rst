@@ -968,26 +968,28 @@ follows.
 
 .. _min-target-size:
 
-.. versionadded:: X1.0-rc3
-
 MinTargetSize
 ^^^^^^^^^^^^^
 
-``MinTargetSize`` is the minimum image size to which Sikuli can resize. 
+``MinTargetSize`` is the minimum image size to which Sikuli can resize.
 
-Sikuli resizes the screen images to a smaller scale for faster matching. This scaling process speeds up the matching process, but also increases the possibility 
-of false matching.
-The default value of ``MinTargetSize`` in X-1.0rc3 is 12, which makes the matching algorithm be balanced between speed and robustness. 
+**Note** It is not recommended, to use this. 
+With version 1.2 the matching process will be revised anyway and might bring other options.
+If you really want to speed up the search process, take care, that you are searching in a region being as small as possible.
+
+
 If you feel that Sikuli is running too slow, 
-try a smaller value than 12. On the other hand, if you see Sikuli returns a match that is not what you expect, i.e. a false match, 
+you might try a smaller value than 12. On the other hand, if you see Sikuli returns a match 
+that is not what you expect, i.e. a false match, 
 try to increase ``MinTargetSize`` to make Sikuli be more robust to small details.
 
 You can tune this parameter using the following Jython code. 
 
 .. sikulicode::
 
-   from org.sikuli.script.natives import Vision
+   from org.sikuli.natives import Vision
 
-   Vision.setParameter("MinTargetSize", 6) # the default is 12. Setting the size to a smaller value would make the matching algorithm be faster.
+   Vision.setParameter("MinTargetSize", 6) # the default is 12. 
+   Setting the size to a smaller value would make the matching algorithm be faster.
 
 
