@@ -113,10 +113,9 @@ the new :ref:`SIKULI_IMAGE_PATH <ImageSearchPath>` to make sure that images cont
 	**Note:** About how this jar-file should be structured you 
 	find more information here: :ref:`Sikuli Extensions <sikuliextensions>`)
 	
-	**Note for version 1.1.0:** Only absolute path's to the jar-file are supported.
+	**Version 1.1.0:** Only absolute path's to the jar-file are supported.
 	
-.. versionadded:: 1.2.0
-        **Extensions** will be supported again acccording to :ref:`Sikuli Extensions <sikuliextensions>`)
+        **Version 1.2.0:** **Extensions** will be supported again acccording to :ref:`Sikuli Extensions <sikuliextensions>`)
 	
 
 .. _ControllingSikuliScriptsandtheirBehavior:
