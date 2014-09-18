@@ -82,9 +82,11 @@ It is planned, to publish sikulixapi.jar version 1.1.0+ on MavenCentral, so havi
 | <artifactId>sikulixapi</artifactId>
 | <version>1.1.0</version>
 
-Until availability of final version, snapshots of developement head can be loaded from OSSRH:
+**Snapshots of developement head can be loaded from OSSRH**
+    they are created daily (most of the time ;-)
 
 **use this repository setting:**
+
 | <repository>  <!-- OSSRH: com.sikulix -->
 |     <id>com-sikulix</id>
 |     <name>com-sikulix</name>
@@ -96,9 +98,7 @@ Until availability of final version, snapshots of developement head can be loade
 |     </snapshots>
 | </repository>
 
-**and as version**
-
-| <version>1.1.0-SNAPSHOT</version>
+**and as version use:** <version>1.1.0-SNAPSHOT</version>
 
 
 See also
