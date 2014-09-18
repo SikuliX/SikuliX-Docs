@@ -945,7 +945,6 @@ Advanced Settings for Speed and Robustness
 ------------------------------------------
 
 
-.. versionadded:: X1.0-rc3
 .. py:method:: Vision.setParameter(param, value)
 
 	Set the parameter *param* of the vision algorithm to *value*.
