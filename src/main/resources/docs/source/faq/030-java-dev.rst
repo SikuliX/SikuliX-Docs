@@ -77,11 +77,13 @@ A comment on projects using Maven
 It is planned, to publish sikulixapi.jar version 1.1.0+ on MavenCentral, so having a dependency in your project pom would be sufficient.
 
 **The coordinates:**
+
 | <groupId>com.sikulix</groupId>
 | <artifactId>sikulixapi</artifactId>
 | <version>1.1.0</version>
 
 Until availability of final version, snapshots of developement head can be loaded from OSSRH:
+
 **use this repository setting:**
 | <repository>  <!-- OSSRH: com.sikulix -->
 |     <id>com-sikulix</id>
@@ -95,6 +97,7 @@ Until availability of final version, snapshots of developement head can be loade
 | </repository>
 
 **and as version**
+
 | <version>1.1.0-SNAPSHOT</version>
 
 
