@@ -98,9 +98,9 @@ through the three links and show the tooltip of each link one at a time.
 		tooltip("index.png","Index")
 		show(3)
 
-The result of running this script is shown below (3x speed-up):
+The result of running this script is shown below (sorry, no animation):
 
-.. image:: animated-tooltips.gif
+.. image:: animated-tooltips.png
 
 Adding Interaction
 ------------------
