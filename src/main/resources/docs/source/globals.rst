@@ -47,7 +47,7 @@ This is possible with SikuliX:
 	# on Mac/Linux
 	myScriptPath = "/someDirectory/myLibrary"
 
-	# all systems
+	# all systems (avoids double entries)
 	if not myScriptPath in sys.path: sys.path.append(myScriptPath)
 
 	# supposing there is a myLib.sikuli
