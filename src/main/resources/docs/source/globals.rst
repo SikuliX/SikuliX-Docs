@@ -8,26 +8,19 @@ Global Functions and Features
 Importing other Sikuli Scripts (reuse code and images)
 ------------------------------------------------------
 
-When getting more experienced with scripting or when you are used to structure
-your solutions into a modular system, you might want to have access to the
-related features of the programming environment - in this case the
-Python/Jython features of module support - for your scripts too.
+This is possible with SikuliX:
 
-This is possible with Sikuli X:
-
-* import other .sikuli in a way that is fully compatible with Python import
+* import other .sikuli in a way that is compatible with Python module import (no module structures)
 * import a python module structure including underlying Java classes from a
   jar-file, that is dynamically loaded using the function :py:func:`load(jar-file) <load>`
 * automatically access images contained in the imported .sikuli (no need to use
   :py:func:`setBundlePath`) 
 
-**Note**: Currently a .skl cannot be imported. As a circumvention it is up to you 
-to unzip the .skl on the fly (e.g. with gzip on the command line) to a place of 
-your choice as .sikuli (e.g. temp directory) and import it from there.
+**Note**: .skl cannot be imported. But you might unzip the .skl to a .sikuli, which then can be imported.
 
 **The prerequisites**:
 
-* the directories/folders containing your .sikuli's you want to import have to
+* the folders containing your .sikuli's you want to import have to
   be in ``sys.path`` (see below: Usage)
 
 * Sikuli automatically finds other Sikuli scripts in the same directory, when they are imported
@@ -40,13 +33,13 @@ your choice as .sikuli (e.g. temp directory) and import it from there.
 
 **Usage**:
 
-* Add the path to the Sikuli module into *sys.path* 
+* Add the path to the Sikuli module into ``sys.path`` 
     *not needed* for modules being in the same directory as the main script
 
 * Import your .sikuli using just its name. 
-    For example, to import a_module.sikuli, just write *import a_module*.
+    For example, to import myModule.sikuli, just write ``import myModule``.
 
-* the example contains a recommendation to avoid double entries::
+* the example contains a recommendation how to avoid double entries in sys.path::
 
 	# an example - choose your own naming
 	# on Windows
@@ -65,10 +58,10 @@ your choice as .sikuli (e.g. temp directory) and import it from there.
 
 
 **Note on contained images:** Together with the import, Sikuli internally uses
-the new :ref:`SIKULI_IMAGE_PATH <ImageSearchPath>` to make sure that images contained in imported
+the feature :ref:`SIKULI_IMAGE_PATH <ImageSearchPath>` to make sure that images contained in imported
 .sikuli's are found automatically.
 
-**Some comments for readers not familiar with Python import**
+**Some comments on general rules for Python import**
 
 *	An import is only processed once (the first time it is found in the program
 	flow). So be aware: 
@@ -76,7 +69,9 @@ the new :ref:`SIKULI_IMAGE_PATH <ImageSearchPath>` to make sure that images cont
 	*	If your imported script contains code outside of any function definitions ( ``def()`` ),
 		this code is only processed once at the first time, when the import is evaluated
 
-	*	Since the IDE does not reload the modules while running a script each time, if you are changing imported scripts while they are in use, you have to use the Jython's reload() function:: 
+	*	Since the IDE does not reload the modules when running a script the next time, 
+		you have to use the Jython's reload() function, 
+		if you are changing imported scripts while they are in use:: 
 
 			# instead of: import module
 			import module
@@ -88,12 +83,14 @@ the new :ref:`SIKULI_IMAGE_PATH <ImageSearchPath>` to make sure that images cont
 			from module import *  	
  	
 *	Python has a so called namespace concept: names (variables, functions,
-	classes) are only known in it's namespace your main script has it's own namespace
+	classes) are only known in it's namespace: 
+	
+	*	your main script has it's own namespace
 
 	*	Each imported script has its own namespace. So names contained in an 
-		imported script have to be qualified with the	module name (e.g. ``myLib.myFunction()`` )
+		imported script have to be qualified with the module name (e.g. ``myLib.myFunction()`` )
 
-	*	You may use ``from myLib import *``, which integrates all names from myLib
+	*	You may use ``from myLib import *``, which adds all names from myLib
 		into your current namespace. So you can use ``myFunction()`` directly. When you
 		decide to use this version, be sure you have a naming convention that
 		prevents naming conflicts.
@@ -111,7 +108,7 @@ the new :ref:`SIKULI_IMAGE_PATH <ImageSearchPath>` to make sure that images cont
 	:return: ``True`` if the file was found, otherwise ``False``
 	
 	**Note:** About how this jar-file should be structured you 
-	find more information here: :ref:`Sikuli Extensions <sikuliextensions>`)
+	find more information here: :ref:`Sikuli Extensions <sikuliextensions>`
 	
 	**Version 1.1.0:** Only absolute path's to the jar-file are supported.
 	
@@ -245,7 +242,7 @@ their windows to front) or accessing an application's windows.
 The three global functions :py:func:`openApp`, :py:func:`switchApp` and
 :py:func:`closeApp` introduced in Sikuli 0.9 and 0.10 are still valid in the moment,
 but they should be considered as deprecated.  They are being replaced by a new
-:py:class:`App` class introduced in Sikuli X. This class makes it possible to treat
+:py:class:`App` class introduced in SikuliX. This class makes it possible to treat
 a specific application as an object with attributes and methods.  We recommend to
 switch to the class App and its features, the next time you work with one of your
 existing scripts and in all cases, when developing new scripts.
