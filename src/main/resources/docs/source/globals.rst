@@ -30,20 +30,21 @@ your choice as .sikuli (e.g. temp directory) and import it from there.
 * the directories/folders containing your .sikuli's you want to import have to
   be in ``sys.path`` (see below: Usage)
 
-  .. versionadded:: X1.0-rc3
-  
 * Sikuli automatically finds other Sikuli scripts in the same directory, when they are imported
 
-* your imported script must contain (recommendation: as first line) the
-  following statement: ``from sikuli import *`` (this is necessary for the
-  Python environment to know the Sikuli classes, methods, functions and global
-  names) 
+* your imported script **MUST** contain (recommendation: as first line) the
+  following statement: 
+    | ``from sikuli import *`` 
+    | This is necessary for the Python environment to know the 
+         Sikuli classes, methods, functions and global names
 
 **Usage**:
 
-* Add the path to the Sikuli module into *sys.path* (since X-1.0rc3: If the modules to import are in the same directory as the main script, skip this step.)
+* Add the path to the Sikuli module into *sys.path* 
+    *not needed* for modules being in the same directory as the main script
 
-* Import your .sikuli using just its name. For example, to import a_module.sikuli, just write *import a_module*.
+* Import your .sikuli using just its name. 
+    For example, to import a_module.sikuli, just write *import a_module*.
 
 * the example contains a recommendation to avoid double entries::
 
@@ -98,33 +99,8 @@ the new :ref:`SIKULI_IMAGE_PATH <ImageSearchPath>` to make sure that images cont
 		prevents naming conflicts.
 
 
-**Another example: Importing from the same directory**
-
-This approach allows to develop a modularized script app that is contained in
-one directory. This directory can be moved around with no changes and even
-distributed as a zipped file::
-
-	# works on all platforms
-	import os
-	# get the directory containing your running .sikuli
-	myPath = os.path.dirname(getBundlePath()) 
-	if not myPath in sys.path: sys.path.append(myPath)
-
-	# now you can import every .sikuli in the same directory
-	import myLib
-	
-.. versionadded:: X1.0-rc3
-
-Since scripts in same directory are found automatically::
-
-	# nothing else needed
-	# now you can import every .sikuli in the same directory
-	import myLib
-
-
 **Loading a jar-file containing Java/Python modules**
 	
-.. versionadded:: X1.0-rc2
 .. py:function:: load(jar-file)
 
 	Loads a jar-file and puts the absolute path to it into sys.path, so 
@@ -134,9 +110,14 @@ Since scripts in same directory are found automatically::
 		path to ``filename.jar``
 	:return: ``True`` if the file was found, otherwise ``False``
 	
-	**Note:** if no path is specified, Sikuli first looks into the bundle (the
-	Sikuli folder of the running script) and then into the extensions folder.
-	(more information: :ref:`Sikuli Extensions <sikuliextensions>`)
+	**Note:** About how this jar-file should be structured you 
+	find more information here: :ref:`Sikuli Extensions <sikuliextensions>`)
+	
+	**Note for version 1.1.0:** Only absolute path's to the jar-file are supported.
+	
+.. versionadded:: 1.2.0
+        **Extensions** will be supported again acccording to :ref:`Sikuli Extensions <sikuliextensions>`)
+	
 
 .. _ControllingSikuliScriptsandtheirBehavior:
 
@@ -157,7 +138,6 @@ Controlling Sikuli Scripts and their Behavior
 
 .. py:class:: Settings
 
-.. versionadded:: X1.0-rc2
 .. py:attribute:: Settings.ActionLogs
 	Settings.InfoLogs
 	Settings.DebugLogs
