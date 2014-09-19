@@ -43,7 +43,7 @@ SikuliX at the top supports scripting via SikuliX IDE (a basic script editor all
 
 The first scripting language is Python (language level 2.7) supported by the `Jython interpreter <http://www.jython.org>`_. 
 
-As a second scripting language Ruby (language level 1.9/2.0) can be used, which internally is supported by the `JRuby interpreter <http://jruby.org>`_.
+Additionally Ruby (language level 1.9/2.0) can be used, internally supported by the `JRuby interpreter <http://jruby.org>`_.
 
 Principally it is possible to implement more scripting languages, if some Java or JVM based interpreter package is available for that (possible candidates: BeanShell, Scala, JavaScript, ...).
 
