@@ -20,6 +20,9 @@ to write a user log message:
   ``Debug.user("text with %placeholders", args …)``
      where text is a string according to the rules of Java String.format().
 
+Information `can be found here <http://docs.oracle.com/javase/7/docs/api/java/util/Formatter.html>`_ 
+(rather formal, look for tutorials in the net)
+
 the messages look so:
   ``[prefix optional-timestamp] message-text with filled in arg values``
 
@@ -35,6 +38,11 @@ the settings for Sikuli's logging with the defaults:
 * ``Settings.LogTime = False``
 * ``Debug.setLogfile("absolute-path-to-file")`` 
   to redirect the Sikuli messages to a file, no default
+  
+Currently only for the Jython scripting, there is a **logging callback** feature, that redirects the log messages to a given function in your script, where you can finally process the message for example with your own looging concept.
+
+Usage::
+        
 
 .. index:: import .sikuli
 
