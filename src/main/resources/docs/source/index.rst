@@ -21,7 +21,7 @@ This document is being maintained by `Raimund Hocke aka RaiMan
 If you have any questions or ideas about this document, 
 you are welcome to contact him directly via the above link and the email behind. 
 
-More information and possibilities you can find on the homepage `Sikulix.com <http://sikulix.com>`_.
+**More information and possibilities:** `Sikulix.com <http://sikulix.com>`_.
 
 For questions regarding the
 functions and features of Sikuli itself please use the `Sikuli Questions and
@@ -41,9 +41,9 @@ How to use this document
 
 SikuliX at the top supports scripting via SikuliX IDE (a basic script editor allowing to load, edit, save and run scripts). 
 
-The first scripting language is Python (language level 2.5 (stable) and 2.7 being in a beta state, but rather complete) supported by the Jython interpreter package. 
+The first scripting language is Python (language level 2.7) supported by the `Jython interpreter<http://www.jython.org>`_. 
 
-As a second scripting language Ruby (language level 1.9/2.0) can be used, which internally is supported by the JRuby interpreter package. 
+As a second scripting language Ruby (language level 1.9/2.0) can be used, which internally is supported by the `JRuby interpreter<http://jruby.org>`_.
 
 Principally it is possible to implement more scripting languages, if some Java or JVM based interpreter package is available for that (possible candidates: BeanShell, Scala, JavaScript, ...).
 
