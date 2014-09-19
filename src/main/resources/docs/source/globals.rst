@@ -1,6 +1,40 @@
 Global Functions and Features
 =============================
 
+.. index:: debug log
+
+.. _DebugLog:
+
+Writing and redirecting log and debug messages
+----------------------------------------------
+
+these are the relevant Settings for user logging:
+  (False = switched off, True = switched on)
+  
+* ``Settings.UserLogs = True`` (False: user log calls are ignored)
+* ``Settings.UserLogPrefix = "user"`` (message prefix)
+* ``Settings.UserLogTime = True``
+* ``Debug.setUserLogfile("absolute-path-to-file")``
+
+to write a user log message:
+  ``Debug.user("text", args …)``
+     where text is a string according to the rules of Java String.format().
+
+the messages look so:
+  ``[user-prefix optional-timestamp] message-text with filled in arg values``
+
+Being in Jython scripting one might as well use this:
+  ``Debug.user("some text with placeholders" % (list-of-args …))``
+
+the settings for Sikuli's logging with the defaults:
+    (False = switched off, True = switched on)
+
+* ``Settings.ActionLogs = True`` (message prefix: [LOG])
+* ``Settings.InfoLogs = True`` (message prefix: [INFO])
+* ``Settings.DebugLogs = False`` (message prefix: [DEBUG])
+* ``Settings.LogTime = False``
+* ``Debug.setLogfile("absolute-path-to-file")`` to redirect the Sikuli messages to a file
+
 .. index:: import .sikuli
 
 .. _ImportingSikuliScripts:
