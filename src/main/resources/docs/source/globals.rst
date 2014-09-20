@@ -1,7 +1,7 @@
 Global Functions and Features
 =============================
 
-.. index:: debug log
+.. index:: debugging and logging
 
 .. _DebugLog:
 
@@ -96,6 +96,45 @@ Selective log message processing (callback is the name of your specific callback
 
 You might suppress the creation of the message header for all messages, so you only get the message body:
   use ``Debug.setLoggerNoPrefix(myLogger())`` instead of the initial ``Debug.setLogger(myLogger())``
+  
+.. index:: file and path handling
+
+.. _FileAndPathHandling:
+
+File and Path handling - convenience functions
+----------------------------------------------
+
+*available for Jython scripting only in the moment*
+
+In more complex scripting situations it is often necessary to deal with paths to files and folders. To make this a bit more convenient, the following functions are available.
+
+**NOTE** information on the `respective Python functions <https://docs.python.org/2.7/library/os.path.html>`_ 
+
+.. py:function:: getBundlePath()
+  
+  returns the path to the current .sikuli folder without trailing separator.
+  
+.. py:function:: getBundleFolder()
+  
+  returns the path to the current .sikuli folder with trailing separator suitable for string concatenation.
+  
+.. py:function:: getParentPath()
+  
+  returns the path to the parent folder of the current .sikuli folder without trailing separator.
+  
+.. py:function:: getParentFolder()
+  
+  returns the path to the parent folder of the current .sikuli folder with trailing separator suitable for string concatenation.
+  
+.. py:function:: makePath(path1, path2, path3, ...)
+
+  returns a path with the correct path seperators for the system running on by concatenating the given path elements from left to right (given as strings). There is no trailing path seperator.
+
+.. py:function:: makeFolder(path1, path2, path3, ...)
+
+  returns a path with the correct path seperators for the system running on by concatenating the given path elements from left to right(given as strings). A trailing path seperator is appended to make it suitable for string concatenation.
+  
+**NOTE** **makePath and makeFolder** on Windows the first path element can be specified as a drive letter "X:"
  
 .. index:: import .sikuli
 
@@ -135,16 +174,16 @@ This is possible with SikuliX:
 * Import your .sikuli using just its name. 
     For example, to import myModule.sikuli, just write ``import myModule``.
 
-* the example contains a recommendation how to avoid double entries in sys.path::
+* a basic example 
 
-	# an example - choose your own naming
+	# the path containing your stuff - choose your own naming
 	# on Windows
 	myScriptPath = "c:\\someDirectory\\myLibrary"
 	# on Mac/Linux
 	myScriptPath = "/someDirectory/myLibrary"
 
-	# all systems (avoids double entries)
-	if not myScriptPath in sys.path: sys.path.append(myScriptPath)
+	# all systems (avoids double entries in sys.path)
+	addImportPath(myScriptPath)
 
 	# supposing there is a myLib.sikuli
 	import myLib
