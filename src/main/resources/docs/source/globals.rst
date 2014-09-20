@@ -302,12 +302,13 @@ When searching images, the path's are scanned in the order of the list. The firs
 **The default bundle path** can also be accessed and modified by the two functions below.
 
 **NOTE for Java usage:** Since there is no default BundlePath, when not running a script, like in the situation, when using the Java API in Java program or other situations with the direct use of Java aware scripting languages, you can use this feature to set the one place, where you have all your images::
-
+  
   import org.sikuli.script.ImagePath;
-
   ImagePath.setBundlePath("path to your image folder");
-  screen.find("image1") // will look for an image1.png in the given folder
-  screen.find("imageset1/image2") // you might use subfolders
+  screen.find("image1"); 
+  screen.find("imageset1/image2"); 
+
+*NOTE:* as long as an image file has the ending .png, this might be omitted. The second usage shows, that you might use subfolders as well.
   
 .. py:function:: setBundlePath(path-to-a-folder)
 
