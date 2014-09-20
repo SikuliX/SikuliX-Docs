@@ -20,8 +20,8 @@ to write a user log message:
   ``Debug.user("text with %placeholders", args …)``
      where text is a string according to the rules of Java String.format().
 
-Information `can be found here <http://docs.oracle.com/javase/7/docs/api/java/util/Formatter.html>`_ 
-(rather formal, look for tutorials in the net)
+Information about Java String formatting `can be found here <http://docs.oracle.com/javase/7/docs/api/java/util/Formatter.html>`_ 
+  (rather formal, look for tutorials in the net additionally if this is new for you)
 
 the messages look so:
   ``[prefix optional-timestamp] message-text with filled in arg values``
@@ -38,11 +38,29 @@ the settings for Sikuli's logging with the defaults:
 * ``Settings.LogTime = False``
 * ``Debug.setLogfile("absolute-path-to-file")`` 
   to redirect the Sikuli messages to a file, no default
-  
-Currently only for the Jython scripting, there is a **logging callback** feature, that redirects the log messages to a given function in your script, where you can finally process the message for example with your own looging concept.
 
-Usage::
-        
+**Debug messages** Sikuli internally issues debug messages all over the place, to show, what it is doing. Creating debug messages is dependant on the current DEBUG_LEVEL value: 
+ * if 0, no debug messages are shown
+ * if >0, debug messages having a level <= DEBUG_LEVEL are created
+
+The initial DEBUG_LEVEL is 0 and can be set with the Java command line parameter ``-Dsikuli.Debug=n`` or with the command line parameter ``-d n`` when using SikuliX jars or command scripts.
+
+Currently a suitable DEBUG_LEVEL is 3, that shows enough valuable information about what is going on internally.
+
+If you ever encounter problems, that might have to do with SikuliX's internal processing, switch on debug messaging with level 3.
+
+To avoid tons of not needed messages, you might switch debugging on and off on the fly for only a critical section in your workflow:
+ * switch on: ``Debug.on(n)`` setting the DEBUG_LEVEL=n (recommended: 3)
+ * switch off: ``Debug.off()`` 
+
+Debug messages look so:
+  ``[DEBUG optional-timestamp] message-text with filled in arg values``
+
+and can be produced with
+  ``Debug.log(level, "text with %placeholders", args …)``
+  *Recommendation*: use 1 as level, since this is not used internally by SikuliX and allows you to switch your private debug messaging on ``Debug.on(1)`` and off.
+  
+**Logging Callback** Currently only for Jython scripting, there is a **logging callback** feature, that redirects the log messages to a given function in your script, where you can finally process the message for example with your own looging concept.
 
 .. index:: import .sikuli
 
@@ -1033,5 +1051,4 @@ You can tune this parameter using the following Jython code.
 
    Vision.setParameter("MinTargetSize", 6) # the default is 12. 
    Setting the size to a smaller value would make the matching algorithm be faster.
-
 
