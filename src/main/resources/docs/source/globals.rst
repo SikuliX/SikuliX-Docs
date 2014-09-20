@@ -39,29 +39,64 @@ the settings for Sikuli's logging with the defaults:
 * ``Debug.setLogfile("absolute-path-to-file")`` 
   to redirect the Sikuli messages to a file, no default
 
-**Debug messages** Sikuli internally issues debug messages all over the place, to show, what it is doing. Creating debug messages is dependant on the current DEBUG_LEVEL value: 
- * if 0, no debug messages are shown
- * if >0, debug messages having a level <= DEBUG_LEVEL are created
+**Debug messages** Sikuli internally issues debug messages all over the place, to show, what it is doing. Creating debug messages is dependant on the current DEBUG_LEVEL value:
 
-The initial DEBUG_LEVEL is 0 and can be set with the Java command line parameter ``-Dsikuli.Debug=n`` or with the command line parameter ``-d n`` when using SikuliX jars or command scripts.
+* if 0, no debug messages are shown
+* if >0, debug messages having a level <= DEBUG_LEVEL are created
+
+The initial DEBUG_LEVEL is 0 and can be set with 
+
+* the Java command line parameter ``-Dsikuli.Debug=n`` or 
+* the command line parameter ``-d n`` when using SikuliX jars or command scripts.
 
 Currently a suitable DEBUG_LEVEL is 3, that shows enough valuable information about what is going on internally.
 
 If you ever encounter problems, that might have to do with SikuliX's internal processing, switch on debug messaging with level 3.
 
-To avoid tons of not needed messages, you might switch debugging on and off on the fly for only a critical section in your workflow:
- * switch on: ``Debug.on(n)`` setting the DEBUG_LEVEL=n (recommended: 3)
- * switch off: ``Debug.off()`` 
+To avoid tons of not needed messages, you might switch debugging on and off on the fly for only critical sections in your workflow:
+
+* switch on: ``Debug.on(n)`` setting the DEBUG_LEVEL=n (recommended: 3)
+* switch off: ``Debug.off()`` 
 
 Debug messages look so:
   ``[DEBUG optional-timestamp] message-text with filled in arg values``
 
 and can be produced with
   ``Debug.log(level, "text with %placeholders", args …)``
-  *Recommendation*: use 1 as level, since this is not used internally by SikuliX and allows you to switch your private debug messaging on ``Debug.on(1)`` and off.
+    *Recommendation*: use 1 as level, since this is not used internally by SikuliX and allows you to switch your private debug messaging on ``Debug.on(1)`` and off.
   
 **Logging Callback** Currently only for Jython scripting, there is a **logging callback** feature, that redirects the log messages to a given function in your script, where you can finally process the message for example with your own looging concept.
 
+A message, that is redirected to a callback is ignored by the SikuliX log processing.
+  *TAKE CARE:* you should avoid lengthy processing in the callback, since your workflow will wait for the callback to return
+
+This is a basic usage example, where the callback function gets all messages::
+
+  # a wrapper class is needed for the callback function (name it as you want)
+  class myLogger(): 
+    # a callback function (name it as you want)
+    # you might have more than one for specific handling of message groups
+    def callback(message):
+        print message
+        
+  # prepare log redirect
+  Debug.setLogger(myLogger()) # sets the object containing the callback functions
+  
+  # redirect all logging messages
+  Debug.setLoggerAll("callback") # the name of the callback function as string
+  # from now on myLogger.callback will receive the messages
+  
+Selective log message processing (callback is the name of your specific callback function):
+
+* ``Debug.setLoggerUser("callback") # redirect messages [user]``
+* ``Debug.setLoggerInfo("callback") # redirect messages [info]``
+* ``Debug.setLoggerAction("callback") # redirect messages [log]``
+* ``Debug.setLoggerError("callback") # redirect messages [error]``
+* ``Debug.setLoggerDebug("callback") # redirect messages [debug]``
+
+You might suppress the creation of the message header for all messages, so you only get the message body:
+  use ``Debug.setLoggerNoPrefix(myLogger())`` instaed of the initial ``Debug.setLogger(myLogger())``
+ 
 .. index:: import .sikuli
 
 .. _ImportingSikuliScripts:
