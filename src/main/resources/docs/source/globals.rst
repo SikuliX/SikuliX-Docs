@@ -95,7 +95,7 @@ Selective log message processing (callback is the name of your specific callback
 * ``Debug.setLoggerDebug("callback") # redirect messages [debug]``
 
 You might suppress the creation of the message header for all messages, so you only get the message body:
-  use ``Debug.setLoggerNoPrefix(myLogger())`` instaed of the initial ``Debug.setLogger(myLogger())``
+  use ``Debug.setLoggerNoPrefix(myLogger())`` instead of the initial ``Debug.setLogger(myLogger())``
  
 .. index:: import .sikuli
 
