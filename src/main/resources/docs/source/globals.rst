@@ -1043,6 +1043,7 @@ Interacting with the User
 	but the content is editable and scrollable.
 	
 	Example::
+	
 	  story = inputText("please give me some lines of text")
 	  lines = story.split()
 	  for line in lines:
