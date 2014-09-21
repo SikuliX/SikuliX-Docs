@@ -5,6 +5,7 @@ Global Functions and Features
 
 .. _DebugLog:
 
+.. versionadded:: 1.1.0
 Writing and redirecting log and debug messages
 ----------------------------------------------
 
@@ -101,6 +102,7 @@ You might suppress the creation of the message header for all messages, so you o
 
 .. _FileAndPathHandling:
 
+.. versionadded:: 1.1.0
 File and Path handling - convenience functions
 --------------------------------------------------------------
 
@@ -172,7 +174,8 @@ This is possible with SikuliX:
     *not needed* for modules being in the same directory as the main script
 
 Convenience function to add a path to sys.path:
-  .. py:function:: addImportPath(path)
+.. versionadded:: 1.1.0
+.. py:function:: addImportPath(path)
 
 * Import your .sikuli using just its name. 
     For example, to import myModule.sikuli, just write ``import myModule``.
@@ -257,6 +260,7 @@ the feature :ref:`SIKULI_IMAGE_PATH <ImageSearchPath>` to make sure that images 
 
 .. _ImageSearchPath:
 
+.. versionadded:: 1.1.0
 Image Search Path - where SikuliX looks for image files
 --------------------------------------------------------------------------
 
@@ -471,7 +475,10 @@ Controlling Sikuli Scripts and their Behavior
 		dragDrop(source_image, target_image)
 		# time for complete dragDrop: about 5 seconds + search times
 		
-**NOTE:** If the internal timing of the compound mouse functions like ``click()``or ``dragDrop()`` is not suitable in your special situation, you might as well build your own functions using the basic mouse functions :py:method:`Region.mouseDown`, :py:method:`Region.mouseMove` and :py:method:`Region.mouseUp`
+**NOTE:** If the internal timing of the compound mouse functions like 
+``click()`` or ``dragDrop()`` is not suitable in your special situation, 
+you might as well build your own functions using the basic mouse functions 
+:py:meth:`Region.mouseDown`, :py:meth:`Region.mouseMove` and :py:meth:`Region.mouseUp`
 	
 	*example of a click with special timing*::
 	  
@@ -935,6 +942,7 @@ Interacting with the User
 
 	.. image:: popup.png
 
+.. versionadded:: 1.1.0
 .. py:function:: input([text], [default], [hidden])
 
 	Display a dialog box with an input field, a Cancel button, and an OK button. The
@@ -977,7 +985,6 @@ Sikuli can listen to global hotkeys that you register with ``Env.addHotkey``
 and call the corresponding handler (sikuli functions) when the user presses
 the hotkeys.
 
-.. versionadded:: X1.0-rc3
 .. py:method:: Env.addHotkey(key, modifiers, handler)
 
  	Register the specified *key* + *modifiers* as a global hotkey. 
@@ -998,7 +1005,6 @@ the hotkeys.
            Env.addHotkey(Key.F1, KeyModifier.ALT+KeyModifier.CTRL, openAppleMenu)
 
 
-.. versionadded:: X1.0-rc3
 .. py:method:: Env.removeHotkey(key, modifiers)
 
  	Unregister the registered global hotkey *key* + *modifiers*. 
@@ -1180,11 +1186,9 @@ you might try a smaller value than 12. On the other hand, if you see Sikuli retu
 that is not what you expect, i.e. a false match, 
 try to increase ``MinTargetSize`` to make Sikuli be more robust to small details.
 
-You can tune this parameter using the following Jython code. 
-
-.. sikulicode::
+You can tune this parameter using the following Jython code::
 
    from org.sikuli.natives import Vision
-
-   Vision.setParameter("MinTargetSize", 6) # the default is 12. 
-   Setting the size to a smaller value would make the matching algorithm be faster.
+   Vision.setParameter("MinTargetSize", 6) # the default is 12.
+   
+Setting the size to a smaller value would make the matching algorithm be faster.
