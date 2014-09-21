@@ -30,11 +30,11 @@ Being in Jython scripting one might as well use this:
   ``Debug.user("some text with %placeholders" % (list-of-args …))``
 
 the settings for Sikuli's logging with the defaults:
-    (False = switched off, True = switched on)
+    (False = switched off (message type not created), True = switched on)
 
-* ``Settings.ActionLogs = True`` (message prefix: [LOG])
-* ``Settings.InfoLogs = True`` (message prefix: [INFO])
-* ``Settings.DebugLogs = False`` (message prefix: [DEBUG])
+* ``Settings.ActionLogs = True`` (message prefix: [log])
+* ``Settings.InfoLogs = True`` (message prefix: [info])
+* ``Settings.DebugLogs = False`` (message prefix: [debug])
 * ``Settings.LogTime = False``
 * ``Debug.setLogfile("absolute-path-to-file")`` 
   to redirect the Sikuli messages to a file, no default
@@ -447,7 +447,6 @@ Controlling Sikuli Scripts and their Behavior
 		# since your script does not wait here, you 
 		# might want to stop the observing later on ;-)
 
-.. versionadded:: X1.0-rc2		
 .. py:attribute:: Settings.ObserveMinChangedPixels
 
 	 The minimum size in pixels of a change to trigger a change event when using :py:meth:`Region.onChange` without specifying this value.
