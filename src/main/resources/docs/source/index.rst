@@ -132,4 +132,3 @@ For Developers
 
    devs/*
    contributing
-   changes
