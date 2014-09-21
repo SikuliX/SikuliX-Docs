@@ -106,9 +106,8 @@ File and Path handling - convenience functions
 
 *available for Jython scripting only in the moment*
 
-In more complex scripting situations it is often necessary to deal with paths to files and folders. To make this a bit more convenient, the following functions are available.
-
-**NOTE** information on the `respective Python functions <https://docs.python.org/2.7/library/os.path.html>`_ 
+In more complex scripting situations it is often necessary to deal with paths to files and folders. To make this a bit more convenient, the following functions are available 
+(`look here for the underlying Python features <https://docs.python.org/2.7/library/os.path.html>`_).
 
 .. py:function:: getBundlePath()
   
@@ -117,8 +116,7 @@ In more complex scripting situations it is often necessary to deal with paths to
   
 .. py:function:: getBundleFolder()
   
-  returns the path to the current .sikuli folder with trailing separator suitable for string concatenation.
-    (see also :ref:`SIKULI_IMAGE_PATH <ImageSearchPath>`)
+  same as :py:func:`getBundlePath` but with trailing separator to make it suitable for string concatenation.
   
 .. py:function:: getParentPath()
   
@@ -126,7 +124,7 @@ In more complex scripting situations it is often necessary to deal with paths to
   
 .. py:function:: getParentFolder()
   
-  returns the path to the parent folder of the current .sikuli folder with trailing separator suitable for string concatenation.
+  same as :py:func:`getParentPath` but with trailing separator to make it suitable for string concatenation.
   
 .. py:function:: makePath(path1, path2, path3, ...)
 
@@ -134,7 +132,7 @@ In more complex scripting situations it is often necessary to deal with paths to
 
 .. py:function:: makeFolder(path1, path2, path3, ...)
 
-  returns a path with the correct path seperators for the system running on by concatenating the given path elements from left to right(given as strings). A trailing path seperator is appended to make it suitable for string concatenation.
+  same as :py:func:`makePath` but trailing path seperator to make it suitable for string concatenation.
   
 **NOTE** **makePath and makeFolder** on Windows the first path element can be specified as a drive letter "X:"
  
@@ -148,8 +146,8 @@ Importing other Sikuli Scripts (reuse code and images)
 This is possible with SikuliX:
 
 * import other .sikuli in a way that is compatible with Python module import (no module structures)
-* import a python module structure including underlying Java classes from a
-  jar-file, that is dynamically loaded using the function :py:func:`load(jar-file) <load>`
+* import a python module structure including underlying Java classes from a jar-file, 
+    that is dynamically loaded using the function :py:func:`load(jar-file) <load>`
 * automatically access images contained in the imported .sikuli (no need to use
   :py:func:`setBundlePath`) 
 
@@ -354,7 +352,7 @@ To support the development cycle in IDE's, you might specify an alternate path, 
 
 *Usage in Maven Projects:*
 
-  Following the conventions of Maven projects you should store your images in a subfolder at ``src/main/resources`` for example ``src/main/resources/images``, which the at jar production will be copied to the root level of the jar. Not following this suggestion you have to work according to the case *other projects*.
+  Following the conventions of Maven projects you should store your images in a subfolder at ``src/main/resources`` for example ``src/main/resources/images``, which then at jar production will be copied to the root level of the jar. Not following this suggestion you have to work according to the case *other projects*.
   
   ``ImagePath.add("someClass/images")``
     where someClass is the name of a class contained in a jar on the class path containing the images folder.
@@ -367,7 +365,13 @@ To support the development cycle in IDE's, you might specify an alternate path, 
       where *alternatePath* is a valid path specification, where the images are located, when running from inside an IDE.
 
 
-*Be aware:* that you might use the Sikuli IDE, to maintain a script, that only contains the image filenames and then is used as image path in your Java app like ``ImagePath.add("myClass/myImages.sikuli")``, which e.g. in the Maven context will assume this image path ``src/main/ressources/myImages.sikuli``.
+*Be aware:* that you might use the Sikuli IDE, to maintain a script, that only contains the image filenames and then is used as image path in your Java app like ``ImagePath.add("myClass/myImages.sikuli")``, which e.g. in the Maven context will assume as image path ``src/main/ressources/myImages.sikuli``.
+
+*Note for Jython scripting:* use :py:func:`load` without the import to use the feature *images in jars*::
+
+  from org.sikuli.script import ImagePath
+  load("absolute path to someJar")
+  ImagePath.add("someClass/someFolder")
 
 .. py:function:: removeImagePath(a-path-already-in-the-list)
 
@@ -385,9 +389,9 @@ and Unix and double blackslashes on Windows). The convenience functions in :ref:
 This list is automatically extended by Sikuli with script folders, that are imported 
 (see: :ref:`Importing other Sikuli Scripts <ImportingSikuliScripts>`), 
 so their contained images can be accessed by only using their plain filenames. 
-If you want to be sure of the results of your manipulations, you can use ``getImagePath`` and check the content of the returned list.  
+If you want to be sure of the results of your manipulations, you can use :py:func:`getImagePath` and check the content of the returned list.  
 
-**NOTE:** at all time the first entry in the list is internally taken as BundlePath, where appropriate.
+**NOTE:** at all time the first entry in the list is internally taken as :ref:`BundlePath <index-4>`, where appropriate.
 
 .. _ControllingSikuliScriptsandtheirBehavior:
 
@@ -466,6 +470,17 @@ Controlling Sikuli Scripts and their Behavior
 		Settings.MoveMouseDelay = 3
 		dragDrop(source_image, target_image)
 		# time for complete dragDrop: about 5 seconds + search times
+		
+**NOTE:** If the internal timing of the compound mouse functions like ``click()``or ``dragDrop()`` is not suitable in your special situation, you might as well build your own functions using the basic mouse functions :py:method:`Region.mouseDown`, :py:method:`Region.mouseMove` and :py:method:`Region.mouseUp`
+	
+	*example of a click with special timing*::
+	  
+	  def specialClick():
+	    mouseMove(targetImage) # move to target
+	    wait(0.3) # hover for 300 msecs
+	    mouseDown(Button.LEFT) # press and hold left button
+	    wait(0.1) # wait 100 msecs
+	    mouseUp() # release button again
 
 
 .. py:attribute:: Settings.SlowMotionDelay
@@ -502,19 +517,14 @@ Controlling Sikuli Scripts and their Behavior
 	 The default value is 50.
 
 
-Controlling Applications and their Windows
-------------------------------------------
+Starting and stopping other apllications and bringing their Windows to front
+----------------------------------------------------------------------------
 
-Here we talk about opening or closing other applications, switching to them (bring
-their windows to front) or accessing an application's windows.
+Here we talk about the basic features of opening or closing other applications and switching to them (bring
+their windows to front).
 
-The three global functions :py:func:`openApp`, :py:func:`switchApp` and
-:py:func:`closeApp` introduced in Sikuli 0.9 and 0.10 are still valid in the moment,
-but they should be considered as deprecated.  They are being replaced by a new
-:py:class:`App` class introduced in SikuliX. This class makes it possible to treat
-a specific application as an object with attributes and methods.  We recommend to
-switch to the class App and its features, the next time you work with one of your
-existing scripts and in all cases, when developing new scripts.
+For the more sophisticated usages including some basic handling of 
+application windows look into the :ref:class:`App class <App>`..
 
 **General hint for Windows users** on backslashes \\ and double apostrophes "
 
@@ -525,21 +535,14 @@ and for one " you need \\". In a string enclosed in ' (single apostrophes), a '
 has to be \\' and a " is taken as such.
 
 To avoid any problems, it is recommended to use the raw string ``r'some text with \\ and " ...'``,
-since there is no need for escaping.
-This is especially useful, when you have to specify Windows path's or want to 
-setup command lines for use with App.open(), openApp(), os.popen or Jythons Subprocess module.
+since there is no need for escaping (but no trailing \\ is allowed here). 
+  This is especially useful, when you have to specify Windows path's or want to 
+  setup command lines for use with App.open(), openApp(), os.popen or Jythons Subprocess module.
 
 a fictive command line example::
 	
 	cmd = r'c:\Program Files\myapp.exe -x "c:\Some Place\some.txt" >..\log.txt'
 	openApp(cmd)
-
-**This is a comparism of old (xxxApp) and new (App.xxx) functions:** 
-
-*	Open an application: :py:func:`openApp` --> :py:meth:`App.open`
-*	Switch to an application or application window: :py:func:`switchApp` -->
-	:py:meth:`App.focus`
-*	Close an application: :py:func:`closeApp` --> :py:meth:`App.close`
 
 .. py:function:: openApp(application)
 
@@ -549,20 +552,19 @@ a fictive command line example::
 		found in the path used by the system to locate applications. Or it can be the
 		full path to an application.
 		
-		**Note for Windows:**  (since X-1.0rc3) The string may contain commandline parameters 
+		**Note for Windows:**  The string may contain commandline parameters 
 		for the specified program or batch file after the name or full path.
 
-	This function opens the specified application and brings its windows to the
-	front. This is equivalent to :py:meth:`App.open`. Depending on the system and/or
-	the application, this function may switch to an already opened application or
-	may open a new instance of the application.
+	This function opens the specified application and brings its windows to 
+	front. This function may switch to an already opened application or
+	may open a new instance of the application depending on system.
 
-	Examples::
+	Examples (only to show, might not work on your system)::
 
 		# Windows: opens command prompt (found through PATH)
 		openApp("cmd.exe")
 		
-		#Windows (since X-1.0rc3): with parameters (no sense, only to show ;-)
+		#Windows (since X-1.0rc3): with parameters 
 		openApp(r'cmd.exe /c start c:\Program Files\myapp.bat')
 
 		# Windows: opens Firefox (full path specified)
@@ -579,20 +581,18 @@ a fictive command line example::
 		window title (Windows/Linux).
 
 	This function switches the focus to the specified application and brings its
-	windows to the front. This function is equivalent to :py:meth:`App.focus`. 
+	windows to the front. 
 	
-	On Windows/Linux, the window is the one identified by the *application* string.
-	This string is used to search the title text of all the opened windows for any
-	part of the title matching the string. Thus, this string needs not be an
-	application's name. For example, it can be a filename of an opened document that
-	is displayed in the title bar. It is useful for choosing a particular window out
-	of the many windows with different titles.
+	*Windows/Linux:* the window is identified by scanning the titles of all 
+	accessible windows for the occurence the *application* string. 
+	The first window in the system specific order that matches is given focus.
 
-	On Mac, the *application* string is used to identify the application. If the
+	*Mac:* the string ``application`` is used to identify the application. If the
 	application has multiple windows opened, all these windows will be brought to
-	the front. The relatively ordering among these windows remain the same.
+	the front with unchanged z-order, which cannot be influenced currently. 
+	If no application can be found, it is tried to open it.
 
-	Example::
+	Examples::
 
 		# Windows: switches to an existing command prompt or starts a new one
 		switchApp("cmd.exe")
@@ -615,8 +615,8 @@ a fictive command line example::
 		window title (Windows/Linux)
 
 	This function closes the application indicated by the string *application* (Mac) or
-	the windows whose titles contain the string *application* (Windows/Linux). this
-	function is equivalent to :py:meth:`App.close`. On Windows/Linux, the
+	the windows whose titles contain the string *application* (Windows/Linux).  
+	On Windows/Linux, the
 	application itself may be closed if the main window is closed or if all the
 	windows of the application are closed.
 
@@ -644,7 +644,7 @@ a fictive command line example::
 
 	
 The Application Class
-^^^^^^^^^^^^^^^^^^^^^^^^^
+---------------------
 
 .. py:class:: App
 
@@ -918,7 +918,6 @@ e.g. ``myPath = "c:\\Program Files\\Sikuli-IDE\\Lib\\"`` )
 Interacting with the User
 -------------------------
 
-.. versionadded:: X1.0-rc3
 .. py:function:: popup(text, [title])
 
 	Display a dialog box with an *OK* button and *text* as the message. The script
@@ -936,7 +935,7 @@ Interacting with the User
 
 	.. image:: popup.png
 
-.. py:function:: input([text], [default])
+.. py:function:: input([text], [default], [hidden])
 
 	Display a dialog box with an input field, a Cancel button, and an OK button. The
 	optional *text* can be displayed as a caption. The script then waits for the
@@ -944,17 +943,21 @@ Interacting with the User
 	
 	:param text: optional text to be displayed as message
 	
-	:param default: optional preset text for the input field (``new in later then X-1.0rc3``)
+	:param default: optional preset text for the input field
+	
+	:param hidden: (default: False) if true the entered characters are shown as asterisks 
 	
 	:return: the text, contained in the input field, when the user clicked **OK**
 
-		**None**, if the user pressed the **Cancel** button
+		**None**, if the user pressed the **Cancel** button or closed the dialog
 
 	Example::
 
 		name = input("Please enter your name to log in:")
 
 		name = input("Please enter your name to log in:", "anonymous") # a preset input text
+		
+		password = input("please enter your secret", hidden = True)
 		
 	.. image:: input.png
 	
