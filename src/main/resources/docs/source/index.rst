@@ -58,8 +58,8 @@ complex scripts, which might even be structured in classes and modules, you have
 
 **NOTE:** Since **Jython and JRuby are based on Java**, the modules available for Python or Ruby might not be available in the Sikulix environment. So before trying to use any non-standard modules or extension packages, you have to check, wether they are supported in this SikuliX environment.
 
-The features in SikuliX at the bottom line are implemented with Java. So you might as well use SikuliX at this Java API level in your Java projects or other Java aware environments (:doc:`see how to <faq/030-java-dev>`). Though this documentation is targeted at the scripting people it contains basic information about the Java level API as well at places, where there are major differences between the two API levels. 
-  Additionally you might look through the JavaDocs 
+**NOTE on Java usage** The features in SikuliX at the bottom line are implemented with Java. So you might as well use SikuliX at this Java API level in your Java projects or other Java aware environments (:doc:`see how to <faq/030-java-dev>`). Though this documentation is targeted at the scripting people it contains basic information about the Java level API as well at places, where there are major differences between the two API levels. 
+  Additionally you might **look through the JavaDocs** 
   (`temporary location <http://nightly.sikuli.de/docs/index.html>`_). 
 
 Each chapter in this documentaton briefly describes 
