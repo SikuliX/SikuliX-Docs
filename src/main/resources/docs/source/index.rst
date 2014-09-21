@@ -78,39 +78,46 @@ places of interest using the :doc:`table of contents<toc>` or
 use the :ref:`genindex` to browse all classes, 
 methods and functions in alphabetical order.
 
-Getting Started
----------------
-
 Tutorials (not yet revised for version 1.1.0+)
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+----------------------------------------------
 
 .. toctree::
    :maxdepth: 2
 
    tutorials/index
-
-FAQ
-^^^
-.. toctree::
-   :maxdepth: 1
-   :glob:
-
-   faq/*
    
-* `Read more FAQs on Launchpad <https://answers.launchpad.net/sikuli/+faqs>`_
+Basics about creating and running scripts (SikuliX IDE)
+-------------------------------------------------------
 
-Complete Guide
---------------
-.. toctree::
-   :maxdepth: 3
-
-   sikuli-script-index
-
-Extensions
-----------
 .. toctree::
    :maxdepth: 2
 
+
+SikuliX Scripting API
+---------------------
+.. toctree::
+   :maxdepth: 2
+
+   scripting
+   interaction
+   globals
+   region
+   location
+   screen
+   pattern
+   match
+   finder
+   keys
+   appclass
+   
+Miscellanous
+------------
+
+.. toctree::
+   :maxdepth: 2
+   :glob:
+
+   faq/*
    extensions/index
 
 For Developers
