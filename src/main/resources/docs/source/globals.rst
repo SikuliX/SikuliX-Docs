@@ -951,7 +951,7 @@ Interacting with the User
 
 	Example::
 
-		popup("Uuups, this did not work")
+		popError("Uuups, this did not work")
 	
 	A dialog box that looks like below will popup
 
@@ -1039,8 +1039,9 @@ Interacting with the User
 	:return: the possible multiline text entered by the user
 	
 	A message box with the given height and width is displayed and allows the user to
-	input as many lines of text as needed. The display area is fix, 
-	but the content is editable and scrollable.
+	input as many lines of text as needed. The display area is fix and not scrollable 
+	(means visble is only the top left part, that fits into the visible area).
+	But you might enter as much text as you like, e.g. via CopyAndPaste.
 	
 	Example::
 	
