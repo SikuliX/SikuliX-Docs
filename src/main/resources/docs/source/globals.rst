@@ -964,7 +964,7 @@ Interacting with the User
 
 	Same as :py:func:`popup` but with a different title (default Sikuli Decision) and alert icon.
 	
-	There are 2 buttons: ``Yes``and ``No`` and hence the message text should be written as an
+	There are 2 buttons: ``Yes`` and ``No`` and hence the message text should be written as an
 	appropriate question.
 
 	Example::
@@ -993,9 +993,9 @@ Interacting with the User
 	
 	:param hidden: (default: False) if true the entered characters are shown as asterisks 
 	
-	:return: the text, contained in the input field, when the user clicked **OK**
+	:return: the text, contained in the input field, when the user clicked ``Ok``
 
-		**None**, if the user pressed the **Cancel** button or closed the dialog
+		**None**, if the user pressed the ``Cancel`` button or closed the dialog
 
 	Example: plain input::
 
@@ -1036,7 +1036,7 @@ Interacting with the User
 	
 	:param width: how many characters the box should have as width (default: 20)
 	
-	:return: the possible multiline text entered by the user
+	:return: the possible multiline text entered by the user (might be empty)
 	
 	A message box with the given height and width is displayed and allows the user to
 	input as many lines of text as needed. The display area is fix and not scrollable 
