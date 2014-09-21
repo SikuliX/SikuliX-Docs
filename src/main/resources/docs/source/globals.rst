@@ -1012,7 +1012,7 @@ Interacting with the User
 
 		name = input("Please enter your name to log in:", "anonymous") # a preset input text
 		
-	.. image:: input.png
+	.. image:: inputPreset.png
 
 	When using the parameter ``default``, the text input field will be pre-populated with the 
 	given text, so the user might just click OK/Cancel or edit the content of the input field.
@@ -1021,7 +1021,7 @@ Interacting with the User
 
 		password = input("please enter your secret", hidden = True)
 		
-	.. image:: input.png
+	.. image:: inputHidden.png
 
 	As the user inputs his secret infoemation, the text is shown as one asterisk per character.
 	
@@ -1046,7 +1046,7 @@ Interacting with the User
 	Example::
 	
 	  story = inputText("please give me some lines of text")
-	  lines = story.split()
+	  lines = story.split("\n") # split the lines in the list lines
 	  for line in lines:
 	     print line
 
@@ -1076,7 +1076,9 @@ Interacting with the User
 	     popup("You did not select an item")
 	     exit(1)
 	
-	.. image:: inputText.png
+	.. image:: select1.png
+
+	.. image:: select2.png
 
 Listening to Global Hotkeys
 ---------------------------
