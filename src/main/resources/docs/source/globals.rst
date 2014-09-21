@@ -268,6 +268,7 @@ but can be inspected and/or modified using the following functions.
 **Version 1.2** will support image paths pointing to locations in the net as HTTP based URL's
 
 *NOTE:* 
+
 * as long as an image file has the ending .png, this might be omitted.
 * you might use subfolders as well, to form a relative path to an image file
 * an image path might point to a location inside of a jar file
@@ -291,9 +292,8 @@ but can be inspected and/or modified using the following functions.
 	folders, that are imported 
         (see: :ref:`Reuse of Code and Images <ImportingSikuliScripts>`).
         
-        Currently (will be revised in version 1.2), you should not use a 
-        path pointing to a location inside a jar file.
-          Use :py:function:`addImagePath` instead.
+        Currently (will be revised in version 1.2), you should not use a jar file folder,
+        Use :py:func:`addImagePath` instead.
 
 .. py:function:: getBundlePath()
 
@@ -303,8 +303,7 @@ but can be inspected and/or modified using the following functions.
         You may use this function for example, to package your private files 
         together with the script or 
         to access the image files in the bundle for other purposes. 
-        Be aware of the :ref:`convenience functions to manipulate paths 
-        <FileAndPathHandling>`_.
+        Be aware of the :ref:`convenience functions to manipulate paths <FileAndPathHandling>`.
 
 **NOTE for Java usage:** Since there is no default BundlePath, when not running a script, like in the situation, when using the Java API in Java program or other situations with the direct use of Java aware scripting languages, you can use this feature to set the one place, where you have all your images::
   
@@ -315,9 +314,11 @@ but can be inspected and/or modified using the following functions.
 
 **NOTE:** first find omits .png, second find uses a relative path with a subfolder
 
-**Other places, where Sikuli looks for images**, are stored internally in the image path list. Use the following functions to manipulate this list.
+**Other places, where Sikuli looks for images**, are stored internally in the image path list. 
 
 When searching images, the path's are scanned in the order of the list. The first image file with a matching image file name is used.
+
+Use the following functions to manipulate this list.
 
 **NOTE for Java usage:** Class of the mentioned functions::
   
@@ -347,6 +348,26 @@ When searching images, the path's are scanned in the order of the list. The firs
 	 
 **NOTE on Java usage:**
 
+It is possible to access images, that are stored inside of jar files. So you might develop a Java app, that comes bundled with the needed images in one jar file. 
+
+To support the development cycle in IDE's, you might specify an alternate path, where the images can be found, when running inside the IDE. 
+
+*Usage in Maven Projects:*
+
+  Following the conventions of Maven projects you should store your images in a subfolder at ``src/main/resources`` for example ``src/main/resources/images``, which the at jar production will be copied to the root level of the jar. Not following this suggestion you have to work according to the case *other projects*.
+  
+  ``ImagePath.add("someClass/images")``
+    where someClass is the name of a class contained in a jar on the class path containing the images folder.
+    
+*Usage in other Projects:*
+   
+  ``ImagePath.add("someClass/images", alternatePath)``
+      where *someClass* is the name of a class contained in a jar on the class path containing the images folder at the root level of the jar.
+      
+      where *alternatePath* is a valid path specification, where the images are located, when running from inside an IDE.
+
+
+*Be aware:* that you might use the Sikuli IDE, to maintain a script, that only contains the image filenames and then is used as image path in your Java app like ``ImagePath.add("myClass/myImages.sikuli")``, which e.g. in the Maven context will assume this image path ``src/main/ressources/myImages.sikuli``.
 
 .. py:function:: removeImagePath(a-path-already-in-the-list)
 
