@@ -1,10 +1,15 @@
 
-How to use SikuliX API in your JAVA programs
-============================================
+How to use SikuliX API in your JAVA programs or Java aware scripting
+=====================================================
 
 .. _howtojava:
 
-The core of SikuliX is written in Java, which means you can use the SikuliX API as a standard JAVA library in your program. 
+The core of SikuliX is written in Java, which means you can use the SikuliX API as a standard JAVA library in your program.
+
+This applies to any Java aware scripting environment like Jython, JRuby, Scala, Groovy, Clojure and more, where you write your scripts in other IDE's and run them using the respective runtime support directly.
+
+**NOTE*:* When using the scripting support provided by the SikuliX IDE and when running Jython/JRuby scripts from command line using SikuliX, it is automatically taken care, that a basic path is setup, where SikuliX will look for image files, that are given only by their name (no path given).
+   For information what you can do when using the Java API to have this convenience too, look here :ref:`SIKULI_IMAGE_PATH <ImageSearchPath>`.
 
 After having setup SikuliX on your system, as recommended at `Getting started <http://www.sikulix.com/quickstart.html>`_, you have to do the following:
 
@@ -46,6 +51,8 @@ Other candidates are :py:class:`Pattern`, :py:class:`Match`, :py:class:`Location
 
 3. Write code!
 --------------
+
+`More basic usage information is available here. <https://github.com/RaiMan/SikuliX-2014/wiki/Usage-in-Java-programming>`_
 
 Here is a hello world example on Mac. 
 The program clicks on the spotlight icon on the screen, waits until spotlight's input window appears, activates it by clicking and then writes "hello world" into the field and hits ENTER.
@@ -105,4 +112,3 @@ See also
 Be aware, that some method signatures in the Java API differ from the scripting level.
  * `Javadoc of SikuliX (temporary location) <http://nightly.sikuli.de/docs/index.html>`_.
  * :doc:`/sikuli-script-index`.
-
