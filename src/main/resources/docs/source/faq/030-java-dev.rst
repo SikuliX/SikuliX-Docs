@@ -107,8 +107,7 @@ It is planned, to publish sikulixapi.jar version 1.1.0+ on MavenCentral, so havi
   <version>1.1.0-SNAPSHOT</version>
 
 
-See also
---------
+Other valuable information
+--------------------------
 Be aware, that some method signatures in the Java API differ from the scripting level.
  * `Javadoc of SikuliX (temporary location) <http://nightly.sikuli.de/docs/index.html>`_.
- * :doc:`/sikuli-script-index`.
