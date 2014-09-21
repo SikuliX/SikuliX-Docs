@@ -8,7 +8,7 @@ The core of SikuliX is written in Java, which means you can use the SikuliX API 
 
 This applies to any Java aware scripting environment like Jython, JRuby, Scala, Groovy, Clojure and more, where you write your scripts in other IDE's and run them using the respective runtime support directly.
 
-**NOTE*:* When using the scripting support provided by the SikuliX IDE and when running Jython/JRuby scripts from command line using SikuliX, it is automatically taken care, that a basic path is setup, where SikuliX will look for image files, that are given only by their name (no path given).
+**NOTE:** When using the scripting support provided by the SikuliX IDE and when running Jython/JRuby scripts from command line using SikuliX, it is automatically taken care, that a basic path is setup, where SikuliX will look for image files, that are given only by their name (no path given).
    For information what you can do when using the Java API to have this convenience too, look here :ref:`SIKULI_IMAGE_PATH <ImageSearchPath>`.
 
 After having setup SikuliX on your system, as recommended at `Getting started <http://www.sikulix.com/quickstart.html>`_, you have to do the following:
