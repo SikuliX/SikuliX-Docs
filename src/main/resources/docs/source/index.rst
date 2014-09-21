@@ -82,9 +82,16 @@ Tutorials (not yet revised for version 1.1.0+)
 ----------------------------------------------
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 1
 
-   tutorials/index
+   tutorials/helloworld/helloworld-mac
+   tutorials/helloworld/helloworld-win
+   tutorials/goodbyetrash/goodbyetrash 
+   tutorials/uncheckall/uncheckall
+   tutorials/checkone/checkone
+   tutorials/sliders/sliders
+   tutorials/surveillance/surveillance
+   rtutorials/esize/resize
    
 Basics about creating and running scripts (SikuliX IDE)
 -------------------------------------------------------
@@ -93,7 +100,6 @@ Basics about creating and running scripts (SikuliX IDE)
    :maxdepth: 2
    
    idenews
-
 
 SikuliX Scripting API
 ---------------------
