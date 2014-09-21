@@ -91,6 +91,8 @@ Basics about creating and running scripts (SikuliX IDE)
 
 .. toctree::
    :maxdepth: 2
+   
+   idenews
 
 
 SikuliX Scripting API
@@ -98,6 +100,7 @@ SikuliX Scripting API
 .. toctree::
    :maxdepth: 2
 
+   apinews
    scripting
    interaction
    globals
