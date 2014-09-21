@@ -4,11 +4,14 @@ Everything about Sikuli Script
 .. toctree::
    :maxdepth: 2
 
+   scripting
+   interaction
    globals
    region
-   screen
    location
-   match
+   screen
    pattern
+   match
    finder
    keys
+   appclass
