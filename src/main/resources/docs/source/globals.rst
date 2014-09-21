@@ -173,10 +173,13 @@ This is possible with SikuliX:
 * Add the path to the Sikuli module into ``sys.path`` 
     *not needed* for modules being in the same directory as the main script
 
+Convenience function to add a path to sys.path:
+  .. py:function:: addImportPath(path)
+
 * Import your .sikuli using just its name. 
     For example, to import myModule.sikuli, just write ``import myModule``.
 
-* a basic example::
+A basic example::
 
 	# the path containing your stuff - choose your own naming
 	# on Windows
@@ -262,10 +265,63 @@ Image Search Path - where SikuliX looks for image files
 SikuliX maintains a list of locations to search for images when they are not found in the current .sikuli folder (a.k.a. BundlePath). This list is maintained internally
 but can be inspected and/or modified using the following functions.
 
-**NOTE for Java usage:** the mentioned functions can be accessed so::
+**Version 1.2** will support image paths pointing to locations in the net as HTTP based URL's
+
+*NOTE:* 
+* as long as an image file has the ending .png, this might be omitted.
+* you might use subfolders as well, to form a relative path to an image file
+* an image path might point to a location inside of a jar file
+
+.. index:: Bundle Path
+
+**The bundle path** can be accessed and modified so:
+
+.. py:function:: setBundlePath(path-to-a-folder)
+
+	Set the base path for searching images. Sikuli IDE sets
+	this automatically to the path of the folder of the script
+	(.sikuli). Therefore, you should use this function only if you really know what
+	you are doing. Using it generally means that you would like to take 
+        care of your captured images by yourself.
+
+	Additionally images are searched for in the image path, that is a global
+	list of other places to look for images 
+        and the bundle path being the first entry. 
+        It is implicitly extended by script
+	folders, that are imported 
+        (see: :ref:`Reuse of Code and Images <ImportingSikuliScripts>`).
+        
+        Currently (will be revised in version 1.2), you should not use a 
+        path pointing to a location inside a jar file.
+          Use :py:function:`addImagePath` instead.
+
+.. py:function:: getBundlePath()
+
+	Get a string containing the absolute path to a folder containing your images
+	used for finding images and which is set by SikuliX IDE automatically 
+        to the script folder (.sikuli). 
+        You may use this function for example, to package your private files 
+        together with the script or 
+        to access the image files in the bundle for other purposes. 
+        Be aware of the :ref:`convenience functions to manipulate paths 
+        <FileAndPathHandling>`_.
+
+**NOTE for Java usage:** Since there is no default BundlePath, when not running a script, like in the situation, when using the Java API in Java program or other situations with the direct use of Java aware scripting languages, you can use this feature to set the one place, where you have all your images::
+  
+  import org.sikuli.script.ImagePath;
+  ImagePath.setBundlePath("path to your image folder");
+  screen.find("image1"); 
+  screen.find("imageset1/image2"); 
+
+**NOTE:** first find omits .png, second find uses a relative path with a subfolder
+
+**Other places, where Sikuli looks for images**, are stored internally in the image path list. Use the following functions to manipulate this list.
+
+When searching images, the path's are scanned in the order of the list. The first image file with a matching image file name is used.
+
+**NOTE for Java usage:** Class of the mentioned functions::
   
   import org.sikuli.script.ImagePath
-  ImagePath.function(parameter)
 
 .. py:function:: getImagePath()
 
@@ -276,17 +332,31 @@ but can be inspected and/or modified using the following functions.
 		for p in imgPath:
 			print p
 
+        **Note on Java usage**::
+                
+               String[] paths = ImagePath.getImagePath();
+               for (String path : paths) {
+                   System.out.println(path)
+               }
+
 .. py:function:: addImagePath(a-new-path)
 
-	Add a new path to the end of the current list (avoids double entries)
+	Add a new folder path to the end of the current list (avoids double entries)
+	  **Java API:** ``ImagePath.add(path)``
+	 
+	 
+**NOTE on Java usage:**
+
 
 .. py:function:: removeImagePath(a-path-already-in-the-list)
 
 	Remove the given path from the current list
+	  **Java API:** ``ImagePath.remove(path)``
 
 .. py:function:: resetImagePath(a-path)
 
-	Clears the current list and sets the first entry to the given path (hence gets BundlePath). This gets you a fresh image environment.
+	Clears the current list and sets the first entry to the given path (hence gets the BundlePath). This gets you a fresh image environment.
+	  **Java API:** ``ImagePath.reset(path)``
 
 *Note*: paths must be specified using the correct path separators (slash on Mac
 and Unix and double blackslashes on Windows). The convenience functions in :ref:`File and Path handling <FileAndPathHandling>` might be helpful.
@@ -295,45 +365,6 @@ This list is automatically extended by Sikuli with script folders, that are impo
 (see: :ref:`Importing other Sikuli Scripts <ImportingSikuliScripts>`), 
 so their contained images can be accessed by only using their plain filenames. 
 If you want to be sure of the results of your manipulations, you can use ``getImagePath`` and check the content of the returned list.  
-When searching images, the path's are scanned in the order of the list. The first image file with a matching image name is used.
-
-.. index:: Bundle Path
-
-**The default bundle path** can also be accessed and modified by the two functions below.
-
-**NOTE for Java usage:** Since there is no default BundlePath, when not running a script, like in the situation, when using the Java API in Java program or other situations with the direct use of Java aware scripting languages, you can use this feature to set the one place, where you have all your images::
-  
-  import org.sikuli.script.ImagePath;
-  ImagePath.setBundlePath("path to your image folder");
-  screen.find("image1"); 
-  screen.find("imageset1/image2"); 
-
-*NOTE:* as long as an image file has the ending .png, this might be omitted. The second usage shows, that you might use subfolders as well.
-  
-.. py:function:: setBundlePath(path-to-a-folder)
-
-	Set the path for searching images in all Sikuli Script methods. Sikuli IDE sets
-	this automatically to the path of the folder where it saves the script
-	(.sikuli). Therefore, you should use this function only if you really know what
-	you are doing. Using it generally means that you would like to take 
-        care of your captured images by yourself.
-
-	Additionally images are searched for in the :ref:`SIKULI_IMAGE_PATH <ImageSearchPath>`, that is a global
-	list of other places to look for images. It is implicitly extended by script
-	folders, that are imported (see: :ref:`Reuse of Code and Images <ImportingSikuliScripts>`).
-
-.. py:function:: getBundlePath()
-
-	Get a string containing the absolute path to a folder containing your images
-	used for finding patterns. 
-          *Note:* Sikuli IDE sets this automatically to the path
-	  of the folder where it saves the script (.sikuli). You may use this function if,
-	  for example, to package your private files together with the script or to 
-          access the image files in the .sikuli bundles for other purposes. 
-          Sikuli only gives you to access to the path name, so you may 
-          need other python modules for I/O or other purposes.
-
-Other places, where Sikuli looks for images, might be in the :ref:`SIKULI_IMAGE_PATH <ImageSearchPath>`.
 
 **NOTE:** at all time the first entry in the list is internally taken as BundlePath, where appropriate.
 
@@ -360,7 +391,7 @@ Controlling Sikuli Scripts and their Behavior
 	Settings.InfoLogs
 	Settings.DebugLogs
 	
-	Either option might be switched on (True) or off (False), to show or hide the respective message type in the IDE console or on command line ([log], [info], [debug]).
+  see the section about :ref:`debug and log messages <DebugLog>`.
 	
 .. py:attribute:: Settings.MinSimilarity
 
@@ -438,14 +469,11 @@ Controlling Sikuli Scripts and their Behavior
 
 		def myHandler(e):
 			print "it happened"
-			
 		# you may wish to save the actual settings before
 		Settings.ObserveScanRate = 0.2
 		onAppear(some_image, myHandler)
 		observe(FOREVER, background = True)
-		# the observer will look every 5 seconds
-		# since your script does not wait here, you 
-		# might want to stop the observing later on ;-)
+		# the observer will look every 5 seconds ;-)
 
 .. py:attribute:: Settings.ObserveMinChangedPixels
 
