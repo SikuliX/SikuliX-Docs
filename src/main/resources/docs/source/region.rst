@@ -3,60 +3,87 @@ Region
 
 .. py:class:: Region
 
-Region is a rectangular area on a screen, which is defined by 
-	1.	its upper left corner (x, y) as a distance relative to the
-		upper left corner of the screen (0, 0) and
-	2.	its dimension (w, h) as its width and height. 
+A Region is a **rectangular area on a** :py:class:`Screen`, which is defined by 
+	1.	its upper left corner (x, y) being the pixel with this offset relative to the
+		upper left corner of the screen (usually (0, 0) ) and
+	2.	its dimension (w, h) as its width and height in pixels. 
 
 x, y, w, h are integer numbers counting a distance in pixels.
 
-A region knows nothing about its visual content (windows, pictures, graphics,
+A Region does not know anything about it's visual content (windows, pictures, graphics,
 text, ...). It only knows :ref:`the position on the screen and its dimension
 <CreatingaRegionSettingandGettingAttributes>`.
 
-New regions can be created, based on an existing region: you can :ref:`extend a
-region in all directions or get the adjacent rectangle <ExtendingaRegion>` up
-to the bounds of the screen horizontally or vertically. 
+New Regions can be createdin various ways:
 
-The visual content of a region is evaluated by using methods like
-:py:meth:`Region.find`, which looks for a given rectangular pixel pattern
-(defined by a :py:class:`Pattern` object) within the region.  The matching
-content in the region has a similarity between 0 (not found) and 1 (found and
-it is per pixel exactly matches to the pattern). The find can be advised, to
-search with a minimum similarity, so that some minor variations in shape and
-color can be ignored. If nothing else is specified, Sikuli searches with a
-minimum similarity of 0.7, which does what is expected in general cases.
-(This default value can be changed in :py:attr:`Settings.MinSimilarity`.)
+* specify their position and dimension
+
+* extend a given region in all directions (expand or shrink)
+
+* use the adjacent rectangles up to the bounds of the screen horizontally or vertically. 
+
+* combine different Regions
+
+* as subregions being rows, columns or a grid
+
+* based on pixels being one of their corners
+
+You can use :py:meth:`Region.find`, to search a given rectangular pixel pattern called a Visual 
+(given as an Image (filename or :py:class:`Image`) or a :py:class:`Pattern` object) within this Region.
+If this Visual is found in the Region, the resulting :py:class:`Match` object
+has a similarity score between >0 and 1. The lower the similarity score, the higher the chance,
+that you got a false positive (found something else). To make your scripts robust against false positives,
+you should take care, to get similarity scores >0.85 or even >0.9. For hints and tips how to achieve this,
+have a look into the :ref:`Best Practices <BestPractices>`.
+
+If the Visual is given for the search as an Image , Sikuli uses a
+minimum similarity of 0.7, which only returns Matches with a score >0.7.
+This default value can be changed in :py:attr:`Settings.MinSimilarity`. 
+A Pattern is searched with the optionally given minimum similarity using :py:meth:`Pattern.similar`.
 
 :ref:`Find operations <FindinginsideaRegionandWaitingforaVisualEvent>` return a
-:py:class:`Match` object, which has all the attributes and methods of a region
-and can be used in exactly the same way (e.g. to find or click another
-target within it). A :py:class:`Match` has the dimension of the pattern used
-for searching and also knows the position where it was found and its similarity
-score. A region preserves the best match of the last successful find operation
-and all matches of the last successful :py:meth:`Region.findAll` (accessible
-with :py:meth:`Region.getLastMatches`. You can wait for patterns to show up
-using :py:meth:`Region.wait`, to vanish using :py:meth:`Region.waitVanish` or
-just check whether a pattern :py:meth:`exists <Region.exists>` without the need to handle
-:ref:`exceptions <ExceptionFindFailed>`. 
+:py:class:`Match` object, which has all attributes and methods of a Region
+and can be used in the same way as a Region (e.g. find something or click another
+target inside). A :py:class:`Match` has the size in pixels of the pattern used
+for searching, the position where it was found, the similarity
+score and the elapsed time. Be aware: every mouse or keyboard op, that specifies an image or Pattern, 
+will internally do the respective find op first, to evaluate the action target.
 
-Sikuli supports visual event driven programming. You can tell a region
+A region remembers the match of the last successful find operation, 
+all matches of the last successful :py:meth:`Region.findAll` and the elapsed time. 
+With :py:meth:`Region.getLastMatch`, :py:meth:`Region.getLastMatches` 
+and :py:meth:`Region.getLastTime` you can get these objects/value.
+
+You can wait for patterns to show up
+using :py:meth:`Region.wait`, to vanish using :py:meth:`Region.waitVanish`
+
+Every not successful find op (even those done internally with a click() ...) will raise
+a :ref:`FindFailed exception <ExceptionFindFailed>`, that has to be handled in your script.
+If you do not do that, your script will simply stop here with an error.
+
+If you do not want to handle these FindFailed exceptions,
+you might search for a pattern using :py:meth:`exists <Region.exists>`, 
+which just returns nothing (None/null) in case of not found.
+So you simply check the return value for being a Match.
+
+During a find op internally the search is repeated with a scan rate (standard 3 per second)
+until success or an optionally given timeout (standard 3 seconds)
+is reached, which then results in a :ref:`FindFailed exception <ExceptionFindFailed>`.
+
+Sikuli supports visual event driven programming: You can tell a region
 :ref:`to observe that something appears, vanishes or changes <ObservingVisualEventsinaRegion>`. 
 It is possible to wait for the completion of an
 observation or let it run in the background while your following script 
 continues running.
 When one of the visual events happens, a handler in your script is called. Each
-region has one observer and each observer can handle multiple visual events.
+region has one observer and each observer can handle multiple visual events. 
+You might als check the status of an observe in your workflow, to handle events inline. 
 It's your responsibility to stop an observation.
 
 .. _CreatingaRegionSettingandGettingAttributes:
 
-Creating a Region, Setting and Getting Attributes
+Create a Region, Set and Get Attributes
 -------------------------------------------------
-
-In this chapter, you can find information on how to create a new region object.
-The attributes of a region object can be accessed directly or via
-method calls, e.g. to change their position and/or dimension. Here you will find the HowTo's. 
 
 .. py:class:: Region
 
@@ -74,24 +101,11 @@ method calls, e.g. to change their position and/or dimension. Here you will find
 		:param rectangle: an existing object of Java class Rectangle
 		:return: a new region object.
 
-		In addition to creating a region by using the tool provided
-		by the IDE, a region can be created by specifying a rectangle. This is how
-		the visual representation in the IDE of such a region is internally set up in
-		the script.  A region can also be created by users in run-time using
-		:py:meth:`Region.selectRegion`.
-
-		You can create a region based on another region. This just
-		duplicates the region (new object). This can be useful, if
-		you need the same region with different attributes, such as another
-		:ref:`observation loop <ObservingVisualEventsinaRegion>` 
-		or use :py:meth:`Region.setThrowException` to control
-		whether throwing an exception when finding fails. Another way to create a
-		region is to specify a rectangle object or to 
-		:ref:`extend an existing region <ExtendingaRegion>`.
+		For **other ways to create new Regions** see: :ref:`Extend existing Regions <ExtendingaRegion>`.
 		
-		*Note:* The position and dimension attributes are named x, y 
-		(values representing the top left corner) and w, h (width and height).
-		You might use these or the get/set methods.
+		*NOTE:* The position and dimension attributes are named x, y 
+		representing the top left corner and w, h being width and height.
+		You might access/change these values directly or use the available getter/setter methods.
 		::
 		
 			topLeft = Location(reg.x, reg.y) # equivalent to
@@ -100,11 +114,19 @@ method calls, e.g. to change their position and/or dimension. Here you will find
 			theWidth = reg.w # equivalent to
 			theWidth = reg.getW()
 			
-			reg.h = theWidth # equivalent to
-			reg.setH(theWidth) 
+			reg.w = theWidth # equivalent to
+			reg.setW(theWidth) 
 	
-		**Note:** Additionally you might use :py:meth:`selectRegion() <Screen.selectRegion>` to interactively create a new region.
+		**Note:** Additionally you might use :py:meth:`selectRegion() <Screen.selectRegion>` 
+		to interactively create a new region at runtime.
 
+		**NOTE:** Using `Region(someOtherRegion)` just duplicates this region 
+		(creates a new object). This can be useful, when
+		you need the same Region with different attributes, such as another
+		:ref:`observation loop <ObservingVisualEventsinaRegion>` 
+		or another setting for :py:meth:`Region.setThrowException` to control
+		whether throwing an exception or not when find ops fail. 
+		
 	.. py:method:: setX(number)
 		 setY(number)
 		 setW(number)
@@ -115,7 +137,6 @@ method calls, e.g. to change their position and/or dimension. Here you will find
 
 		:param number: the new value
 
-	.. versionadded:: X1.0-rc2
 	.. py:method:: moveTo(location)
 		
 		Set the position of this region regarding it's top left corner 
@@ -134,7 +155,7 @@ method calls, e.g. to change their position and/or dimension. Here you will find
 		 setRect(x,y,w,h)
 		 setRect(rectangle)
 
-		Both methods are doing exactly the same: setting position and dimension to
+		All these methods are doing exactly the same: setting position and dimension to
 		new values. The motivation for two names is to make scripts more readable:
 		``setROI()`` is intended to restrict the search to a smaller area to speed up
 		processing searches (region of interest), whereas ``setRect()`` should be
@@ -144,7 +165,6 @@ method calls, e.g. to change their position and/or dimension. Here you will find
 		:param rectangle: a rectangle object
 		:return: None
 		
-	.. versionadded:: X1.0-rc2
 	.. py:method:: morphTo(region)
 		
 		Set the position and dimension of this region to the corresponding values 
@@ -173,7 +193,6 @@ method calls, e.g. to change their position and/or dimension. Here you will find
 
 		:return: an object of :py:class:`Location`
 		
-	.. versionadded:: X1.0-rc2
 	.. py:method:: getTopLeft()
 		getTopRight()
 		getBottomLeft()
@@ -212,21 +231,17 @@ method calls, e.g. to change their position and/or dimension. Here you will find
 
 	.. py:method:: setAutoWaitTimeout(seconds)
 
-		Set the maximum waiting time for all subsequent find operations.
+		Set the maximum waiting time for all subsequent find operations in that Region.
 		
 		:param seconds: a number, which can have a fraction. The internal
 			granularity is milliseconds.
 
-		This method enables all find operations to wait for the given
-		pattern to appear until the specified amount of time has elapsed. The
-		default is 3.0 seconds. This method is intended for users to override
-		this default setting. As such it lets :py:meth:`Region.find` work like
-		:py:meth:`Region.wait`, without being able to set an individual timeout value
-		for a specific find operation.
+		All subsequent find ops will be run with the given timeout instead of the
+		current value of :py:attr:`Settings.AutoWaitTimeout`. 
 
 	.. py:method:: getAutoWaitTimeout()
 
-		Get the current value of the maximum waiting time for	find operations.
+		Get the current value of the maximum waiting time for find op in this region.
 		
 		:return: timeout in seconds
 
