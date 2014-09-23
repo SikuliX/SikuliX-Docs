@@ -3,50 +3,55 @@ Region
 
 .. py:class:: Region
 
-A Region is a **rectangular area on a** :py:class:`Screen`, which is defined by 
+The Region is besides Images/Patterns (called Visuals) and Matches (where a Visual was found and how) 
+the **basic element in the SikuliX concept**. 
+So be sure, you have understood all aspects of a Region.
+
+A Region is a **rectangular area on a** :py:class:`Screen` and is defined by 
 	1.	its upper left corner (x, y) being the pixel with this offset relative to the
 		upper left corner of the screen (usually (0, 0) ) and
 	2.	its dimension (w, h) as its width and height in pixels. 
 
-x, y, w, h are integer numbers counting a distance in pixels.
+**x, y, w, h are integer numbers** counting a distance in pixels.
 
-A Region does not know anything about it's visual content (windows, pictures, graphics,
+A Region **does not know anything about it's visual content** (windows, pictures, graphics,
 text, ...). It only knows :ref:`the position on the screen and its dimension
 <CreatingaRegionSettingandGettingAttributes>`.
 
-New Regions can be createdin various ways:
+New Regions can be created in various ways:
 
 * specify their position and dimension
 
-* extend a given region in all directions (expand or shrink)
+* extend a given Region or Match in all directions (expand or shrink)
 
 * use the adjacent rectangles up to the bounds of the screen horizontally or vertically. 
 
-* combine different Regions
+* combine different Regions and/or Matches
 
 * as subregions being rows, columns or a grid
 
 * based on pixels being one of their corners
 
-You can use :py:meth:`Region.find`, to search a given rectangular pixel pattern called a Visual 
+You can use :py:meth:`Region.find`, to **search a given Visual being a rectangular pixel pattern** 
 (given as an Image (filename or :py:class:`Image`) or a :py:class:`Pattern` object) within this Region.
 If this Visual is found in the Region, the resulting :py:class:`Match` object
 has a similarity score between >0 and 1. The lower the similarity score, the higher the chance,
 that you got a false positive (found something else). To make your scripts robust against false positives,
-you should take care, to get similarity scores >0.85 or even >0.9. For hints and tips how to achieve this,
-have a look into the :ref:`Best Practices <BestPractices>`.
+you should take care, to get similarity scores >0.85 or even >0.9. 
 
 If the Visual is given for the search as an Image , Sikuli uses a
-minimum similarity of 0.7, which only returns Matches with a score >0.7.
+**minimum similarity of 0.7**, which only returns Matches with a score >0.7.
 This default value can be changed in :py:attr:`Settings.MinSimilarity`. 
 A Pattern is searched with the optionally given minimum similarity using :py:meth:`Pattern.similar`.
 
 :ref:`Find operations <FindinginsideaRegionandWaitingforaVisualEvent>` return a
 :py:class:`Match` object, which has all attributes and methods of a Region
 and can be used in the same way as a Region (e.g. find something or click another
-target inside). A :py:class:`Match` has the size in pixels of the pattern used
+target inside). A :py:class:`Match` has the size in pixels of the Visual used
 for searching, the position where it was found, the similarity
-score and the elapsed time. Be aware: every mouse or keyboard op, that specifies an image or Pattern, 
+score and the elapsed time. 
+
+**Be aware:** every mouse or keyboard op, that specifies a Visual to search for, 
 will internally do the respective find op first, to evaluate the action target.
 
 A region remembers the match of the last successful find operation, 
@@ -54,7 +59,7 @@ all matches of the last successful :py:meth:`Region.findAll` and the elapsed tim
 With :py:meth:`Region.getLastMatch`, :py:meth:`Region.getLastMatches` 
 and :py:meth:`Region.getLastTime` you can get these objects/value.
 
-You can wait for patterns to show up
+You can **wait for patterns** to show up
 using :py:meth:`Region.wait`, to vanish using :py:meth:`Region.waitVanish`
 
 Every not successful find op (even those done internally with a click() ...) will raise
@@ -67,10 +72,10 @@ which just returns nothing (None/null) in case of not found.
 So you simply check the return value for being a Match.
 
 During a find op internally the search is repeated with a scan rate (standard 3 per second)
-until success or an optionally given timeout (standard 3 seconds)
+**until success or an optionally given timeout** (standard 3 seconds)
 is reached, which then results in a :ref:`FindFailed exception <ExceptionFindFailed>`.
 
-Sikuli supports visual event driven programming: You can tell a region
+Sikuli supports **visual event driven programming**: You can tell a region
 :ref:`to observe that something appears, vanishes or changes <ObservingVisualEventsinaRegion>`. 
 It is possible to wait for the completion of an
 observation or let it run in the background while your following script 
@@ -79,6 +84,9 @@ When one of the visual events happens, a handler in your script is called. Each
 region has one observer and each observer can handle multiple visual events. 
 You might als check the status of an observe in your workflow, to handle events inline. 
 It's your responsibility to stop an observation.
+
+**NOTE:** For **hints and tips how to get robust and fast acting workflows** 
+look into the :ref:`Best Practices <BestPractices>`.
 
 .. _CreatingaRegionSettingandGettingAttributes:
 
