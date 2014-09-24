@@ -271,11 +271,14 @@ these subregions and create new Regions.
 
 **Convenience functions, to get a subregion out of a specified raster in one step**
 
-    .. py:method:: get(somePart)
+.. py:class:: Region
+
+	.. py:method:: get(somePart)
+    	
     	Select a part of the given Region based on `somePart`
     	
     	:param somePart: a constant as Region.CONSTANT or 
-    	an integer between 200 and 999 (see below)
+    		an integer between 200 and 999 (see below)
     	
     	:return: a new Region created from the given part
     	
@@ -315,13 +318,33 @@ these subregions and create new Regions.
 			special cases:
 			if either y or z are == or > x: returns the respective row or column
 			example: get(525) will use a raster of 5 rows and 5 columns and return the row in the middle
-			
-			internally this is based on :py:meth:`Region.setRaster` and :py:meth:`Region.getCell` 
-			
-			If you need only one row in one column with x rows or 
-			only one column in one row with x columns 
-			you can use :py:meth:`Region.getRow` or :py:meth:`Region.getCol    	
-    	
+
+		Internally this is based on :py:meth:`Region.setRaster` and :py:meth:`Region.getCell`.
+		
+		If you need only one row in one column with x rows or 
+		only one column in one row with x columns 
+		you can use :py:meth:`Region.getRow` or :py:meth:`Region.getCol`
+		
+	.. py:method:: getRow(whichRow, numberRows)
+	
+	.. py:method:: getCol(whichColumn, numberColumns)
+	
+**The basic functions for any raster setup**
+
+.. py:class:: Region
+
+	.. py:method:: setRows(numberRows)
+
+	.. py:method:: setCols(numberColumns)
+
+	.. py:method:: setRaster(numberRows, numberColumns)
+	
+	.. py:method:: getRow(whichRow)
+	
+	.. py:method:: getCol(whichColumn)
+
+	.. py:method:: getCell(whichRow, whichColumn)
+	
 .. _ExtendingaRegion:
 
 Extending a Region
