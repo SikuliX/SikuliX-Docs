@@ -334,16 +334,42 @@ these subregions and create new Regions.
 .. py:class:: Region
 
 	.. py:method:: setRows(numberRows)
-
-	.. py:method:: setCols(numberColumns)
+					setCols(numberColumns)
+		
+	    Define a rows or columns only raster, by dividing the Region's respective 
+	    dimension into even parts.
+	    
+	    :return: the first element as new Region if successful or the region itself otherwise
+	
 
 	.. py:method:: setRaster(numberRows, numberColumns)
 	
 	.. py:method:: getRow(whichRow)
-	
-	.. py:method:: getCol(whichColumn)
+					getCol(whichColumn)
 
 	.. py:method:: getCell(whichRow, whichColumn)
+	
+	**getting information about the current raster**
+	
+	.. py:method:: isRasterValid()
+	
+		Can be used to check, wether the Region currently has a valid raster
+		
+		:return: True if it has a valid raster 
+			(either getCols or getRows or both would return > 0) 
+		
+ 
+	.. py:method:: getRows()
+					getCols()
+					
+	    :return: the current raster setting (0 means not set) as number of rows/columns
+	
+	.. py:method:: getRowH()
+					getColW()
+					
+	    :return: the current raster setting (0 means not set) as height of one row or width of one column.
+	
+	
 	
 .. _ExtendingaRegion:
 
