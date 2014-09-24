@@ -93,11 +93,25 @@ look into the :ref:`Best Practices <BestPractices>`.
 Create a Region, Set and Get Attributes
 -------------------------------------------------
 
+**NOTES**
+
+**In any case a newly created Region will be restricted to the boundaries of the
+screen containing the largest part of the new Region**.
+
+It displays an **error, if no part of the newly created Region is  
+contained by any of the available screens**. Subsequent usages of such a Region  
+might result in errors, exceptions or even crashes, if features are used, that 
+access the screen. 
+
+Use :py:meth:`Region.isValid` to check, wether a Region is contained by a screen.
+
+**Create a new Region based on top left corner and size**
+
 .. py:class:: Region
 
 	.. py:method:: Region(x,y,w,h)
-		Region(region)
-		Region(Rectangle)
+					Region(region)
+					Region(Rectangle)
 
 		Create a region object
 
@@ -109,7 +123,7 @@ Create a Region, Set and Get Attributes
 		:param rectangle: an existing object of Java class Rectangle
 		:return: a new region object.
 
-		For **other ways to create new Regions** see: :ref:`Extend existing Regions <ExtendingaRegion>`.
+		For **other ways to create new Regions** see: :ref:`Extend Regions ... <ExtendingaRegion>`.
 		
 		*NOTE:* The position and dimension attributes are named x, y 
 		representing the top left corner and w, h being width and height.
@@ -130,15 +144,17 @@ Create a Region, Set and Get Attributes
 
 		**NOTE:** Using `Region(someOtherRegion)` just duplicates this region 
 		(creates a new object). This can be useful, when
-		you need the same Region with different attributes, such as another
+		you **need the same Region with different attributes**, such as another
 		:ref:`observation loop <ObservingVisualEventsinaRegion>` 
 		or another setting for :py:meth:`Region.setThrowException` to control
 		whether throwing an exception or not when find ops fail. 
+
+**Change a Regions position and/or size**
 		
 	.. py:method:: setX(number)
-		 setY(number)
-		 setW(number)
-		 setH(number)  
+		 			setY(number)
+		 			setW(number)
+		 			setH(number)  
 
 		Set the respective attribute of the region to the new value. This
 		effectively moves the region around and/or changes its dimension.
@@ -163,11 +179,12 @@ Create a Region, Set and Get Attributes
 		 setRect(x,y,w,h)
 		 setRect(rectangle)
 
-		All these methods are doing exactly the same: setting position and dimension to
-		new values. The motivation for two names is to make scripts more readable:
-		``setROI()`` is intended to restrict the search to a smaller area to speed up
-		processing searches (region of interest), whereas ``setRect()`` should be
-		used to redefine a region (which could be enlarging it). 
+		All these methods are doing exactly the same: 
+			setting position and dimension to new values. 
+			The motivation for two names is to make scripts more readable:
+			``setROI()`` is intended to restrict the search to a smaller area to speed up
+			processing searches (region of interest), whereas ``setRect()`` should be
+			used to change a region (move and/or shrink or enlarge). 
 
 		:param all x, y, w, h: the attributes of a rectangle
 		:param rectangle: a rectangle object
@@ -186,10 +203,12 @@ Create a Region, Set and Get Attributes
 			reg.morphTo(anotherRegion) # equivalent to
 			r = anotherRegion; reg.setX(r.x); reg.setY(r.y); reg.setW(r.w); reg.setH(r.h)
 
+**Access a Region's attributes and settings**
+			
 	.. py:method:: getX()
-		 getY()
-		 getW()
-		 getH()  
+		 			getY()
+		 			getW()
+		 			getH()  
 
 		Get the respective attribute of the region.
 
@@ -202,9 +221,9 @@ Create a Region, Set and Get Attributes
 		:return: an object of :py:class:`Location`
 		
 	.. py:method:: getTopLeft()
-		getTopRight()
-		getBottomLeft()
-		getBottomRight()
+					getTopRight()
+					getBottomLeft()
+					getBottomRight()
 		
 		Get the location of the region's respective corner
 		
@@ -216,26 +235,25 @@ Create a Region, Set and Get Attributes
       
 		:return: a new :py:class:`Screen` object
 		  
-		This method only makes sense in 
-		:ref:`Multi Monitor Environments <MultiMonitorEnvironments>`, 
-		since it always returns the default screen in a single monitor environment.
+		See	:ref:`Multi Monitor Environments <MultiMonitorEnvironments>`.
 
 	.. py:method:: getLastMatch()
-			getLastMatches()
+					getLastMatches()
 
-		:return: the best match as a :py:class:`Match` object or one or more
+		:return: a :py:class:`Match` object or one or more
 			match objects as an :py:class:`Iterator` object respectively
 
-		All successful find operations (explicit like :py:meth:`Region.find()` or
-		implicit like :py:meth:`Region.click()`), store the best match in the `lastMatch` attribute
-		of the region that was searched. :py:meth:`Region.findAll()` stores all found matches into
-		`lastMatches` attribute of the region that was searched as an iterator.
+		All basic find operations (explicit like :py:meth:`Region.find()` or
+		implicit like :py:meth:`Region.click()`) store the match in `lastMatch` 
+		and multi-find ops (like :py:meth:`Region.findAll()`) all found matches into `lastMatches`  
+		of the Region that was searched.
 
 		To access these attributes use :py:meth:`Region.getLastMatch()` or
 		:py:meth:`Region.getLastMatches()` respectively.
 
-		How to use the iterator object returned by getLastMatches()
-		:ref:`is documented here <IteratingMatches>`.
+		:ref:`How to use the iterator object returned by getLastMatches() <IteratingMatches>`.
+		
+**Attributes influencing the behavior of features a Region**
 
 	.. py:method:: setAutoWaitTimeout(seconds)
 
@@ -269,7 +287,7 @@ or dropdown lists or menues.
 A given Region can be set to have some evenly sized raster, so that one can access
 these subregions and create new Regions.
 
-**Convenience functions, to get a subregion out of a specified raster in one step**
+**Convenience functions, to get a subregion from a specified raster in one step**
 
 .. py:class:: Region
 
@@ -337,19 +355,43 @@ these subregions and create new Regions.
 					setCols(numberColumns)
 		
 	    Define a rows or columns only raster, by dividing the Region's respective 
-	    dimension into even parts.
+	    dimension into even parts. The corresponding Regions will only be created,
+	    when the respective access methods are used later.
 	    
 	    :return: the first element as new Region if successful or the region itself otherwise
 	
 
 	.. py:method:: setRaster(numberRows, numberColumns)
 	
+		Define a raster, by deviding the Region's height in ``numberRows`` even sized rows and
+		it's width into ``numberColumns`` even sized columns.
+				
+		:returns: the top left cell (``getCell(0, 0)``) if success, the Region itself if not
+	
 	.. py:method:: getRow(whichRow)
 					getCol(whichColumn)
+	 
+		Get the Region of the ``whichRow`` row or ``whichColumn`` column 
+		in the Region's valid raster counting from 0. 
+		Negative value will count backwards from the end.
+		Invalid indexes will return the last or first element respectively.
+	
+		:return: a new Region representing the selected element or the Region if no raster
 
 	.. py:method:: getCell(whichRow, whichColumn)
 	
-	**getting information about the current raster**
+		Get the cell with the coordinates (``whichRow``, ``whichColumn``) 
+		in the Region's valid raster counting from 0.
+		Negative values will count backwards from the end.
+		Invalid indexes will return the last or first element respectively.
+		If the current raster only has rows or columns, the element of the 
+		corresponding index will be returned.
+		
+		:return: a new Region representing the selected element or the Region if no raster
+
+**getting information about the current raster**
+
+.. py:class:: Region
 	
 	.. py:method:: isRasterValid()
 	
@@ -367,38 +409,47 @@ these subregions and create new Regions.
 	.. py:method:: getRowH()
 					getColW()
 					
-	    :return: the current raster setting (0 means not set) as height of one row or width of one column.
+	    :return: the current raster setting (0 means not set) 
+	    as height of one row or width of one column.
 	
 	
 	
 .. _ExtendingaRegion:
 
-Extending a Region
-------------------
+Extend Regions and create new Regions based on existing Regions
+---------------------------------------------------------------------
 
-These methods (exception ``inside()``) return a new region object, that is
-based on the specified region (sometimes called spatial operators).
-The range parameter, if given as positive integer number, restricts the
-dimension of the new region (width and/or height respectively) to that
-value. If range is not specified, the new region extends to the respective
-boundary of the screen the given region belongs to. An exception is ``nearby()``,
-which uses 50 as its default range.
+**NOTES:**
 
-**Note**: In all cases the current region remains unchanged.
+Except otherwise noted
 
-**Note**: In all cases the new region does not extend beyond any boundary of the
-screen that contains the given region. 
+* these methods **return new Region objects**, whose location and size are based on the specified region.
+
+* the given **base Region remains unchanged**.
+
+**In any case the new Region will be restricted to the boundaries of the
+screen containing the largest part of the new Region**.
+
+It displays an **error, if no part of the new Region is  
+contained by any of the available screens**. Subsequent usages of such a Region object 
+might result in errors, exceptions or even crashes, if features are used, that 
+acces the screen. 
+
+Use :py:meth:`Region.isValid` to check, wether a Region is contained by a screen.
 
 .. py:class:: Region
 
 	.. py:method:: offset(location)
+					offset(x, y)
 	
-		Returns a new Region object, whose upper left corner is relocated 
-		adding the location's x and y value to the respective values of the given region.
-		Width and height are the same. So this clones a region at a different place.
+		Creates a new Region object, whose upper left corner is relocated 
+		adding the given x and y values to the respective values of the given Region.
+		Width and height are the same. 
 		
-		:param location: a :py:class:`Location` object
-		:return: a new :py:class:`Region` object 
+		:param location: a :py:class:`Location` object providing the relocating x and y values
+		:param x: 
+		:param y:
+		:return: the new :py:class:`Region` object 
 		
 		::
 		
