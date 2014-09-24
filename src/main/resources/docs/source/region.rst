@@ -226,13 +226,13 @@ Create a Region, Set and Get Attributes
 		:return: the best match as a :py:class:`Match` object or one or more
 			match objects as an :py:class:`Iterator` object respectively
 
-		All successful find operations (explicit like ``find()`` or
-		implicit like ``click()``), store the best match in the `lastMatch` attribute
-		of the region that was searched. ``findAll()`` stores all found matches into
-		`lastMatches` atribute of the region that was searched as an iterator.
+		All successful find operations (explicit like :py:meth:`Region.find()` or
+		implicit like :py:meth:`Region.click()`), store the best match in the `lastMatch` attribute
+		of the region that was searched. :py:meth:`Region.findAll()` stores all found matches into
+		`lastMatches` attribute of the region that was searched as an iterator.
 
-		To access these attributes use ``region.getLastMatch()`` or
-		``region.getLastMatches()`` respectively.
+		To access these attributes use :py:meth:`Region.getLastMatch()` or
+		:py:meth:`Region.getLastMatches()` respectively.
 
 		How to use the iterator object returned by getLastMatches()
 		:ref:`is documented here <IteratingMatches>`.
@@ -253,6 +253,75 @@ Create a Region, Set and Get Attributes
 		
 		:return: timeout in seconds
 
+		
+.. _RegionGetParts
+
+Getting evenly sized parts of a Region (as rows, columns and cells based on a raster)
+-------------------------------------------------------------------------------------
+
+In many cases, one has parts of a GUI, that are to some extent evenly structured, 
+having some virtual raster (rows, columns and/or cells), that one wants to use 
+for restricting searches or walk through this parts for other reasons.
+
+Typical examples are tables like in an Excel sheet, boxes in some GUI or on a webpage
+or dropdown lists or menues.
+
+A given Region can be set to have some evenly sized raster, so that one can access
+these subregions and create new Regions.
+
+**Convenience functions, to get a subregion out of a specified raster in one step**
+
+    .. py:method:: get(somePart)
+    	Select a part of the given Region based on `somePart`
+    	
+    	:param somePart: a constant as Region.CONSTANT or 
+    	an integer between 200 and 999 (see below)
+    	
+    	:return: a new Region created from the given part
+    	
+    	**Usage based on the javadocs**::
+    	
+			Constants for the top parts of a region (Usage: Region.CONSTANT)
+			shown in brackets: possible shortcuts for the part constant
+			NORTH (NH, TH) - upper half 
+			NORTH_WEST (NW, TL) - left third in upper third 
+			NORTH_MID (NM, TM) - middle third in upper third 
+			NORTH_EAST (NE, TR) - right third in upper third 
+			... similar for the other directions: 
+			right side: EAST (Ex, Rx)
+			bottom part: SOUTH (Sx, Bx) 
+			left side: WEST (Wx, Lx)
+			
+			specials for quartered:
+			TT top left quarter
+			RR top right quarter
+			BB bottom right quarter
+			LL bottom left quarter
+			
+			specials for the center parts:
+			MID_VERTICAL (MV, CV) half of width vertically centered 
+			MID_HORIZONTAL (MH, CH) half of height horizontally centered 
+			MID_BIG (M2, C2) half of width / half of height centered 
+			MID_THIRD (MM, CC) third of width / third of height centered 
+			
+			Based on the scheme behind these constants there is another possible usage:
+			specify part as e 3 digit integer where the digits xyz have the following meaning
+			1st x: use a raster of x rows and x columns
+			2nd y: the row number of the wanted cell
+			3rd z: the column number of the wanted cell
+			y and z are counting from 0
+			valid numbers: 200 up to 999 (< 200 are invalid and return the region itself) 
+			example: get(522) will use a raster of 5 rows and 5 columns and return the cell in the middle
+			special cases:
+			if either y or z are == or > x: returns the respective row or column
+			example: get(525) will use a raster of 5 rows and 5 columns and return the row in the middle
+			
+			internally this is based on :py:meth:`Region.setRaster` and :py:meth:`Region.getCell` 
+			
+			If you need only one row in one column with x rows or 
+			only one column in one row with x columns 
+			you can use :py:meth:`Region.getRow` or :py:meth:`Region.getCol    	
+    	
 .. _ExtendingaRegion:
 
 Extending a Region
