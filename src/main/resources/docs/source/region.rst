@@ -244,8 +244,9 @@ Use :py:meth:`Region.isValid` to check, wether a Region is contained by a screen
 			match objects as an :py:class:`Iterator` object respectively
 
 		All basic find operations (explicit like :py:meth:`Region.find()` or
-		implicit like :py:meth:`Region.click()`) store the match in `lastMatch` 
-		and multi-find ops (like :py:meth:`Region.findAll()`) all found matches into `lastMatches`  
+		implicit like :py:meth:`Region.click()`) store the match in ``lastMatch`` 
+		and multi-find ops (like :py:meth:`Region.findAll()`) 
+		all found matches into ``lastMatches``  
 		of the Region that was searched.
 
 		To access these attributes use :py:meth:`Region.getLastMatch()` or
@@ -253,24 +254,80 @@ Use :py:meth:`Region.isValid` to check, wether a Region is contained by a screen
 
 		:ref:`How to use the iterator object returned by getLastMatches() <IteratingMatches>`.
 		
-**Attributes influencing the behavior of features a Region**
+		**TIPP:** The ``LastMatch`` can be used to avoid a second search for 
+		the same Visual in sequences like::
+			
+			wait(someVisual)
+			click(someVisual)
+			# or
+			if exists(someOtherVisual):
+				click(someOtherVisual)
+				
+		To avoid the second search with the ``click()`` you can use::
+			
+			wait(someVisual)
+			click(getLastMatch())
+			# or
+			if exists(someOtherVisual):
+				click(getLastMatch())
+				
+		There are convenience shortcuts for this::
+			
+			wait(someVisual)
+			click()
+			# or
+			if exists(someOtherVisual):
+				click()
+				
+	    See :py:meth:`Region.click` for the usage of these convenience shortcuts.
+		A ``someRegion.click()`` will either click the center of the given Region 
+		or the ``lastMatch``, if any is available.		
+
+	.. py:method:: getTime()
+
+		:return: the elapsed time in number of milli-seconds of the last find op in this Region	
+		
+**Attributes influencing the behavior of features of a Region**
+
+	**NOTE** For settings influencing the handling of Visual-not-found situations in 
+	this Region look here: :ref:`FindFailed Exceptions <ExceptionFindFailed>`.
 
 	.. py:method:: setAutoWaitTimeout(seconds)
 
 		Set the maximum waiting time for all subsequent find operations in that Region.
 		
 		:param seconds: a number, which can have a fraction. The internal
-			granularity is milliseconds.
+			granularity is milli-seconds.
 
 		All subsequent find ops will be run with the given timeout instead of the
-		current value of :py:attr:`Settings.AutoWaitTimeout`. 
+		current value of :py:attr:`Settings.AutoWaitTimeout`, to which the region
+		is initialized at time of creation (default 3 seconds).
 
 	.. py:method:: getAutoWaitTimeout()
 
-		Get the current value of the maximum waiting time for find op in this region.
+		Get the current value of the maximum waiting time for find ops in this region.
 		
 		:return: timeout in seconds
 
+	.. py:method:: setWaitScanRate(rate)
+	
+		Set this Region's value: A find op should repeat the search 
+		for the given Visual ``rate`` times per second
+		until found or the maximum waiting time is reached.
+		At time of Region creation the value is initialized 
+		from :py:attr:`Settings.WaitScanRate`, which has a default of 3.
+		
+		:param rate: a value > 0. values < 1 will lead to scans every x seconds
+		and hence longer pauses between the searches (reduces cpu load).
+		
+		**TIPP** Since on average the shortes search times are some milli seconds, 
+		``rate`` > 100 will lead to a continous search under all circumstances.
+	
+	.. py:method:: getWaitScanRate()
+	
+		Get the current value of this Region's ``WaitScanRate``.
+		
+		:return: the rate number
 		
 .. _RegionGetParts
 
@@ -282,7 +339,7 @@ having some virtual raster (rows, columns and/or cells), that one wants to use
 for restricting searches or walk through this parts for other reasons.
 
 Typical examples are tables like in an Excel sheet, boxes in some GUI or on a webpage
-or dropdown lists or menues.
+or dropdown lists and menues.
 
 A given Region can be set to have some evenly sized raster, so that one can access
 these subregions and create new Regions.
@@ -298,7 +355,7 @@ these subregions and create new Regions.
     	:param somePart: a constant as Region.CONSTANT or 
     		an integer between 200 and 999 (see below)
     	
-    	:return: a new Region created from the given part
+    	:return: a new Region created from the selected part
     	
     	**Usage based on the javadocs**::
     	
@@ -337,16 +394,24 @@ these subregions and create new Regions.
 			if either y or z are == or > x: returns the respective row or column
 			example: get(525) will use a raster of 5 rows and 5 columns and return the row in the middle
 
-		Internally this is based on :py:meth:`Region.setRaster` and :py:meth:`Region.getCell`.
-		
-		If you need only one row in one column with x rows or 
-		only one column in one row with x columns 
-		you can use :py:meth:`Region.getRow` or :py:meth:`Region.getCol`
-		
+	Internally this is based on :py:meth:`Region.setRaster` and :py:meth:`Region.getCell`.
+	
+	If you need only one row in one column with x rows or 
+	only one column in one row with x columns 
+	you can use :py:meth:`Region.getRow` or :py:meth:`Region.getCol`
+	
 	.. py:method:: getRow(whichRow, numberRows)
 	
-	.. py:method:: getCol(whichColumn, numberColumns)
+		:param numberRows: in how many evenly sized rows should the region be devided
+		:param whichRow: the row to select counting from 0, negative counts backwards from the end
+    	:return: a new Region created from the selected row
+
+    .. py:method:: getCol(whichColumn, numberColumns)
 	
+		:param numberColumns: in how many evenly sized columns should the region be devided
+		:param whichColumn: the column to select counting from 0, negative counts backwards from the end
+    	:return: a new Region created from the selected column
+
 **The basic functions for any raster setup**
 
 .. py:class:: Region
@@ -412,8 +477,7 @@ these subregions and create new Regions.
 	    :return: the current raster setting (0 means not set) 
 	    as height of one row or width of one column.
 	
-	
-	
+		
 .. _ExtendingaRegion:
 
 Extend Regions and create new Regions based on existing Regions
