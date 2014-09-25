@@ -150,7 +150,9 @@ Use :py:meth:`Region.isValid` to check, wether a Region is contained by a screen
 		whether throwing an exception or not when find ops fail. 
 
 **Change a Regions position and/or size**
-		
+
+.. py:class:: Region
+
 	.. py:method:: setX(number)
 		 			setY(number)
 		 			setW(number)
@@ -204,7 +206,9 @@ Use :py:meth:`Region.isValid` to check, wether a Region is contained by a screen
 			r = anotherRegion; reg.setX(r.x); reg.setY(r.y); reg.setW(r.w); reg.setH(r.h)
 
 **Access a Region's attributes and settings**
-			
+
+.. py:class:: Region
+
 	.. py:method:: getX()
 		 			getY()
 		 			getW()
@@ -240,8 +244,9 @@ Use :py:meth:`Region.isValid` to check, wether a Region is contained by a screen
 	.. py:method:: getLastMatch()
 					getLastMatches()
 
-		:return: a :py:class:`Match` object or one or more
-			match objects as an :py:class:`Iterator` object respectively
+		To access the Matches returned by the last find op in this Region.
+
+		:return: a :py:class:`Match` object or a list of Match objects
 
 		All basic find operations (explicit like :py:meth:`Region.find()` or
 		implicit like :py:meth:`Region.click()`) store the match in ``lastMatch`` 
@@ -249,10 +254,7 @@ Use :py:meth:`Region.isValid` to check, wether a Region is contained by a screen
 		all found matches into ``lastMatches``  
 		of the Region that was searched.
 
-		To access these attributes use :py:meth:`Region.getLastMatch()` or
-		:py:meth:`Region.getLastMatches()` respectively.
-
-		:ref:`How to use the iterator object returned by getLastMatches() <IteratingMatches>`.
+		:ref:`How to go through the Matches returned by getLastMatches() <IteratingMatches>`.
 		
 		**TIPP:** The ``LastMatch`` can be used to avoid a second search for 
 		the same Visual in sequences like::
@@ -289,8 +291,15 @@ Use :py:meth:`Region.isValid` to check, wether a Region is contained by a screen
 		
 **Attributes influencing the behavior of features of a Region**
 
+.. py:class:: Region
+
 	**NOTE** For settings influencing the handling of Visual-not-found situations in 
 	this Region look here: :ref:`FindFailed Exceptions <ExceptionFindFailed>`.
+	
+	.. py:method:: isRegionValid()
+		
+		:return: False, if the Region is not contained by a Screen and hence cannot 
+			be used with faetures, that need a Screen (find, capture, ...), otherwise True. 
 
 	.. py:method:: setAutoWaitTimeout(seconds)
 
@@ -318,7 +327,7 @@ Use :py:meth:`Region.isValid` to check, wether a Region is contained by a screen
 		from :py:attr:`Settings.WaitScanRate`, which has a default of 3.
 		
 		:param rate: a value > 0. values < 1 will lead to scans every x seconds
-		and hence longer pauses between the searches (reduces cpu load).
+			and hence longer pauses between the searches (reduces cpu load).
 		
 		**TIPP** Since on average the shortes search times are some milli seconds, 
 		``rate`` > 100 will lead to a continous search under all circumstances.
@@ -350,10 +359,9 @@ these subregions and create new Regions.
 
 	.. py:method:: get(somePart)
     	
-    	Select a part of the given Region based on `somePart`
+    	Select a part of the given Region based on the given part specifier.
     	
-    	:param somePart: a constant as Region.CONSTANT or 
-    		an integer between 200 and 999 (see below)
+    	:param somePart: a constant as Region.CONSTANT or an integer between 200 and 999 (see below)
     	
     	:return: a new Region created from the selected part
     	
@@ -423,14 +431,17 @@ these subregions and create new Regions.
 	    dimension into even parts. The corresponding Regions will only be created,
 	    when the respective access methods are used later.
 	    
+	    :param numberRows: the number of rows the Region should be devided in 
+	    :param numberColumns: the number of columns the Region should be devided in 	    
 	    :return: the first element as new Region if successful or the region itself otherwise
 	
-
 	.. py:method:: setRaster(numberRows, numberColumns)
 	
 		Define a raster, by deviding the Region's height in ``numberRows`` even sized rows and
 		it's width into ``numberColumns`` even sized columns.
-				
+
+	    :param numberRows: the number of rows the Region should be devided in 
+	    :param numberColumns: the number of columns the Region should be devided in 	    				
 		:returns: the top left cell (``getCell(0, 0)``) if success, the Region itself if not
 	
 	.. py:method:: getRow(whichRow)
@@ -438,9 +449,11 @@ these subregions and create new Regions.
 	 
 		Get the Region of the ``whichRow`` row or ``whichColumn`` column 
 		in the Region's valid raster counting from 0. 
-		Negative value will count backwards from the end.
+		Negative values will count backwards from the end.
 		Invalid indexes will return the last or first element respectively.
 	
+		:param whichRow: the number of the row to create a new Region from
+		:param whichColumn: the number of the column to create a new Region from
 		:return: a new Region representing the selected element or the Region if no raster
 
 	.. py:method:: getCell(whichRow, whichColumn)
@@ -452,7 +465,9 @@ these subregions and create new Regions.
 		If the current raster only has rows or columns, the element of the 
 		corresponding index will be returned.
 		
-		:return: a new Region representing the selected element or the Region if no raster
+		:param whichRow: the number of the row 
+		:param whichColumn: the number of the column 
+		:return: a new Region representing the selected element or the Region itself if no raster
 
 **getting information about the current raster**
 
@@ -465,7 +480,6 @@ these subregions and create new Regions.
 		:return: True if it has a valid raster 
 			(either getCols or getRows or both would return > 0) 
 		
- 
 	.. py:method:: getRows()
 					getCols()
 					
@@ -511,8 +525,8 @@ Use :py:meth:`Region.isValid` to check, wether a Region is contained by a screen
 		Width and height are the same. 
 		
 		:param location: a :py:class:`Location` object providing the relocating x and y values
-		:param x: 
-		:param y:
+		:param x: a number being the offset horizontally (< 0 to the left, > 0 to the right)
+		:param y: a number being the offset vertically (< 0 to the top, > 0 to the bottom)
 		:return: the new :py:class:`Region` object 
 		
 		::
@@ -523,13 +537,9 @@ Use :py:meth:`Region.isValid` to check, wether a Region is contained by a screen
 	.. py:method:: inside()
 	
 		Returns the same object. Retained for upward compatibility.
-		
-		:return: the :py:class:`Region` object
-
-		This method can be used to make scripts more readable.
 		``region.inside().find()`` is totally equivalent to ``region.find()``.
-
-	.. image:: spatial.jpg
+		
+		:return: Region itself
 
 	.. py:method:: nearby([range])
 
@@ -539,7 +549,7 @@ Use :py:meth:`Region.isValid` to check, wether a Region is contained by a screen
 		center of the new region remains the same.
 
 		:param range: a positive integer indicating the number of pixels (default = 50).
-		:return: a :py:class:`Region` object
+		:return: a new :py:class:`Region` object
 
 	.. py:method:: above([range])
 
@@ -551,7 +561,7 @@ Use :py:meth:`Region.isValid` to check, wether a Region is contained by a screen
 		current region.
 
 		:param range: a positive integer defining the new height
-		:return: a :py:class:`Region` object
+		:return: a new :py:class:`Region` object
 		
 	.. py:method:: below([range])
 
@@ -563,7 +573,7 @@ Use :py:meth:`Region.isValid` to check, wether a Region is contained by a screen
 		current region.
 
 		:param range: a positive integer defining the new height
-		:return: a :py:class:`Region` object
+		:return: a new :py:class:`Region` object
 		
 	.. py:method:: left([range])
 
@@ -575,7 +585,7 @@ Use :py:meth:`Region.isValid` to check, wether a Region is contained by a screen
 		current region.
 
 		:param range: a positive integer defining the new width
-		:return: a :py:class:`Region` object
+		:return: a new :py:class:`Region` object
 		
 	.. py:method:: right([range])
 
@@ -587,7 +597,7 @@ Use :py:meth:`Region.isValid` to check, wether a Region is contained by a screen
 		current region.
 
 		:param range: a positive integer defining the new width
-		:return: a :py:class:`Region` object
+		:return: a new :py:class:`Region` object
 		
 .. _FindinginsideaRegionandWaitingforaVisualEvent:
 
