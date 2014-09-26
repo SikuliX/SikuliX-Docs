@@ -71,9 +71,12 @@ The content is :ref:`controlled by the IDE's Preferences panel <IDE>`.
 It is safe to delete this branch/file, to get a default setup and might help in
 some situations, wher the startup of the IDE does not work or crashes.
 
-You might use this persistent storage, to **store and reload your own information** 
-accross Sikuli sessions or only across different runs of same or different scripts/programs.
-Internally the item names get a unique prefix, to avoid name mangling (currently nonSikuli_).
+Store some of your information persistently and reload it later (same machine)
+------------------------------------------------------------------------------
+
+You might use SikuliX's persistent storage, to **store and reload your own information** 
+accross SikuliX sessions or only across different runs of same or different scripts/programs.
+Internally the item names get a unique prefix, to avoid name mangling (currently ``nonSikuli_``).
 
 .. py:method:: Sikulix.prefStore(key, value)
 
@@ -104,7 +107,8 @@ Internally the item names get a unique prefix, to avoid name mangling (currently
 	:param key: an item name as string
 	:return: the item's content if the item exists, otherwise an empty string
 
-**Information about the running environment**
+Get Information about the runtime environment
+---------------------------------------------
 
 The ``class Env`` is deprecated and should not be used anymore. The contained features 
 are moved to other places and redirected from inside ``class Env`` to be downward compatibel.
