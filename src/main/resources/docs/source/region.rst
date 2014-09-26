@@ -487,8 +487,7 @@ these subregions and create new Regions.
 	.. py:method:: getRowH()
 		getColW()
 					
-		:return: the current raster setting (0 means not set) 
-		as height of one row or width of one column.
+		:return: the current raster setting (0 means not set) as height of one row or width of one column.
 		
 .. _ExtendingaRegion:
 
