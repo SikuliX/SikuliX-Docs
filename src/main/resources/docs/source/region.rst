@@ -1,5 +1,7 @@
-Region
-======
+.. _Region:
+
+Region (rectangular pixel area on a screen)
+===========================================
 
 .. py:class:: Region
 
@@ -110,8 +112,8 @@ Use :py:meth:`Region.isValid` to check, wether a Region is contained by a screen
 .. py:class:: Region
 
 	.. py:method:: Region(x,y,w,h)
-					Region(region)
-					Region(Rectangle)
+		Region(region)
+		Region(Rectangle)
 
 		Create a region object
 
@@ -154,9 +156,9 @@ Use :py:meth:`Region.isValid` to check, wether a Region is contained by a screen
 .. py:class:: Region
 
 	.. py:method:: setX(number)
-		 			setY(number)
-		 			setW(number)
-		 			setH(number)  
+		setY(number)
+		setW(number)
+		setH(number)  
 
 		Set the respective attribute of the region to the new value. This
 		effectively moves the region around and/or changes its dimension.
@@ -177,9 +179,9 @@ Use :py:meth:`Region.isValid` to check, wether a Region is contained by a screen
 			reg.setX(anotherLocation.x); reg.setY(anotherLocation.y)
 
 	.. py:method:: setROI(x,y,w,h)
-		 setROI(rectangle)
-		 setRect(x,y,w,h)
-		 setRect(rectangle)
+		setROI(rectangle)
+		setRect(x,y,w,h)
+		setRect(rectangle)
 
 		All these methods are doing exactly the same: 
 			setting position and dimension to new values. 

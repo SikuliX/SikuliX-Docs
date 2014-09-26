@@ -1,4 +1,6 @@
-Sikuli Best Practice
+.. _BestPractices:
+
+Best Practices, tipps an hints
 ==============================
 
 .. toctree::
