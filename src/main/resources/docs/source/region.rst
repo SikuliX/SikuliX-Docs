@@ -1415,6 +1415,15 @@ Low-level Mouse and Keyboard Actions
 		**Sideeffects**: when using *PS*, the match can be accessed using
 		:py:meth:`Region.getLastMatch` afterwards
 
+	.. py:method:: mouseMove(xoff, yoff)
+
+		Move the mouse pointer from it's current position to the position 
+		given by the offset values (<0 left, up  >0 right, down)
+		
+		:param xoff: horizontal offset
+		:param yoff: vertical offset
+		:return: 1 if possible, 0 otherwise
+
 	.. py:method:: wheel(PSRML, WHEEL_DOWN | WHEEL_UP, steps)
 
 		Move the mouse pointer to a location indicated by PSRML and turn the mouse
