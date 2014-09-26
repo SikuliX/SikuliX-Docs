@@ -210,9 +210,9 @@ Use :py:meth:`Region.isValid` to check, wether a Region is contained by a screen
 .. py:class:: Region
 
 	.. py:method:: getX()
-		 			getY()
-		 			getW()
-		 			getH()  
+		getY()
+		getW()
+		getH()  
 
 		Get the respective attribute of the region.
 
@@ -225,9 +225,9 @@ Use :py:meth:`Region.isValid` to check, wether a Region is contained by a screen
 		:return: an object of :py:class:`Location`
 		
 	.. py:method:: getTopLeft()
-					getTopRight()
-					getBottomLeft()
-					getBottomRight()
+		getTopRight()
+		getBottomLeft()
+		getBottomRight()
 		
 		Get the location of the region's respective corner
 		
@@ -242,7 +242,7 @@ Use :py:meth:`Region.isValid` to check, wether a Region is contained by a screen
 		See	:ref:`Multi Monitor Environments <MultiMonitorEnvironments>`.
 
 	.. py:method:: getLastMatch()
-					getLastMatches()
+		getLastMatches()
 
 		To access the Matches returned by the last find op in this Region.
 
@@ -280,8 +280,8 @@ Use :py:meth:`Region.isValid` to check, wether a Region is contained by a screen
 			# or
 			if exists(someOtherVisual):
 				click()
-				
-	    See :py:meth:`Region.click` for the usage of these convenience shortcuts.
+		
+		See :py:meth:`Region.click` for the usage of these convenience shortcuts.
 		A ``someRegion.click()`` will either click the center of the given Region 
 		or the ``lastMatch``, if any is available.		
 
@@ -367,40 +367,40 @@ these subregions and create new Regions.
     	
     	**Usage based on the javadocs**::
     	
-			Constants for the top parts of a region (Usage: Region.CONSTANT)
-			shown in brackets: possible shortcuts for the part constant
-			NORTH (NH, TH) - upper half 
-			NORTH_WEST (NW, TL) - left third in upper third 
-			NORTH_MID (NM, TM) - middle third in upper third 
-			NORTH_EAST (NE, TR) - right third in upper third 
-			... similar for the other directions: 
-			right side: EAST (Ex, Rx)
-			bottom part: SOUTH (Sx, Bx) 
-			left side: WEST (Wx, Lx)
-			
-			specials for quartered:
-			TT top left quarter
-			RR top right quarter
-			BB bottom right quarter
-			LL bottom left quarter
-			
-			specials for the center parts:
-			MID_VERTICAL (MV, CV) half of width vertically centered 
-			MID_HORIZONTAL (MH, CH) half of height horizontally centered 
-			MID_BIG (M2, C2) half of width / half of height centered 
-			MID_THIRD (MM, CC) third of width / third of height centered 
-			
-			Based on the scheme behind these constants there is another possible usage:
-			specify part as e 3 digit integer where the digits xyz have the following meaning
-			1st x: use a raster of x rows and x columns
-			2nd y: the row number of the wanted cell
-			3rd z: the column number of the wanted cell
-			y and z are counting from 0
-			valid numbers: 200 up to 999 (< 200 are invalid and return the region itself) 
-			example: get(522) will use a raster of 5 rows and 5 columns and return the cell in the middle
-			special cases:
-			if either y or z are == or > x: returns the respective row or column
-			example: get(525) will use a raster of 5 rows and 5 columns and return the row in the middle
+		Constants for the top parts of a region (Usage: Region.CONSTANT)
+		shown in brackets: possible shortcuts for the part constant
+		NORTH (NH, TH) - upper half 
+		NORTH_WEST (NW, TL) - left third in upper third 
+		NORTH_MID (NM, TM) - middle third in upper third 
+		NORTH_EAST (NE, TR) - right third in upper third 
+		... similar for the other directions: 
+		right side: EAST (Ex, Rx)
+		bottom part: SOUTH (Sx, Bx) 
+		left side: WEST (Wx, Lx)
+		
+		specials for quartered:
+		TT top left quarter
+		RR top right quarter
+		BB bottom right quarter
+		LL bottom left quarter
+		
+		specials for the center parts:
+		MID_VERTICAL (MV, CV) half of width vertically centered 
+		MID_HORIZONTAL (MH, CH) half of height horizontally centered 
+		MID_BIG (M2, C2) half of width / half of height centered 
+		MID_THIRD (MM, CC) third of width / third of height centered 
+		
+		Based on the scheme behind these constants there is another possible usage:
+		specify part as e 3 digit integer where the digits xyz have the following meaning
+		1st x: use a raster of x rows and x columns
+		2nd y: the row number of the wanted cell
+		3rd z: the column number of the wanted cell
+		y and z are counting from 0
+		valid numbers: 200 up to 999 (< 200 are invalid and return the region itself) 
+		example: get(522) will use a raster of 5 rows and 5 columns and return the cell in the middle
+		special cases:
+		if either y or z are == or > x: returns the respective row or column
+		example: get(525) will use a raster of 5 rows and 5 columns and return the row in the middle
 
 	Internally this is based on :py:meth:`Region.setRaster` and :py:meth:`Region.getCell`.
 	
@@ -412,40 +412,40 @@ these subregions and create new Regions.
 	
 		:param numberRows: in how many evenly sized rows should the region be devided
 		:param whichRow: the row to select counting from 0, negative counts backwards from the end
-    	:return: a new Region created from the selected row
+	    	:return: a new Region created from the selected row
 
-    .. py:method:: getCol(whichColumn, numberColumns)
+	.. py:method:: getCol(whichColumn, numberColumns)
 	
 		:param numberColumns: in how many evenly sized columns should the region be devided
 		:param whichColumn: the column to select counting from 0, negative counts backwards from the end
-    	:return: a new Region created from the selected column
+    		:return: a new Region created from the selected column
 
 **The basic functions for any raster setup**
 
 .. py:class:: Region
 
 	.. py:method:: setRows(numberRows)
-					setCols(numberColumns)
+		setCols(numberColumns)
 		
-	    Define a rows or columns only raster, by dividing the Region's respective 
-	    dimension into even parts. The corresponding Regions will only be created,
-	    when the respective access methods are used later.
-	    
-	    :param numberRows: the number of rows the Region should be devided in 
-	    :param numberColumns: the number of columns the Region should be devided in 	    
-	    :return: the first element as new Region if successful or the region itself otherwise
+		Define a rows or columns only raster, by dividing the Region's respective 
+		dimension into even parts. The corresponding Regions will only be created,
+		when the respective access methods are used later.
+		
+		:param numberRows: the number of rows the Region should be devided in 
+		:param numberColumns: the number of columns the Region should be devided in 	    
+		:return: the first element as new Region if successful or the region itself otherwise
 	
 	.. py:method:: setRaster(numberRows, numberColumns)
 	
 		Define a raster, by deviding the Region's height in ``numberRows`` even sized rows and
 		it's width into ``numberColumns`` even sized columns.
 
-	    :param numberRows: the number of rows the Region should be devided in 
-	    :param numberColumns: the number of columns the Region should be devided in 	    				
-		:returns: the top left cell (``getCell(0, 0)``) if success, the Region itself if not
+		:param numberRows: the number of rows the Region should be devided in 
+		:param numberColumns: the number of columns the Region should be devided in 	    				
+		:return: the top left cell (``getCell(0, 0)``) if success, the Region itself if not
 	
 	.. py:method:: getRow(whichRow)
-					getCol(whichColumn)
+		getCol(whichColumn)
 	 
 		Get the Region of the ``whichRow`` row or ``whichColumn`` column 
 		in the Region's valid raster counting from 0. 
@@ -477,20 +477,18 @@ these subregions and create new Regions.
 	
 		Can be used to check, wether the Region currently has a valid raster
 		
-		:return: True if it has a valid raster 
-			(either getCols or getRows or both would return > 0) 
+		:return: True if it has a valid raster (either getCols or getRows or both would return > 0) 
 		
 	.. py:method:: getRows()
-					getCols()
+		getCols()
 					
-	    :return: the current raster setting (0 means not set) as number of rows/columns
+		:return: the current raster setting (0 means not set) as number of rows/columns
 	
 	.. py:method:: getRowH()
-					getColW()
+		getColW()
 					
-	    :return: the current raster setting (0 means not set) 
-	    as height of one row or width of one column.
-	
+		:return: the current raster setting (0 means not set) 
+		as height of one row or width of one column.
 		
 .. _ExtendingaRegion:
 
