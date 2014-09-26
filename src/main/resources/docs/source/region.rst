@@ -540,64 +540,44 @@ Use :py:meth:`Region.isValid` to check, wether a Region is contained by a screen
 		
 		:return: Region itself
 
-	.. py:method:: nearby([range])
+**NOTE:** Besides the individual methods like ``nearby, left, right, above, below`` there is one 
+new method ``grow`` with some more options and different signatures. Where documented together,
+they are fully equivalent. The reason behind is some better compatibility to the usage of Java Rectangle.
+		
+.. py:class:: Region
 
-		Returns a new :py:class:`Region` that includes the nearby neighbourhood
-		of the the current region. The new region is defined by extending the
-		current region's dimensions in all directions by *range* number of pixels. The
-		center of the new region remains the same.
+	.. py:method:: grow([range]) 
+		nearby([range])
 
-		:param range: a positive integer indicating the number of pixels (default = 50).
+		The new region is defined by extending (>0) or shrinking (<0) the
+		current region's dimensions in all directions by ``range`` number of pixels. 
+		The center of the new region remains the same.
+		
+		The default is taken from :py:attr:`Settings.DefaultPadding` (standard value 50)
+
+		:param range: an integer indicating the number of pixels or the current default if omitted.
 		:return: a new :py:class:`Region` object
-
+		
 	.. py:method:: above([range])
+		below([range])
+		left([range])
+		right([range])
 
-		Returns a new :py:class:`Region` that is defined above the current region's
-		top border with a height of *range* number of pixels. 
-		So it does not include the current	region. 
-		If *range* is omitted, it reaches to the top 
-		of the screen. The new region has the same width and x-position as the
-		current region.
+		Returns a new :py:class:`Region` that is defined with respect to the given region:
+			
+			* above: new bottom edge next pixel row above given region's top edge
+			* below: new top edge next pixel row below given region's bottom edge
+			* left: new right edge next pixel clomn left of given region's left edge
+			* right: new left edge next pixel column right of given region's right edge
 
-		:param range: a positive integer defining the new height
+		It does not include the current region. 
+		If *range* is omitted, it reaches to the corresponding edge of the screen. 
+
+		:param range: a positive integer defining the new demension aspect (width or height)
 		:return: a new :py:class:`Region` object
 		
-	.. py:method:: below([range])
-
-		Returns a new :py:class:`Region` that is defined below the current region's
-		bottom border with a height of *range* number of pixels. 
-		So it does not include the current	region. 
-		If *range* is omitted, it reaches to the bottom
-		of the screen. The new region has the same width and x-position as the
-		current region.
-
-		:param range: a positive integer defining the new height
-		:return: a new :py:class:`Region` object
-		
-	.. py:method:: left([range])
-
-		Returns a new :py:class:`Region` that is defined left of the current region's
-		left border with a width of *range* number of pixels. 
-		So it does not include the current	region. 
-		If *range* is omitted, it reaches to the left border
-		of the screen. The new region has the same height and y-position as the
-		current region.
-
-		:param range: a positive integer defining the new width
-		:return: a new :py:class:`Region` object
-		
-	.. py:method:: right([range])
-
-		Returns a new :py:class:`Region` that is defined right of the current region's
-		right border with a width of *range* number of pixels. 
-		So it does not include the current	region. 
-		If *range* is omitted, it reaches to the right border
-		of the screen. The new region has the same height and y-position as the
-		current region.
-
-		:param range: a positive integer defining the new width
-		:return: a new :py:class:`Region` object
-		
+	.. py:method:: grow(width, height)
+	
 .. _FindinginsideaRegionandWaitingforaVisualEvent:
 
 Finding inside a Region and Waiting for a Visual Event
