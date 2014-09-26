@@ -100,6 +100,7 @@ Basics about creating and running scripts (SikuliX IDE)
    :maxdepth: 2
    
    idenews
+   ide
 
 SikuliX Scripting API
 ---------------------

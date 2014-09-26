@@ -3,16 +3,26 @@
 General Settings and Access to Environment Information
 ======================================================
 
-**Sikuli Level**
+**Java Level**
 
-Sikuli internally uses the class :py:class:`Settings` to store globally used
-settings. Publicly available attributes may be accessed by using
-``Settings.[name-of-an-attribute]`` to get it's value and ``Settings.attribute = value``
-to set it. It is highly recommended to only modify attributes, that are described in
-this document or when you really know, what you are doing.
+Java maintains a global storage for settings (key/value pairs), that can be accessed
+by the program/script. Sikuli uses it for some of it's settings too. Normally it is
+not necessary to access these settings at the Java level from a Sikuli script, since
+Sikuli provides getter and setter methods for accessing values, that make sense for
+scripting. One example is the list of paths, that Sikuli maintains to specify
+additional places to search for images (please refer to :ref:`Importing
+other Sikuli Scripts <ImportingSikuliScripts>` for more information).
 
-Actually all attributes of some value for scripting are described in the 
-topic :ref:`Controlling Sikuli Scripts and their Behavior <ControllingSikuliScriptsandtheirBehavior>`.
+If needed, you may access the java settings storage as shown in the following
+example::
+
+	import java.lang.System 
+	
+	# get a value
+	val = System.getProperty("key-of-property")
+	
+	# set a property's value
+	System.setProperty("key-of-property", value)
 
 **Jython/Python Level**
 
@@ -35,28 +45,66 @@ example, to avoid appending the same entry again::
 	if not myPath in sys.path:
 		sys.path.append(myPath)
 
-**Java Level**
+**Sikuli Level**
 
-Java maintains a global storage for settings (key/value pairs), that can be accessed
-by the program/script. Sikuli uses it for some of it's settings too. Normally it is
-not necessary to access these settings at the Java level from a Sikuli script, since
-Sikuli provides getter and setter methods for accessing values, that make sense for
-scripting. One example is the list of paths, that Sikuli maintains to specify
-additional places to search for images (please refer to :ref:`Importing
-other Sikuli Scripts <ImportingSikuliScripts>` for more information).
+Sikuli internally uses the class :py:class:`Settings` to store globally used
+settings. Publicly available attributes may be accessed by using
+``Settings.[name-of-an-attribute]`` to get it's value and ``Settings.attribute = value``
+to set it. It is highly recommended to only modify attributes, that are described in
+this document or when you really know, what you are doing.
 
-If needed, you may access the java settings storage as shown in the following
-example::
+Actually all attributes of some value for scripting are described in the 
+topic :ref:`Controlling Sikuli Scripts and their Behavior <ControllingSikuliScriptsandtheirBehavior>`.
 
-	import java.lang.System 
-	
-	# get a value
-	val = System.getProperty("key-of-property")
-	
-	# set a property's value
-	System.setProperty("key-of-property", value)
+To store some **settings across SikuliX IDE sessions**, SikuliX utilizes the Java feature 
+Preferences. 
 
-**Other Environment Information**
+As persistent storage Java uses:
+
+* on Windows the registry branch HKCU\Software\JavaSoft\Prefs\org\sikuli\...
+
+* on Mac a plist file in ~/Library/Preferences/org.sikuli.....plist
+
+* on Linux usually at ~/.java/.userPrefs/org/sikuli/prefs.xml
+
+The content is :ref:`controlled by the IDE's Preferences panel <IDE>`.
+It is safe to delete this branch/file, to get a default setup and might help in
+some situations, wher the startup of the IDE does not work or crashes.
+
+You might use this persistent storage, to **store and reload your own information** 
+accross Sikuli sessions or only across different runs of same or different scripts/programs.
+Internally the item names get a unique prefix, to avoid name mangling (currently nonSikuli_).
+
+.. py:method:: Sikulix.prefStore(key, value)
+
+	Store a key-value-pair in Javas persistent preferences store
+
+	:param key: an item name as string
+	:param value: a string value to be stored as the item's content
+
+.. py:method:: Sikulix.prefLoad(key[, value])
+
+	Retrieve the value of a previously stored key-value-pair using key as the item's name
+
+	:param key: an item name as string
+	:param value: an optional string value to be returned, if the item was not yet stored like some default
+	:return: the item's content if the item exists, otherwise an empty string or the given default
+
+.. py:method:: Sikulix.prefRemove(key)
+
+	Permanently remove the key-value-pair using key as the item's name
+
+	:param key: an item name as string
+	:return: the item's content if the item exists, otherwise an empty string
+
+.. py:method:: Sikulix.prefRemove()
+
+	Permanently remove all key-value-pairs stored before using :py:meth:`Sikulix.prefStore`
+
+	:param key: an item name as string
+	:return: the item's content if the item exists, otherwise an empty string
+
+**Information about the running environment**
 
 The ``class Env`` is deprecated and should not be used anymore. The contained features 
 are moved to other places and redirected from inside ``class Env`` to be downward compatibel.
