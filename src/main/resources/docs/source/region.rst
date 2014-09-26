@@ -342,8 +342,8 @@ Use :py:meth:`Region.isValid` to check, wether a Region is contained by a screen
 		
 .. _RegionGetParts
 
-Getting evenly sized parts of a Region (as rows, columns and cells based on a raster)
--------------------------------------------------------------------------------------
+Get evenly sized parts of a Region (as rows, columns and cells based on a raster)
+---------------------------------------------------------------------------------
 
 In many cases, one has parts of a GUI, that are to some extent evenly structured, 
 having some virtual raster (rows, columns and/or cells), that one wants to use 
