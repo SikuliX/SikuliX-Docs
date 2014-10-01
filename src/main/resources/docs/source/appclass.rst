@@ -88,7 +88,7 @@ Open, close and focus an application
 			for the specified program or batch file after the name or full path (see: :py:func:`openApp`)
 
 			
-		:return: an App object, that can be used with the instance methods.
+		:return: an App object, that can be used with the instance methods, None in case of failing
 		
 		This method is functionally equivalent to :py:func:`openApp`. It opens the
 		specified application and brings its window the front. Whether this
@@ -111,7 +111,7 @@ Open, close and focus an application
 		:param application: The name of an application (case-insensitive) or (part
 			of) a window title (Windows/Linux).
 
-		:return: an App object, that can be used with the instance methods.
+		:return: an App object, that can be used with the instance methods, , None in case of failing
 		
 	.. py:method:: focus()
 	
