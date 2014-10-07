@@ -1020,7 +1020,7 @@ detail:
 	successful, the center of the resulting match object is the click point. 
 
 *	**M**: *match:* a :py:class:`match <Match>` object from a previous find operation. If the match has a target
-	specified it is used as the click point, otherwise the center of the matches
+	specified it is used as the click point, otherwise the center of the match's
 	rectangle. 
 
 *	**R**: *region:* a :py:class:`region <Region>` object whose center is used as click point. 
