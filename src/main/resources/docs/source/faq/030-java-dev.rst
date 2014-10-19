@@ -111,3 +111,116 @@ Other valuable information
 --------------------------
 Be aware, that some method signatures in the Java API differ from the scripting level.
  * `Javadoc of SikuliX (temporary location) <http://nightly.sikuli.de/docs/index.html>`_.
+
+How to use images stored in jar files
+-------------------------------------
+
+For the basic ImagePath features see: :ref:`SIKULI_IMAGE_PATH <ImageSearchPath>`
+
+The prereqs:
+ * the jar file containing the images must be on classpath at runtime
+ * it must contain at least one valid java class file
+ 
+This is always fulfilled, if the running jar itself contains the images to be used.
+ 
+An example:
+
+lets assume:
+ * the class file is mypackage.ImageContainer
+ * the images are stored in the folder images, being at the jar's root folder level
+ 
+the jar file should look like this
+  | mypackage (optional)
+  |     ImageContainer.class
+  | images
+  |     image1.png
+  |     image2.png
+  
+the standard Maven project setup would be
+  | pom.xml
+  | src
+  |     main
+  |         java
+  |             mypackage
+  |                 ImageContainer.class
+  |         resources
+  |             images
+  |                 image1.png
+  |                 image2.png
+  
+In other non-Maven project setups in NetBeans, Eclipse and other IDE's this might look different. But what counts is the final position of the images folder in the resulting jar file relative to it's root.
+
+This would try to load image files from the jar file of the given class name, supposing the jar packaging during project build produces a jar like this:
+
+  | TestSikuli.class
+  | images
+  |     spotlight.png
+  |     spotlight-input.png
+
+.. code-block:: java
+
+	import org.sikuli.script.*;
+	
+	public class TestSikuli {
+	
+		public static void main(String[] args) {
+			Screen s = new Screen();
+			ImagePath.add("TestSikuli/images")
+			try{
+				s.click("spotlight.png");
+				s.wait("spotlight-input.png");
+				s.click();
+				s.write("hello world#ENTER.");
+			}
+			catch(FindFailed e){
+				e.printStackTrace();                    
+			}	
+		}
+
+	}
+
+**As a goody you might use the SikuliX IDE to manage your image folders inside your java projects.**
+
+Just capture the images and save the "script" appropriately (e.g. as images.sikuli) in your project structure in a suitable place and add the path to your java program having the jar file on the class path at runtime.
+
+Taking the above ImageContainer example ina Maven context:
+
+project structure:
+  | pom.xml
+  | src
+  |     main
+  |         java
+  |             mypackage
+  |                 ImageContainer.class
+  |         resources
+  |             images.sikuli
+  |                 images.py
+  |                 spotlight.png
+  |                 spotlight-input.png
+  
+The ImageContainer class need not have any features, but must be valid (compileable).
+
+Have the resulting jar on classpath at runtime and access the images just using their base names:
+
+.. code-block:: java
+
+	import org.sikuli.script.*;
+	
+	public class TestSikuli {
+	
+		public static void main(String[] args) {
+			Screen s = new Screen();
+			ImagePath.add("ImageContainer/images.sikuli")
+			try{
+				s.click("spotlight.png");
+				s.wait("spotlight-input.png");
+				s.click();
+				s.write("hello world#ENTER.");
+			}
+			catch(FindFailed e){
+				e.printStackTrace();                    
+			}	
+		}
+
+	}
+
