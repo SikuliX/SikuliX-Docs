@@ -276,17 +276,20 @@ Image Search Path - where SikuliX looks for image files
 SikuliX maintains a list of locations to search for images when they are not found in the current .sikuli folder (a.k.a. BundlePath). This list is maintained internally
 but can be inspected and/or modified using the following functions.
 
-**Version 1.2** will support image paths pointing to locations in the net as HTTP based URL's
-
-*NOTE:* 
+*GENERAL NOTEs:* 
 
 * as long as an image file has the ending .png, this might be omitted.
 * you might use subfolders as well, to form a relative path to an image file
-* an image path might point to a location inside of a jar file
+* an image path might point to a location inside a jar file or a location on the Java classpath
+* an image path might point to a folder in the net, that is accessible via HTTP
+* SikuliX internally manages a cache for the imagefile content (standard 64 MB), where images are held in memory, thus avoiding a reload on subsequent references to the same image file.
 
 .. index:: Bundle Path
 
 **The bundle path** can be accessed and modified so:
+
+**NOTE:** the bundle path can only be on the (local) file system, not in a jar, nor in the net (access via HTTP). 
+If you need places in a jar or in the HTTP net, use the add function.
 
 .. py:function:: setBundlePath(path-to-a-folder)
 
@@ -356,8 +359,15 @@ Use the following functions to manipulate this list.
 	Add a new folder path to the end of the current list (avoids double entries)
 	  **Java API:** ``ImagePath.add(path)``
 	 
+.. py:function:: addHTTPImagePath(a-new-path)
+
+	Add a new folder path to the end of the current list (avoids double entries)
+	  **Java API:** ``ImagePath.addHTTP(a-new-path)``
+	  
+	*a-new-path* is a net url like *sikulix.com* optionally with a folder structure attached like so: *sikulix.com/images*
+	  The folder must be accessible via HTTP and must allow HTTP-HEAD requests on the contained image files (this is checked at time of trying to add the path entry.
 	 
-**NOTE on Java usage:**
+**NOTE on Java usage: images in a jar**
 
 It is possible to access images, that are stored inside of jar files. So you might develop a Java app, that comes bundled with the needed images in one jar file. 
 
@@ -368,7 +378,7 @@ To support the development cycle in IDE's, you might specify an alternate path, 
   Following the conventions of Maven projects you should store your images in a subfolder at ``src/main/resources`` for example ``src/main/resources/images``, which then at jar production will be copied to the root level of the jar. Not following this suggestion you have to work according to the case *other projects*.
   
   ``ImagePath.add("someClass/images")``
-    where someClass is the name of a class contained in a jar on the class path containing the images folder.
+    where someClass is the name of a class contained in a jar or folder on the class path containing the images folder.
     
 *Usage in other Projects:*
    
@@ -377,8 +387,7 @@ To support the development cycle in IDE's, you might specify an alternate path, 
       
       where *alternatePath* is a valid path specification, where the images are located, when running from inside an IDE.
 
-
-*Be aware:* that you might use the Sikuli IDE, to maintain a script, that only contains the image filenames and then is used as image path in your Java app like ``ImagePath.add("myClass/myImages.sikuli")``, which e.g. in the Maven context will assume as image path ``src/main/ressources/myImages.sikuli``.
+**Be aware:** that you might use the Sikuli IDE, to maintain a script, that only contains the image filenames and then is used as image path in your Java app like ``ImagePath.add("myClass/myImages.sikuli")``, which e.g. in the Maven context will assume as image path ``src/main/ressources/myImages.sikuli``.
 
 *Note for Jython scripting:* use :py:func:`load` without the import to use the feature *images in jars*::
 
