@@ -72,7 +72,12 @@ Command Line Options (intention: run a script without opening the IDE)
 .. option::  -r,--run <sikuli-folder/file>         
 
    run .sikuli or .skl file
-
+   
+   *<sikuli-folder/file>* can be 
+    * a relative or absolute path with or without dotted parts (e.g. ../some-script) 
+    * a pointer to a location in the HTTP net like so: *<base-url>:script-name* or *<base-url>:folder/script-name* 
+      where script-name can be stored and/or accessed without ending .sikuli. The contained script file is downloaded and run,
+      while the image files are downloaded when used in the script at runtime.
 
 Command Line Options (intention: provide user parameters for running scripts)
 -----------------------------------------------------------------------------
