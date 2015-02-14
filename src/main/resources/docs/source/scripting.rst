@@ -358,14 +358,20 @@ Use the following functions to manipulate this list.
 
 	Add a new folder path to the end of the current list (avoids double entries)
 	  **Java API:** ``ImagePath.add(path)``
+	  
+	As a convenience you might use this function also to add a path to a HTTP net folder like so 
+	*sikulix.com:* or *sikulix.com:somefolder/images* (see *addHTTPImagePath*)
 	 
 .. py:function:: addHTTPImagePath(a-new-path)
 
 	Add a new folder path to the end of the current list (avoids double entries)
 	  **Java API:** ``ImagePath.addHTTP(a-new-path)``
 	  
-	*a-new-path* is a net url like *sikulix.com* optionally with a folder structure attached like so: *sikulix.com/images*
-	  The folder must be accessible via HTTP and must allow HTTP-HEAD requests on the contained image files (this is checked at time of trying to add the path entry.
+	*a-new-path* is a net url like *sikulix.com* 
+	optionally with a folder structure attached like so: *sikulix.com/images* 
+	(a leading *http://* or *https://* is optional, so one might copy and paste links)
+	  The folder must be accessible via HTTP and must allow HTTP-HEAD requests on the contained image files 
+	  (this is checked at time of trying to add the path entry).
 	 
 **NOTE on Java usage: images in a jar**
 
