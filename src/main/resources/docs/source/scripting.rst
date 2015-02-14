@@ -538,4 +538,44 @@ the feature :ref:`SIKULI_IMAGE_PATH <ImageSearchPath>` to make sure that images 
 	
   **Version 1.2.0:** **Extensions** will be supported again 
   acccording to :ref:`Sikuli Extensions <sikuliextensions>`
+
+.. index:: run scripts
+
+.. _RunningScripts:
+
+.. versionadded:: 1.1.0
+
+Running scripts from within other scripts and run scripts one after the other
+-----------------------------------------------------------------------------
+
+You might call scripts from a script that is currently running, 
+which saves the startup time for the called script 
+and keeps available the original parameters given and the current image path.
+
+.. py:function:: runScript(script_path, *parameter)
 	
+	Runs the script found at the given script-path handing over the given parameters in ``sys.argv[1+]``.
+	The called script has it's own bundle path, but the current image path. On exit the bundle path of the 
+	calling script is restored.
+	
+	:param: script_path: a path to a script folder (rules see below)
+	:param: parameter: one or more parameters seperated by comma
+	:return: the return code that the called script has given with exit(n)
+	
+**Rules for the given script_path**
+
+ * absolut path to a folder in the file system
+ * relative path to a folder taken as relative to the working folder
+ * the path spec can contain leading or intermediate ../
+ * a path preceded by ./ means the same folder, that the calling script is located
+ * a pointer to a folder in the HTTP net (base.com:folder/script.sikuli). The leading http:// might be omitted
+ * in any case .sikuli can be omitted
+ * if it is a .skl, then it must be noted as script.skl
+ 
+ This feature allows to create a main script, that contains a row of ``runScript() commands``, 
+ thus running these scripts one after the other in the same context (no startup delay).
+ Using the return codes and the parameters allows to create medium complex workflows
+ based on smaller reuseable entities. 
+ 
+ Another option to run a series of scripts without the startup delay for the second script and following 
+ is to run from commandline using option -r (:ref:`see Running from command line <RunningScriptsFromCommandLine>`)
