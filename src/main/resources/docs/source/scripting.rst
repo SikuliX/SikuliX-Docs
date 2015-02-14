@@ -548,7 +548,7 @@ the feature :ref:`SIKULI_IMAGE_PATH <ImageSearchPath>` to make sure that images 
 Running scripts from within other scripts and run scripts one after the other
 -----------------------------------------------------------------------------
 
-You might call scripts from a script that is currently running, 
+You may call scripts from a script that is currently running, 
 which saves the startup time for the called script 
 and keeps available the original parameters given and the current image path.
 
@@ -577,5 +577,5 @@ and keeps available the original parameters given and the current image path.
  Using the return codes and the parameters allows to create medium complex workflows
  based on smaller reuseable entities. 
  
- Another option to run a series of scripts without the startup delay for the second script and following 
+ **Another option to run a series of scripts** without the startup delay for the second script and following 
  is to run from commandline using option -r (:ref:`see Running from command line <RunningScriptsFromCommandLine>`)
