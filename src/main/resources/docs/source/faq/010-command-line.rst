@@ -69,15 +69,25 @@ Command Line Options (intention: run a script without opening the IDE)
 
 :program:`PATH-TO-SIKULIX/runsikulix(.cmd)`
    
-.. option::  -r,--run <sikuli-folder/file>         
+.. option::  -r,--run <sikuli-folder/file>  (one or more entries seperated by space)       
 
-   run .sikuli or .skl file
+   run one or more .sikuli or .skl files one after the other
    
    *<sikuli-folder/file>* can be 
     * a relative or absolute path with or without dotted parts (e.g. ../some-script) 
     * a pointer to a location in the HTTP net like so: *<base-url>:script-name* or *<base-url>:folder/script-name* 
       where script-name can be stored and/or accessed without ending .sikuli. The contained script file is downloaded and run,
       while the image files are downloaded when used in the script at runtime.
+   
+   Having more than one script to run, the folder containing the script folder is remembered and applied 
+   to a following entry, that has a preceding ./ - example
+      sikulix.com:scripts/test1 ./test2 ./test2 will reuse the location sikulix.com:scripts/ for test2 and test3
+      
+   Having more than one script specified: a return code of -1 will stop the complete execution.
+   
+   Having more than one script specified: the next script can get the return code of the script run before using
+   *ScriptingSupport.getLastReturnCode()*
+    
 
 Command Line Options (intention: provide user parameters for running scripts)
 -----------------------------------------------------------------------------
