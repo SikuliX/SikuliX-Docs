@@ -92,9 +92,10 @@ It is planned, to publish sikulixapi.jar version 1.1.0+ on MavenCentral, so havi
   they are created daily (most of the time ;-)
 
 **use this repository setting:**
-  | <repository>  <!-- OSSRH: com.sikulix -->
-  |     <id>com-sikulix</id>
-  |     <name>com-sikulix</name>
+  | <repository>  
+  |     <!-- OSSRH: com.sikulix -->
+  |     <id>com.sikulix</id>
+  |     <name>com.sikulix</name>
   |     <url>https://oss.sonatype.org/content/groups/public</url>
   |     <layout>default</layout>
   |     <snapshots>
