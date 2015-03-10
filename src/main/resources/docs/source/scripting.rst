@@ -203,7 +203,7 @@ This is a basic usage example, where the callback function gets all messages::
   class myLogger(): 
     # a callback function (name it as you want)
     # you might have more than one for specific handling of message groups
-    def callback(message):
+    def callback(self, message):
         print message
         
   # prepare log redirect
