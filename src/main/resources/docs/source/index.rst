@@ -78,36 +78,27 @@ places of interest using the :doc:`table of contents<toc>` or
 use the :ref:`genindex` to browse all classes, 
 methods and functions in alphabetical order.
 
-Tutorials (not yet revised for version 1.1.0+)
-----------------------------------------------
+New Features and major changes (version 1.1.0+)
+-----------------------------------------------
 
 .. toctree::
    :maxdepth: 1
-
-   tutorials/helloworld/helloworld-mac
-   tutorials/helloworld/helloworld-win
-   tutorials/goodbyetrash/goodbyetrash 
-   tutorials/uncheckall/uncheckall
-   tutorials/checkone/checkone
-   tutorials/sliders/sliders
-   tutorials/surveillance/surveillance
-   rtutorials/esize/resize
    
-Basics about creating and running scripts (SikuliX IDE)
--------------------------------------------------------
+   news
+   
+SikuliX IDE create and run scripts written in Jython, JRuby or JavaScript
+-------------------------------------------------------------------------
 
 .. toctree::
    :maxdepth: 2
    
-   idenews
    ide
 
-SikuliX Scripting API
----------------------
+SikuliX API for scripting (Jython, JRuby or JavaScript) and Java programming
+----------------------------------------------------------------------------
 .. toctree::
    :maxdepth: 2
 
-   apinews
    scripting
    interaction
    globals
@@ -129,6 +120,21 @@ Miscellanous
 
    faq/*
    extensions/index
+   
+Tutorials (not yet revised for version 1.1.0+)
+----------------------------------------------
+
+.. toctree::
+   :maxdepth: 1
+
+   tutorials/helloworld/helloworld-mac
+   tutorials/helloworld/helloworld-win
+   tutorials/goodbyetrash/goodbyetrash 
+   tutorials/uncheckall/uncheckall
+   tutorials/checkone/checkone
+   tutorials/sliders/sliders
+   tutorials/surveillance/surveillance
+   rtutorials/esize/resize
 
 For Developers
 --------------
