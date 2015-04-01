@@ -83,7 +83,7 @@ A basic feature in Sikulix is to wait for an image to appear in a given region:
  | # search and get the result
  | aMatch = aRegion.find(aImage)
 
-To not make it to complicated here, I do not talk about how you create the aImage - we just assume it is there and accessible.
+To not make it too complicated here, I do not talk about how you create the aImage - we just assume it is there and accessible.
 
 The matchTemplate() expects an even sized or larger image (base), where the given image (target) should be searched. To prepare that, we internally make a screenshot (using Java Robot class) of the screen area defined by the given aRegion. This now is the base image and held in memory. The target image is also created as in memory image read form the image file. Both images then are converted to the needed OpenCV objects (CVMat).
 
