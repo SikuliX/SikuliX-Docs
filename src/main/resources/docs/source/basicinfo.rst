@@ -85,7 +85,7 @@ A basic feature in Sikulix is to wait for an image to appear in a given region:
 
 To not make it to complicated here, I do not talk about how you create the aImage - we just assume it is there and accessible.
 
-The matchTemplate() expexts an even sized or larger image (base), where the given image (target) should be searched. To prepare that, we internally make a screenshot (using Java Robot class) of the screen area defined by the given aRegion. This now is the base image and held in memory. The target image is also created as in memory image read form the image file. Both images then are converted to the needed OpenCV objects (CVMat).
+The matchTemplate() expects an even sized or larger image (base), where the given image (target) should be searched. To prepare that, we internally make a screenshot (using Java Robot class) of the screen area defined by the given aRegion. This now is the base image and held in memory. The target image is also created as in memory image read form the image file. Both images then are converted to the needed OpenCV objects (CVMat).
 
 Now we run the matchTemplate() function and get a matrix in the size of the base image, that contains for each pixel a similarity score for the target image compared pixel by pixel with it's top left corner at this pixel location. If this is not clear here now, go back to the above example and try to understand.
 The score values at each pixel location vary between 0.0 and 1.0: the lower the value, the lower the probability, that the area with it's top left corner at this pixel location contains the target image.
