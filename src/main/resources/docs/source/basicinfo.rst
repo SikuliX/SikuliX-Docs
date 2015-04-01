@@ -5,6 +5,7 @@ SikuliX allows to automate visual workflows
 -------------------------------------------
 
 Something like that we do every day sitting in front of our PC:
+
  - we want to achieve something 
  - we use an application for that (e.g. the browser to access web content)
  - we click some buttons, links or other visuals
@@ -38,16 +39,16 @@ SikuliX is a **WYSIWYS-Tool**: What You See Is What You Script.
 
 So again taking the above workflow, now using SikuliX commands:
 
- - **openApp(someApp)** # we use an application someApp
- - **click(imageButton)** # we click some button
- - **wait(imageExpected1)** # we wait that the app reacts and shows the expected result on the screen
- - **type("some text"); type(Key.ENTER)** # we fill in some text and press ENTER
- - **wait(imageExpected2)** # again we wait for some expected reaction or result
- - **click(...)** # we click ...
- - **wait(...)** # we wait ...
- - **type(...)** we type ...
- - **wait(...)** # we wait ...
- - ...
+ | **openApp(someApp)** # we use an application someApp
+ | **click(imageButton)** # we click some button
+ | **wait(imageExpected1)** # we wait that the app reacts and shows the expected result on the screen
+ | **type("some text"); type(Key.ENTER)** # we fill in some text and press ENTER
+ | **wait(imageExpected2)** # again we wait for some expected reaction or result
+ | **click(...)** # we click ...
+ | **wait(...)** # we wait ...
+ | **type(...)** # we type ...
+ | **wait(...)** # we wait ...
+ | ...
 
 Using the SikuliX IDE, you can setup and maintain such visual workflows including capturing and organizing the needed images. Besides knowing the options of the basic commands, you do not need any programming or scripting knowledge. Only in the moment, you want to optimize, repeat or augment such a basic linear workflow, you have to dive deeper into the scripting language of your choice (supported in the IDE: Python, Ruby, JavaScript).
 
