@@ -78,10 +78,10 @@ A basic feature in Sikulix is to wait for an image to appear in a given region:
  | # some top left part of the screen
  | aRegion = Region(0, 0, 500, 500) 
  | # a png image file on the file system
- |# this is the image we want to look for in the given Region
- |aImage = "someImage.png" 
- |# search and get the result
- |aMatch = aRegion.find(aImage)
+ | # this is the image we want to look for in the given Region
+ | aImage = "someImage.png" 
+ | # search and get the result
+ | aMatch = aRegion.find(aImage)
 
 To not make it to complicated here, I do not talk about how you create the aImage - we just assume it is there and accessible.
 
