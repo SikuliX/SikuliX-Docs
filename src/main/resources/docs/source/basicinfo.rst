@@ -114,14 +114,69 @@ For cases where this is not suitable or if you want to cycle through all appeara
 SikuliX - handling of images
 ----------------------------
 
+To use images with the features of SikuliX like click(someImage), you need to store these images as image files preferably in the PNG format (someImage.png) somewhere on the file system or somewhere in the internet.
+
+An image in this sense is some rectengular pixel area taken from the screen (captured or made a screenshot - with Sikuli we use the verb capture as the process of taking the image and save it in an image file and the name screenshot for the artifact "visual object = image").
+
+Capturing is supported by the IDE or programmatically via the respective SikuliX features. You might use any capture tool instead to get your images (preferably in PNG format).
+
+To load the images SikuliX has 2 principles:
+
+ - **bundle path**: the images are stored together with the script file (.py for Python, .rb for Ruby, .js for JavaScript) in a folder named someScript.sikuli, where the scriptfile must be named the same as the folder (e.g. someScript.py). This all is automatically assured, when working with the SikuliX IDE.
+ 
+ - **image path**: additionally SikuliX supports a list of places as an image path. Possible places are folders in the file system, folders in a jar-file and folders somewhere in the internet. There are functions available to manage your own image path. When an image has to be loaded (exception: the absolute path is given), the places are sequentially checked for the existence of the image. The first matching place wins.
+ 
+It is strongly recommended, to have a naming sceme for the image files and to not rely on the basic timestamped image file naming of the SikuliX IDE, which is basically for new users with little programming experience.
+
+Version 2 will have a capturing tool as a standalone app, that supports the basic aspects of image handling:
+ - capture and recapture screeshots along a workflow (some kind of recorder)
+ - organize your image path
+ - organize groups of "same" images, that can be switched depending on environment aspects
+ - organize a group of images, that somehow relate to each other and should be found together
+ - organize different states of an image (e.g. selected/not selected)
+ - optimize screenshots to get the highest possible scores at find
+ - some kind of basic support for transparency (e.g. ignore inner part of button) 
+
 SikuliX - system specifics
 ==========================
 
 Some general aspects
 --------------------
 
+A major aspect of SikuliX is to be available on Windows, Mac and Linux with as little differences as possible. THis means, that features will only be added to SikuliX as standard, if they can be made available on all these systems.
+Nevertheless it will be possible beginning with version 2, to add extensions or plugins, that might not be available on all systems from the beginning or forever. Version 2 will have a suitable eco-system for that.
+
+Mainly bacause of this major aspect SikuliX is a Java based application or library. Hence the usable artifacts are delivered as jar-files. Were possible the SikuliX IDE is delivered as application (currently Mac only, Windows .exe planned for version 2).
+
+To use the SikuliX features you need a valid Java runtime installation (JRE, preferably the Oracle versions) of at least version 6. SikuliX works with version 7 and 8 too and version 2 will need at least Java 7.
+
+With version 1.1.x, there are still vital parts of SikuliX written in C++, which makes a SikuliX artefact system specific in the end. This currently is supported by an initial setup process, that produces the finally usable artefacts for this system environment.
+
+The only exception is Java programming with some Maven compatible build system, that allows to simply start programming without having done a setup. The needed artifacts for this system are dynamically loaded according to the Maven dependency concept.
+
+Beginning with version 1.1.0 the resulting artefacts (currently sikulix.jar and/or sikulixapi.jar) can be moved around as needed (though it is still recommended to have the SikuliX stuff in one well defined place, to avoid update/upgrade problems). Everything else SikuliX needs during runtime is stored either in the system's temp space or in a special system specific area in the user's home space (see the system specific topics below). Missing or outdated things in these areas are created/recreated at runtime by SikuliX automatically (means: you can delete everything at any time, as long as you keep the jars).
+
+The current layout of this space is as follows (-- denote folders)
+
+ | -- base folder (see below)
+ |    -- Extensions (place for extensions/Plugins)
+ |    -- Lib (the stuff to support Jython/JRuby usage)
+ |    -- SikulixDownloads (non SikuliX artefacts like Jython, JRuby, Tesseract support, ...)
+ |    -- SikulixDownloads_TIMESTAMP (versioned SikuliX stuff needed for setup)
+ |    -- SikulixLibs_TIMESTAMP (the place for the exported native libraries)
+ |    -- SikulixSetup (optional: used when the setup is run from the project context)
+ |    -- SikulixStore (place for persistent or optional information)
+ |    -- SikulixTesseract (place for language specific tessdata files)
+
+Currently there is no need to step into these folders except for debugging purposes.
+
+SikuliX in the standard does not need any environment settings anymore.
+
 SikuliX on Windows
 ------------------
+
+The IDE currently (1.1.0) still is only available as jar-file, that can be double-clicked to start it. Setup reveals a runsikulix.cmd, that can be used to start the IDE from commandline or to run scripts.
+
 
 SikuliX on Mac
 --------------
