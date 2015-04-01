@@ -143,7 +143,7 @@ SikuliX - system specifics
 Some general aspects
 --------------------
 
-A major aspect of SikuliX is to be available on Windows, Mac and Linux with as little differences as possible. THis means, that features will only be added to SikuliX as standard, if they can be made available on all these systems.
+A major aspect of SikuliX is to be available on Windows, Mac and Linux with as little differences as possible. This means, that features will only be added to SikuliX as standard, if they can be made available on all these systems.
 Nevertheless it will be possible beginning with version 2, to add extensions or plugins, that might not be available on all systems from the beginning or forever. Version 2 will have a suitable eco-system for that.
 
 Mainly bacause of this major aspect SikuliX is a Java based application or library. Hence the usable artifacts are delivered as jar-files. Were possible the SikuliX IDE is delivered as application (currently Mac only, Windows .exe planned for version 2).
@@ -156,17 +156,16 @@ The only exception is Java programming with some Maven compatible build system, 
 
 Beginning with version 1.1.0 the resulting artefacts (currently sikulix.jar and/or sikulixapi.jar) can be moved around as needed (though it is still recommended to have the SikuliX stuff in one well defined place, to avoid update/upgrade problems). Everything else SikuliX needs during runtime is stored either in the system's temp space or in a special system specific area in the user's home space (see the system specific topics below). Missing or outdated things in these areas are created/recreated at runtime by SikuliX automatically (means: you can delete everything at any time, as long as you keep the jars).
 
-The current layout of this space is as follows (-- denote folders)
+The current layout of this space is as follows (we call it SikulixAppData):
 
- | -- base folder (see below)
- |    -- Extensions (place for extensions/Plugins)
- |    -- Lib (the stuff to support Jython/JRuby usage)
- |    -- SikulixDownloads (non SikuliX artefacts like Jython, JRuby, Tesseract support, ...)
- |    -- SikulixDownloads_TIMESTAMP (versioned SikuliX stuff needed for setup)
- |    -- SikulixLibs_TIMESTAMP (the place for the exported native libraries)
- |    -- SikulixSetup (optional: used when the setup is run from the project context)
- |    -- SikulixStore (place for persistent or optional information)
- |    -- SikulixTesseract (place for language specific tessdata files)
+ | Extensions (place for extensions/Plugins)
+ | Lib (the stuff to support Jython/JRuby usage)
+ | SikulixDownloads (non SikuliX artefacts like Jython, JRuby, Tesseract support, ...)
+ | SikulixDownloads_TIMESTAMP (versioned SikuliX stuff needed for setup)
+ | SikulixLibs_TIMESTAMP (the place for the exported native libraries)
+ | SikulixSetup (optional: used when the setup is run from the project context)
+ | SikulixStore (place for persistent or optional information)
+ | SikulixTesseract (place for language specific tessdata files)
 
 Currently there is no need to step into these folders except for debugging purposes.
 
@@ -175,12 +174,38 @@ SikuliX in the standard does not need any environment settings anymore.
 SikuliX on Windows
 ------------------
 
-The IDE currently (1.1.0) still is only available as jar-file, that can be double-clicked to start it. Setup reveals a runsikulix.cmd, that can be used to start the IDE from commandline or to run scripts.
+The IDE currently (1.1.0) still is only available as jar-file, that can be double-clicked to start it. 
 
+Setup installs a runsikulix.cmd, that can be used to start the IDE from commandline or to run scripts.
+
+For version 2 an application is planned as .exe based on Launch4J.
+
+The SikulixAppData is stored in the folder Sikulix inside the folder the environment variable %APPDATA% points to.
+
+Besides Java there are no prerequisites. All native libraries for 32Bit and/or 64Bit are bundled in the jar-files and exported at runtime as needed. Be aware: the bitness of the native libraries depends on the bitness of the used Java version, which might as well be a 32Bit version on a 64Bit Windows (though not recommended).
 
 SikuliX on Mac
 --------------
 
+The IDE is available as Sikulix.app after setup and should be moved to the /Applications folder.
+
+Additionally there is a command script runsikulix to run scripts from commandline (Terminal).
+
+The SikulixAppData folder is here ~/Library/Application Support/Sikulix
+
+Besides Java there are no prerequisites. All native libraries (64Bit, since SikuliX needs OSX 10.6+) are bundled in the jar-files and exported at runtime as needed.
+
 SikuliX on Linux
 ----------------
 
+The IDE is only available as jar-file, that can be double-clicked to start it (setting the executable bit of the jar-file might be necessary). 
+
+Setup installs a runsikulix command script, that can be used to start the IDE from commandline or to run scripts.
+
+As Java you might use the OpenJDK versions (though the Oracle versions are recommended). A JRE is sufficient, if you do not need a JDK for your own purposes.
+
+Usually on Linux systems SikuliX does not run out of the box, since it is not possible to bundle all native libraries for all possible Linux flavors. It is intended, to have at least a version for the latest Ubuntu systems, that run out of the box.
+
+If setup fails due to library problems, have a look at the setup log to get hints on how to proceed.
+
+About how to get the native libraries working `in case look here <http://www.sikulix.com/quickstart.html>`_.
