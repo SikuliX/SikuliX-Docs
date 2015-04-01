@@ -69,19 +69,21 @@ Other aspects important for testers:
 SikuliX - how does it find images on the screen?
 ------------------------------------------------
 
-SikuliX uses the OpenCV package for finding an image on the screen.
+SikuliX uses the `OpenCV <http://opencv.org/>`_ package for finding an image on the screen.
 
-The SikuliX feature is based on OpenCV's method matchTemplate(), which is rather good explained on this example page. If you are not familiar with how it works, you should just have a look there and then come back to here and read further.
+The SikuliX feature is based on OpenCV's method matchTemplate(), which is rather good explained on `this example page <http://docs.opencv.org/doc/tutorials/imgproc/histograms/template_matching/template_matching.html>`_. If you are not familiar with how it works, you should just have a look there and then come back to here and read further.
 
 A basic feature in Sikulix is to wait for an image to appear in a given region:
-# some top left part of the screen
-aRegion = Region(0, 0, 500, 500) 
-# a png image file on the file system
-# this is the image we want to look for in the given Region
-aImage = "someImage.png" 
-# search and get the result
-aMatch = aRegion.find(aImage)
-To not make it to complicated, I do not talk about how you create the aImage - we just assume it is there and accessible.
+
+ | # some top left part of the screen
+ | aRegion = Region(0, 0, 500, 500) 
+ | # a png image file on the file system
+ |# this is the image we want to look for in the given Region
+ |aImage = "someImage.png" 
+ |# search and get the result
+ |aMatch = aRegion.find(aImage)
+
+To not make it to complicated here, I do not talk about how you create the aImage - we just assume it is there and accessible.
 
 The matchTemplate() expexts an even sized or larger image (base), where the given image (target) should be searched. To prepare that, we internally make a screenshot (using Java Robot class) of the screen area defined by the given aRegion. This now is the base image and held in memory. The target image is also created as in memory image read form the image file. Both images then are converted to the needed OpenCV objects (CVMat).
 
