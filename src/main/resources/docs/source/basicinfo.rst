@@ -64,6 +64,7 @@ Also a combination of GUI aware tools and SikuliX are already reality (e.g. toge
 The challenge here usually is, that SikuliX's image based features are pixel-aware in the sense, that an image is on the screen exactly pixel-wise or SikuliX fails (with some slight tolerances as long as width and height in pixels match). This usually leads to the neeed to have different image sets for different environments. The version 2 will have some more features, that will make it easier to handle such situations.
 
 Other aspects important for testers:
+
  - SikuliX needs a real screen running the application under test or at least some equivalent virtual solution 
  - SikuliX is only available on PCs/Workstations running Windows, Mac or Linux and having a Java version 6+
  
