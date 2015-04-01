@@ -1,5 +1,5 @@
-Sikuli / SikuliX Documentation for version 1.1+ (01/2014 and later)
-===================================================================
+Sikuli / SikuliX Documentation for version 1.1+ (2014 and later)
+================================================================
 
 .. sidebar:: Getting Help
 
@@ -21,10 +21,10 @@ This document is being maintained by `Raimund Hocke aka RaiMan
 If you have any questions or ideas about this document, 
 you are welcome to contact him directly via the above link and the email behind. 
 
-**More information and possibilities:** `sikulix.com <http://sikulix.com>`_.
+**QickStart information and other possibilities to get in contact:** `sikulix.com <http://sikulix.com>`_.
 
-For questions regarding the
-functions and features of Sikuli itself please use the `Sikuli Questions and
+For questions regarding the functions and features of Sikuli itself, that are not answered
+sufficiently in this documentation, please use the `Sikuli Questions and
 Answers Board <https://answers.launchpad.net/sikuli>`_.  
 
 For hints and links of
@@ -39,13 +39,15 @@ The documentation for the versions up to SikuliX-1.0rc3 is still available `here
 How to use this document
 ------------------------
 
-SikuliX at the top supports **scripting via SikuliX IDE** (a basic script editor to load, edit, save and run scripts). 
+SikuliX at the top supports **scripting via SikuliX IDE** (a basic script editor to load, edit, save and run scripts including the creation/organization of the needed images for your visual workflow). 
 
-The first scripting language is **Python** (language level 2.7) supported by the `Jython interpreter <http://www.jython.org>`_. 
+Supported scripting languages:
 
-Additionally **Ruby** (language level 1.9/2.0) can be used, internally supported by the `JRuby interpreter <http://jruby.org>`_.
+ - **Python** (language level 2.7) supported by the `Jython interpreter <http://www.jython.org>`_. 
 
-Principally it is possible to implement more scripting languages, if some Java or JVM based interpreter package is available for that (possible candidates: BeanShell, Scala, JavaScript, ...).
+ - **Ruby** (language level 1.9/2.0) supported by the `JRuby interpreter <http://jruby.org>`_.
+ 
+ - **JavaScript** supported by the Java builtin scripting engine (Java 7: Rhino, Java 8: Nashorn).
 
 If you are new to
 programming, you can still enjoy using SikuliX to automate simple repetitive
@@ -54,11 +56,16 @@ tasks without learning one of the supported scripting languages using the Sikuli
 
 If you plan to write more
 complex scripts, which might even be structured in classes and modules, you have to dive into the `Python Language
-<http://www.jython.org/jythonbook/en/1.0/>`_ or the `Ruby Language <http://docs.ruby-doc.com/docs/ProgrammingRuby>`_.
+<http://www.jython.org/jythonbook/en/1.0/>`_, the `Ruby Language <http://docs.ruby-doc.com/docs/ProgrammingRuby>`_ 
+or `JavaScript <https://developer.mozilla.org/en-US/docs/Web/JavaScript>`_.
 
-**NOTE:** Since **Jython and JRuby are based on Java**, the modules available for Python or Ruby might not be available in the Sikulix environment. So before trying to use any non-standard modules or extension packages, you have to check, wether they are supported in this SikuliX environment.
+**NOTE:** Since **Jython and JRuby are based on Java**, the modules available for Python or Ruby 
+might not be available in the Sikulix environment. 
+So before trying to use any non-standard modules or extension packages, 
+you have to check, wether they are supported in this SikuliX environment.
 
-**NOTE on Java usage** The features in SikuliX at the bottom line are implemented with Java. So you might as well use SikuliX at this Java API level in your Java projects or other Java aware environments (:doc:`see how to <faq/030-java-dev>`). Though this documentation is targeted at the scripting people it contains basic information about the Java level API as well at places, where there are major differences between the two API levels. 
+**NOTE on Java usage** The features in SikuliX at the bottom line are implemented with Java. 
+So you might as well use SikuliX at this Java API level in your Java projects or other Java aware environments (:doc:`see how to <faq/030-java-dev>`). Though this documentation is targeted at the scripting people it contains basic information about the Java level API as well at places, where there are major differences between the two API level.
   Additionally you might **look through the JavaDocs** 
   (`temporary location <http://nightly.sikuli.de/docs/index.html>`_). 
 
@@ -78,6 +85,14 @@ places of interest using the :doc:`table of contents<toc>` or
 use the :ref:`genindex` to browse all classes, 
 methods and functions in alphabetical order.
 
+SikuliX - how does it work and system specific information
+----------------------------------------------------------
+
+.. toctree::
+   :maxdepth: 2
+   
+   basicinfo
+
 New Features and major changes (version 1.1.0+)
 -----------------------------------------------
 
@@ -86,16 +101,24 @@ New Features and major changes (version 1.1.0+)
    
    news
    
-SikuliX IDE create and run scripts written in Jython, JRuby or JavaScript
--------------------------------------------------------------------------
+SikuliX scripting and usage in programming scenarios (preferably Java based)
+----------------------------------------------------------------------------
+
+.. toctree::
+   :maxdepth: 2
+   
+   scenarios
+   
+SikuliX IDE create/run scripts and organize your images 
+-------------------------------------------------------
 
 .. toctree::
    :maxdepth: 2
    
    ide
 
-SikuliX API for scripting (Jython, JRuby or JavaScript) and Java programming
-----------------------------------------------------------------------------
+SikuliX API for scripting and Java programming
+----------------------------------------------
 .. toctree::
    :maxdepth: 2
 
