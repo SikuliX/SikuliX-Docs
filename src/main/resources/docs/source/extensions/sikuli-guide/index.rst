@@ -172,30 +172,39 @@ Static Annotations
 ------------------
 	
 .. py:function:: rectangle(element)
+
 	Add a rectangular overlay as frame on the specified element's region.
+
 	:param element: a suitable 
 
 .. py:function:: circle(element)
+
 	Add a circle around the specified target's region.
+
 	:param element: a pattern, string, region or match 
 
 .. py:function:: text(element, txt)
+
 	Add some text to one edge of the specified element
+
 	:param element: a suitabel element
 	:param txt: a string as text to display
 
 .. py:function:: tooltip(element, txt)
+
 	Add a tooltip (small font in a light yellow box). same as text(), but with predefined layout. 
 	As usual for tooltips: the text should be a short oneliner
+
 	:param element: a suitabel element 
 	:param txt: a string as text to display
-
 
 Interactive Elements
 --------------------
 
 .. py:function:: button(element, name)
+
       A clickable button showing it's name as the button text.
+
       :param name: a string as text to display, later used as reference to check how the button was used
 
 
@@ -203,12 +212,11 @@ Control
 -------
 	
 .. py:function:: show([seconds])
+
 	Show static and interactive components added so far for the specified amount of time. 
+
 	:param seconds: a decimal number as display duration in seconds
 	
 	The default duration is 10 seconds. If interactive elements (either one or more clickable elements or 
 	a dialog box) were previously added, it waits until the user interacts with one of these elements. 
 	At this time all elements vanish and are discarded.
-
-
-
