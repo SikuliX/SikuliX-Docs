@@ -162,75 +162,53 @@ The script waits until the user clicks one of the two highlighted areas.
 Function References
 ^^^^^^^^^^^^^^^^^^^
 
-**PSRM**: when used as a parameter, it can be either **P** a Pattern, 
-**S** a string (image file name or just plain text), a **R** Region object
-or **M** a Match object. With **PS** an implicit find operation takes place. 
-(More information: :ref:`Finding inside a Region ... <FindinginsideaRegionandWaitingforaVisualEvent>`)
+**element**: when used as a parameter, it can either be something that can be used with a find() (Pattern or 
+string as image file name or just plain text), a Region or Match object or another Guide element.
+
+All funtions return the created element, so later the layout can be changed by specific setters 
+or they can be used as target elements for other elements
 
 Static Annotations
 ------------------
 	
+.. py:function:: rectangle(element)
+	Add a rectangular overlay as frame on the specified element's region.
+	:param element: a suitable 
 
-.. py:function:: rectangle(PSRM)
+.. py:function:: circle(element)
+	Add a circle around the specified target's region.
+	:param element: a pattern, string, region or match 
 
-	Add a rectangular overlay in red on the specified target's region.
-	
-	:param PSRM: a pattern, string, region or match 
+.. py:function:: text(element, txt)
+	Add some text to one edge of the specified element
+	:param element: a suitabel element
+	:param txt: a string as text to display
 
-
-.. py:function:: circle(PSRM)
-
-	Add a red circle around the specified target's region.
-	
-	:param PSRM: a pattern, string, region or match 
-
-
-
-.. py:function:: text(PSRM, text)
-
-	Add some text (white large letters on dark grey background) left justified below the specified target's region, which is additionally highlighted.
-
-	:param PSRM: a pattern, string, region or match 
-	:param text: a string as text to display
-
-.. py:function:: tooltip(PSRM, text)
-
-	Add a tooltip (small text in a light yellow box) left justified below the specified target's region.
-
-	:param PSRM: a pattern, string, region or match 
-	:param text: a string as text to display
+.. py:function:: tooltip(element, txt)
+	Add a tooltip (small font in a light yellow box). same as text(), but with predefined layout. 
+	As usual for tooltips: the text should be a short oneliner
+	:param element: a suitabel element 
+	:param txt: a string as text to display
 
 
 Interactive Elements
 --------------------
 
-.. py:function:: dialog(text)
-
-      Add a dialog box displaying the given text in the middle of the screen above all othe windows.
-
-      :param text: a string as text to display
-
-.. py:function:: clickable(PSRM)
-
-      Add a clickable element corresponding to the specified target's region. 
-
-      :param PSRM: a pattern, string, region or match
+.. py:function:: button(element, name)
+      A clickable button showing it's name as the button text.
+      :param name: a string as text to display, later used as reference to check how the button was used
 
 
 Control
 -------
 	
 .. py:function:: show([seconds])
-
 	Show static and interactive components added so far for the specified amount of time. 
-
 	:param seconds: a decimal number as display duration in seconds
 	
 	The default duration is 10 seconds. If interactive elements (either one or more clickable elements or 
 	a dialog box) were previously added, it waits until the user interacts with one of these elements. 
 	At this time all elements vanish and are discarded.
-
-	**Note:** If a :py:func:`dialog` element is present, other interactive elements are visible, but not clickable. If the dialog element is clicked, all elements vanish and are discarded. 
 
 
 
