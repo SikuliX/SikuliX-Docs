@@ -545,10 +545,15 @@ the feature :ref:`SIKULI_IMAGE_PATH <ImageSearchPath>` to make sure that images 
 
 .. versionadded:: 1.1.0
 
-Running scripts from within other scripts and run scripts one after the other
------------------------------------------------------------------------------
+Running scripts and snippets from within other scripts and run scripts one after the other
+------------------------------------------------------------------------------------------
 
-You may call scripts from a script that is currently running, 
+What is meant by script and snippet?
+
+ * **Script** means, that some code is stored somewhere a file accessible in this context by giving it's relative or absolute filename or URL.
+ * **Snippet** means some text stored in a string variable, that represents one or more lines of code in a denoted scripting language, for which an interpreter is available on the running system. 
+
+You may call/run **scripts** from a script that is currently running, 
 which saves the startup time for the called script 
 and keeps available the original parameters given and the current image path.
 
@@ -579,3 +584,35 @@ and keeps available the original parameters given and the current image path.
  
  **Another option to run a series of scripts** without the startup delay for the second script and following 
  is to run from commandline using option -r (:ref:`see Running from command line <RunningScriptsFromCommandLine>`)
+ 
+ You may run **snippets** by simply issuing
+ 
+ .. py:function:: runScript(snippet)
+ 
+ 	currently available: AppleScript on Mac (script type word: applescript)
+ 	planned: PowerShell on Windows (script type word: powershell)
+ 	
+ 	For version 2 there will be a plugin system to easily add other scripting engines.
+
+	:param: snippet: a string containing the scripting statements after the word identifying the script type 
+	:return: the return code that was returned by the interpreter running this snippet
+	
+Example for Applescript:
+
+	``returnCode = runScript('applescript tell application "Mail" to activate')``
+	
+	or like this for a multiline snippet::
+	
+	  cmd = """
+	  applescript
+	  tell application "Mail" to activate
+	  display alert "Mail should be visible now"
+	  """
+	  returnCode = runScript(cmd)
+	  
+	
+If the snippet produces some output on stdout and/or stderror, this is accessible after return using:
+
+	``commandOutput = RunTime.get().getLastCommandResult()``
+	
+where the error output comes after a line containing ``***** error *****``
