@@ -585,9 +585,9 @@ and keeps available the original parameters given and the current image path.
  **Another option to run a series of scripts** without the startup delay for the second script and following 
  is to run from commandline using option -r (:ref:`see Running from command line <RunningScriptsFromCommandLine>`)
  
- You may run **snippets** by simply issuing
+You may run **snippets** by simply issuing
  
- .. py:function:: runScript(snippet)
+.. py:function:: runScript(snippet)
  
  	currently available: AppleScript on Mac (script type word: applescript)
  	planned: PowerShell on Windows (script type word: powershell)
