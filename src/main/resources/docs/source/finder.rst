@@ -3,6 +3,9 @@ Finder
 
 .. py:class:: Finder
 
+.. versionadded:: 1.1.0
+The behavior is changed compared to previos versions, to be consistent with Region.find()/findAll().
+
 A Finder object implements an iterator of matches and allows to search for a visual
 object in an image file that you provide (e.g. a screenshot taken and saved in a
 file before). After setting up the finder object and doing a find operation, you can
@@ -19,9 +22,8 @@ Important to know:
 Compared with the region based find/findAll operation, no exception FindFailed is
 raised in case nothing is found at all (use ``hasNext()`` to check). 
 
-The finder object 
-can be compared to what you get 
-with ``region.getLastMatch()`` when using :py:meth:`find() <Region.findAll>` or
+The result using a finder object can be compared to what you get 
+with ``region.getLastMatch()`` when using :py:meth:`find() <Region.find>` or
 with ``region.getLastMatches()`` when using :py:meth:`findAll() <Region.findAll>`.
 
 **Note**: There is no chance, to get the number of matches in
@@ -33,7 +35,7 @@ The workflow always is:
  * setup a Finder
  * do a find or findAll operation
  * check with hasNext(), wether anything was found at all
- * get the available matches with next()
+ * get the available matches with next() if hasNext() says more available
  * After a complete iteration, the finder object is empty. 
  * You can start a new find or findAll operation at any time.
 
@@ -55,6 +57,7 @@ The workflow always is:
 		:param similarity: the minimum similarity a match should have. If omitted,
 			the default is used.
 	
+	.. versionadded:: 1.1.0
 	.. py:method:: findAll(path-to-imagefile, [similarity])
 
 		Find all occurences of the given image within a source image previously specified in the
