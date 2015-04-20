@@ -550,7 +550,7 @@ Running scripts and snippets from within other scripts and run scripts one after
 
 What is meant by script and snippet?
 
- * **Script** means, that some code is stored somewhere a file accessible in this context by giving it's relative or absolute filename or URL.
+ * **Script** means, that some code is stored somewhere in a file accessible in this context by giving it's relative or absolute filename or URL.
  * **Snippet** means some text stored in a string variable, that represents one or more lines of code in a denoted scripting language, for which an interpreter is available on the running system. 
 
 You may call/run **scripts** from a script that is currently running, 
@@ -589,15 +589,17 @@ You may run **snippets** by simply issuing
  
 .. py:function:: runScript(snippet)
  
- 	currently available: AppleScript on Mac (script type word: applescript)
- 	planned: PowerShell on Windows (script type word: powershell)
+ 	currently available: 
+ 	
+ 	 * AppleScript on Mac (script type word: applescript)
+ 	 * PowerShell on Windows (script type word: powershell)
  	
  	For version 2 there will be a plugin system to easily add other scripting engines.
 
 	:param: snippet: a string containing the scripting statements after the word identifying the script type 
 	:return: the return code that was returned by the interpreter running this snippet
 	
-Example for Applescript:
+**Example for Applescript**:
 
 	``returnCode = runScript('applescript tell application "Mail" to activate')``
 	
@@ -611,6 +613,18 @@ Example for Applescript:
 	  returnCode = runScript(cmd)
 	  
 	
+**Example for PowerShell**:
+
+	``returnCode = runScript('powershell get-process')``
+	
+	or like this for a multiline snippet::
+	
+	  cmd = """
+	  powershell
+	  get-process
+	  """
+	  returnCode = runScript(cmd)
+	  
 If the snippet produces some output on stdout and/or stderror, this is accessible after return using:
 
 	``commandOutput = RunTime.get().getLastCommandResult()``
