@@ -44,8 +44,6 @@ String concatenation with with other text or other key constants is possible usi
 
 	PRINTSCREEN, PAUSE, CAPS_LOCK, SCROLL_LOCK, NUM_LOCK
 
-.. versionadded:: X1.0-rc2
-	
 **Note:** The status ( on / off ) of the keys ``Key.CAPS_LOCK``, ``Key.NUM_LOCK`` and ``Key.SCROLL_LOCK`` can 
 be evaluated with the method :py:meth:`Env.isLockOn() <Env.isLockOn>`.
 
@@ -54,66 +52,38 @@ be evaluated with the method :py:meth:`Env.isLockOn() <Env.isLockOn>`.
 	NUM0, NUM1, NUM2, NUM3, NUM4, NUM5, NUM6, NUM7, NUM8, NUM9
 	SEPARATOR, ADD, MINUS, MULTIPLY, DIVIDE
 
+Key Modifiers (modifier keys)
+-----------------------------
+
 **modifier keys** ::
 
-	ALT, CMD, CTRL, META, SHIFT, WIN
+	ALT, CMD, CTRL, META, SHIFT, WIN, ALTGR
 
-These modifier keys **cannot** be used as a key modifier with functions
-like :py:meth:`type() <Region.type>`, :py:meth:`rightClick() <Region.rightClick>`, etc. 
-They can **only** be used with :py:meth:`keyDown() <Region.keyDown>` and :py:meth:`keyUp() <Region.keyUp>`.
-If you need key modifiers, use :py:class:`KeyModifier` instead.
+A key is called a modifier key, when it is used in conjunction with other keys by pressing and holding it while typing the other keys.
+The keys used most commonly as modifier keys are SHIFT, ALT (left alt key, CTRL (might be strg on Windows) and the CMD key (Apple key on OS X).
+On Windows you additionally have the Windows key and the alt key on the right.
 
-Key Modifiers
--------------
+the plain type() command has 2 parameters:
+parameter 1: the keys, that should be pressed/released one after the other
+parameter 2: the modifier keys, that alltogether should be pressed and held during the typing and released at the end.
 
+For parameter 2 there are 2 options:
+old version (kept for upwards compatibility): KeyModifier.XXX
+new version: (a key is a key ;-): Key.XXX
 Methods where key modifiers can be used include: :py:meth:`click() <Region.click>`,
 :py:meth:`dragDrop() <Region.dragDrop>` , :py:meth:`doubleClick()
 <Region.doubleClick>` , :py:meth:`rightClick() <Region.rightClick>`,
 :py:meth:`type() <Region.type>`.
 
-.. deprecated:: X1.0-rc3
+**... and these very old versions should not be used anymore** ::
 
-**the oldies but goldies** ::
-
-	KEY_ALT, KEY_CTRL, KEY_SHIFT
-
-**system specific Win/Mac** ::
-
-	KEY_WIN, KEY_CMD 
-	KEY_META (a synonym for KEY_WIN or KEY_CMD on Windows and Mac respectively).
-
-The old modifiers with a *KEY_* prefix are deprecated. Use ``KeyModifier.CTRL``, ``KeyModifier.ALT``, ``KeyModifier.SHIFT``, ``KeyModifier.META`` instead.
-
-
-.. versionadded:: X1.0-rc3
-.. py:class:: KeyModifier
-
-Usage: `KeyModifier.CONSTANT` (where CONSTANT is one of the following key names).
-
-   .. py:data:: CTRL
-      equivalent to the old KEY_CTRL
-   .. py:data:: SHIFT
-      equivalent to the old KEY_SHIFT
-   .. py:data:: ALT
-      equivalent to the old KEY_ALT
-   .. py:data:: META
-      equivalent to the old KEY_META
-   .. py:data:: CMD
-      equivalent to the old KEY_CMD (and KEY_META)
-   .. py:data:: WIN
-      equivalent to the old KEY_WIN (and KEY_META)
-
+	KEY_ALT, KEY_CTRL, KEY_SHIFT, KEY_WIN, KEY_CMD, KEY_META
 	
-The modifier constants can be combined to the modifier parameter by either using "+" or "|", if more than one key modifier is needed. ::
+The modifier keys can be combined to the modifier parameter by using "+", if more than one key modifier is needed. ::
 
 	type(Key.ESC, KeyModifier.CTRL + KeyModifier.ALT)
 	# or equivalent
-	type(Key.ESC, KeyModifier.CTRL | KeyModifier.ALT)
-
-They should **only** be used in the
-modifiers parameter with functions like :py:meth:`type() <Region.type>`, :py:meth:`rightClick() <Region.rightClick>`, etc. 
-
-They should **never** be used with :py:meth:`keyDown() <Region.keyDown>` or :py:meth:`keyUp() <Region.keyUp>`.
+	type(Key.ESC, Key.CTRL + Key.ALT)
 
 *Note for Java programming*: These constants are mapped to the according constants of the Java environment
 in the class ``java.awt.event.InputEvent``. 
