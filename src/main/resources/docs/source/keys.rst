@@ -11,8 +11,10 @@ Level Mouse and Keyboard Actions <LowLevelMouseAndKeyboardActions>`.
 Special Keys
 ------------
 
-The methods supporting the use of special keys are :py:meth:`type() <Region.type>`,
-:py:meth:`keyDown() <Region.keyDown>`, and :py:meth:`keyUp() <Region.keyUp>`.
+The methods supporting the use of special keys are 
+ - :py:meth:`type() <Region.type>`,
+ - :py:meth:`keyDown() <Region.keyDown>` 
+ - :py:meth:`keyUp() <Region.keyUp>`.
 
 Usage: `Key.CONSTANT` (where CONSTANT is one of the following key names).
 
@@ -63,24 +65,21 @@ A key is called a modifier key, when it is used in conjunction with other keys b
 The keys used most commonly as modifier keys are SHIFT, ALT (left alt key, CTRL (might be strg on Windows) and the CMD key (Apple key on OS X).
 On Windows you additionally have the Windows key and the alt key on the right.
 
-the plain type() command has 2 parameters:
+the plain :py:meth:`type() <Region.type>` command has 2 parameters:
  - parameter 1: the keys, that should be pressed/released one after the other
  - parameter 2: the modifier keys, that alltogether should be pressed and held during the typing and released at the end.
 
 For parameter 2 there are 2 options:
- - old version (kept for upwards compatibility): KeyModifier.XXX
- - new version: (a key is a key ;-): Key.XXX
-
-**... and these very old versions should not be used anymore** ::
-
-	KEY_ALT, KEY_CTRL, KEY_SHIFT, KEY_WIN, KEY_CMD, KEY_META
+ - new version: (a key is a key ;-): `Key.XXX`
+ - old version (kept for upwards compatibility): `KeyModifier.XXX`
+ 
+... and these early versions should not be used anymore `KEY_ALT, KEY_CTRL, KEY_SHIFT, KEY_WIN, KEY_CMD, KEY_META`
 	
-The modifier keys can be combined by using "+", if more than one key modifier is needed. ::
+The modifier keys can be combined using `+`, if more than one key modifier is needed. ::
 
-	type(Key.ESC, KeyModifier.CTRL + KeyModifier.ALT)
-	# or equivalent
+	# example with the recommended Key.XXX version
 	type(Key.ESC, Key.CTRL + Key.ALT)
 
-*Note for Java programming*: These constants are mapped to the according constants of the Java environment
-in the class ``java.awt.event.InputEvent``. 
+*Note for Java programming*: 
+ These constants are mapped to the according constants of ``java.awt.event.InputEvent``. 
 
