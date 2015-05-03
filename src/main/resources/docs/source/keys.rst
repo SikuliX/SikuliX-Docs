@@ -68,18 +68,14 @@ the plain type() command has 2 parameters:
  - parameter 2: the modifier keys, that alltogether should be pressed and held during the typing and released at the end.
 
 For parameter 2 there are 2 options:
-old version (kept for upwards compatibility): KeyModifier.XXX
-new version: (a key is a key ;-): Key.XXX
-Methods where key modifiers can be used include: :py:meth:`click() <Region.click>`,
-:py:meth:`dragDrop() <Region.dragDrop>` , :py:meth:`doubleClick()
-<Region.doubleClick>` , :py:meth:`rightClick() <Region.rightClick>`,
-:py:meth:`type() <Region.type>`.
+ - old version (kept for upwards compatibility): KeyModifier.XXX
+ - new version: (a key is a key ;-): Key.XXX
 
 **... and these very old versions should not be used anymore** ::
 
 	KEY_ALT, KEY_CTRL, KEY_SHIFT, KEY_WIN, KEY_CMD, KEY_META
 	
-The modifier keys can be combined to the modifier parameter by using "+", if more than one key modifier is needed. ::
+The modifier keys can be combined by using "+", if more than one key modifier is needed. ::
 
 	type(Key.ESC, KeyModifier.CTRL + KeyModifier.ALT)
 	# or equivalent
