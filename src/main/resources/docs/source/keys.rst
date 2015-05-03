@@ -16,9 +16,10 @@ The methods supporting the use of special keys are
  - :py:meth:`keyDown() <Region.keyDown>` 
  - :py:meth:`keyUp() <Region.keyUp>`.
 
-Usage: `Key.CONSTANT` (where CONSTANT is one of the following key names).
+Usage: ``Key.CONSTANT`` 
+ (where CONSTANT is one of the following key names, uppercase mandatory).
 
-String concatenation with with other text or other key constants is possible using "+". ::
+String concatenation with with other text or other key constants is possible using `` + ``. ::
 
 	type("some text" + Key.TAB + "more text" + Key.TAB + Key.ENTER)
 	# or eqivalent
@@ -27,8 +28,6 @@ String concatenation with with other text or other key constants is possible usi
 **miscellanous keys** ::
 
 	ENTER, TAB, ESC, BACKSPACE, DELETE, INSERT
-
-.. versionadded:: X1.0-rc3
 
 **miscellanous keys** ::
 
@@ -70,12 +69,13 @@ the plain :py:meth:`type() <Region.type>` command has 2 parameters:
  - parameter 2: the modifier keys, that alltogether should be pressed and held during the typing and released at the end.
 
 For parameter 2 there are 2 options:
- - new version: (a key is a key ;-): `Key.XXX`
- - old version (kept for upwards compatibility): `KeyModifier.XXX`
+ - new version: (a key is a key ;-): ``Key.XXX``
+ - old version (kept for upwards compatibility): ``KeyModifier.XXX``
  
-... and these early versions should not be used anymore `KEY_ALT, KEY_CTRL, KEY_SHIFT, KEY_WIN, KEY_CMD, KEY_META`
+... and these early versions should not be used anymore 
+ ``KEY_ALT, KEY_CTRL, KEY_SHIFT, KEY_WIN, KEY_CMD, KEY_META``
 	
-The modifier keys can be combined using `+`, if more than one key modifier is needed. ::
+The modifier keys can be combined using `` + ``, if more than one key modifier is needed. ::
 
 	# example with the recommended Key.XXX version
 	type(Key.ESC, Key.CTRL + Key.ALT)
