@@ -64,8 +64,8 @@ The keys used most commonly as modifier keys are SHIFT, ALT (left alt key, CTRL 
 On Windows you additionally have the Windows key and the alt key on the right.
 
 the plain type() command has 2 parameters:
-parameter 1: the keys, that should be pressed/released one after the other
-parameter 2: the modifier keys, that alltogether should be pressed and held during the typing and released at the end.
+ - parameter 1: the keys, that should be pressed/released one after the other
+ - parameter 2: the modifier keys, that alltogether should be pressed and held during the typing and released at the end.
 
 For parameter 2 there are 2 options:
 old version (kept for upwards compatibility): KeyModifier.XXX
