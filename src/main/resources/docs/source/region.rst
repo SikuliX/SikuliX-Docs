@@ -1260,7 +1260,7 @@ application for accepting the action.
 		:param PSMRL: a pattern, a string, a match, a region or a location that
 			evaluates to a click point.
 
-		:param modifiers: one or more key modifiers
+		:param modifiers: one or more modifier keys (:doc:`Class Key <keys>`)
 
 		:returns: the number 1 if the operation could be
 			performed, otherwise 0 (integer null), which means,
@@ -1268,9 +1268,11 @@ application for accepting the action.
 			could be performed (in case of *PS* may be :ref:`not Found <PatternNotFound>`).
 		
 		This method simulates keyboard typing interpreting the characters of text
-		based on the layout/keymap of the **standard US keyboard (QWERTY)**. Special
-		keys (ENTER, TAB, BACKSPACE, ...) can be incorporated into text by using the
-		constants defined in :doc:`Class Key <keys>` using the standard string concatenation (+).
+		based on the layout/keymap of the **standard US keyboard (QWERTY)**. 
+		
+		Special
+		keys (ENTER, TAB, BACKSPACE, ...) can be incorporated into text using the
+		constants defined in :doc:`Class Key <keys>` using the standard string concatenation `+`.
 		
 		If *PSMRL* is given, a click on the clickpoint is performed before typing, to
 		gain the focus. (Mac: it might be necessary, to use :py:func:`switchApp`
