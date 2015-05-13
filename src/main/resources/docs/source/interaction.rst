@@ -195,14 +195,26 @@ the hotkeys.
 
 	:return: True if success.
 
-Starting and stopping other apllications and bringing their Windows to front
-----------------------------------------------------------------------------
+Starting and stopping other apllications and bring them to front
+----------------------------------------------------------------
+
+.. versionadded:: 1.1.0
+Completely revised in version 1.1.0
 
 Here we talk about the basic features of opening or closing other applications and switching to them (bring
-their windows to front).
+them to front).
 
 For the more sophisticated usages including some basic handling of 
-application windows look into the :ref:class:`App`.
+application windows look :ref:class:`App`.
+
+You can use the feature run(someCommand) to delegate something, you can do on a commandline, to a seperate process.
+The script waits for completion and you have acces to the return code and 
+the output the command has produced.
+
+**NOTE** openApp() should no longer be used to issue command executions (which anyway only works on Windows), 
+since this is deprecated and might stop working without notice. use the run() feature instead.
+
+**NOTE on Java usage** At the Java level only the features of the App class are available (:ref:class:`App`).
 
 **General hint for Windows users** on backslashes \\ and double apostrophes "
 
@@ -215,72 +227,79 @@ has to be \\' and a " is taken as such.
 To avoid any problems, it is recommended to use the raw string ``r'some text with \\ and " ...'``,
 since there is no need for escaping (but no trailing \\ is allowed here). 
   This is especially useful, when you have to specify Windows path's or want to 
-  setup command lines for use with App.open(), openApp(), os.popen or Jythons Subprocess module.
+  setup command lines for use with run(), os.popen() or Jythons Subprocess module.
+  
+  
+**NOTE for Mac users** As application name use the name, that is displayed with the program symbol on the taskbar, 
+which might differ from what is displayed in the top left of the menu bar.
 
-a fictive command line example::
-	
-	cmd = r'c:\Program Files\myapp.exe -x "c:\Some Place\some.txt" >..\log.txt'
-	openApp(cmd)
+Example: The Chrome browser displays "Chrome" in the menu bar, but the application name is "Google Chrome".
+So openApp("chrome") will fail, whereas openApp("google chrome") will do the job. 
+Same goes for switchApp() and closeApp().
 
 .. py:function:: openApp(application)
 
-	Open the specified application.
+	Open the specified application, or swith to it, if it is already open.
 
 	:param application: a string containing the name of an application (case-insensitive), that can be
 		found in the path used by the system to locate applications. Or it can be the
 		full path to an application.
+	
+	:return None if an error occured, on success a new App class object (look :ref:class:`App`)
 		
-		**Note for Windows:**  The string may contain commandline parameters 
-		for the specified program or batch file after the name or full path.
+	This function opens the specified application and brings it to front. 
+	It switches to an already opened application, if this can be identified in the process list.
+	
+	Examples::
 
-	This function opens the specified application and brings its windows to 
-	front. This function may switch to an already opened application or
-	may open a new instance of the application depending on system.
-
-	Examples (only to show, might not work on your system)::
-
-		# Windows: opens command prompt (found through PATH)
-		openApp("cmd.exe")
+		# Windows: opens a command window (found on system path, .exe is auto-added)
+		openApp("cmd")
 		
-		#Windows (since X-1.0rc3): with parameters 
-		openApp(r'cmd.exe /c start c:\Program Files\myapp.bat')
-
 		# Windows: opens Firefox (full path specified)
-		openApp("c:\\Program Files\\Mozilla Firefox\\firefox.exe") 
+		openApp("c:\\Program Files\\Mozilla Firefox\\firefox.exe") or
+		openApp(r"c:\Program Files\Mozilla Firefox\firefox.exe")
 		
 		# Mac: opens Safari
 		openApp("Safari")
 
 .. py:function:: switchApp(application)
 
-	Switch to the specified application.
+	Bring the matching application or window to front (make it the active/focused application/window).
+	If no matching application/window can be found, 
+	it is tried to open an application using the given string as program name or location.
 
 	:param application: the name of an application (case-insensitive) or (part of) a
-		window title (Windows/Linux).
+		window title (Windows/Linux) (case-sensitive).
 
-	This function switches the focus to the specified application and brings its
-	windows to the front. 
+	:return None if an error occured, on success a new App class object (look :ref:class:`App`)
+		
+	This function switches the input focus to the specified application (brings it to front).
+	
+	*Windows:* In the first step, the given text is taken as part of a program name (not case sensitive). 
+	If it is found in the process list, it will be switched to front, if it has a main window 
+	(registered in the process list). Otherwise the text will be used to search for a matching window title.
 	
 	*Windows/Linux:* the window is identified by scanning the titles of all 
-	accessible windows for the occurence the *application* string. 
-	The first window in the system specific order that matches is given focus.
+	accessible windows for the occurence of the *application* string. 
+	The first window in the system specific order, whose title contains the given text, is given focus.
 
 	*Mac:* the string ``application`` is used to identify the application. If the
 	application has multiple windows opened, all these windows will be brought to
 	the front with unchanged z-order, which cannot be influenced currently. 
-	If no application can be found, it is tried to open it.
+	
 
 	Examples::
 
 		# Windows: switches to an existing command prompt or starts a new one
-		switchApp("cmd.exe")
+		switchApp("cmd")
 
-		# Windows: opens a new browser window
+		# Windows: switches to an already opened Firfox or opens it otherwise
 		switchApp("c:\\Program Files\\Mozilla Firefox\\firefox.exe")
 
 		# Windows: switches to the frontmost opened browser window (or does nothing
-		# if no browser window is currently opened)
-		switchApp("mozilla firefox")
+		# if no Firefox window is currently opened)
+		# works, because all Firefox window titles contain "Mozilla Firefox"
+		switchApp("Mozilla Firefox")
 
 		# Mac: switches to Safari or starts it
 		switchApp("Safari")
@@ -292,10 +311,11 @@ a fictive command line example::
 	:param application: the name of an application (case-insensitive) or (part of) a
 		window title (Windows/Linux)
 
+	:return None if an error occured, on success a new App class object (look :ref:class:`App`)
+
 	This function closes the application indicated by the string *application* (Mac) or
 	the windows whose titles contain the string *application* (Windows/Linux).  
-	On Windows/Linux, the
-	application itself may be closed if the main window is closed or if all the
+	On Windows/Linux, the application itself may be closed if the main window is closed or if all the
 	windows of the application are closed.
 
 	Example::
@@ -303,11 +323,11 @@ a fictive command line example::
 		# Windows: closes an existing command prompt
 		closeApp("cmd.exe")
 
-		# Windows: does nothing, since text can not be found in the window title
+		# Windows: closes Firefox if it is running, does nothing otherwise
 		closeApp("c:\\Program Files\\Mozilla Firefox\\firefox.exe")
 
 		# Windows: stops firefox including all its windows
-		closeApp("mozilla firefox")
+		closeApp("Mozilla Firefox")
 
 		# Mac: closes Safari including all its windows
 		closeApp("Safari")
@@ -317,5 +337,23 @@ a fictive command line example::
 	Run *command* in the command line
 
 	:param command: a command that can be run from the command line.
+	
+	:return: a multiline string containing the result of the execution
 
 	This function executes the command and the script waits for its completion.
+	
+	**structure of the result** (comments after #, not part of the result)
+	
+	Multiline string::
+		
+		N # a number being the return code
+		text
+		text
+		text
+		text # 0, one or more lines execution output (stdout)
+		*****error***** # if the execution ended with an error
+		error text # or the return code was not 0
+		error text
+		error text # 0, one or more lines error output (stderr)
+		
+**NOTE** for usage variants of the command run() and for the Java usage see :ref:class:`App`
