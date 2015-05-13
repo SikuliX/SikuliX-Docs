@@ -9,65 +9,53 @@ Using class or instance methods
 Generally you have the choice between using the class methods (e.g.
 ``App.open("application-identifier")``) or first create an App instance and use
 the instance methods afterwards (e.g. ``myApp = App("application-identifier")``
-and then later on ``myApp.open()``). In the current state of the feature
-developement of the class App, there is no recomendation for a preferred usage.
+and then later on ``myApp.open()``). There is no recomendation for a preferred usage.
 The only real difference is, that you might save some ressources, when using the
 instance approach, since using the class methods produces more intermediate
-objects. 
+objects. So if you plan to act on the same app or window more often, 
+it might be more transparent, to use the instance approach 
 
 .. _CreateAppInstance:
 
 **How to create an App instance**
 
 The basic choice is to just say ``someApp = App("some-app-identifier")`` and you
-have your app instance, that you can later on use together with its methods,
+have your app instance, that you can later use together with its methods,
 without having to specify the string again. 
 
-Additionally ``App.open("some-app-identifier")`` and ``App.focus("some-app-identifier")``
-return an app instance, that you might save in a variable to use it later on in
-your script. 
+Generally all class methods return an app instance, 
+that you might save in a variable to use it later in your script.
 
-Differences between Windows, Linux and Mac
-------------------------------------------
+At time of instance creation the process list is scanned for the name of the
+executable using the given text. If this is found, the app instance is initialized with the respective
+information (PID, executable, window title of main/frontmost window).
+So you could directly ask the app instance, wether it is running (``isRunning()``), 
+has a main window (``hasWindow()``), get the title of that main window (``getWindow()``) 
+and get the process id (PID) (``getPID``).
 
-Windows/Linux: Sikuli's strategy on these systems in the moment is to rely on
-implicit or explicit path specifications to find an application, that has to be
-started. Running "applications" can either be identified using their PID
-(process ID) or by using the window titles. So using a path specification will
-only switch to an open application, if the application internally handles the
-"more than one instance" situation".
+The string representation of an app instance looks like this:
+   ``[nPID:executableName (main/frontmost window title)] given text``
 
-You usually will use ``App.open("c:\\Program Files\\Mozilla Firefox\\Firefox.exe")``
-to start Firefox. This might open an additional window. And you can use
-``App.focus("Firefox")`` to switch to the frontmost Firefox window (which has no
-effect if no window is found). To clarify your situation you may use the new
-window() method, which allows to look for existing windows. The second possible
-approach is to store the App instance, that is returned by ``App.open()``, in a
-variable and use it later on with the instance methods (see examples below).
+(Windows/Linux) If it is not found, the titles of the currently 
+known windows are scanned, wether they contain the given text.
+The first matching window found evaluates to the application, that initializes the app instance.
+
+If neither the executable is found in the process list, nor a matching window, 
+the app instance is initialized as not running (the PID is set to -1). The given text is remebered.
 
 If you specify the exact window title of an open window, you will get exactly
 this one. But if you specify some text, that is found in more than one open
-window title, you will get all these windows in return. So this is good e.g.
-with Firefox, where every window title contains "Mozilla Firefox", but it might
-be inconvenient when looking for "Untitled" which may be in use by different
-apps for new documents. So if you want exactly one specific window, you either
+window title, you will get the first in the row of all these windows. 
+So if you want exactly one specific window, you either
 need to know the exact window title or at least some part of the title text,
 that makes this window unique in the current context (e.g. save a document with
 a specific name, before accessing it's window).
 
-On Mac OS X, on the system level the information is available, which windows
-belong to which applications. Sikuli uses this information. So by default using
-e.g. ``App.focus("Safari")`` starts Safari if not open already and switches to the
-application Safari if it is open, without doing anything with it's windows (the
-z-order is not touched). Additionally, you can get all windows of an
-application, without knowing it's titles.
+(Mac OS X) not yet possible, to identify a running app by part of the title of one of it's windows.
+The window title you get by ``getWindow()``is the one of the currently frontmost window of that application.
 
-Note on Windows: when specifying a path in a string, you have to use \\ (double
-backslash) for each \ (backslash)
-e.g. ``myPath = "c:\\Program Files\\Sikuli-IDE\\Lib\\"`` )
-
-Open, close and focus an application
-------------------------------------
+**NOTE** Currently the information, wether a window is hidden or minimized, is not available 
+and it is not possible yet, to bring such a window to front with a compound SikuliX feature. 
 
 .. _ClassAppMethods:
 
@@ -77,23 +65,16 @@ Open, close and focus an application
 	
 		*Usage:* ``App.open(application)``
 
-		Open the specified application.
+		Open the specified application, if it is not yet opened and bring it to front
 
 		:param application: The name of an application (case-insensitive), that can
 			be found in the path used by the system to locate applications, or the
 			full path to an application (Windows: use double backslash \\ in the
 			path string to represent a backslash)
 			
-			**Note for Windows:** (since X-1.0rc3) The string may contain commandline parameters 
-			for the specified program or batch file after the name or full path (see: :py:func:`openApp`)
-
-			
 		:return: an App object, that can be used with the instance methods, None in case of failing
 		
-		This method is functionally equivalent to :py:func:`openApp`. It opens the
-		specified application and brings its window the front. Whether this
-		operation switches to an already opened application or opens a new instance
-		of the application depends on the system and application.
+		This method is functionally equivalent to :py:func:`openApp`.
 
 	.. py:method:: open()
 	
@@ -106,10 +87,10 @@ Open, close and focus an application
 
 		*Usage:* ``App.focus(application)``
 
-		Switch the focus to an application.
+		Switch the input focus to an application/window.
 
 		:param application: The name of an application (case-insensitive) or (part
-			of) a window title (Windows/Linux).
+			of) a window title (Windows/Linux) (case-sensitive).
 
 		:return: an App object, that can be used with the instance methods, , None in case of failing
 		
@@ -117,24 +98,24 @@ Open, close and focus an application
 	
 		*Usage:* ``someApp.focus()`` where App instance ``someApp`` was :ref:`created before <CreateAppInstance>`.
 
-		Switch the focus to this application.
+		Switch the input focus to this application/window.
 
 
 	.. py:classmethod:: close(application)
 	
 		*Usage:* ``App.close(application)``
 
-		Close the specified application.
-
-		:param application: The name of an application (case-insensitive) or (part
-			of) a window title (Windows/Linux).
-
-		This method is functionally equivalent to :py:func:`closeApp`. It closes the
+		It closes the
 		given application or the matching windows (Windows/Linux). It does nothing
-		if no opened window (Windows/Linux) or running application (Mac) can be
+		if no running application or opened window (Windows/Linux) can be
 		found. On Windows/Linux, whether the application itself is closed depends on
 		weather all open windows are closed or a main window of the application is
 		closed, that in turn closes all other opened windows. 
+
+		:param application: The name of an application (case-insensitive) or (part
+			of) a window title (Windows/Linux)(case-sensitive).
+
+		This method is functionally equivalent to :py:func:`closeApp`. 
 
 	.. py:method:: close()
 
