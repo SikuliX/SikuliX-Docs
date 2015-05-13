@@ -205,7 +205,7 @@ Here we talk about the basic features of opening or closing other applications a
 them to front).
 
 For the more sophisticated usages including some basic handling of 
-application windows look :ref:class:`App`.
+application windows look class :py:class:`App`.
 
 You can use the feature run(someCommand) to delegate something, you can do on a commandline, to a seperate process.
 The script waits for completion and you have acces to the return code and 
@@ -214,7 +214,7 @@ the output the command has produced.
 **NOTE** openApp() should no longer be used to issue command executions (which anyway only works on Windows), 
 since this is deprecated and might stop working without notice. use the run() feature instead.
 
-**NOTE on Java usage** At the Java level only the features of the App class are available (:ref:class:`App`).
+**NOTE on Java usage** At the Java level only the features of the App class are available (class :py:class:`App`).
 
 **General hint for Windows users** on backslashes \\ and double apostrophes "
 
@@ -245,7 +245,7 @@ Same goes for switchApp() and closeApp().
 		found in the path used by the system to locate applications. Or it can be the
 		full path to an application.
 	
-	:return None if an error occured, on success a new App class object (look :ref:class:`App`)
+	:return None if an error occured, on success a new App class object (look :py:class:`App`)
 		
 	This function opens the specified application and brings it to front. 
 	It switches to an already opened application, if this can be identified in the process list.
@@ -271,7 +271,7 @@ Same goes for switchApp() and closeApp().
 	:param application: the name of an application (case-insensitive) or (part of) a
 		window title (Windows/Linux) (case-sensitive).
 
-	:return None if an error occured, on success a new App class object (look :ref:class:`App`)
+	:return None if an error occured, on success a new App class object (look :py:class:`App`)
 		
 	This function switches the input focus to the specified application (brings it to front).
 	
@@ -311,7 +311,7 @@ Same goes for switchApp() and closeApp().
 	:param application: the name of an application (case-insensitive) or (part of) a
 		window title (Windows/Linux)
 
-	:return None if an error occured, on success a new App class object (look :ref:class:`App`)
+	:return None if an error occured, on success a new App class object (look :py:class:`App`)
 
 	This function closes the application indicated by the string *application* (Mac) or
 	the windows whose titles contain the string *application* (Windows/Linux).  
@@ -356,4 +356,4 @@ Same goes for switchApp() and closeApp().
 		error text
 		error text # 0, one or more lines error output (stderr)
 		
-**NOTE** for usage variants of the command run() and for the Java usage see :ref:class:`App`
+**NOTE** for usage variants of the command run() and for the Java usage see class :py:class:`App`
