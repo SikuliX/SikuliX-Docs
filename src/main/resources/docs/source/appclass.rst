@@ -55,12 +55,70 @@ a specific name, before accessing it's window).
 The window title you get by ``getWindow()``is the one of the currently frontmost window of that application.
 
 **NOTE** Currently the information, wether a window is hidden or minimized, is not available 
-and it is not possible yet, to bring such a window to front with a compound SikuliX feature. 
+and it is not possible yet, to bring such a window to front with a compound SikuliX feature.
 
 .. _ClassAppMethods:
 
 .. py:class:: App
   
+	.. py:classmethod:: App(application)
+	
+		*Usage:* ``someApp = App(application)``
+
+		Open the specified application, if it is not yet opened and bring it to front
+
+		:param application: The name of an application (case-insensitive), that can
+			be found in the path used by the system to locate applications, or the
+			full path to an application. Optionally you might add parameters, 
+			that will be given to the application at open (see :py:func:`setUsing`).
+			
+		:return: an App object, that can be used with the instance methods
+		
+	.. py:method:: isRunning()
+	
+		*Usage:* ``if not someApp.isRunning(): someApp.open()`` 
+		where App instance ``someApp`` was :ref:`created before <CreateAppInstance>`.
+	
+		:return: True if the app is running (has a process ID), False otherwise
+		
+	.. py:method:: hasWindow()
+	
+		*Usage:* ``if not someApp.hasWindow(): openNewWindow() # some private function`` 
+		where App instance ``someApp`` was :ref:`created before <CreateAppInstance>`.
+	
+		:return: True if the app is running and has a main window registered, False otherwise
+		
+	.. py:method:: getWindow()
+	
+		*Usage:* ``title = someApp.getWindow()`` 
+		where App instance ``someApp`` was :ref:`created before <CreateAppInstance>`.
+	
+		:return: the title of the frontmost window of this application, might be an empty string
+		
+	.. py:method:: getPID()
+	
+		*Usage:* ``pid = someApp.getPID()`` 
+		where App instance ``someApp`` was :ref:`created before <CreateAppInstance>`.
+	
+		:return: the process ID as number if app is running, -1 otherwise
+		
+	.. py:method:: getName()
+	
+		*Usage:* ``appName = someApp.getName()`` 
+		where App instance ``someApp`` was :ref:`created before <CreateAppInstance>`.
+	
+		:return: the short name of the app as it is shown in the process list
+
+	.. py:method:: setUsing(parametertext)
+	
+		*Usage:* ``appName = someApp.setUsing("parm1 x parm2 y parm3 z")`` 
+		where App instance ``someApp`` was :ref:`created before <CreateAppInstance>`.
+		
+		:param parametertext: a string, that is given to the applications startup as you would
+		give it, if you would start the app from a commandline.
+	
+		:return: the app instance
+
 	.. py:classmethod:: open(application)
 	
 		*Usage:* ``App.open(application)``
@@ -78,7 +136,8 @@ and it is not possible yet, to bring such a window to front with a compound Siku
 
 	.. py:method:: open()
 	
-		*Usage:* ``someApp.open()`` where App instance ``someApp`` was :ref:`created before <CreateAppInstance>`.
+		*Usage:* ``someApp.open()`` 
+		where App instance ``someApp`` was :ref:`created before <CreateAppInstance>`.
 	
 		Open this application.
 
