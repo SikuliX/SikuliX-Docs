@@ -211,9 +211,6 @@ You can use the feature run(someCommand) to delegate something, you can do on a 
 The script waits for completion and you have acces to the return code and 
 the output the command has produced.
 
-**NOTE** openApp() should no longer be used to issue command executions (which anyway only works on Windows), 
-since this is deprecated and might stop working without notice. use the run() feature instead.
-
 **NOTE on Java usage** At the Java level only the features of the App class are available (class :py:class:`App`).
 
 **General hint for Windows users** on backslashes \\ and double apostrophes "
@@ -224,11 +221,10 @@ when you have them inside the string. So for one backslash you need \\\\
 and for one " you need \\". In a string enclosed in ' (single apostrophes), a ' 
 has to be \\' and a " is taken as such.
 
-To avoid any problems, it is recommended to use the raw string ``r'some text with \\ and " ...'``,
+To avoid any problems, it is recommended to use the raw string ``r'some text with \ and " ...'``,
 since there is no need for escaping (but no trailing \\ is allowed here). 
-  This is especially useful, when you have to specify Windows path's or want to 
-  setup command lines for use with run(), os.popen() or Jythons Subprocess module.
-  
+  This is especially useful, when you have to specify Windows path's containing blanks or want to 
+  setup command lines for use with openApp(), App.open(), run(), os.popen() or Jythons Subprocess module.
   
 **NOTE for Mac users** As application name use the name, that is displayed with the program symbol on the taskbar, 
 which might differ from what is displayed in the top left of the menu bar.
@@ -240,7 +236,7 @@ Same goes for switchApp() and closeApp().
 .. py:function:: openApp(application)
 
 	Open the specified application, or swith to it, if it is already open.
-
+	
 	:param application: a string containing the name of an application (case-insensitive), that can be
 		found in the path used by the system to locate applications. Or it can be the
 		full path to an application.
@@ -248,19 +244,22 @@ Same goes for switchApp() and closeApp().
 	:return None if an error occured, on success a new App class object (look :py:class:`App`)
 		
 	This function opens the specified application and brings it to front. 
-	It switches to an already opened application, if this can be identified in the process list.
+	It might switch to an already opened application, if this can be identified in the process list.
+	
+	**Windows:** A running instance will be ignored in any case
+	and hence in most cases a new instance of the program will be started.
 	
 	Examples::
+	
+		# Windows: run a batch file in a new command window:
+		`òpenApp("cmd.exe /c start path-to-some.bat")``
 
-		# Windows: opens a command window (found on system path, .exe is auto-added)
-		openApp("cmd")
-		
 		# Windows: opens Firefox (full path specified)
-		openApp("c:\\Program Files\\Mozilla Firefox\\firefox.exe") or
-		openApp(r"c:\Program Files\Mozilla Firefox\firefox.exe")
+		``openApp("c:\\Program Files\\Mozilla Firefox\\firefox.exe")`` or
+		``openApp(r"c:\Program Files\Mozilla Firefox\firefox.exe")``
 		
 		# Mac: opens Safari
-		openApp("Safari")
+		``openApp("Safari")``
 
 .. py:function:: switchApp(application)
 
@@ -290,9 +289,6 @@ Same goes for switchApp() and closeApp().
 
 	Examples::
 
-		# Windows: switches to an existing command prompt or starts a new one
-		switchApp("cmd")
-
 		# Windows: switches to an already opened Firfox or opens it otherwise
 		switchApp("c:\\Program Files\\Mozilla Firefox\\firefox.exe")
 
@@ -319,9 +315,6 @@ Same goes for switchApp() and closeApp().
 	windows of the application are closed.
 
 	Example::
-
-		# Windows: closes an existing command prompt
-		closeApp("cmd.exe")
 
 		# Windows: closes Firefox if it is running, does nothing otherwise
 		closeApp("c:\\Program Files\\Mozilla Firefox\\firefox.exe")
@@ -350,10 +343,10 @@ Same goes for switchApp() and closeApp().
 		text
 		text
 		text
-		text # 0, one or more lines execution output (stdout)
+		text # no, one or more lines execution output (stdout)
 		*****error***** # if the execution ended with an error
 		error text # or the return code was not 0
 		error text
-		error text # 0, one or more lines error output (stderr)
+		error text # no, one or more lines error output (stderr)
 		
 **NOTE** for usage variants of the command run() and for the Java usage see class :py:class:`App`
