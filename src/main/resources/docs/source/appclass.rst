@@ -41,7 +41,7 @@ known windows are scanned, wether they contain the given text.
 The first matching window found evaluates to the application, that initializes the app instance.
 
 If neither the executable is found in the process list, nor a matching window, 
-the app instance is initialized as not running (the PID is set to -1). The given text is remebered.
+the app instance is initialized as not running (the PID is set to -1). The given text is remembered.
 
 If you specify the exact window title of an open window, you will get exactly
 this one. But if you specify some text, that is found in more than one open
@@ -80,6 +80,23 @@ and it is not possible yet, to bring such a window to front with a compound Siku
 		where App instance ``someApp`` was :ref:`created before <CreateAppInstance>`.
 	
 		:return: True if the app is running (has a process ID), False otherwise
+		
+		**Windows** It is common, to identify an app by (part of) it's window title. 
+		If it is not open yet, one has to use methods, to open it first before proceeding.
+		
+		So this is a typical example, how to deal with that:
+		
+		Example::
+			
+			# we want to act in a VirtualBox VM window and use the VM's name
+			# which is always part of the Window title when running
+			vb = App("VM-name")
+			if not vb.isRunning():
+  				App.open(r'"C:\Program Files\Oracle\VirtualBox\VBoxManage.exe" startvm VM-name')
+  				while not vb.isRunning():
+    					wait(1) 
+			vb.focus()
+			appWindow = App.focusedWindow()
 		
 	.. py:method:: hasWindow()
 	
