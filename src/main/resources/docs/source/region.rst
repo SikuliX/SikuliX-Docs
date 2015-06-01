@@ -763,12 +763,14 @@ using a string containing the file name (path to an image file).
 Observing Visual Events in a Region
 -----------------------------------
 
+** This feature is completetely revised in version 1.1.0 **
+
 You can tell a region to observe that something appears or vanishes,
 or something changes in that region. Using the methods 
 :py:meth:`Region.onAppear`, :py:meth:`Region.onVanish` and :py:meth:`Region.onChange`, 
-you register an event observer that starts its observation when you
+you register an event observer that starts the observation when you
 call :py:meth:`Region.observe`. Each region object can have exactly one observation active and
-running. For each observation, you can register as many event observers as
+running at one time. For each observation, you can register as many event observers as
 needed. So you can think of it as grouping some ``wait()`` and ``waitVanish()``
 together and have them processed simultanouesly, while you are waiting for one
 of these events to happen.
@@ -778,22 +780,22 @@ let it run in the background, while your script is continuing. With a timing
 parameter you can tell :py:meth:`Region.observe` 
 to stop observation anyway after the given time.
 
-When one of the visual events happens, an event handler written by you is
-called. An event handler is a function contained in your script and expects a
-:py:class:`SikuliEvent` object as a parameter. 
-During the processing in your handler, the
-observation is paused until your handler has ended. Information between the
+When one of the visual events happens, an event handler (callback function) provided by you is
+called, handing over a :py:class:`SikuliEvent` object as a parameter. 
+During the processing in your handler, the observation is paused until your handler has ended. 
+Information between the
 main script and your handlers can be given forward and backward using global
 variables.
 
-It's your responsibility to stop an observation. This can either be done by
-calling :py:meth:`Region.stopObserver` 
-or by starting the observation with a timing parameter.
+It's your responsibility to stop the observation. This can either be done by
+calling :py:meth:`Region.stopObserver` (in the main workflow or in the handler)
+or by starting the observation with a timing parameter. All running observations are stopped
+automatically, when the script terminates.
 
 Since you can have as many region objects as needed and each region can have
-one observation active and running. So theoretically it's possible to have as
-many visual events being observered at the same time as needed. But in reality,
-the number of observation is still limited by the system resources available to
+one observation active and running, theoretically it is possible to have as
+many visual events being observed at the same time as needed. But in reality,
+the number of observations is limited by the system resources available to
 Sikuli at that time.
 
 Be aware, that every observation is a number of different find operations that
@@ -808,7 +810,7 @@ plain text) can be used as parameter.
 
 .. _ObserveHandler:
 
-**handler**: as a parameter in the following methods, you have to specify the *name*
+**handler**: as a parameter in the following methods you have to specify the *name*
 of a function, which will be called by the observer, in case the observed event
 happens. The function itself has to be defined in your script before using the
 method that references the function. The existance of the function will be
@@ -824,21 +826,6 @@ have at least the following statements in your script::
 	
 Read :py:class:`SikuliEvent` to know what is contained in a SikuliEvent object
 
-**Note on performance**: Normally all the region methods are used as ``reg.onAppear(PS)``, where ``reg`` is a
-region object. If written as ``onAppear(PS)`` it operates on the default screen being the implicit
-region in this case. Using ``region.onEvent()`` instead will restrict the search to the
-region's rectangle and speed up processing, if region is significantly smaller
-than the whole screen.
-
-**Note**: In case of having more than one Monitor active, read 
-:ref:`Multi Monitor Environments <MultiMonitorEnvironments>` before.
-
-**Note on IDE**: Capturing is a tool in the IDE, to quickly set up images to search
-for. These images are named automatically by the IDE and stored together with
-the script, at the time it is saved (we call the location in the file system
-bundle-path). Behind the curtain the images itself are specified by using a
-string containing the file name (path to an image file).
-
 .. py:class:: Region
 
 	.. py:method:: onAppear(PS, handler)
@@ -850,9 +837,13 @@ string containing the file name (path to an image file).
 
 		With the given region you register an observer, that should wait for
 		the pattern to be there or to appaear and is activated with the next
-		call of ``observe()``. In the moment the internal find operation on the
+		call of ``observe()``. In the moment the internal find operation with the
 		given pattern is successful during observation, your handler is called
-		and the observation is paused until you return from your handler. 
+		and the observation is paused until you return from your handler.
+		
+		With the first appearence, the observation for this event is terminated.
+		If you want the observation for this event to be continued, you have to use
+		:py:meth:`SikuliEvent.repeat` before leaving the handler.
 
 	.. py:method:: onVanish(PS, handler)
 
@@ -867,15 +858,16 @@ string containing the file name (path to an image file).
 		given pattern fails during observation, your handler is called and the
 		observation is paused until you return from your handler. 
 
+		With the first vanishing, the observation for this event is terminated.
+		If you want the observation for this event to be continued, you have to use
+		:py:meth:`SikuliEvent.repeat` before leaving the handler.
+
 	.. py:method:: onChange([minChangedSize], handler)
 
 		:param minChangedSize: the minimum size in pixels of a change to trigger a change event.
 			If omitted: 50 is used (see :py:attr:`Settings.ObserveMinChangedPixels`).
 		:param handler: the name of a handler function in the script
 		
-		.. versionadded:: X1.0-rc2
-			**minChangedSize**
-
 		With the given region you register an observer, that should wait for
 		the visual content of the given region to change and is activated with
 		the next call of ``observe()``. In the moment the visual content changes
@@ -887,15 +879,16 @@ string containing the file name (path to an image file).
 
 			def changed(event):
 				print "something changed in ", event.region
-				for ch in event.changes:
+				for ch in event.getChanges:
 					ch.highlight() # highlight all changes
-				sleep(1)
+				wait(1)
 				for ch in event.changes:
 					ch.highlight() # turn off the highlights
-			with selectRegion("select a region to observe") as r:
-			    # any change in r larger than 50 pixels would trigger the changed function
-			    onChange(50, changed) 
-			    observe(background=True)
+		
+			r = selectRegion("select a region to observe") as r:
+			# any change in r larger than 50 pixels would trigger the changed function
+			r.onChange(50, changed) 
+			r.observe(background=True)
 
 			wait(30) # another way to observe for 30 seconds
 			r.stopObserver()
@@ -908,11 +901,11 @@ string containing the file name (path to an image file).
 		:param seconds: a number, which can have a fraction, as maximum
 			observation time in seconds. Omit it or use the constant FOREVER to
 			tell the observation to run for an infinite time (or until stopped
-			by a call of ``stopObserve()``). 
+			by ``stopObserve()``). 
 		
 		:param background: a flag indicating whether observation is run in the
-			background. when set to *True*, the observation will be run in the
-			background and processing of your script is continued immediately.
+			background. when set to *True*, the observation will be run in a
+			subthread and processing of your script is continued immediately.
 			Otherwise the script is paused until the completion of the
 			observation.
 
@@ -924,7 +917,7 @@ string containing the file name (path to an image file).
 		
 	.. py:method:: stopObserver()
 
-		Stop observation within the region.
+		Stop observation for this region.
 
 		This must be called on a valid region object. The source region of an
 		observed visual event is available as one of the attributes of the *event*
@@ -932,16 +925,15 @@ string containing the file name (path to an image file).
 		invoked. 
 		
 		For example, to stop observation within a handler function, simply
-		call ``event.region.stopObserver()`` inside the handler function.::
+		call ``event.stopObserver()`` inside the handler function.::
 		
 			def myHandler(event): 
-				event.region.stopObserver() # stops the observation
+				event.stopObserver() # stops the observation
 						
 			onAppear("path-to-an-image-file", myHandler) 
 			observe(FOREVER) # observes until stopped in handler
 
 
-.. versionadded:: X1.0-rc2
 .. py:class:: SikuliEvent
 
    When processing an :ref:`observation in a region <ObservingVisualEventsinaRegion>`, 
