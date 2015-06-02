@@ -763,7 +763,7 @@ using a string containing the file name (path to an image file).
 Observing Visual Events in a Region
 -----------------------------------
 
-** This feature is completetely revised in version 1.1.0 **
+**This feature is completetely revised in version 1.1.0**
 
 You can tell a region to observe that something appears or vanishes,
 or something changes in that region. Using the methods 
@@ -879,13 +879,13 @@ Read :py:class:`SikuliEvent` to know what is contained in a SikuliEvent object
 
 			def changed(event):
 				print "something changed in ", event.region
-				for ch in event.getChanges:
+				for ch in event.getChanges():
 					ch.highlight() # highlight all changes
 				wait(1)
-				for ch in event.changes:
+				for ch in event.getChanges():
 					ch.highlight() # turn off the highlights
 		
-			r = selectRegion("select a region to observe") as r:
+			r = selectRegion("select a region to observe")
 			# any change in r larger than 50 pixels would trigger the changed function
 			r.onChange(50, changed) 
 			r.observe(background=True)
