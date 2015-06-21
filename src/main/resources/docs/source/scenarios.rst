@@ -44,11 +44,11 @@ Apply the following steps, to get a Jython environment, that is SikuliX aware:
 Access Python packages from SikuliX scripts run by SikuliX (GUI or commandline)
 -------------------------------------------------------------------------------
 
-The following approaches apply to situations, where you want to use Python modules installed somewhere on your system, without the need to manipulate ``sys.path``, meaning, that when using `ìmport moduleXYZ`` this package is found automatically.
+The following approaches apply to situations, where you want to use Python modules installed somewhere on your system, without the need to manipulate ``sys.path``, meaning, that when using ``ìmport moduleXYZ`` this package is found automatically.
 
 SikuliX uses a central repository (``SikulixRepo`` in the following) for internal stuff (native libraries, downloaded artifacts, resources needed at runtime and simailar things). This is a folder in the user's private space (home folder):
  - Windows: ``%APPDATA%\Sikulix``
- - Mac: ``~/Library/Application Support/Sikulix
+ - Mac: ``~/Library/Application Support/Sikulix``
  - Linux: ``~/.Sikulix``
 
 **Basic preparation**
