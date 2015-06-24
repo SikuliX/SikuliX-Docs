@@ -20,5 +20,3 @@ At startup these places are searched for a file ``SikulixOptions.txt`` (first ap
 **Special for the options defined in the Settings class**
  * see :ref:`Controlling Sikuli Scripts and their Behavior <ControllingSikuliScriptsandtheirBehavior>`
  * any ``Settings.option = value`` will overwrite the existing option value in the Settings class at startup
-
-
