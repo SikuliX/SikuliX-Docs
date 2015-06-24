@@ -140,6 +140,8 @@ Version 2 will have a capturing tool as a standalone app, that supports the basi
 SikuliX - system specifics
 ==========================
 
+.. _SikulixAppSection:
+
 Some general aspects
 --------------------
 
