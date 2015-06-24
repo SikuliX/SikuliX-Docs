@@ -158,14 +158,14 @@ Beginning with version 1.1.0 the resulting artefacts (currently sikulix.jar and/
 
 The current layout of this space is as follows (we call it SikulixAppData):
 
- | Extensions (place for extensions/Plugins)
- | Lib (the stuff to support Jython/JRuby usage)
- | SikulixDownloads (non SikuliX artefacts like Jython, JRuby, Tesseract support, ...)
- | SikulixDownloads_TIMESTAMP (versioned SikuliX stuff needed for setup)
- | SikulixLibs_TIMESTAMP (the place for the exported native libraries)
- | SikulixSetup (optional: used when the setup is run from the project context)
- | SikulixStore (place for persistent or optional information)
- | SikulixTesseract (place for language specific tessdata files)
+ | `Extensions` (place for extensions/Plugins)
+ | `Lib` (the stuff to support Jython/JRuby usage)
+ | `SikulixDownloads` (non SikuliX artefacts like Jython, JRuby, Tesseract support, ...)
+ | `SikulixDownloads_TIMESTAMP` (versioned SikuliX stuff needed for setup)
+ | `SikulixLibs_TIMESTAMP` (the place for the exported native libraries)
+ | `SikulixSetup` (optional: used when the setup is run from the project context)
+ | `SikulixStore` (place for persistent or optional information)
+ | `SikulixTesseract` (place for language specific tessdata files)
 
 Currently there is no need to step into these folders except for debugging purposes.
 
