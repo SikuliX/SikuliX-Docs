@@ -552,7 +552,7 @@ the feature :ref:`SIKULI_IMAGE_PATH <ImageSearchPath>` to make sure that images 
 **Note for Java usage** at the Java level, this feature is available as ``Sikulix.load(jar [, folder])``
 and adds the given jar to the end of the classpath on the fly. A given folder is added to the image path as mentioned above.
 
-**Note on Python usage** more details and usage cases are discussed in the :ref:`UsingPython <Python section>`.
+**Note on Python usage** more details and usage cases are discussed in :ref:`Using Python <UsingPython>`.
 After a successful ``load()``, you might use the standard ``import something``, to make the module `something` available in your scripting context.
 
 .. index:: run scripts
