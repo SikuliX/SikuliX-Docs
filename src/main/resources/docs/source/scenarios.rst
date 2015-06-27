@@ -43,12 +43,13 @@ Apply the following steps, to get a Jython environment, that is SikuliX aware:
   - if this is still not the case follow the steps further below ``Fallback without pip``
  - run ``<jython-folder>/bin/pip install jip`` to install the package ``jip``, which allows to add Java libraries easily to your Jython environment 
  - add any needed Python package (must not depend on C-based stuff) using ``pip``, ``easy-install`` or manual methods into ``<jython-folder>/Lib/site-packages`` and/or use ``jip`` for adding Java libraries preferably from Maven Central 
+ 
 Access Python packages from SikuliX scripts run by SikuliX (GUI or commandline)
 -------------------------------------------------------------------------------
 
 The following approaches apply to situations, where you want to use Python modules installed somewhere on your system, without the need to manipulate ``sys.path``, meaning, that when using ``ìmport moduleXYZ`` this package is found automatically.
 
-SikuliX uses a central repository (``SikulixRepo`` in the following) for internal stuff (native libraries, downloaded artifacts, resources needed at runtime and simailar things). This is a folder in the user's private space (home folder):
+SikuliX uses a central repository (``SikulixRepo`` in the following) for internal stuff (native libraries, downloaded artifacts, resources needed at runtime and simailar things). This is a folder in the user's private space (home folder) :ref:`look here <SikulixAppData>`:
  - Windows: ``%APPDATA%\Sikulix``
  - Mac: ``~/Library/Application Support/Sikulix``
  - Linux: ``~/.Sikulix``
