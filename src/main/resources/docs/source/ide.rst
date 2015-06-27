@@ -20,3 +20,24 @@ At startup these places are searched for a file ``SikulixOptions.txt`` (first ap
 **Special for the options defined in the Settings class**
  * see :ref:`Controlling Sikuli Scripts and their Behavior <ControllingSikuliScriptsandtheirBehavior>`
  * any ``Settings.option = value`` will overwrite the existing option value in the Settings class at startup
+ 
+**Other Options globally recognized and processed on startup**
+
+ - ``Debug.level = n`` 
+ 
+     preferably n as 3, debug information produced from beginning of startup
+     
+ - ``Settings.OverwriteImages = yes``
+     
+     when saving images in the IDE, usually when using a name, that already exists, this is not overwritten, but  stored with a name having a suffix -n appended.
+     With this option switched on (default is off) naming images with an existing name will replace the image file without notice. 
+     
+ - classpath = absolute-path
+     will be added to the end of the classpath
+    
+ - jython = yes
+     the classpath will be checked for a valid jython.jar (look for class org.python.util.jython) and the Jython sys.path arranged accordingly
+     
+ - robot = path to a Robot Framework Python package
+     the path will be checked for a robot/run.py and the parent folder added to Jython's sys.path. A valid Jython on the classpath is needed for this option to be accepted (either with SikuliX IDE, option jython=yes or ...)
+ 
