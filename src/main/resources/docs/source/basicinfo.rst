@@ -140,7 +140,7 @@ Version 2 will have a capturing tool as a standalone app, that supports the basi
 SikuliX - system specifics
 ==========================
 
-.. _SikulixAppSection:
+.. _SikulixAppData:
 
 Some general aspects
 --------------------
@@ -158,7 +158,7 @@ The only exception is Java programming with some Maven compatible build system, 
 
 Beginning with version 1.1.0 the resulting artefacts (currently sikulix.jar and/or sikulixapi.jar) can be moved around as needed (though it is still recommended to have the SikuliX stuff in one well defined place, to avoid update/upgrade problems). Everything else SikuliX needs during runtime is stored either in the system's temp space or in a special system specific area in the user's home space (see the system specific topics below). Missing or outdated things in these areas are created/recreated at runtime by SikuliX automatically (means: you can delete everything at any time, as long as you keep the jars).
 
-The current layout of this space is as follows (we call it SikulixAppData):
+The current layout of this space is as follows (we call it **SikulixAppData**):
 
  | ``Extensions`` (place for extensions/Plugins)
  | ``Lib`` (the stuff to support Jython/JRuby usage)
