@@ -102,27 +102,29 @@ Or use the **SikuliX provided** feature ``Sikulix.buildJarFromFolder(jarpath, fo
 Just run ``Sikulix.buildJarFromFolder(jarpath, folder)`` in an empty tab in the IDE or in a script, that might do some pre- and/or postprocessing.
 
 If the folder contains an ``__init__.py`` on the first level, the given folder is taken as a Python package and as such copied to the root level of the jar, to preserve the package context::
-     
-     -- packagefolder
-       __init__.py
-       stuff.py
-       
-     becomes a jar
-     -- jar rootlevel
-     - packagefolder
-       __init__.py
-       stuff.py
+
+    -- packagefolder
+      __init__.py
+      stuff.py
+      
+    becomes a jar
+    -- jar rootlevel
+    - packagefolder
+      __init__.py
+      stuff.py
  
- **how to secure your script code using the jar packaging**
- - Step 1: prepare a folder as in the previous chapter
- - Step 2: compile the folder into a new folder (see below)
- - Step 3: pack the new folder into a jar for distribution
+**how to secure your script code using the jar packaging**
+- Step 1: prepare a folder as in the previous chapter
+- Step 2: compile the folder into a new folder (see below)
+- Step 3: pack the new folder into a jar for distribution
  
 Run in an empty IDE tab or as part of a script:
 
 ``Sikulix.compileJythonFolder(sourcefolder, targetfolder)`` 
 
 copies the complete content from sourcefolder to targetfolder (the parent folder must exist, the folder is emptied if exists) and then traverses the targetfolder replacing each ``foobar.py`` with it's compiled version ``foobar$py.class``, that contains JVM-byte-code, so your script code cannot be edited anymore in this targetfolder, but still be used with ``import foobar``.
+
+**Be aware:** Be sure, your code compiles without errors, because the compile feature either succeeds or fails (compile errors), but you will not get any information about the cause or even the place of the compile problem.
  
 Using Ruby
 ==========
