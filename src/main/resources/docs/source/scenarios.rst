@@ -114,9 +114,9 @@ If the folder contains an ``__init__.py`` on the first level, the given folder i
       stuff.py
  
 **how to secure your script code using the jar packaging**
-- Step 1: prepare a folder as in the previous chapter
-- Step 2: compile the folder into a new folder (see below)
-- Step 3: pack the new folder into a jar for distribution
+ - Step 1: prepare a folder as in the previous chapter
+ - Step 2: compile the folder into a new folder (see below)
+ - Step 3: pack the new folder into a jar for distribution
  
 Run in an empty IDE tab or as part of a script:
 
