@@ -520,24 +520,40 @@ the feature :ref:`SIKULI_IMAGE_PATH <ImageSearchPath>` to make sure that images 
 		prevents naming conflicts.
 
 
-**Loading a jar-file containing Java/Python modules**
+.. versionadded:: 1.1.0
+
+**Loading a jar-file containing Java/Python modules and additional resources as needed**
 	
 .. py:function:: load(jar-file)
 
 	Loads a jar-file and puts the absolute path to it into sys.path, so 
         the Java or Python code in that jar-file can be imported afterwards.
 	
-	:param jar-file: either a ``filename.jar`` without any path or the absolute 
-		path to ``filename.jar``
+	:param jar-file: either a relative or absolute path to ``filename.jar``
 	:return: ``True`` if the file was found, otherwise ``False``
 	
-	**Note:** About how this jar-file should be structured you 
-	find more information here: :ref:`Sikuli Extensions <sikuliextensions>`
+.. py:function:: load(jar-file, image-folder)
+
+	same as load(jar-file), but additionally adds the given folder to the image path. 
+	image-folder is assumed to be a foldername available in the jar's rootlevel (not checked though).
 	
-	**Version 1.1.0:** Only absolute path's to the jar-file are supported.
+	:param jar-file: either a relative or absolute path to ``filename.jar``
+	:param image-folder: a relative path (always use / as path separator, no leading /)
+	:return: ``True`` if the file was found, otherwise ``False``
 	
-  **Version 1.2.0:** **Extensions** will be supported again 
-  acccording to :ref:`Sikuli Extensions <sikuliextensions>`
+**Search startegy** The given jar is searched as following (first match wins):
+ - if given as absolute path it is checked for existence and processed (if not exists: no further action)
+ - if given as relative path:
+  - the current path (Jython: sys.path, Java: classpath)
+  - the current folder (Jython only: bundle path)
+  - the SikuliX Extensions folder
+  - the SikuliX Lib folder
+  
+**Note for Java usage** at the Java level, this feature is available as ``Sikulix.load(jar [, folder])``
+and adds the given jar to the end of the classpath on the fly. A given folder is added to the image path as mentioned above.
+
+**Note on Python usage** more details and usage cases are discussed in the :ref:`UsingPython <Python section>`.
+After a successful ``load()``, you might use the standard ``import something``, to make the module `something` available in your scripting context.
 
 .. index:: run scripts
 
