@@ -13,6 +13,8 @@ How to run a SikuliX script or a series of scripts
 Using JavaScript
 ================
 
+.. _UsingPython:
+
 Using Python
 ============
 
@@ -60,6 +62,68 @@ SikuliX uses a central repository (``SikulixRepo`` in the following) for interna
 **Approach 2**
     In the folder ``SikulixRepo/Lib/site-packages`` have a file ``sites.txt``, that contains absolute paths one per line, that point to other places, where modules packages can be found. These paths will be added automatically at startup to the ``end of sys.path`` in the given sequence. With this approach, you might for example add the ``Lib/site-packages`` folder of your own Jython installation.
     
+
+.. _LoadableJars:
+
+Prepare and use your own jar files in the Jython environment
+------------------------------------------------------------
+
+You might prepare jar files containing Python scripts/modules/packages, Java classes and other stuff like images, that are intended to be used in the scripting context.
+
+**possible use cases**
+ - you want to pack scripted stuff together with other resources into a container ready to be used by yourself or others via import (which is not supported by the .skl packaging method).
+ - you want to secure your script code against modifications by others, that use your distributed jar.
+ 
+Later (possibly only with version 2) there will be a feature available, to run such script containers directly from commandline (``java -jar mystuff.jar parameters``) or by double clicking.
+
+**typical jar file structure**::
+
+    -- jar rootlevel
+    module1.py    # Python module
+    module2.py
+    - folder1     # Python package
+      __init__.py
+      stuff1.py
+      stuff2.py
+    - images      # image folder
+      img1.png
+      img2.png
+    - org         # Java package
+      - mystuff
+        class1.class
+        class1.class
+
+**how to pack such a jar**
+
+You might use the Java ``jar utility`` (contained in the JDK).
+
+Or use the **SikuliX provided** feature ``Sikulix.buildJarFromFolder(jarpath, folder)``, where jarpath is the absolute path to the jar (the parent folder must exist, the jar is overwritten), that should be created and folder is the absolute path to a folder, containing the stuff to be packed. The content of the folder is copied to the root of the created jar.
+
+Just run ``Sikulix.buildJarFromFolder(jarpath, folder)`` in an empty tab in the IDE or in a script, that might do some pre- and/or postprocessing.
+
+If the folder contains an ``__init__.py`` on the first level, the given folder is taken as a Python package and as such copied to the root level of the jar, to preserve the package context::
+     
+     -- packagefolder
+       __init__.py
+       stuff.py
+       
+     becomes a jar
+     -- jar rootlevel
+     - packagefolder
+       __init__.py
+       stuff.py
+ 
+ **how to secure your script code using the jar packaging**
+ - Step 1: prepare a folder as in the previous chapter
+ - Step 2: compile the folder into a new folder (see below)
+ - Step 3: pack the new folder into a jar for distribution
+ 
+Run in an empty IDE tab or as part of a script:
+
+``Sikulix.compileJythonFolder(sourcefolder, targetfolder)`` 
+
+copies the complete content from sourcefolder to targetfolder (the parent folder must exist, the folder is emptied if exists) and then traverses the targetfolder replacing each ``foobar.py`` with it's compiled version ``foobar$py.class``, that contains JVM-byte-code, so your script code cannot be edited anymore in this targetfolder, but still be used with ``import foobar``.
+ 
 Using Ruby
 ==========
 
