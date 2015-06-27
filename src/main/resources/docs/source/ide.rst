@@ -15,7 +15,7 @@ Since internally the options are stored in a Java Properties object as key-value
 At startup these places are searched for a file ``SikulixOptions.txt`` (first appearence wins):
  * the working folder 
  * the user's home folder
- * the folder ``SikulixStore`` in the :ref:`<SikulixAppSection>`
+ * the folder ``SikulixStore`` in the :ref:`Sikulix repository <SikulixAppData>`
  
 **Special for the options defined in the Settings class**
  * see :ref:`Controlling Sikuli Scripts and their Behavior <ControllingSikuliScriptsandtheirBehavior>`
