@@ -589,9 +589,23 @@ and keeps available the original parameters given and the current image path.
  * relative path to a folder taken as relative to the working folder
  * the path spec can contain leading or intermediate ../
  * a path preceded by ./ means the same folder, that the calling script is located
- * a pointer to a folder in the HTTP net (base.com:folder/script.sikuli). The leading http:// might be omitted
+ * a pointer to a folder in the HTTP net 
  * in any case .sikuli can be omitted
  * if it is a .skl, then it must be noted as script.skl
+ 
+ **Special usage notes for scripts located in the net**
+  - must be accessible via HTTP
+  - the location specifier can be one of these:
+   - ``base-url:folder/script``
+   - ``http://base-url:folder/script``
+   - ``http://base-url/folder/script``
+   - where folder is optional and might have more than one level with / as separator
+   - where script is the folder containing the script file (Python, Ruby or JavaScript) and the images (no .sikuli appended!)
+  - The contained script file must have the same name as the script folder and a suffix:
+   - for JavaScript ``.js``
+   - for Python ``.py.txt``
+   - for Ruby ``.rb.txt``
+   - the additional suffixes ``.txt`` are currently necessary, to avoid download problems (will be addressed in version 2)
  
  This feature allows to create a main script, that contains a row of ``runScript() commands``, 
  thus running these scripts one after the other in the same context (no startup delay).
