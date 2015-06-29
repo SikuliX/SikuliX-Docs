@@ -32,12 +32,12 @@ At startup these places are searched for a file ``SikulixOptions.txt`` (first ap
      when saving images in the IDE, usually when using a name, that already exists, this is not overwritten, but  stored with a name having a suffix -n appended.
      With this option switched on (default is off) naming images with an existing name will replace the image file without notice. 
      
- - classpath = absolute-path
+ - ``classpath = absolute-path``
      will be added to the end of the classpath
     
- - jython = yes
+ - ``jython = yes``
      the classpath will be checked for a valid jython.jar (look for class org.python.util.jython) and the Jython sys.path arranged accordingly
      
- - robot = path to a Robot Framework Python package
+ - ``robot = path to a Robot Framework Python package``
      the path will be checked for a robot/run.py and the parent folder added to Jython's sys.path. A valid Jython on the classpath is needed for this option to be accepted (either with SikuliX IDE, option jython=yes or ...)
  
