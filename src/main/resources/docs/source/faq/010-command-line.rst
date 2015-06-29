@@ -79,8 +79,7 @@ Command Line Options (intention: run a script without opening the IDE)
    
    *<sikuli-folder/file>* can be 
     * a relative or absolute path with or without dotted parts (e.g. ../some-script) 
-    * a pointer to a location in the HTTP net like so: *<base-url>:script-name* or *<base-url>:folder/script-name* 
-      where script-name can be stored and/or accessed without ending .sikuli. The contained script file is downloaded and run,
+    * a pointer to a location in the HTTP net (:ref:`for details look here <RunningScripts>`). The contained script file is downloaded and run,
       while the image files are downloaded when used in the script at runtime.
    
    Having more than one script to run, the folder containing the script folder is remembered and applied 
