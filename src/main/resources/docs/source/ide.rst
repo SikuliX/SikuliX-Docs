@@ -35,12 +35,4 @@ At startup these places are searched for a file ``SikulixOptions.txt`` (first ap
  - ``classpath = list of absolute-paths``
  
      will be added to the end of the classpath in the given sequence. Rules are the same as for Java classpath on that system. On Windows backslashes have to be doubled (escaped).
-    
- - ``jython = yes``
- 
-     the classpath will be checked for a valid jython.jar (look for class org.python.util.jython) and the Jython sys.path arranged accordingly (see option classpath)
-     
- - ``robot = path to a Robot Framework Python package``
- 
-     the path will be checked for a robot/run.py and the parent folder added to Jython's sys.path. A valid Jython on the classpath is needed for this option to be accepted (either with SikuliX IDE, option jython=yes or ...). On Windows backslashes have to be doubled (escaped). This is not needed if you have the RFW stuff in any off the locations, that are visited by Jython/SikuliX import. 
  
