@@ -34,7 +34,7 @@ At startup these places are searched for a file ``SikulixOptions.txt`` (first ap
      
  - ``classpath = list of absolute-paths``
  
-     will be added to the end of the classpath in the given sequence. Rules are the same as for Java classpath on that system. On Windows \ have to be doubled (escaped).
+     will be added to the end of the classpath in the given sequence. Rules are the same as for Java classpath on that system. On Windows backslashes have to be doubled (escaped).
     
  - ``jython = yes``
  
