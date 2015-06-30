@@ -32,8 +32,8 @@ At startup these places are searched for a file ``SikulixOptions.txt`` (first ap
      when saving images in the IDE, usually when using a name, that already exists, this is not overwritten, but  stored with a name having a suffix -n appended.
      With this option switched on (default is off) naming images with an existing name will replace the image file without notice. 
      
- - ``classpath = absolute-path``
-     will be added to the end of the classpath
+ - ``classpath = list of absolute-paths``
+     will be added to the end of the classpath in the given sequence. Rules are the same as for Java classpath on that system. On Windows \ have to be doubled (escaped).
     
  - ``jython = yes``
      the classpath will be checked for a valid jython.jar (look for class org.python.util.jython) and the Jython sys.path arranged accordingly
