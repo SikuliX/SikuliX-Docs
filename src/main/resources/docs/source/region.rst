@@ -54,31 +54,33 @@ A Pattern is searched with the optionally given minimum similarity using :py:met
 and can be used in the same way as a Region (e.g. find something or click another
 target inside). A :py:class:`Match` has the size in pixels of the Visual used
 for searching, the position where it was found, the similarity
-score and the elapsed time. 
+score and the elapsed time.
+
+Look here for more detailed information on :ref:`How SikuliX finds images on the screen <BasicsFind>`.
 
 **Be aware:** every mouse or keyboard action, that specifies a Visual to search for, 
 will internally do the respective find operation first, to evaluate the action target.
 
-A region remembers the match of the last successful find operation, 
+A Region **remembers the match of the last successful find operation**, 
 all matches of the last successful :py:meth:`Region.findAll` and the elapsed time. 
 With :py:meth:`Region.getLastMatch`, :py:meth:`Region.getLastMatches` 
 and :py:meth:`Region.getLastTime` you can get these objects/value.
 
-You can **wait for patterns** to show up
+You can **wait for a Pattern** to appear
 using :py:meth:`Region.wait` or wait for it to vanish using :py:meth:`Region.waitVanish`
 
-Every not successful find operation (even those done internally with a click() ...) will raise
+**Every not successful find operation** (even those done internally with a click() ...) will raise
 a :ref:`FindFailed exception <ExceptionFindFailed>`, that has to be handled in your script.
 If you do not do that, your script will simply stop here with an error.
 
-If you do not want to handle these FindFailed exceptions,
-you might search for a pattern using :py:meth:`exists <Region.exists>`, 
+**If you do not want to handle these FindFailed exceptions**,
+you might search for a Pattern using :py:meth:`exists <Region.exists>`, 
 which just returns nothing (None/null) in case of not found.
 So you simply check the return value for being a Match.
 
 For other options to handle FindFailed situations see :ref:`FindFailed exception <ExceptionFindFailed>`.
 
-During a find op internally the search is repeated with a scan rate (standard 3 per second)
+During a find operation internally the search is repeated with a scan rate (standard 3 per second)
 **until success or an optionally given timeout** (standard 3 seconds)
 is reached, which then results in a :ref:`FindFailed exception <ExceptionFindFailed>`.
 
@@ -773,29 +775,35 @@ Observing Visual Events in a Region
 You can tell a region to observe that something appears or vanishes,
 or something changes in that region. Using the methods 
 :py:meth:`Region.onAppear`, :py:meth:`Region.onVanish` and :py:meth:`Region.onChange`, 
-you register an event observer that starts the observation when you
-call :py:meth:`Region.observe`. Each region object can have exactly one observation active and
-running at one time. For each observation, you can register as many event observers as
+you register an event to be observed, while the observation is running for that Region.
+The observation in a Region is started using :py:meth:`Region.observe` 
+and stopped again using :py:meth:`Region.stopObserveer`.
+
+Each Region can have exactly one observer.
+For each observer, you can register as many events as
 needed. So you can think of it as grouping some ``wait()`` and ``waitVanish()``
 together and have them processed simultanouesly, while you are waiting for one
 of these events to happen.
 
 It is possible to let the script wait for the completion of an observation or
-let it run in the background, while your script is continuing. With a timing
-parameter you can tell :py:meth:`Region.observe` 
-to stop observation anyway after the given time.
+let the observation run in background (meaning in parallel), while your script is continuing. 
+With a timing parameter you can tell :py:meth:`Region.observe` 
+to stop observation after the given time.
 
 When one of the visual events happens, an event handler (callback function) provided by you is
-called, handing over a :py:class:`SikuliEvent` object as a parameter. 
+called, handing over a :py:class:`SikuliEvent` object as a parameter, that contains all relevant information about 
+the event and that has features to act on the events or change the behavior of the observation. 
 During the processing in your handler, the observation is paused until your handler has ended. 
-Information between the
-main script and your handlers can be given forward and backward using global
-variables.
+Information between the main script and your handlers 
+can be given forward and backward using global variables or other appropriate measures.
+
+Another option to handle events, that are observed in the background, is to check the status of the observation 
+inline in your workflow. Each registered event has a unique name, that later can be used, to check, wether it already happened or not. Furthermore you can inactivate registered events, so that they are ignored until activated again. 
 
 It's your responsibility to stop the observation. This can either be done by
 calling :py:meth:`Region.stopObserver` (in the main workflow or in the handler)
 or by starting the observation with a timing parameter. All running observations are stopped
-automatically, when the script terminates.
+automatically, when the script or Java program (in fact the JVM) terminates.
 
 Since you can have as many region objects as needed and each region can have
 one observation active and running, theoretically it is possible to have as
@@ -805,31 +813,45 @@ Sikuli at that time.
 
 Be aware, that every observation is a number of different find operations that
 are processed repeatedly. So to speed up processing and keep your script
-acting, you may want to define a region for observation as small as possible.
+acting, you should define a region for observation as small as possible.
 You may adjust the scan rate (how often a search during the observation takes
-place) by setting 
-:py:attr:`Settings.ObserveScanRate` appropriately. 
+place) by setting :py:attr:`Settings.ObserveScanRate` appropriately. 
 
 **PS**: means, that either a Pattern or a String (path to an image file or just
 plain text) can be used as parameter.
 
 .. _ObserveHandler:
 
-**handler**: as a parameter in the following methods you have to specify the *name*
-of a function, which will be called by the observer, in case the observed event
-happens. The function itself has to be defined in your script before using the
-method that references the function. The existance of the function will be
-checked before starting the script. So to get your script running, you have to
+**handler**: as a parameter in the following methods you have to specify the **name
+of a function**, which will be called by the observer, in case the observed event
+happens. The function name (and usually the function itself) has to be defined in your script before using the
+appropriate functions to register an observe event. The existance of the function will be
+checked before starting the script. 
+
+So to get your script running, you have to
 have at least the following statements in your script::
 
 	def myHandler(event): # you can choose any valid function name
-		# event: can be any variable name, it references the SikuliEvent object
+		# event: can be any variable name, it references the ObserveEvent object
 		pass # add your statements here
 
-	onAppear("path-to-an-image-file", myHandler) # or any other onEvent()
+	onAppear("path-to-an-image-file", myHandler) # or any other onXYZ()
 	observe(10) # observes for 10 seconds
+
+**Note for Java** And this is how you setup a handler in your Java program::
+
+	someRegion.onAppear("path-to-an-image-file", 
+		new ObserveCallback() {
+			@Override
+			public void appeared(ObserveEvent event) {
+				// here goes your handler code
+			}
+		}
+	);
 	
-Read :py:class:`SikuliEvent` to know what is contained in a SikuliEvent object
+Here ObserveCallback is an abstract class defining the three possible callback funtions appeared, vanished and changed, that has to be overwritten as needed in your implementation of the ObserveCallback.
+	
+Read :py:class:`ObserveEvent` to know what is contained in the event object and what its features are.
 
 .. py:class:: Region
 
