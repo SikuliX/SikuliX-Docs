@@ -20,19 +20,22 @@ A Region **does not know anything about it's visual content** (windows, pictures
 text, ...). It only knows :ref:`the position on the screen and its dimension
 <CreatingaRegionSettingandGettingAttributes>`.
 
+A :py:class:`Match`, being the result of a :py:meth:`Region.find` operation, basically is a Region in all aspects, 
+just having a few additional attributes specific for a find result.
+
 New Regions can be created in various ways:
 
 * specify their position and dimension
 
-* extend a given Region or Match in all directions (expand or shrink)
+* extend a given Region in all directions (expand or shrink)
 
-* use the adjacent rectangles up to the bounds of the screen horizontally or vertically. 
+* based on adjacent rectangles up to the bounds of the screen horizontally or vertically. 
 
-* combine different Regions and/or Matches
+* based on their corners
 
-* as subregions being rows, columns or a grid
+* as subregions being rows, columns or cells of a regular grid
 
-* based on pixels being one of their corners
+* combine different Regions or use their intersection
 
 You can use :py:meth:`Region.find`, to **search a given Visual being a rectangular pixel pattern** 
 (given as an Image (filename or :py:class:`Image`) or a :py:class:`Pattern` object) within this Region.
@@ -53,8 +56,8 @@ target inside). A :py:class:`Match` has the size in pixels of the Visual used
 for searching, the position where it was found, the similarity
 score and the elapsed time. 
 
-**Be aware:** every mouse or keyboard op, that specifies a Visual to search for, 
-will internally do the respective find op first, to evaluate the action target.
+**Be aware:** every mouse or keyboard action, that specifies a Visual to search for, 
+will internally do the respective find operation first, to evaluate the action target.
 
 A region remembers the match of the last successful find operation, 
 all matches of the last successful :py:meth:`Region.findAll` and the elapsed time. 
@@ -62,9 +65,9 @@ With :py:meth:`Region.getLastMatch`, :py:meth:`Region.getLastMatches`
 and :py:meth:`Region.getLastTime` you can get these objects/value.
 
 You can **wait for patterns** to show up
-using :py:meth:`Region.wait`, to vanish using :py:meth:`Region.waitVanish`
+using :py:meth:`Region.wait` or wait for it to vanish using :py:meth:`Region.waitVanish`
 
-Every not successful find op (even those done internally with a click() ...) will raise
+Every not successful find operation (even those done internally with a click() ...) will raise
 a :ref:`FindFailed exception <ExceptionFindFailed>`, that has to be handled in your script.
 If you do not do that, your script will simply stop here with an error.
 
@@ -73,19 +76,21 @@ you might search for a pattern using :py:meth:`exists <Region.exists>`,
 which just returns nothing (None/null) in case of not found.
 So you simply check the return value for being a Match.
 
+For other options to handle FindFailed situations see :ref:`FindFailed exception <ExceptionFindFailed>`.
+
 During a find op internally the search is repeated with a scan rate (standard 3 per second)
 **until success or an optionally given timeout** (standard 3 seconds)
 is reached, which then results in a :ref:`FindFailed exception <ExceptionFindFailed>`.
 
-Sikuli supports **visual event driven programming**: You can tell a region
+Sikuli supports **visual event driven programming**: You can tell a Region
 :ref:`to observe that something appears, vanishes or changes <ObservingVisualEventsinaRegion>`. 
 It is possible to wait for the completion of an
-observation or let it run in the background while your following script 
+observation or let it run in the background, while your script 
 continues running.
 When one of the visual events happens, a handler in your script is called. Each
-region has one observer and each observer can handle multiple visual events. 
-You might als check the status of an observe in your workflow, to handle events inline. 
-It's your responsibility to stop an observation.
+Region can only have one observer, but each observer can observe multiple visual events in that Region.
+You might also check the status of a background observation later in your workflow, to handle events inline. 
+Generally it is your responsibility to stop observations, but at termination of your script or Java program all observations are terminated automatically.
 
 **NOTE:** For **hints and tips how to get robust and fast acting workflows** 
 look into the :ref:`Best Practices <BestPractices>`.
