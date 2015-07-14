@@ -1,3 +1,5 @@
+.. _Basics:
+
 SikuliX - the basics
 ====================
 
@@ -67,6 +69,8 @@ Other aspects important for testers:
 
  - SikuliX needs a real screen running the application under test or at least some equivalent virtual solution 
  - SikuliX is only available on PCs/Workstations running Windows, Mac or Linux and having a Java version 6+
+ 
+.. _BasicsFind:
  
 SikuliX - how does it find images on the screen?
 ------------------------------------------------
