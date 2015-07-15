@@ -777,7 +777,7 @@ or something changes in that region. Using the methods
 :py:meth:`Region.onAppear`, :py:meth:`Region.onVanish` and :py:meth:`Region.onChange`, 
 you register an event to be observed, while the observation is running for that Region.
 The observation in a Region is started using :py:meth:`Region.observe` 
-and stopped again using :py:meth:`Region.stopObserveer`.
+and stopped again using :py:meth:`Region.stopObserver`.
 
 Each Region can have exactly one observer.
 For each observer, you can register as many events as
@@ -791,7 +791,8 @@ With a timing parameter you can tell :py:meth:`Region.observe`
 to stop observation after the given time.
 
 When one of the visual events happens, an event handler (callback function) provided by you is
-called, handing over a :py:class:`SikuliEvent` object as a parameter, that contains all relevant information about 
+called, handing over a :py:class:`ObserveEvent` object as a parameter, 
+that contains all relevant information about 
 the event and that has features to act on the events or change the behavior of the observation. 
 During the processing in your handler, the observation is paused until your handler has ended. 
 Information between the main script and your handlers 
@@ -817,8 +818,7 @@ acting, you should define a region for observation as small as possible.
 You may adjust the scan rate (how often a search during the observation takes
 place) by setting :py:attr:`Settings.ObserveScanRate` appropriately. 
 
-**PS**: means, that either a Pattern or a String (path to an image file or just
-plain text) can be used as parameter.
+**PS**: as a parameter in the following methods you have to specify  a Pattern or a String (path to an image file or just plain text).
 
 .. _ObserveHandler:
 
@@ -826,7 +826,7 @@ plain text) can be used as parameter.
 of a function**, which will be called by the observer, in case the observed event
 happens. The function name (and usually the function itself) has to be defined in your script before using the
 appropriate functions to register an observe event. The existance of the function will be
-checked before starting the script. 
+checked after starting the script, but before running it. 
 
 So to get your script running, you have to
 have at least the following statements in your script::
@@ -849,7 +849,7 @@ have at least the following statements in your script::
 		}
 	);
 	
-Here ObserveCallback is an abstract class defining the three possible callback funtions appeared, vanished and changed, that has to be overwritten as needed in your implementation of the ObserveCallback.
+Here ObserveCallback is an abstract class defining the three possible callback funtions ``appeared``, ``vanished`` and ``changed``, that has to be overwritten as needed in your implementation of the ObserveCallback.
 	
 Read :py:class:`ObserveEvent` to know what is contained in the event object and what its features are.
 
@@ -857,49 +857,60 @@ Read :py:class:`ObserveEvent` to know what is contained in the event object and 
 
 	.. py:method:: onAppear(PS, handler)
 
-		:param PS: a :py:class:`Pattern` object or a string (path to an image
-			file or just plain text.
-
-		:param handler: the name of a handler function in the script
-
-		With the given region you register an observer, that should wait for
-		the pattern to be there or to appaear and is activated with the next
-		call of ``observe()``. In the moment the internal find operation with the
-		given pattern is successful during observation, your handler is called
+		With the given region you register an ``APPEAR`` event, whose pattern/image/text 
+		is looked for to be there or to appaear while running an observation
+		with the next call of ``observe()``. In the moment the observation is successful 
+		for that event, your registered handler is called
 		and the observation is paused until you return from your handler.
 		
 		With the first appearence, the observation for this event is terminated.
 		If you want the observation for this event to be continued, you have to use
 		:py:meth:`SikuliEvent.repeat` before leaving the handler.
 
+		:param PS: a :py:class:`Pattern` object or a string (path to an image
+			file or just plain text)
+
+		:param handler: the name of a handler function in the script
+		
+		:return: a string as unique name of this event 
+		:ref:`to identify this event later <NamedObserveEvents>`
+
 	.. py:method:: onVanish(PS, handler)
+
+		With the given region you register a ``VANISH`` event, whose pattern/image/text 
+		is looked for to not be there or to vanish while running an observation
+		with the next call of ``observe()``. In the moment the observation is successful 
+		for that event, your registered handler is called
+		and the observation is paused until you return from your handler.
+
+		With the first vanishing, the observation for this event is terminated.
+		If you want the observation for this event to be continued, you have to use
+		:py:meth:`SikuliEvent.repeat` before leaving the handler.
 
 		:param PS: a :py:class:`Pattern` object or a string (path to an image
 			file or just plain text.
 
 		:param handler: the name of a handler function in the script
 
-		With the given region you register an observer, that should wait for
-		the pattern to be not there or to vanish and is activated with the next
-		call of ``observe()``. In the moment the internal find operation on the
-		given pattern fails during observation, your handler is called and the
-		observation is paused until you return from your handler. 
-
-		With the first vanishing, the observation for this event is terminated.
-		If you want the observation for this event to be continued, you have to use
-		:py:meth:`SikuliEvent.repeat` before leaving the handler.
+		:return: a string as unique name of this event
+		:ref:`to identify this event later <NamedObserveEvents>`
 
 	.. py:method:: onChange([minChangedSize], handler)
+
+		With the given region you register a ``CHANGE`` event. While running an observation
+		with the next call of ``observe()``, it is looked for changes in that region. 
+		A change is, if some non-overlapping rectengular areas of the given minimum size 
+		changes its pixel content from one observation step to the next.
+		In the moment the observation is successful 
+		for that event, your registered handler is called
+		and the observation is paused until you return from your handler.
 
 		:param minChangedSize: the minimum size in pixels of a change to trigger a change event.
 			If omitted: 50 is used (see :py:attr:`Settings.ObserveMinChangedPixels`).
 		:param handler: the name of a handler function in the script
 		
-		With the given region you register an observer, that should wait for
-		the visual content of the given region to change and is activated with
-		the next call of ``observe()``. In the moment the visual content changes
-		during observation, your handler is called and the observation is
-		paused until you return from your handler.
+		:return: a string as unique name of this event 
+		:ref:`to identify this event later <NamedObserveEvents>`
 
 		Here is a example that highlights all changes in an observed region.
 		::
@@ -935,8 +946,12 @@ Read :py:class:`ObserveEvent` to know what is contained in the event object and 
 			subthread and processing of your script is continued immediately.
 			Otherwise the script is paused until the completion of the
 			observation.
+			
+		:return: True, if the observation could be started, False otherwise
 
-		For each region object, only one observation can be running at a given time.
+		For each region object, only one observation can be running at a given time, 
+		meaning, that a call to observe(), while an observe for that region is running, 
+		is ignored with an error message, returning False.
 
 		**Note**: You may adjust the scan rate (how often a search during the
 		observation takes place) by setting :py:attr:`Settings.ObserveScanRate`
@@ -951,62 +966,120 @@ Read :py:class:`ObserveEvent` to know what is contained in the event object and 
 		parameter that is passed to the handler function when the function is
 		invoked. 
 		
-		For example, to stop observation within a handler function, simply
-		call ``event.stopObserver()`` inside the handler function.::
+		Additionally there is a convenience feature to stop observation within a handler function:
+		simply call ``event.stopObserver()`` inside the handler function.::
 		
 			def myHandler(event): 
 				event.stopObserver() # stops the observation
+				# instead of
+				# event.getRegion().stopObserver()
 						
 			onAppear("path-to-an-image-file", myHandler) 
 			observe(FOREVER) # observes until stopped in handler
 
 
-.. py:class:: SikuliEvent
+.. py:class:: ObserveEvent
 
-   When processing an :ref:`observation in a region <ObservingVisualEventsinaRegion>`, 
-   a :ref:`handler function is called <ObserveHandler>`, when one of your 
-   registered events :py:meth:`Region.onAppear`, :py:meth:`Region.onVanish` or :py:meth:`Region.onChange` happen.
-   
-   The one parameter, you have access to in your handler function is an instance
-   of *Class SikuliEvent*. You have access to the following attributes of the event, 
-   that might help to identify the cause of the event and act on the resulting matches.
-   
-   *Usage:* ``event.attribute`` 
-      where ``event`` is the parameter from the definition of your handler function: ``def myHandler(event):``
+	When processing an :ref:`observation in a region <ObservingVisualEventsinaRegion>`, 
+	a :ref:`handler function is called <ObserveHandler>`, when one of your registered events 
+	:py:meth:`Region.onAppear`, :py:meth:`Region.onVanish` or :py:meth:`Region.onChange` happen.
+	
+	The one parameter, you have access to in your handler function is an instance
+	of :py:class:`ObserveEvent`. You have access to the following features of the event, 
+	that might help to identify the cause of the event, act on the resulting matches 
+	and optionally modify the behavior of the observation.
+	
+	**Note on versions prior to 1.1.0** The event class was ``SikuliEvent`` 
+	and it allowed to directly access the attributes like type, match, region, ... . 
+	This class no longer exists and its follow up is the class ``ObserveEvent``. 
+	This break of downward compatibility is by intention, to force the revision of scripts, 
+	that use the observe feature and are run with version 1.1.0+
+	
+	.. py:method:: getType()
+	
+		get the type of the event
+		
+		:return: a string containing APPEAR, VANISH or CHANGE
+		
+	.. py:method:: isAppear(), isVanish(), isChange()
+	
+		convenience methods, to check the type
+		
+		:return: True or False
+		
+	.. py:method:: getPattern()
 
-   .. py:attribute:: type
+	Get the pattern that triggered this event. A given image is packed into a pattern. This is only valid
+	for APPEAR and VANISH events.
+	
+	:return: the pattern object (which allows to access the given image if needed)
+	
+	.. py:method:: getRegion()
 
-   The :py:attr:`type` of this event can be 
-   :py:const:`SikuliEvent.Type.APPEAR`, :py:const:`SikuliEvent.Type.VANISH`,
-   or :py:const:`SikuliEvent.Type.CHANGE`.
+		The observing region of this event.
+	
+		:return: the region object
+		
+	.. py:method:: getMatch()
 
-   .. py:attribute:: pattern
+		For an APPEAR you get the :py:class:`Match` object 
+		that appeared in the observed region (same as with ``wait()``).
+		
+		For a VANISH event, you get the last :py:class:`Match` object
+		that was found in the observed region before it vanished.
+		
+		This method is not valid in a CHANGE event.
+		
+		:return: the match object
+	
+	.. py:method:: getChanges()
 
-   The source pattern that triggered this event. This is only valid
-   in APPEAR and VANISH events.
+		Get a list of :py:class:`Match` objects that represent the rectengular areas that
+		changed their content. Their sizes are at least :py:meth:`minChangedSize <Region.onChange>` pixels.
+		
+		This attribute is valid only in a CHANGE event.
+		
+		:return: an unsorted list of match objects
 
-   .. py:attribute:: region
+	.. py:method:: getCount()
+	
+		Get the count how often the handler was visited.
+		
+		:return: the count as number
+	
+	.. py:method:: getTime()
+	
+		Get the time, when the event happened.
+		
+		:return: a long integer value according to the Java feature ``new Date().getTime()`` 
+	
+	.. py:method:: repeat([waitTime])
+	
+		Specify the time in seconds, that the observation of this event should pause 
+		after returning from the handler.
 
-   The source region of this event.
+		**Remember** APPEAR and VANISH events are stopped after the first occurence. You have to use
+		an approriate ``repeat()``, to continue the observation.
+		
+		:param waitTime: seconds to pause, taken as 0 if not given
+	
+	.. py:method:: getName()
+	
+		Get the unique name of this event for use with the appropriate features 
+		(see :ref:`working with named events <NamedObserveEvents>`)
+		
+		:return: a string containing the name
+		
+	.. py:method:: stopObserver()
 
-   .. py:attribute:: match
+		Stop observation for this region (shortcut for ``event.getRegion().stopObserver()``).
+		
+.. _NamedObserveEvents:
 
-   In an APPEAR event, *match* saves the top :py:class:`Match` object
-   that appeared in the observed region.
-
-   In a VANISH event, *match* saves the *last* :py:class:`Match` object
-   that was in the observed region but vanished.
-
-   This attribute is not valid in a CHANGE event.
-
-   .. py:attribute:: changes
-
-   This attribute is valid only in a CHANGE event.
-
-   This *changes* attribute is a list of :py:class:`Match` objects that
-   changed and their sizes are at least :py:meth:`minChangedSize <Region.onChange>` pixels.
+**Working with named observe events**
 
 
+	
 .. _ActingonaRegion:
 
 Acting on a Region
