@@ -799,7 +799,7 @@ Information between the main script and your handlers
 can be given forward and backward using global variables or other appropriate measures.
 
 Another option to handle events, that are observed in the background, is to check the status of the observation 
-inline in your workflow. Each registered event has a unique name, that later can be used, to check, wether it already happened or not. Furthermore you can inactivate registered events, so that they are ignored until activated again. 
+inline in your workflow. Each registered event has a unique name, that later can be used, to check, wether it already happened or not. Furthermore you can inactivate registered events, so that they are ignored until activated again (:ref:`see: Named Events <NamedObserveEvents>`).
 
 It's your responsibility to stop the observation. This can either be done by
 calling :py:meth:`Region.stopObserver` (in the main workflow or in the handler)
@@ -853,6 +853,13 @@ Here ObserveCallback is an abstract class defining the three possible callback f
 	
 Read :py:class:`ObserveEvent` to know what is contained in the event object and what its features are.
 
+**NOTE ON CONCURRENCY with ObserveInBackground, the callback concept and Mouse/Keyboard usage**
+In Sikuli version prior to 1.1.0 it could happen, that mouse actions in the handler callback could interfere with mouse actions in the main workflow or other callback handlers, since these threads work in parallel without any automatic synchronization.
+
+Beginning with 1.1.0 mouse actions like click are safe in the way, that they always are completed, before any other click operation can be started (internally handled like a transaction). 
+
+So parallel clicks in main workflow and handler should do their job correctly, but might be run in a sequence, that cannot be foreseen. Look here, :ref:`if you want to have more control over mouse and keyboard usage in parallel processes <MouseExclusive>`.
+
 .. py:class:: Region
 
 	.. py:method:: onAppear(PS, handler)
@@ -865,15 +872,14 @@ Read :py:class:`ObserveEvent` to know what is contained in the event object and 
 		
 		With the first appearence, the observation for this event is terminated.
 		If you want the observation for this event to be continued, you have to use
-		:py:meth:`SikuliEvent.repeat` before leaving the handler.
+		:py:meth:`ObserveEvent.repeat` before leaving the handler.
 
 		:param PS: a :py:class:`Pattern` object or a string (path to an image
 			file or just plain text)
 
 		:param handler: the name of a handler function in the script
 		
-		:return: a string as unique name of this event 
-		:ref:`to identify this event later <NamedObserveEvents>`
+		:return: a string as unique name of this event :ref:`to identify this event later <NamedObserveEvents>`
 
 	.. py:method:: onVanish(PS, handler)
 
@@ -885,15 +891,14 @@ Read :py:class:`ObserveEvent` to know what is contained in the event object and 
 
 		With the first vanishing, the observation for this event is terminated.
 		If you want the observation for this event to be continued, you have to use
-		:py:meth:`SikuliEvent.repeat` before leaving the handler.
+		:py:meth:`ObserveEvent.repeat` before leaving the handler.
 
 		:param PS: a :py:class:`Pattern` object or a string (path to an image
 			file or just plain text.
 
 		:param handler: the name of a handler function in the script
 
-		:return: a string as unique name of this event
-		:ref:`to identify this event later <NamedObserveEvents>`
+		:return: a string as unique name of this event :ref:`to identify this event later <NamedObserveEvents>`
 
 	.. py:method:: onChange([minChangedSize], handler)
 
@@ -909,8 +914,7 @@ Read :py:class:`ObserveEvent` to know what is contained in the event object and 
 			If omitted: 50 is used (see :py:attr:`Settings.ObserveMinChangedPixels`).
 		:param handler: the name of a handler function in the script
 		
-		:return: a string as unique name of this event 
-		:ref:`to identify this event later <NamedObserveEvents>`
+		:return: a string as unique name of this event :ref:`to identify this event later <NamedObserveEvents>`
 
 		Here is a example that highlights all changes in an observed region.
 		::
@@ -1009,10 +1013,10 @@ Read :py:class:`ObserveEvent` to know what is contained in the event object and 
 		
 	.. py:method:: getPattern()
 
-	Get the pattern that triggered this event. A given image is packed into a pattern. This is only valid
-	for APPEAR and VANISH events.
-	
-	:return: the pattern object (which allows to access the given image if needed)
+		Get the pattern that triggered this event. A given image is packed into a pattern. 
+		This is only valid for APPEAR and VANISH events.
+		
+		:return: the pattern object (which allows to access the given image if needed)
 	
 	.. py:method:: getRegion()
 
@@ -1073,11 +1077,66 @@ Read :py:class:`ObserveEvent` to know what is contained in the event object and 
 	.. py:method:: stopObserver()
 
 		Stop observation for this region (shortcut for ``event.getRegion().stopObserver()``).
+
 		
 .. _NamedObserveEvents:
 
 **Working with named observe events**
 
+Additionally to the callback-concept of the observation feature, it is possible, to start one or more observations in background, having registered events without handlers. When these events happen, the event is stored in a list and its observation is paused until the event is taken from the list. 
+Both concepts can be combined per observation.
+
+Events without handlers are registered by omitting the handler parameter in the methods :py:meth:`Region.onAppear`, :py:meth:`Region.onVanish` and :py:meth:`Region.onChange` and storing the returned name for later use.
+
+After having started the observation the usual way using :py:meth:`Region.observe`, you can check, wether any events have happened until now, you can access the events using their name or get a list of all events taht happened until now. With the events themseves you can work exactly like in the handler concept (see: :py:class:`ObserveEvent`).
+
+The following methods are bound to the region under observation.
+
+.. py:class:: Region
+
+	.. py:method:: hasObserver()
+	
+		Check wether at least one event is registered for this region. The observation might be running or not.
+		
+		:return: True or False
+		
+	.. py:method:: isObserving()
+	
+		Check wether currently an observation is running for that region
+		
+		:return: True or False
+		
+	.. py:method:: hasEvents()
+	
+		Check wether any events have happened for that region
+		
+		:return: True or False
+		
+	.. py:method:: getEvents()
+	
+		Get the events, that have happened until this moment. The events are purged from the internal event list.
+		
+		:return: a list of :py:class:`ObserveEvent`s (might be empty)
+		
+	.. py:method:: getEvent(name)
+	
+		Get the named event and purge it from the internal event list
+		
+		:param name: the name of the event (string)
+		
+		:return: the named event or None/null if it is not on the internal event list
+		
+	.. py:method:: setInactive(name)
+	
+		The named event is paused during the running observation until activated again or the observation is restarted.
+
+		:param name: the name of the event (string)
+		
+	.. py:method:: setActive(name)
+	
+		The named event is activated, so it is observed during the running observation.
+		
+		:param name: the name of the event (string)
 
 	
 .. _ActingonaRegion:
