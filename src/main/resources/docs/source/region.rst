@@ -1088,7 +1088,8 @@ Both concepts can be combined per observation.
 
 Events without handlers are registered by omitting the handler parameter in the methods :py:meth:`Region.onAppear`, :py:meth:`Region.onVanish` and :py:meth:`Region.onChange` and storing the returned name for later use.
 
-After having started the observation the usual way using :py:meth:`Region.observe`, you can check, wether any events have happened until now, you can access the events using their name or get a list of all events taht happened until now. With the events themseves you can work exactly like in the handler concept (see: :py:class:`ObserveEvent`).
+After having started the observation the usual way using :py:meth:`Region.observe`, you can check, wether any events have happened until now, you can access the events using their name or get a list of all events that happened until now. 
+With the events themselves you can work exactly like in the handler concept (see: :py:class:`ObserveEvent`).
 
 The following methods are bound to the region under observation.
 
@@ -1116,7 +1117,7 @@ The following methods are bound to the region under observation.
 	
 		Get the events, that have happened until this moment. The events are purged from the internal event list.
 		
-		:return: a list of :py:class:`ObserveEvent`s (might be empty)
+		:return: a list of :py:class:`ObserveEvent` (might be empty)
 		
 	.. py:method:: getEvent(name)
 	
