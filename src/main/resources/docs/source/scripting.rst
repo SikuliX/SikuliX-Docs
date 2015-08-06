@@ -141,7 +141,7 @@ these are the relevant Settings for user logging showing defaults:
 * ``Settings.UserLogs = True`` (False: user log calls are ignored)
 * ``Settings.UserLogPrefix = "user"`` (message prefix)
 * ``Settings.UserLogTime = True``
-* ``Debug.setUserLogfile("absolute-path-to-file")`` (no default)
+* ``Debug.setUserLogFile("absolute-path-to-file")`` (no default)
 
 to write a user log message:
   ``Debug.user("text with %placeholders", args …)``
