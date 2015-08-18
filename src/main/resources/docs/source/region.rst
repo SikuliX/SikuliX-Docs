@@ -1313,11 +1313,31 @@ application for accepting the action.
 				m.highlight(1)
 				m = m.nearby(20)
 
-		**Note**: The red frame is just an overlay in front of all other screen content and
-		stays in its place, independently from the behavior of this other content,
-		which means it is not "connected" to the *content* of the defining region. 
-		But it will be adjusted automatically, if you change position and/or dimension 
-		of this region in your script, while it is highlighted.
+	**Note**: The red frame is just an overlay in front of all other screen content and
+	stays in its place, independently from the behavior of this other content,
+	which means it is not "connected" to the *content* of the defining region. 
+	But it will be adjusted automatically, if you change position and/or dimension 
+	of this region in your script, while it is highlighted.
+	
+	**Note**: Due to the implementation of this function, the target application might loose focus 
+	and opened menus or lists get closed again. In other cases the highlight frame is not or not
+	completely visible (not getting to the front). In these cases the highlight feature cannot be used
+	for tracking the search results.
+	
+	A possible workaround is to use hover(), to move the mouse over the match 
+	or even use a function like this::
+	
+			def hoverHighlight(reg, loop = 1):
+			  for n in range(loop):
+			    hover(reg.getTopLeft())
+			    hover(reg.getTopRight())
+			    hover(reg.getBottomRight())
+			    hover(reg.getBottomLeft())
+			    hover(reg.getTopLeft())
+			    
+	Using this function instead of highlight will let the mousepointer visit the corners of the given region
+	clockwise, starting and stopping top left. With the standard move delay of 0.5 seconds this will last about
+	2 seconds for one loop (second parameter, default 1).
 
 	.. py:method:: hover(PSMRL)
 
