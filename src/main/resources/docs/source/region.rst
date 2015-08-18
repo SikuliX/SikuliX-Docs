@@ -1769,9 +1769,6 @@ Grouping Method Calls ( with Region: )
 
 .. index:: with
 
-**Deprecated for 1.1.0+**
-Instead of ``with`` use the new feature ``use(aRegionOrAScreen)``.
-
 Instead of::
 
 	# reg is a region object
@@ -1794,13 +1791,18 @@ region object specified at the ``with`` statement.
 
 **IMPORTANT Usage Note**
 
-This only works without problems for region objects created on the script level using one of 
+This only works without problems for region objects created on the scripting level using one of 
 the constructors ``Region()``.
 
-New region objects created with Region methods, that return new region objects, can only be used with ``with``, when casting 
-the new region to a scripting level region object like this::
+Region objects created with Region methods, that return new region objects, might not work though in some cases.
 
-	# reg is a region object
+If you get strange results or errors in the with block (e.g. syntax error ``__enter__ is not defined for this region``) cast your Region object to a scripting level Region object using 
+
+``castedRegion = Region(regionNotWorking)`` and use ``castedRegion`` in the with clause 
+
+or do it like this::
+
+	# reg is a scripting level region object
 	regNew = reg.left() # returns a non-scripting-level region object
 	with Region(regNew):
 		if not exists(image1):
@@ -1808,5 +1810,3 @@ the new region to a scripting level region object like this::
 		wait(image3, 10)
 		doubleClick(image4)
 		
-If you do not do that, you will get a syntax error saying, that ``__enter__`` is not defined for this region.
-In all these cases use the casting approach using ``castedRegion = Region(regionNotWorking)`` (might also be needed with Match objects or window regions returned by the App class).
