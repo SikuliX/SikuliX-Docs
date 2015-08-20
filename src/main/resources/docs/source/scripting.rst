@@ -163,7 +163,7 @@ the settings for Sikuli's logging with the defaults:
 * ``Settings.InfoLogs = True`` (message prefix: [info])
 * ``Settings.DebugLogs = False`` (message prefix: [debug])
 * ``Settings.LogTime = False``
-* ``Debug.setLogfile("absolute-path-to-file")`` 
+* ``Debug.setLogFile("absolute-path-to-file")`` 
   to redirect the Sikuli messages to a file, no default
 
 **Debug messages** Sikuli internally issues debug messages all over the place, to show, what it is doing. Creating debug messages is dependant on the current DEBUG_LEVEL value:
