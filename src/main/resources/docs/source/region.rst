@@ -1388,18 +1388,20 @@ application for accepting the action.
 
 	.. py:method:: drag(PSMRL)
 
-		Start a drag-and-drop operation by dragging at the given click point.
+		Start a drag-and-drop operation by starting the drag at the given click point.
 
 		:param PSMRL: a pattern, a string, a match, a region or a location that
 			evaluates to a click point.
 
 		:return: the number 1 if the operation could be performed. A 0 (integer null) returned
-			means that because of some reason, no move could be performed (in case of *PS* may be :ref:`not Found <PatternNotFound>`).
+			means that because of some reason, no move could be performed 
+			(in case of *PS* may be :ref:`not Found <PatternNotFound>`).
 			
 		The mousepointer is moved to the click point and the left mouse button is
-		pressed and held, until another mouse action is performed (e.g. a
-		:py:meth:`Region.dropAt()`	afterwards). This is nomally used to start a
-		drag-and-drop operation.
+		pressed and held, until the button is released by a subsequent mouse action.
+		(e.g. a :py:meth:`Region.dropAt()` afterwards). 
+		After the button press a delay in seconds according to the current value of
+		:py:attr:`Settings.DelayAfterDrag` is inserted.
 
 		**Side Effect** if *PS* was used, the match can be accessed using :py:meth:`Region.getLastMatch` afterwards.
 
@@ -1411,16 +1413,17 @@ application for accepting the action.
 		:param PSMRL: a pattern, a string, a match, a region or a location that
 			evaluates to a click point.
 
-		:param delay: time to wait after in seconds as decimal value
-
 		:return: the number 1 if the operation could be performed. A 0 (integer null) returned
-			means that because of some reason, no move could be performed (in case of *PS* may be :ref:`not Found <PatternNotFound>`).
+			means that because of some reason, no move could be performed 
+			(in case of *PS* may be :ref:`not Found <PatternNotFound>`).
 
-		The mousepointer is moved to the click point. After waiting for delay
-		seconds the left mouse button is released. This is normally used to finalize
-		a drag-and-drop operation. If it is necessary to visit one ore more click
+		The mousepointer is moved to the click point. After waiting for a delay
+		in seconds according to the current value of :py:attr:`Settings.DelayBeforeDrop` 
+		the left mouse button is released (standard value: 0.3 seconds). 
+		If it is necessary to visit one ore more click
 		points after dragging and before dropping, you can use
-		:py:meth:`Region.mouseMove` inbetween.
+		:py:meth:`Region.mouseMove` or :py:meth:`Region.hover` inbetween 
+		and ``dropAt`` only for the final destination.
 
 		**Side Effect** if *PS* was used, the match can be accessed using :py:meth:`Region.getLastMatch` afterwards.
 
