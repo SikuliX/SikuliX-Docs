@@ -92,6 +92,16 @@ Command Line Options (intention: run a script without opening the IDE)
    *ScriptingSupport.getLastReturnCode()*
     
 
+Command Line Options (intention: run the experimental scriptrun server)
+-----------------------------------------------------------------------
+
+:program:`PATH-TO-SIKULIX/runsikulix(.cmd)`
+   
+.. option::  -s,--server [<port>]  (optional port not yet supported, 50001 is used as default)       
+
+   start a scriptrun server (`more information<http://www.sikulix.com/support.html>`_)
+
+
 Command Line Options (intention: provide user parameters for running scripts)
 -----------------------------------------------------------------------------
 
@@ -99,5 +109,7 @@ Command Line Options (intention: provide user parameters for running scripts)
 
 .. option:: -- <arguments>          
 
-   the space delimeted and optionally quoted arguments are passed to Jython's sys.argv and hence are available to your script
+   the space delimited and optionally quoted arguments (only apostrophes are supported) are passed to Jython's sys.argv and hence are available in your script. A parameter containing intermediate blanks MUST be quoted to get it into one sys.argv entry.
+   
+   This option must go after all the other options mentioned above.
    
