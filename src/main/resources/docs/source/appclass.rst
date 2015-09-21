@@ -61,6 +61,13 @@ and it is not possible yet, to bring such a window to front with a compound Siku
 
 .. py:class:: App
   
+	.. py:classmethod:: pause(waitTime)
+	
+		*Usage:* ``App.pause(someTime)`` (convenience function)
+		
+		Just do nothing for the given amount of time in seconds (integer or float). 
+
+
 	.. py:classmethod:: App(application)
 	
 		*Usage:* ``someApp = App(application)``
@@ -74,11 +81,12 @@ and it is not possible yet, to bring such a window to front with a compound Siku
 			
 		:return: an App object, that can be used with the instance methods
 		
-	.. py:method:: isRunning()
+	.. py:method:: isRunning([waitTime])
 	
 		*Usage:* ``if not someApp.isRunning(): someApp.open()`` 
 		where App instance ``someApp`` was :ref:`created before <CreateAppInstance>`.
 	
+		:param waitTime: optional: seconds as integer, that should be waited for the app to get running
 		:return: True if the app is running (has a process ID), False otherwise
 		
 		**Windows** It is common, to identify an app by (part of) it's window title. 
@@ -151,13 +159,15 @@ and it is not possible yet, to bring such a window to front with a compound Siku
 		
 		This method is functionally equivalent to :py:func:`openApp`.
 
-	.. py:method:: open()
+	.. py:method:: open([waitTime])
 	
 		*Usage:* ``someApp.open()`` 
 		where App instance ``someApp`` was :ref:`created before <CreateAppInstance>`.
 	
 		Open this application.
 
+		:param waitTime: optional: seconds as integer, that should be waited for the app to get running
+		:return: the app instance or null/None if open failed
 
 	.. py:classmethod:: focus(application)
 
