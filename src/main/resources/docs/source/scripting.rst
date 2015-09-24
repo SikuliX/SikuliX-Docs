@@ -52,47 +52,57 @@ Controlling Sikuli Scripts and their Behavior
 		click(image2) # give app 3 seconds time before clicking again
 		Settings.MoveMouseDelay = mmd # reset to original value
 
-.. py:attribute:: Settings.DelayAfterDrag
+.. py:attribute:: Settings.DelayBeforeMouseDown
+			Settings.DelayBeforeDrag
 			Settings.DelayBeforeDrop
 
-	*DelayAfterDrag* specifies the waiting time after mouse down at the source
+	*DelayBeforeMouseDown* specifies the waiting time before mouse down at the source
+	location as a decimal value (seconds). 
+	
+	*DelayBeforeDrag* specifies the waiting time after mouse down at the source
 	location as a decimal value (seconds). 
 	
 	*DelayBeforeDrop* specifies the
 	waiting time before mouse up at the target location as a decimal value
 	(seconds).
 
-	**Usage**: When using :py:meth:`Region.dragDrop` you may have situations, where the
+	**Usage**: When using :py:meth:`Region.dragDrop`, :py:meth:`Region.drag` and 
+	:py:meth:`Region.dropAt` you may have situations, where the
 	operation is not processed as expected. This may be due to the fact, that the
 	Sikuli actions are too fast for the target application to react properly. With
-	these settings the waiting time after the mouse down at the source location and
+	these settings the waiting time befor and after the mouse down at the source location and
 	before the mouse up at the target location of a dragDrop operation  are
 	controlled. The standard settings are 0.3 seconds for each value. The time that
 	is taken, to move the mouse from source to target is controlled by
-	:py:attr:`Settings.MoveMouseDelay`::
+	:py:attr:`Settings.MoveMouseDelay`::. 
+	
+	**Be aware** The given values are only valid for the next following action. 
+	The inner timing will be reset to the defaults after the action's completion.
 
-
-		# you may wish to save the actual settings before
-		Settings.DelayAfterDrag = 1
-		Settings.DelayBeforeDrop = 1
+		Settings.DelayBeforeMouseDown = 0.5
+		Settings.DelayBeforeDrag = 0.2
+		Settings.DelayBeforeDrop = 0.2
 		Settings.MoveMouseDelay = 3
 		dragDrop(source_image, target_image)
-		# time for complete dragDrop: about 5 seconds + search times
+		# time for complete dragDrop: about 4 seconds + search times
 		
+.. py:attribute:: Settings.ClickDelay
+
+	 Specify a delay between the mouse down and up in seconds as 0.nnn. This
+	 only applies to the next click action and is then reset to 0 again. 
+	 A value > 1 is cut to 1.0 (max delay of 1 second)
+
+.. py:attribute:: Settings.TypeDelay
+
+	 Specify a delay between the key presses in seconds as 0.nnn. This
+	 only applies to the next click action and is then reset to 0 again. 
+	 A value > 1 is cut to 1.0 (max delay of 1 second)
+
 **NOTE:** If the internal timing of the compound mouse functions like 
 ``click()`` or ``dragDrop()`` is not suitable in your special situation, 
 you might as well build your own functions using the basic mouse functions 
 :py:meth:`Region.mouseDown`, :py:meth:`Region.mouseMove` and :py:meth:`Region.mouseUp`
 	
-	*example of a click with special timing*::
-	  
-	  def specialClick():
-	    mouseMove(targetImage) # move to target
-	    wait(0.3) # hover for 300 msecs
-	    mouseDown(Button.LEFT) # press and hold left button
-	    wait(0.1) # wait 100 msecs
-	    mouseUp() # release button again
-
 
 .. py:attribute:: Settings.SlowMotionDelay
 
