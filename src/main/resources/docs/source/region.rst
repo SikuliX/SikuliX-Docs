@@ -1371,16 +1371,14 @@ application for accepting the action.
 		:py:meth:`Region.getLastMatch` afterwards. If only the first parameter is
 		given as *PS*, this match is returned by :py:meth:`Region.getLastMatch`.
 
-		**When the operation does not perform as expected** (usually caused by timing
+		**If the operation does not perform as expected** (usually caused by timing
 		problems due to delayed reactions of applications), you may adjust the
-		internal timing parameters :py:attr:`Settings.DelayAfterDrag` and
-		:py:attr:`Settings.DelayBeforeDrop` eventually combined with the internal
-		timing parameter :py:attr:`Settings.MoveMouseDelay`.
-
-		Another solution might be, to use a combination of :py:meth:`Region.drag`
-		and :py:meth:`Region.dropAt` combined with your own ``wait()`` usages.  If the mouse
-		movement from source to target is the problem, you might break up the move
-		path into short steps using :py:meth:`Region.mouseMove`. 
+		internal timing parameters :py:attr:`Settings.DelayBeforeMouseDown`,
+		:py:attr:`Settings.DelayBeforeDrag` and
+		:py:attr:`Settings.DelayBeforeDrop` (default value is 0.3 seconds) for the next action 
+		(timing is reset to default after the operation is completed).
+		In case this might be combined with the internal
+		timing parameter :py:attr:`Settings.MoveMouseDelay`. 
 
 		**Note**: If you need to implement more sophisticated mouse and keyboard actions
 		look at :ref:`Low Level Mouse and Keyboard Actions <LowLevelMouseAndKeyboardActions>`. 
@@ -1399,9 +1397,13 @@ application for accepting the action.
 			
 		The mousepointer is moved to the click point and the left mouse button is
 		pressed and held, until the button is released by a subsequent mouse action.
-		(e.g. a :py:meth:`Region.dropAt()` afterwards). 
-		After the button press a delay in seconds according to the current value of
-		:py:attr:`Settings.DelayAfterDrag` is inserted.
+		(e.g. a :py:meth:`Region.dropAt()` afterwards).
+		
+		**If the operation does not perform as expected** (usually caused by timing
+		problems due to delayed reactions of applications), you may adjust the
+		internal timing parameters :py:attr:`Settings.DelayBeforeMouseDown`,
+		and :py:attr:`Settings.DelayBeforeDrag` (default value is 0.3 seconds) for the next action 
+		(timing is reset to default after the operation is completed).
 
 		**Side Effect** if *PS* was used, the match can be accessed using :py:meth:`Region.getLastMatch` afterwards.
 
@@ -1417,13 +1419,18 @@ application for accepting the action.
 			means that because of some reason, no move could be performed 
 			(in case of *PS* may be :ref:`not Found <PatternNotFound>`).
 
-		The mousepointer is moved to the click point. After waiting for a delay
-		in seconds according to the current value of :py:attr:`Settings.DelayBeforeDrop` 
-		the left mouse button is released (standard value: 0.3 seconds). 
+		The mousepointer is moved to the click point and 
+		the left mouse button is released. 
 		If it is necessary to visit one ore more click
 		points after dragging and before dropping, you can use
 		:py:meth:`Region.mouseMove` or :py:meth:`Region.hover` inbetween 
 		and ``dropAt`` only for the final destination.
+
+		**If the operation does not perform as expected** (usually caused by timing
+		problems due to delayed reactions of applications), you may adjust the
+		internal timing parameter
+		:py:attr:`Settings.DelayBeforeDrop` (default value is 0.3 seconds) for the next action 
+		(timing is reset to default after the operation is completed).
 
 		**Side Effect** if *PS* was used, the match can be accessed using :py:meth:`Region.getLastMatch` afterwards.
 
