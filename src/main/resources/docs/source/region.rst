@@ -798,7 +798,7 @@ of these events to happen.
 
 It is possible to let the script wait for the completion of an observation or
 let the observation run in background (meaning in parallel), while your script is continuing. 
-With a timing parameter you can tell :py:meth:`Region.observe` 
+With a timing parameter you can tell :py:meth:`Region.observeInBackground` 
 to stop observation after the given time.
 
 When one of the visual events happens, an event handler (callback function) provided by you is
@@ -860,9 +860,11 @@ have at least the following statements in your script::
 		}
 	);
 	
-Here ObserveCallback is an abstract class defining the three possible callback funtions ``appeared``, ``vanished`` and ``changed``, that has to be overwritten as needed in your implementation of the ObserveCallback.
-	
-Read :py:class:`ObserveEvent` to know what is contained in the event object and what its features are.
+	Here ObserveCallback is an abstract class defining the three possible callback funtions ``appeared``,
+	``vanished`` and ``changed``, that have to be overwritten as needed in your implementation 
+	of the ObserveCallback.
+		
+	Read :py:class:`ObserveEvent` to know what is contained in the event object and what its features are.
 
 **NOTE ON CONCURRENCY with ObserveInBackground, the callback concept and Mouse/Keyboard usage**
 In Sikuli version prior to 1.1.0 it could happen, that mouse actions in the handler callback could interfere with mouse actions in the main workflow or other callback handlers, since these threads work in parallel without any automatic synchronization.
@@ -921,11 +923,13 @@ So parallel clicks in main workflow and handler should do their job correctly, b
 		for that event, your registered handler is called
 		and the observation is paused until you return from your handler.
 
-		:param minChangedSize: the minimum size in pixels of a change to trigger a change event.
-			If omitted: 50 is used (see :py:attr:`Settings.ObserveMinChangedPixels`).
+		:param minChangedSize: the minimum size in pixels of a change to trigger a change event 
+				       (see :py:attr:`Settings.ObserveMinChangedPixels`, default 50).
+				       
 		:param handler: the name of a handler function in the script
 		
-		:return: a string as unique name of this event :ref:`to identify this event later <NamedObserveEvents>`
+		:return: a string as unique name of this event 
+			 :ref:`to identify this event later <NamedObserveEvents>`
 
 		Here is a example that highlights all changes in an observed region.
 		::
@@ -946,22 +950,15 @@ So parallel clicks in main workflow and handler should do their job correctly, b
 			wait(30) # another way to observe for 30 seconds
 			r.stopObserver()
 
+	.. py:method:: observe([seconds])
 
-	.. py:method:: observe([seconds], [background = False | True])
-
-		Begin observation within the region.
+		Begin observation within the region. The script waits for the completion of the observation 				(meaning untile the observation is stopped by intention or timed out).
 
 		:param seconds: a number, which can have a fraction, as maximum
 			observation time in seconds. Omit it or use the constant FOREVER to
 			tell the observation to run for an infinite time (or until stopped
 			by ``stopObserve()``). 
 		
-		:param background: a flag indicating whether observation is run in the
-			background. when set to *True*, the observation will be run in a
-			subthread and processing of your script is continued immediately.
-			Otherwise the script is paused until the completion of the
-			observation.
-			
 		:return: True, if the observation could be started, False otherwise
 
 		For each region object, only one observation can be running at a given time, 
@@ -972,14 +969,30 @@ So parallel clicks in main workflow and handler should do their job correctly, b
 		observation takes place) by setting :py:attr:`Settings.ObserveScanRate`
 		appropriately. 
 		
+	.. py:method:: observeInBackground([seconds])
+
+		The observation is run in the background, meaning that the observation will be run in a
+		subthread and processing of your script is continued immediately. 
+		
+		Take care, that your script continues with some time consuming stuff. 
+		Additionally :ref:`Named Events <NamedObserveEvents>` might be off interest.
+		
+		The over all behavior and the features are the same as :py:meth:`Region.observe`.
+	
+	.. py:method:: observe([seconds], background = True)
+	
+		*DEPRECATED* (will not be in version 2+) 
+		Only available in Python scripts for some limited backward compatibility, 
+		with the impact, that the Region object *must* be
+		a Python level Region. In case you have to cast a Java level Region using ``Region(someRegion)``.
+
 	.. py:method:: stopObserver()
 
 		Stop observation for this region.
 
-		This must be called on a valid region object. The source region of an
-		observed visual event is available as one of the attributes of the *event*
-		parameter that is passed to the handler function when the function is
-		invoked. 
+		The source region of an
+		observed visual event is available from the *event*
+		that is passed as parameter to the handler function.
 		
 		Additionally there is a convenience feature to stop observation within a handler function:
 		simply call ``event.stopObserver()`` inside the handler function.::
