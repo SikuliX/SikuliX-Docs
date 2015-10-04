@@ -952,7 +952,7 @@ So parallel clicks in main workflow and handler should do their job correctly, b
 
 	.. py:method:: observe([seconds])
 
-		Begin observation within the region. The script waits for the completion of the observation 				(meaning untile the observation is stopped by intention or timed out).
+		Begin observation within the region. The script waits for the completion of the observation 				(meaning until the observation is stopped by intention or timed out).
 
 		:param seconds: a number, which can have a fraction, as maximum
 			observation time in seconds. Omit it or use the constant FOREVER to
@@ -975,16 +975,18 @@ So parallel clicks in main workflow and handler should do their job correctly, b
 		subthread and processing of your script is continued immediately. 
 		
 		Take care, that your script continues with some time consuming stuff. 
-		Additionally :ref:`Named Events <NamedObserveEvents>` might be off interest.
+		Additionally :ref:`Named Events <NamedObserveEvents>` might be of interest.
 		
 		The over all behavior and the features are the same as :py:meth:`Region.observe`.
 	
 	.. py:method:: observe([seconds], background = True)
 	
-		*DEPRECATED* (will not be in version 2+) 
+		**DEPRECATED** (will not be in version 2+) 
 		Only available in Python scripts for some limited backward compatibility, 
 		with the impact, that the Region object *must* be
 		a Python level Region. In case you have to cast a Java level Region using ``Region(someRegion)``.
+		
+		It is strongly recommended to revise your scripts using this observe feature as soon as possible.
 
 	.. py:method:: stopObserver()
 
