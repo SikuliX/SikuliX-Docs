@@ -772,6 +772,17 @@ Observing Visual Events in a Region
 
 **This feature is completetely revised in version 1.1.0**
 
+	**Note** Some features have a changed behavior, are no longer available or differ in usage 
+	compared to prior versions.
+	This break of downward compatibility is by intention, since the complexity of changes could not be hidden.
+	In some cases it forces the revision of scripts, 
+	that use the observe feature and are run with version 1.1.0+. 
+	Watch the notes with a specific feature that changed
+		Main areas of change:
+	 	* onAppear, onVanish are stopped after first event - use repeat in handler
+	 	* observe in background now is observeInBackground()
+	 	* SikuliEvent now is ObserveEvent and uses getters instead of direct access to attributes
+
 You can tell a region to observe that something appears or vanishes,
 or something changes in that region. Using the methods 
 :py:meth:`Region.onAppear`, :py:meth:`Region.onVanish` and :py:meth:`Region.onChange`, 
