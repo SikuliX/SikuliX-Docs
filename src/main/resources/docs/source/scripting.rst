@@ -273,6 +273,21 @@ In more complex scripting situations it is often necessary to deal with paths to
   same as :py:func:`makePath` but trailing path seperator to make it suitable for string concatenation.
   
 **NOTE** **makePath and makeFolder** on Windows the first path element can be specified as a drive letter "X:"
+
+.. py:function:: unzip(fromFile, toFolder)
+
+	A convenience function to unzip a zipped container to a folder (implemented using the Java builtin support for zip files). The ending of the file does not matter, the content of the file is examined to find out, whether it is a valid zip container. A zipped folder structure is preserved in the target folder. Relative paths would be resolved against the current working folder. This can for example be used, to unpack jar files.
+
+	:param fromFile: a file with a zipped content given as path string
+	:param toFolder: the folder where to place the unzipped content given as path string
+	:return: True if it worked, False otherwise
+	
+**NOTE** The complementary feature ``zip(fromFolder, toFile)`` will follow soon.
+
+**NOTE on Java usage**::
+
+	import org.sikuli.basics.FileManager;
+	FileManager.unzip(fromFile, toFolder);
  
 .. index:: 
 	pair: Image Search Path; SIKULI_IMAGE_PATH
