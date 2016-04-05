@@ -1660,9 +1660,7 @@ Exception FindFailed
 As a default, find operations (:ref:`explicit <FindinginsideaRegionandWaitingforaVisualEvent>` 
 and :ref:`implicit <ActingonaRegion>`) when not successful 
 raise an ``Exception FindFailed``, that will
-stop the script immediately. This is of great help, when developing a script, to
-step by step adjust timing and similarity. When the script runs perfectly, then an
-exception FindFailed signals, that something is not as it should be.
+stop the script immediately. 
 
 To implement some checkpoints, where you want to asure your workflow, use
 :py:meth:`Region.exists`, that reports a not found situation without raising
@@ -1674,6 +1672,17 @@ to switch it on and off as needed.
 
 For more sophisticated concepts, you can implement your own exception handling using
 the standard Python construct ``try: ... except: ...`` .
+
+.. versionadded:: X 1.1.1
+Generally a FindFailed situation is also signalled (besides that the image could not befound on the screen), 
+if the image could not be found on the current image path and hence could not be loaded for the find process.
+
+To implement even more sophisticated concepts, it is possible to declare a handler function, that is visited in
+case of a FindFailed and allows to take corrective actions. There it is possible to differentiate between the 2 situations
+not loadable and not found. Before leaving the handler you can specify how the case should finally be handled
+(ABORT, SKIP, RETRY or PROMPT). If specified, a handler is always visited before any other action is taken.
+
+The PROMPT response now allows to recapture the image on the fly or just to capture an image, that is not loadable.
 
 .. versionadded:: X1.0-rc2
 
@@ -1688,6 +1697,8 @@ These are the possibilities to handle "not found" situations:
 		(using :py:meth:`setFindFailedResponse(PROMPT) <Region.setFindFailedResponse>`)
 	* advise Sikuli to wait forever (be careful with that!)
 		(using :py:meth:`setFindFailedResponse(RETRY) <Region.setFindFailedResponse>`)
+	* advise Sikuli to visit the specified handler before taking any other action
+		(using :py:meth:`setFindFailedHandler(handler) <Region.setFindFailedHandler>`)
 
 .. _FindFailedPrompt:
 
@@ -1703,10 +1714,12 @@ In case of a FindFailed, you get the following prompt:
 
 .. image:: findfailed-prompt.png
 
-Clicking *Retry* would again try to find the image. *Skip* would continue the script and *Abort* would end the script.
+.. versionadded:: X 1.1.1
+Clicking *Retry* would again try to find the image. *Capture* would allow to (re)capture the image and *Abort* would end the script.
+In case of clicking *Capture* you get another similar prompt, that allows you to either do the capture, finally skip the FindFailed or advise SikuliX to abort the script immediately.
 
 **Examples**: 4 solutions for a case, where you want to decide how to proceed in a
-workflow based on the fact that a specific image can be found. (pass is the python
+workflow based on the fact that a specific image can be found. (**pass** is the python
 statement, that does nothing, but maintains indentation to form the blocks)::
 
 	# --- nice and easy
