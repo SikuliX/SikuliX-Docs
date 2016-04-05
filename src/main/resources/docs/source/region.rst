@@ -1673,7 +1673,7 @@ to switch it on and off as needed.
 For more sophisticated concepts, you can implement your own exception handling using
 the standard Python construct ``try: ... except: ...`` .
 
-.. versionadded:: X 1.1.1
+.. versionadded:: X1.1.1
 Generally a FindFailed situation is also signalled (besides that the image could not befound on the screen), 
 if the image could not be found on the current image path and hence could not be loaded for the find process.
 
@@ -1697,6 +1697,7 @@ These are the possibilities to handle "not found" situations:
 		(using :py:meth:`setFindFailedResponse(PROMPT) <Region.setFindFailedResponse>`)
 	* advise Sikuli to wait forever (be careful with that!)
 		(using :py:meth:`setFindFailedResponse(RETRY) <Region.setFindFailedResponse>`)
+.. versionadded:: X1.1.1
 	* advise Sikuli to visit the specified handler before taking any other action
 		(using :py:meth:`setFindFailedHandler(handler) <Region.setFindFailedHandler>`)
 
@@ -1714,7 +1715,7 @@ In case of a FindFailed, you get the following prompt:
 
 .. image:: findfailed-prompt.png
 
-.. versionadded:: X 1.1.1
+.. versionadded:: X1.1.1
 Clicking *Retry* would again try to find the image. *Capture* would allow to (re)capture the image and *Abort* would end the script.
 In case of clicking *Capture* you get another similar prompt, that allows you to either do the capture, finally skip the FindFailed or advise SikuliX to abort the script immediately.
 
@@ -1785,6 +1786,17 @@ statement, that does nothing, but maintains indentation to form the blocks)::
 			exception FindFailed. Instead, Sikuli will try to find the target 
 			until it gets visible. This is equivalent to using ``wait( ... , FOREVER)``
 			instead of ``find()`` or using setAutoWaitTimeout(FOREVER).
+			
+	.. versionadded:: X1.1.1
+	.. py:method:: setFindFailedHandler(handler)
+	
+		For the specified region set the option, how Sikuli should handle 
+		"not found" situations. For all subsequent find failed operations (explicit or
+		implicit) the specified handler should be visited. The option stays in effect until changed 
+		by another ``setFindFailedResponse()``.(see :ref:`using a FindFailed handler <FindFailedHandler>`)
+	
+		:param handler: for all subsequent find failed operations (explicit or
+			implicit) the specified handler should be visited. 
 			
 	.. py:method:: getFindFailedResponse()
 	
