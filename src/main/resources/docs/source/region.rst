@@ -1680,9 +1680,10 @@ if the image could not be found on the current image path and hence could not be
 
 .. versionadded:: X1.1.1
 
-To implement even more sophisticated concepts, it is possible to declare a **handler function**, that is visited in
-case of a FindFailed and allows to take corrective actions. There it is also possible to differentiate between the 2 situations not loadable and not found. Before leaving the handler you can specify how the case should finally be handled
-(ABORT, SKIP, RETRY or PROMPT). If specified, a handler is always visited before any other action is taken.
+To implement even more sophisticated concepts, it is possible to declare **handler functions**, that are visited in
+case of a FindFailed and/or ImageMissing situations and allow to take corrective actions. 
+Before leaving the handler you can specify how the case should finally be handled (ABORT, SKIP, RETRY or PROMPT). 
+If specified, a handler is always visited before any other action is taken.
 
 The PROMPT response now allows to recapture the image on the fly or just to capture an image, that is not loadable.
 
@@ -1721,8 +1722,8 @@ In case of a FindFailed, you get the following prompt:
 
 .. versionadded:: X1.1.1
 
-Clicking *Retry* would again try to find the image. *Capture* would allow to (re)capture the image and *Abort* would end the script.
-In case of clicking *Capture* you get another similar prompt, that allows you to either do the capture, finally skip the FindFailed or advise SikuliX to abort the script immediately.
+Clicking *Retry* would again try to find the image. *Capture/Skip* would allow to (re)capture the image and *Abort* would end the script.
+In case of clicking *Capture* you get another similar prompt, that allows you to either do the capture, finally skip or advise SikuliX to abort the script immediately.
 
 **Examples**: 4 solutions for a case, where you want to decide how to proceed in a
 workflow based on the fact that a specific image can be found. (**pass** is the python
@@ -1763,6 +1764,36 @@ statement, that does nothing, but maintains indentation to form the blocks)::
 .. _FindFailedHandler:
 
 **Comment on using a handler function**: 
+
+	.. py:method:: setFindFailedHandler(functionname)
+		
+		:param functionname: the name of a function, that should handle FindFailed situations (no apostrophes!)
+
+	.. py:method:: setImageMissingHandler(functionname)
+		
+		:param functionname: the name of a function, that should handle ImageMissing situations (no apostrophes!)
+		
+	Both methods might name the same handler function, since it is possible to differentiate the situation to handle by inspecting the type of the event, that is the parameter, when the handler is called. On the other hand with 2 handlers it is easier and more transparent to handle both situations completely different.
+	
+	This is a basic handler::
+	
+		def handler(event):
+		    print "handler entered for", event.getType()
+		    # type here might be FINDFAILED or MISSING
+		    # do something
+		    event.setResponse(PROMPT) # now go back and prompt the user
+		    # or use RETRY, SKIP or ABORT
+		    
+	For more information on the possibilities in a handler see ``ObserveEvent``.
+	
+	**Note for Java** And this is how you setup a handler in your Java program::
+	
+		someRegion.setFindFailedHandler(new ObserveCallback() {
+                	@Override
+                	public void happened(ObserveEvent event) {
+                        	// here goes your handler code
+                	}
+        	});
 
 .. py:class:: Region
 
