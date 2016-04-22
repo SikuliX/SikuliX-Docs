@@ -1019,37 +1019,50 @@ So parallel clicks in main workflow and handler should do their job correctly, b
 	that might help to identify the cause of the event, act on the resulting matches 
 	and optionally modify the behavior of the observation.
 	
+
+.. versionadded:: X1.1.0
+
 	**Note on versions prior to 1.1.0** The event class was ``SikuliEvent`` 
 	and it allowed to directly access the attributes like type, match, region, ... . 
 	This class no longer exists and its follow up is the class ``ObserveEvent``. 
 	This break of downward compatibility is by intention, to force the revision of scripts, 
 	that use the observe feature and are run with version 1.1.0+
 	
+.. versionadded:: X1.1.1
+
+The feature FindFailed and/or ImageMissing handler allows to specify functions that are visited in the case of these failures happening. The handler gets an ObserveEvent object as parameter, that can be used to analyse the situation and define how the situation should be handled finally.
+
 	.. py:method:: getType()
 	
 		get the type of the event
 		
-		:return: a string containing APPEAR, VANISH or CHANGE
+		:return: a string containing APPEAR, VANISH, CHANGE, GENERIC, FINDFAILED, MISSING
 		
-	.. py:method:: isAppear(), isVanish(), isChange()
+	.. py:method:: isAppear(), isVanish(), isChange(), isGeneric(), isFindFailed(), isMissing()
 	
 		convenience methods, to check the type
 		
 		:return: True or False
 		
-	.. py:method:: getPattern()
-
-		Get the pattern that triggered this event. A given image is packed into a pattern. 
-		This is only valid for APPEAR and VANISH events.
-		
-		:return: the pattern object (which allows to access the given image if needed)
-	
 	.. py:method:: getRegion()
 
 		The observing region of this event.
 	
 		:return: the region object
 		
+	.. py:method:: getPattern()
+
+		Get the pattern that triggered this event. A given image is packed into the pattern. 
+		This is only valid for APPEAR and VANISH events as well as for FINDFAILED and MISSING.
+		
+		:return: the pattern object (which allows to access the given image if needed)
+	
+	.. py:method:: getImage()
+
+		Directly access the given image in case of FINDFAILED and MISSING.
+		
+		:return: the image object
+	
 	.. py:method:: getMatch()
 
 		For an APPEAR you get the :py:class:`Match` object 
@@ -1092,6 +1105,18 @@ So parallel clicks in main workflow and handler should do their job correctly, b
 		an approriate ``repeat()``, to continue the observation.
 		
 		:param waitTime: seconds to pause, taken as 0 if not given
+		
+	.. py:method:: getResponse()
+	
+		In case of FINDFAILED or MISSING get the current setting of the FindFailedResponse of the event region
+		
+		:return: PROMPT, RETRY, SKIP or ABORT
+	
+	.. py:method:: setResponse(response)
+	
+		In case of FINDFAILED or MISSING set the FindFailedResponse of the event region. This will be the option, that is used after return from the handler for the final reaction.
+		
+		:param response: PROMPT, RETRY, SKIP or ABORT
 	
 	.. py:method:: getName()
 	
