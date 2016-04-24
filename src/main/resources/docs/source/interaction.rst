@@ -10,7 +10,7 @@ In the standard the following dialog boxes are shown in the middle of the screen
 They are always on top from the beginning, no matter which application currently is the frontmost. While the dialog is visible, you might move it around and act on other applications, until you work with the dialog box.
 
 .. versionadded:: 1.1.0
-If you want the dialog to appear in a special location on the screen (even on other screens in multimonitor situations), you can use the function :py:func:`popat` to define this location. The dialog will be positioned here with the center of its dialog panel. Be aware, that locations near the edge of the screen might make parts of the dialog not accessible (this is not checked). This location will stay in effect until changed by another use of :py:func:`popat`. A :py:func:`popat` without parameters will reset it to the standard (center of the screen, where SikuliX is running).
+If you want the dialog to appear in a special location on the screen (even on other screens in multimonitor situations), you can use the function :py:func:`popat` to define this location. The dialog will be positioned here with the center of its dialog panel. Be aware, that locations near the edge of the screen might make parts of the dialog not accessible (this is not checked). This location will stay in effect until changed by another use of :py:func:`popat`. A :py:func:`popat` without parameters will reset it to the standard (center of primary screen).
 
 .. py:function:: popat(x, y)
 .. py:function:: popat(location)
@@ -26,8 +26,7 @@ If you want the dialog to appear in a special location on the screen (even on ot
 	
 	:param region: the location as the center of the given :py:class:`Region`
 
-	If no parameter is given, the location will be reset to the center of the screen, 
-	where SikuliX is running (default).
+	If no parameter is given, the location will be reset to the center primary screen (default).
 
 .. py:function:: popup(text, [title])
 
@@ -182,7 +181,17 @@ If you want the dialog to appear in a special location on the screen (even on ot
 	.. image:: select1.png
 
 	.. image:: select2.png
+	
+.. versionadded:: 1.1.1
+.. py:function:: popFile([title])
 
+	Display a file open dialog, that lets the user select a folder or file.
+	
+	:param title: optional title for the dialogbox (default: Select a file or folder)
+	
+	:return: the absolute path of the selected file or folder as a string
+
+	
 Listening to Global Hotkeys
 ---------------------------
 
