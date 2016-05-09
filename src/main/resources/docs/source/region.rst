@@ -142,11 +142,13 @@ Use :py:meth:`Region.isValid` to check, wether a Region is contained by a screen
 			topLeft = Location(reg.x, reg.y) # equivalent to
 			topLeft = reg.getTopLeft()
 			
-			theWidth = reg.w # equivalent to
+			theWidth = reg.w # getting the width equivalent to
 			theWidth = reg.getW()
 			
-			reg.w = theWidth # equivalent to
+			reg.w = theWidth # setting the width equivalent to
 			reg.setW(theWidth) 
+			
+			# same is available for the height: reg.h, reg.getH(), reg.setH()
 	
 		**Note:** Additionally you might use :py:meth:`selectRegion() <Screen.selectRegion>` 
 		to interactively create a new region at runtime.
