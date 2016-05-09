@@ -124,13 +124,13 @@ Use :py:meth:`Region.isValid` to check, wether a Region is contained by a screen
 
 		Create a region object
 
-		:param x: x position of a rectangle.
-		:param y: y position of a rectangle.
-		:param w: height of a rectangle.
-		:param h: width of a rectangle.
-		:param region: an existing region object.
-		:param rectangle: an existing object of Java class Rectangle
-		:return: a new region object.
+		:param x: x position of top left corner
+		:param y: y position of top left corner.
+		:param w: width of the region.
+		:param h: height of the region.
+		:param region: an existing Region object.
+		:param rectangle: an existing object of class java.awt.Rectangle
+		:return: a new Region object.
 
 		For **other ways to create new Regions** see: :ref:`Extend Regions ... <ExtendingaRegion>`.
 		
