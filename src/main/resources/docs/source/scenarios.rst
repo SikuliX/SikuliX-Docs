@@ -205,8 +205,7 @@ If you now run the script in the IDE, internally a ``robot.run`` will be fired a
 Still being in the IDE another possible setup would be this way:
 ::
        
-        robotScript =
-        """
+        robotScript = """
         robot
         *** Variables ***
         ${USERNAME}               demo
@@ -244,7 +243,7 @@ If in such a case you want to provide an inline Keyword implementation: this doe
         
         # the rest is taken as inline Keyword implementation
  
-If you have the need to specify extra parameters to the ``robot.run()`, then you still have the option to stay within the SikuliX context (IDE or from commandline):
+If you have the need to specify extra parameters to the ``robot.run()``, then you still have the option to stay within the SikuliX context (IDE or from commandline):
 ::
         import robot.run
     
