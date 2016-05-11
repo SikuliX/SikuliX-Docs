@@ -136,5 +136,125 @@ Using SikuliX in Java programming
 Using SikuliX in non-Java programming scenarios
 ===============================================
 
+Using RobotFramework
+====================
 
+.. _UsingRobot
 
+.. versionadded:: X1.1.1
+
+You can run ready Robot scripts out of the box in the Sikulix context (IDE or from commandline). The needed Python module robot (from [robotframework 3.0](https://pypi.python.org/pypi/robotframework)) is bundled with the ``sikulixapi.jar``. At runtime and already with setup, the module is exported to the folder ``<SikulixAppData>/Lib``, which is on ``sys.path`` automatically. So there is no need to have anything else available than a suitable setup of SikuliX.
+
+The easiest way is to use the SikuliX IDE with this principal setup
+::
+
+        runScript("""
+        robot
+        *** Variables ***
+        ${USERNAME}               demo
+        ${PASSWORD}               mode
+        ${TESTSITE}               http://test.sikuli.de
+        *** Settings ***
+        Library           ./inline/LoginLibrary
+        Test Setup        start firefox and goto testsite    ${TESTSITE}
+        Test Teardown     stop firefox
+        *** Test Cases ***
+        User can log in with correct user and password
+            Attempt to Login with Credentials    ${USERNAME}    ${PASSWORD}
+            Status Should Be    Accepted
+        User cannot log in with invalid user or bad password
+            Attempt to Login with Credentials    betty    wrong
+            Status Should Be    Denied
+        """)
+        
+        class LoginLibrary(object):
+          def start_firefox_and_goto_testsite(self, page):
+            popup("start_firefox_and_goto_testsite")
+          def stop_firefox(self):
+            popup("stop_firefox")
+          def attempt_to_login_with_credentials(self, username, password):
+            popup("attempt_to_login_with_credentials")
+          def status_should_be(self, expected):
+            popup("status_should_be")
+
+the first 2 lines 
+::
+        runScript("""
+        robot
+        
+signal, that you want to run an inline Robot script, that follows on the next lines terminated by ``""")``. This construct is a multiline Python comment, that can be used as a string.
+
+Normally when working with SikuliX features, you have to do some Robot Keyword implementation at the Python level. To Robot you tell where to find these implementation using the ``Library setting``.
+
+In this case we have the implementations inline in the same scriptfile according to the Robot rules packed into a Python class having the Keyword methods according to the Robot naming conventions. At runtime this class will be exported to a Python file, whose absolute path is then replacing the Library setting.
+
+If you have the Keyword implementations somewhere outside, then you have to put the correct path specification into the Library setting. Another option is to reference a jar file as a Library again according to the Robot specifications.
+
+If you now run the script in the IDE, internally a ``robot.run`` will be fired after having setup the script content and the environment. Currently no extra options can be provided for the robot run. As a result you get a folder with the ending ``.robot`` named as your script in the same folder as your script folder containing inputs to and the results from the robot run
+::
+
+        # supposing the script is named testrobot.sikuli
+        # then you get a folder testrobot.sikuli.robot with the content
+        testrobot.robot # the robot script
+        LoginLibrary.py # the Python Keyword implementations
+        # the standard Robot outcome
+        output.xml
+        log.html
+        report.html
+
+Still being in the IDE another possible setup would be this way:
+::
+       
+        robotScript =
+        """
+        robot
+        *** Variables ***
+        ${USERNAME}               demo
+        ${PASSWORD}               mode
+        ${TESTSITE}               http://test.sikuli.de
+        *** Settings ***
+        Library           /some/path/to/LoginLibrary.py
+        Test Setup        start firefox and goto testsite    ${TESTSITE}
+        Test Teardown     stop firefox
+        *** Test Cases ***
+        User can log in with correct user and password
+            Attempt to Login with Credentials    ${USERNAME}    ${PASSWORD}
+            Status Should Be    Accepted
+        User cannot log in with invalid user or bad password
+            Attempt to Login with Credentials    betty    wrong
+            Status Should Be    Denied
+        """
+        
+        # here you could do some preprocessing and even modify the above robotscript 
+        
+        runScript(robotscript)
+    
+        # eventually do something with the result
+    
+Of course you can use any other method, to fill a string representing a valid Robot script, provided the first line contains the string ``robot`` and only that (denoting the script type for runScript).
+
+If in such a case you want to provide an inline Keyword implementation: this does the trick:
+::
+
+        # prepare your script content
+        runScript("robot\n" + scriptContent)
+        # eventually do something with the result
+        
+        # """)
+        
+        # the rest is taken as inline Keyword implementation
+ 
+If you have the need to specify extra parameters to the ``robot.run()`, then you still have the option to stay within the SikuliX context (IDE or from commandline):
+::
+        import robot.run
+    
+        # prepare your stuff
+        
+        robot.run("path-to/yourRobotScript.robot", ... any valid robot parameters ...)
+    
+If you want to use any of these variants outside the SikuliX context (some external Jython or in an IDE like PyCharm) you have to add these 2 lines at the beginning of your main script (as always in such cases):
+::
+        import org.sikuli.script.SikulixForJython
+        from sikuli import *
+        
+to get the SikuliX context ready.
