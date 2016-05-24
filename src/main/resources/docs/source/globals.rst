@@ -171,7 +171,7 @@ Currently there is no Auto-Save feature, so that your changes are lost in case o
 	
 	:param store: the reference to a loaded store
 	:param key: the key as string of a stored key-value-pair
-	:param value: an string value to be stored with the given key
+	:param value: a string value to be stored with the given key
 	:return: the stored value before the change, an empty string if the key did not exist yet
 	
 .. py:method:: delOpt(store, key)
@@ -192,8 +192,8 @@ Since the values in the store are strings only, the following functions take car
 	
 	:param store: the reference to a loaded store
 	:param key: the key as string of a stored key-value-pair
-	:param default: an optional value in case the key does not exist in the store (a valid number)
-	:return: the stored value or the default (as double format value)
+	:param default: an optional number value in case the key does not exist in the store
+	:return: the stored value as double or the default
 	
 .. py:method:: setOptNum(store, key, value)
 
