@@ -245,12 +245,17 @@ If in such a case you want to provide an inline Keyword implementation: this doe
  
 If you have the need to specify extra parameters to the ``robot.run()``, then you still have the option to stay within the SikuliX context (IDE or from commandline):
 ::
-        import robot.run
-    
-        # prepare your stuff
-        
-        robot.run("path-to/yourRobotScript.robot", ... any valid robot parameters ...)
-    
+       import robot.run
+       
+       workdir = getParentFolder()
+       script = "arobottest/arobottest.robot"
+       robotscript = os.path.join(workdir, script)
+       
+       print "*** trying to run:", robotscript
+       robot.run(robotscript, outputdir=workdir)    
+       
+It is strongly recommended, to always specify the `outputdir= parameter` since otherwise the reportfiles will be written to the working folder (from where you are running), which might not always be what you want.
+
 If you want to use any of these variants outside the SikuliX context (some external Jython or in an IDE like PyCharm) you have to add these 2 lines at the beginning of your main script (as always in such cases):
 ::
         import org.sikuli.script.SikulixForJython
