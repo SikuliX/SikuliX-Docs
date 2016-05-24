@@ -230,6 +230,10 @@ Still being in the IDE another possible setup would be this way:
     
         # eventually do something with the result
     
+**BE AWARE** for the keyword library, the `Name` in the file name `Name.py` and the statement `class Name()` **must** be the same and start with an uppercase letter.
+
+**BE AWARE ON WINDOWS** the file path must be escaped with 4 backslashes for each backslash like so `C:\\\\Robot\\\\Libraries\\\\Name.py` (which leads to the needed 2 backslashes for each backslash as escape in the final robot file)
+ 
 Of course you can use any other method, to fill a string representing a valid Robot script, provided the first line contains the string ``robot`` and only that (denoting the script type for runScript).
 
 If in such a case you want to provide an inline Keyword implementation: this does the trick:
