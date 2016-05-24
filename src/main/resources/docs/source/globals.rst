@@ -71,12 +71,147 @@ The content is :ref:`controlled by the IDE's Preferences panel <IDE>`.
 It is safe to delete this branch/file, to get a default setup and might help in
 some situations, wher the startup of the IDE does not work or crashes.
 
-Store some of your information persistently and reload it later (same machine)
-------------------------------------------------------------------------------
+Store some of your information persistently and reload it later
+---------------------------------------------------------------
+
+You can have a so called **Property File** somewhere on the file system, that you can prefill with key-value-pairs representing information, that can be used by your scripts for whatever purpose at runtime. So it can be used instaed of commandline parameters, for some kind of data-driven approach or for any other solution, that needs information to be persistent over time.
+
+::
+
+		# this is a property file
+		key1 = value1
+		key2 = value2
+		...
+		
+At runtime in your script, you first load such a property file into an in-memory store and then access the values using their keys (both basically are strings). You might change existing values, add new values and remove values. At any time you might save the store content back to the originating file or to another file. 
+
+Currently there is no Auto-Save feature, so that your changes are lost in case of crashes before you saved the store back to a file. The feature might not be fully thread safe.
+
+**Features that operate on the store as entity**
+
+.. py:method:: loadOpts(filePath)
+
+	load a property file into an internal store
+	
+	:param filePath: absolute or relative to the working folder
+	:return: the reference to the internal store to be used with the store functions
+
+.. py:method:: saveOpts(store)
+
+	save the store back to the file it was loaded from
+	
+	:param store: the reference to a loaded store
+	:return: true if it worked, false otherwise
+
+.. py:method:: saveOpts(store, filepath)
+
+	save the store to the given file, overwritten without notice
+	
+	:param store: the reference to a loaded store
+	:param filePath: absolute or relative to the working folder
+	:return: true if it worked, false otherwise
+
+.. py:method:: makeOpts()
+
+	make a new, empty internal store, that might be saved to a file later
+	
+	:return: the reference to the internal store to be used with the store functions
+
+.. py:method:: delOpts(store)
+
+	purge all key-value-pairs from the store (make it empty)
+	
+	:param store: the reference to a loaded store
+	:return: true if it worked, false otherwise
+
+.. py:method:: hasOpts(store)
+
+	count the key-value-pairs in the store
+	
+	:param store: the reference to a loaded store
+	:return: a positive number (0 means empty)
+	
+.. py:method:: getOpts(store)
+
+	load the key-value-pairs into a dictionary (Java: Map(String, String)), to be able to use more powerful features on the store information
+	
+	:param store: the reference to a loaded store
+	:return: the dictionary filled with the key-value-pairs
+	
+.. py:method:: setOpts(store, map)
+
+	store the key-value-pairs from a dictionary (Java: Map(String, String)) to the given store
+	
+	:param store: the reference to a loaded store
+	:param map: the dictionary/map containing the key-value-pairs
+	:return: the number of stored key-value-pairs (0 might signal a problem)
+	
+**Features that operate on individual entries in a loaded store**
+
+.. py:method:: hasOpt(store, key)
+
+	check the existence of a key-value-pair
+	
+	:param store: the reference to a loaded store
+	:param key: the key as string of a stored key-value-pair
+	:return: true if the key exists, false otherwise
+
+.. py:method:: getOpt(store, key[, default])
+
+	read the value of a specific key and get the default value, if the key does not exist. If the key does not exists and no default is given, an empty string is returned.
+	
+	:param store: the reference to a loaded store
+	:param key: the key as string of a stored key-value-pair
+	:param default: an optional value in case the key does not exist in the store
+	:return: the stored value or the default
+	
+.. py:method:: setOpt(store, key, value)
+
+	set the value of a specific key. if the key does not exist, the key-value-pair is added, otherwise the value is overwritten.
+	
+	:param store: the reference to a loaded store
+	:param key: the key as string of a stored key-value-pair
+	:param value: an string value to be stored with the given key
+	:return: the stored value before the change, an empty string if the key did not exist yet
+	
+.. py:method:: delOpt(store, key)
+
+	delete the key-value-pair from the store
+	
+	:param store: the reference to a loaded store
+	:param key: the key as string of a stored key-value-pair
+	:return: the stored value before the deletion, an empty string if the key did not exist yet
+	
+**Convenience functions for number values**
+
+Since the values in the store are strings only, the following functions take care for the necessary conversions. All returned numbers are of format double.
+
+.. py:method:: getOptNum(store, key[, default])
+
+	read the value of a specific key and get the default value, if the key does not exist. If the key does not exists and no default is given, a 0.0 is returned.
+	
+	:param store: the reference to a loaded store
+	:param key: the key as string of a stored key-value-pair
+	:param default: an optional value in case the key does not exist in the store (a valid number)
+	:return: the stored value or the default (as double format value)
+	
+.. py:method:: setOptNum(store, key, value)
+
+	set the value of a specific key. if the key does not exist, the key-value-pair is added, otherwise the value is overwritten.
+	
+	:param store: the reference to a loaded store
+	:param key: the key as string of a stored key-value-pair
+	:param value: an valid number value to be stored with the given key
+	:return: the stored value before the change, a 0.0 if the key did not exist yet
+
+**The following feature only works on the same machine**
+
+... and has nothing to do with the above feature, but can of course be combined.
 
 You might use SikuliX's persistent storage, to **store and reload your own information** 
 accross SikuliX sessions or only across different runs of same or different scripts/programs.
-Internally the item names get a unique prefix, to avoid name mangling (currently ``nonSikuli_``).
+
+There is no feature to preload the store before the first run nor to export your information.
 
 .. py:method:: Sikulix.prefStore(key, value)
 
