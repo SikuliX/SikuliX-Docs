@@ -265,4 +265,8 @@ Based on the knowledge of your monitor configuration, you can now start some fur
 evaluations using e.g. :py:meth:`Region.hover` together with
 :py:func:`setShowActions(True) <setShowActions>` and highlighting using :py:meth:`Region.highlight`.
 
+Connecting to a VNC Server (VNCScreen)
+--------------------------------------
 
+coming soon
+.. versionadded:: 1.1.1
