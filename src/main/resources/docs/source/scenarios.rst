@@ -249,14 +249,16 @@ If in such a case you want to provide an inline Keyword implementation: this doe
  
 If you have the need to specify extra parameters to the ``robot.run()``, then you still have the option to stay within the SikuliX context (IDE or from commandline):
 ::
-       import robot.run
+       prepareRobot() # takes care for the correct environment
        
        workdir = getParentFolder()
        script = "arobottest/arobottest.robot"
        robotscript = os.path.join(workdir, script)
        
        print "*** trying to run:", robotscript
-       robot.run(robotscript, outputdir=workdir)    
+       robot.run(robotscript, outputdir=workdir)
+       
+ A library .py file being either in the script folder itself or in the folder containing the script folder is found automatically. So simply the library name is enough in this case. In all other cases you either have to specify teh absolute path oin the robot script (take care with windows - see above) or use ``addImportPath()`` to add the folder containing the library .py file to ``sys.path``, in which case again only the nae is sufficient in the Robot script  
        
 It is strongly recommended, to always specify the `outputdir= parameter` since otherwise the reportfiles will be written to the working folder (from where you are running), which might not always be what you want.
 
