@@ -544,6 +544,8 @@ the feature :ref:`SIKULI_IMAGE_PATH <ImageSearchPath>` to make sure that images 
 		decide to use this version, be sure you have a naming convention that
 		prevents naming conflicts.
 
+.. versionadded:: 1.1.1
+The imports for other .sikuli scripts are now tracked during one IDE session. On rerun of a main script, the respective imports are automatically reloaded, so an extra reload() in these cases is no longer needed. 
 
 .. versionadded:: 1.1.0
 
