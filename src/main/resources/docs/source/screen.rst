@@ -270,11 +270,11 @@ evaluations using e.g. :py:meth:`Region.hover` together with
 Connecting to a VNC Server (VNCScreen)
 --------------------------------------
 
-The VNC solution bundled with SikuliX is based on a **contribution by Mike Johnson during his time at InterOperability Laboratory of the University of New Hampshire**. The package is located in ``edu.unh.iol.dlc``. Besides the javadocs in the package there is no other original usage documentation.
+The VNC solution bundled with SikuliX is based on a **contribution by Mike Johnson during his time at InterOperability Laboratory (University of New Hampshire)**. The package is located in ``edu.unh.iol.dlc``. Besides the javadocs in the package there is no other original usage documentation.
 
 .. versionadded:: 1.1.1
 
-To make the package more useable there are now highlevel wrappers, that hide the logic to create, start and stop the socket based connection. More than on connection can be used at one time, each represented by a differen VNCScreen object.
+To make the package more useable there are now highlevel wrappers, that hide the logic to create, start and stop the socket based connection. More than one connection can be used at one time, each represented by a different VNCScreen object.
 
 .. py:method:: vncStart([ip="127.0.0.1"], [port=5900], [connectionTimeout=10], [timeout=1000])
 
@@ -283,8 +283,8 @@ To make the package more useable there are now highlevel wrappers, that hide the
 	:param ip: the server IP (default: 127.0.0.1 loopback/localhost)
 	:param port: the port number (default 5900)
 	:param connectionTimeout: seconds to wait for a valid connection (default 10)
-	:param timeout the timout value in milli-seconds during normal operation (default 1000)
-	:return: a new VNCScreen object ueable like a Screen object
+	:param timeout: the timout value in milli-seconds during normal operation (default 1000)
+	:return: a new VNCScreen object useable like a Screen object
 
 .. py:method:: stop()
 
