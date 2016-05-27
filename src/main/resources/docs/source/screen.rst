@@ -272,6 +272,8 @@ Connecting to a VNC Server (VNCScreen)
 
 The VNC solution bundled with SikuliX is based on a **contribution by Mike Johnson during his time at InterOperability Laboratory (University of New Hampshire)**. The package is located in ``edu.unh.iol.dlc``. Besides the javadocs in the package there is no other original usage documentation.
 
+The intention of the following information is to only describe what is officially supported by a VNCScreen object aquired using vncStart(). For usage of the classes in the package itself you have to read the javadocs or look into the sources.
+
 .. versionadded:: 1.1.1
 
 To make the package more useable there are now highlevel wrappers, that hide the logic to create, start and stop the socket based connection. More than one connection can be used at one time, each represented by a different VNCScreen object.
@@ -293,3 +295,56 @@ To make the package more useable there are now highlevel wrappers, that hide the
 	**mandatory usage** ``someVNCScreen.stop()``, where ``someVNCScreen`` is a VNCScreen object aquired before using ``someVNCScreen = vncStart(...)``.
 	
 	In basic operation environments there is no need to issue the ``vnc.stop()`` explicitely, because all active VNC connections are auto-stopped at the end of a script run or at termination of a Java run.
+	
+**USAGE IN JAVA** as being a static method in class VNCScreen, ``vncStart()`` has to be used as
+
+::
+        VNCScreen vnc = VNCScreen.start(ip, port, connectionTimeout, timeout)
+        // the parameters are mandatory with values as mentioned above
+        // do something with the vnc object
+        vnc.stop() // optional - see above
+        
+**Some general information and comments**
+
+Due to the current implementation concept of VNCScreen, **Region or Location objects intented to be on a remote screen have to know this fact**. Otherwise they are simply Regions and Locations on a local screen with fitting coordinates. This knowledge of being on a remote screen is internally propagated from one object to a new object created by a feature of the existing object. Hence in the beginning only the created VNCScreen object knows about being on a remote screen. So to create Regions and Locations on the remote screen from scratch, you have to use features of VNCScreen. 
+
+**These are the rules**:
+ - the VNCScreen object itself is a remote Region in this sense
+ - each ``Match/Region/Location`` created using a ``VNCScreen`` object knows about being remote
+ - each ``Region/Location`` object created using a feature of a ``remote Region/Location`` also knows about being remote
+ - to create a ``new Region/Location`` from scratch use the ``newRegion()/newLocation()`` methods of VNCScreen
+ - all mouse and keyboard actions using remote Regions/Locations are going to the remote screen
+ 
+**Methods to create new remote Regions and Locations**
+
+::
+	# someRegion/someLocation may be normal Region/Location objects
+	# someRectangle/somePoint are normal java.awt.Rectangle/java.awt.Point objects
+	# remoteRegion/remoteLocation/remoteMatch know about being remote
+	
+	vnc = vncStart("192.168.2.25") # some VNC Server in the local net
+	
+	# create from scratch
+	remoteRegion = vnc.newRegion(x, y, w, h)
+	remoteRegion = vnc.newRegion(someRegion)
+	remoteRegion = vnc.newRegion(someRectangle)
+	remoteLocation = vnc.newLocation(x, y)
+	remoteLocation = vnc.newLocation(someLocation)
+	remoteLocation = vnc.newLocation(somePoint)
+	
+	# propagate remote aspect
+	remoteRegion = remoteRegion.right(200)
+	remoteMatch = vnc.find("someImage.png")
+	remoteLocation = remoteMatch.getCenter()
+	
+**BE AWARE**
+
+ - Not all documented Screen/Region/Location methods might work as expected due to implementation quirks. In case, feel free to report a bug.
+ 
+ - The current implementation only supports a **limited set of RemoteFrameBuffer protocols**. The above described level of usage is successfully tested from a Mac OSX 10.10+ against a TightVNC server running on a Windows 10 64-Bit in the local network or both client and server on the mentioned Windows machine using the loopback IP (127.0.0.1).
+
+ - If a connection is refused, you should first switch on debugging with -d 4 to get more detailed information. (In the script simply put a Debug.on(4) before the vncStart()). If you are told something about setPixelFormat, you have to dive into the sources to find a way how to do that. Some deeper knowledge of the VNC protocols are needed in this case.
+ 
+ - It is intended to further improve the code quality and usability of the VNC package in version 1.1.x
+	
+ 
