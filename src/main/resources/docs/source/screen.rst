@@ -265,8 +265,31 @@ Based on the knowledge of your monitor configuration, you can now start some fur
 evaluations using e.g. :py:meth:`Region.hover` together with
 :py:func:`setShowActions(True) <setShowActions>` and highlighting using :py:meth:`Region.highlight`.
 
+.. _VNCConnection:
+
 Connecting to a VNC Server (VNCScreen)
 --------------------------------------
 
-coming soon
+The VNC solution bundled with SikuliX is based on a **contribution by Mike Johnson during his time at InterOperability Laboratory of the University of New Hampshire**. The package is located in ``edu.unh.iol.dlc``. Besides the javadocs in the package there is no other original usage documentation.
+
 .. versionadded:: 1.1.1
+
+To make the package more useable there are now highlevel wrappers, that hide the logic to create, start and stop the socket based connection. More than on connection can be used at one time, each represented by a differen VNCScreen object.
+
+.. py:method:: vncStart([ip="127.0.0.1"], [port=5900], [connectionTimeout=10], [timeout=1000])
+
+	Start a VNC session to the given (usually remote) running VNC server and on success get a VNCScreen object, that can be used like a Screen object. About the restrictions and special features see the comments below. 
+
+	:param ip: the server IP (default: 127.0.0.1 loopback/localhost)
+	:param port: the port number (default 5900)
+	:param connectionTimeout: seconds to wait for a valid connection (default 10)
+	:param timeout the timout value in milli-seconds during normal operation (default 1000)
+	:return: a new VNCScreen object ueable like a Screen object
+
+.. py:method:: stop()
+
+	Stop the referenced VNC session, which closes the underlying socket connection and makes the VNCScreen object unuseable.
+	
+	**mandatory usage** ``someVNCScreen.stop()``, where ``someVNCScreen`` is a VNCScreen object aquired before using ``someVNCScreen = vncStart(...)``.
+	
+	In basic operation environments there is no need to issue the ``vnc.stop()`` explicitely, because all active VNC connections are auto-stopped at the end of a script run or at termination of a Java run.
