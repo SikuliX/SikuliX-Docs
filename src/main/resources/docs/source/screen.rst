@@ -296,9 +296,8 @@ To make the package more useable there are now highlevel wrappers, that hide the
 	
 	In basic operation environments there is no need to issue the ``vnc.stop()`` explicitely, because all active VNC connections are auto-stopped at the end of a script run or at termination of a Java run.
 	
-**USAGE IN JAVA** as being a static method in class VNCScreen, ``vncStart()`` has to be used as
+**USAGE IN JAVA** as being a static method in class VNCScreen, ``vncStart()`` has to be used as::
 
-::
         VNCScreen vnc = VNCScreen.start(ip, port, connectionTimeout, timeout)
         // the parameters are mandatory with values as mentioned above
         // do something with the vnc object
@@ -315,9 +314,8 @@ Due to the current implementation concept of VNCScreen, **Region or Location obj
  - to create a ``new Region/Location`` from scratch use the ``newRegion()/newLocation()`` methods of VNCScreen
  - all mouse and keyboard actions using remote Regions/Locations are going to the remote screen
  
-**Methods to create new remote Regions and Locations**
+**Methods to create new remote Regions and Locations**::
 
-::
 	# someRegion/someLocation may be normal Region/Location objects
 	# someRectangle/somePoint are normal java.awt.Rectangle/java.awt.Point objects
 	# remoteRegion/remoteLocation/remoteMatch know about being remote
