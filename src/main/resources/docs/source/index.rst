@@ -21,7 +21,7 @@ This document is being maintained by `Raimund Hocke aka RaiMan
 If you have any questions or ideas about this document, 
 you are welcome to contact him directly via the above link and the email behind. 
 
-**QickStart information and other possibilities to get in contact:** `sikulix.com <http://sikulix.com>`_.
+**QuickStart information and other possibilities to get in contact:** `sikulix.com <http://sikulix.com>`_.
 
 For questions regarding the functions and features of Sikuli itself, that are not answered
 sufficiently in this documentation, please use the `Sikuli Questions and
