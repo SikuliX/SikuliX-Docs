@@ -854,7 +854,7 @@ have at least the following statements in your script::
 **Note for Java** And this is how you setup a handler in your Java program::
 
 	someRegion.onAppear("path-to-an-image-file", 
-		new ObserveCallback() {
+		new ObserverCallBack() {
 			@Override
 			public void appeared(ObserveEvent event) {
 				// here goes your handler code
@@ -862,11 +862,11 @@ have at least the following statements in your script::
 		}
 	);
 	
-	Here ObserveCallback is an abstract class defining the three possible callback funtions ``appeared``,
-	``vanished`` and ``changed``, that have to be overwritten as needed in your implementation 
-	of the ObserveCallback.
-		
-	Read :py:class:`ObserveEvent` to know what is contained in the event object and what its features are.
+Here ObserverCallBack is a class defining the three possible callback funtions ``appeared``,
+``vanished`` and ``changed`` as noop-methods, that have to be overwritten as needed in your implementation 
+of the ObserverCallback. You only need to overwrite the one method, that corresponds to your event.
+	
+Read :py:class:`ObserveEvent` to know what is contained in the event object and what its features are.
 
 **NOTE ON CONCURRENCY with ObserveInBackground, the callback concept and Mouse/Keyboard usage**
 In Sikuli version prior to 1.1.0 it could happen, that mouse actions in the handler callback could interfere with mouse actions in the main workflow or other callback handlers, since these threads work in parallel without any automatic synchronization.
