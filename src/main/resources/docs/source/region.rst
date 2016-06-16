@@ -864,7 +864,7 @@ have at least the following statements in your script::
 	
 Here ObserverCallBack is a class defining the three possible callback funtions ``appeared``,
 ``vanished`` and ``changed`` as noop-methods, that have to be overwritten as needed in your implementation 
-of the ObserverCallback. You only need to overwrite the one method, that corresponds to your event.
+of the ObserverCallBack. You only need to overwrite the one method, that corresponds to your event.
 	
 Read :py:class:`ObserveEvent` to know what is contained in the event object and what its features are.
 
