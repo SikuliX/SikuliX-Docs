@@ -417,6 +417,39 @@ To support the development cycle in IDE's, you might specify an alternate path, 
       where *someClass* is the name of a class contained in a jar on the class path containing the images folder at the root level of the jar.
       
       where *alternatePath* is a valid path specification, where the images are located, when running from inside an IDE.
+      
+*Example of a non-Maven project* where the images folder ``/imgs`` in this case is on the same level as the package folder ``testAPI`` containing the class file ``Test.java`` so both folders will be side by side at the root level of the runnable jar produced from this project::
+
+	package testAPI;
+	
+	import org.sikuli.basics.Debug;
+	import org.sikuli.script.ImagePath;
+	import org.sikuli.script.Match;
+	import org.sikuli.script.Screen;
+	
+	public class Test {
+		public static void main(String[] args) {
+			Screen s = new Screen();
+			Debug.info("Screen: %s", s);
+			String clazz = "testAPI.Test";
+			String imgFolder = "/imgs";
+			String img = "test.png";
+			String inJarFolder = clazz + imgFolder;
+			if (ImagePath.add(inJarFolder)) {
+				Debug.info("Image Folder in jar at: %s", inJarFolder);
+			} else {
+				Debug.error("Image Folder in jar not possible: %s", inJarFolder);
+			}
+			Match target = s.exists(img);
+			if (null == target) {
+				Debug.error("Not found: ", img);
+			} else {
+				Debug.info("Found: %s at %s", img, target);
+				s.hover();
+			}
+			Debug.info("... leaving");
+		}
+	}
 
 **Be aware:** that you might use the Sikuli IDE, to maintain a script, that only contains the image filenames and then is used as image path in your Java app like ``ImagePath.add("myClass/myImages.sikuli")``, which e.g. in the Maven context will assume as image path ``src/main/ressources/myImages.sikuli``.
 
