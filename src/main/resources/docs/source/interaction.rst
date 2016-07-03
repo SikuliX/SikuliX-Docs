@@ -12,6 +12,8 @@ They are always on top from the beginning, no matter which application currently
 .. versionadded:: 1.1.0
 If you want the dialog to appear in a special location on the screen (even on other screens in multimonitor situations), you can use the function :py:func:`popat` to define this location. The dialog will be positioned here with the center of its dialog panel. Be aware, that locations near the edge of the screen might make parts of the dialog not accessible (this is not checked). This location will stay in effect until changed by another use of :py:func:`popat`. A :py:func:`popat` without parameters will reset it to the standard (center of primary screen).
 
+**Note for Java Usage** These methods are available in class ``org.sikuli.script.Sikuli``
+
 .. py:function:: popat(x, y)
 .. py:function:: popat(location)
 .. py:function:: popat(region)
@@ -128,26 +130,37 @@ If you want the dialog to appear in a special location on the screen (even on ot
 	As the user inputs his secret infoemation, the text is shown as one asterisk per character.
 	
 .. versionadded:: 1.1.0
-.. py:function:: inputText([msg], [title], [lines], [width])
+.. py:function:: inputText(message, [title=""], [lines=9], [width=20], [text=""])
 
-	:param msg: text to be displayed as message (default: nothing)
+	:param message: text to be displayed as message 
 	
-	:param title: optional title for the messagebox (default: Sikuli Text)
+	:param title: optional title for the messagebox (default: SikuliX input request)
 	
 	:param lines: how many lines the text box should be high (default: 9)
 	
 	:param width: how many characters the box should have as width (default: 20)
 	
-	:return: the possible multiline text entered by the user (might be empty)
+	:param text: a multiline text, that is preset in the textarea
+	
+	:return: the multiline text content when user presses ``OK`` (might be empty) or None if the user presses ``CANCEL``
 	
 	A message box with the given height and width is displayed and allows the user to
-	input as many lines of text as needed. The display area is fix and not scrollable 
-	(means visble is only the top left part, that fits into the visible area).
-	But you might enter as much text as you like, e.g. via CopyAndPaste.
+	input as many lines of text as needed. The lines are auto-wrapped at word boundary. 
+	A vertical scrollbar is shown if needed.
+	
+	The default font is the Java AWT Dialog (a sans-serif font) in size 14, which is also the minimum size possible. One might switch to a monospace font using ``Settings.InputFontMono=True``. Setting it to ``False`` switches it back to the standard for the next ``inputText()``. A bigger size than 14 can be set using ``Settings.InputFontSize=NN``. Setting it to a value smaller than 14 (e.g. 0) will reset it to 14 again. 
 	
 	Example::
 	
-	  story = inputText("please give me some lines of text")
+	  # selects a monospaced font
+	  # default is False meaning a SansSerif font
+	  Settings.InputFontMono = True
+
+	  # default fontsize is 14 (also minimum size)
+	  # use a fontsize of 20
+	  Settings.InputFontSize = 20
+
+	  story = inputText("please tell a story")
 	  lines = story.split("\n") # split the lines in the list lines
 	  for line in lines:
 	     print line
