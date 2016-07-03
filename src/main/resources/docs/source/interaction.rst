@@ -148,7 +148,9 @@ If you want the dialog to appear in a special location on the screen (even on ot
 	input as many lines of text as needed. The lines are auto-wrapped at word boundary. 
 	A vertical scrollbar is shown if needed.
 	
-	The default font is the Java AWT Dialog (a sans-serif font) in size 14, which is also the minimum size possible. One might switch to a monospace font using ``Settings.InputFontMono=True``. Setting it to ``False`` switches it back to the standard for the next ``inputText()``. A bigger size than 14 can be set using ``Settings.InputFontSize=NN``. Setting it to a value smaller than 14 (e.g. 0) will reset it to 14 again. 
+	The default font is the Java AWT Dialog (a sans-serif font) in size 14, which is also the minimum size possible. One might switch to a monospace font using ``Settings.InputFontMono=True``. Setting it to ``False`` switches it back to the standard for the next ``inputText()``. 
+	
+	A bigger size than 14 can be set using ``Settings.InputFontSize=NN``. Setting it to a value smaller than 14 (e.g. 0) will reset it to 14 again. 
 	
 	Example::
 	
