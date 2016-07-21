@@ -344,5 +344,22 @@ Due to the current implementation concept of VNCScreen, **Region or Location obj
  - If a connection is refused, you should first switch on debugging with -d 4 to get more detailed information. (In the script simply put a Debug.on(4) before the vncStart()). If you are told something about setPixelFormat, you have to dive into the sources to find a way how to do that. Some deeper knowledge of the VNC protocols are needed in this case.
  
  - It is intended to further improve the code quality and usability of the VNC package in version 1.1.x
+
+.. _VNCConnection:
+
+Connecting to an Android device or emulator (ADBScreen)
+-------------------------------------------------------
+
+.. versionadded:: 1.1.1
+
+Based on the ideas and first implementation of Gergő Törcsvári https://github.com/tg44 it is now possible to capture images from an Android device in the IDE and run scripts the same way as with a local screen. You can wait for images to appear on the Android screen and act with taps, swipes and text input. Since the avarage latency for a search operation is about 1 second (varies with screen resolution, region size and device processor speed), this solution only makes sense for basic automation and testing, where speed does not matter.
+
+The implementation uses adb (Android Debugging Bridge) and the Java wrapper jadb. It can be used with devices and emulators with minimum Android version 4 and does not need rooting. A device has to be attached via USB (first tests using a WiFi connection where discouraging). Currently only one connection is supported. If more than one device is available, then the one is connected, that shows up in first place on the device list. 
+
+If you want to use this feature, you should be familiar at least with the basics of adb.
+
+The usage is similar to VNCScreen: you work with an ADBScreen object, that represents the device's screen and in SikuliX terms is a Region that provides all search and action features. As far as possible the actions are transformed to Android actions: a click gets a tap and type/paste result in an input text. Most mouse and keyboard actions will do nothing but produce an error log. Furthermore Android typical actions are now available with class Region: tap, swipe, input, ... and it is possible to issue device commands via exec. If used with a local screen, these features  silently do nothing.
+
+
 	
  
