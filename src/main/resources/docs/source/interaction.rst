@@ -6,10 +6,10 @@ PopUps and input dialogs
 
 In the standard the following dialog boxes are shown in the middle of the screen, where SikuliX (IDE or from commandline) is running (usually the primary screen).
 
-.. versionadded:: 1.1.0
+.. versionadded:: 1.1.1
 They are always on top from the beginning, no matter which application currently is the frontmost. While the dialog is visible, you might move it around and act on other applications, until you work with the dialog box.
 
-.. versionadded:: 1.1.0
+.. versionadded:: 1.1.1
 If you want the dialog to appear in a special location on the screen (even on other screens in multimonitor situations), you can use the function :py:func:`popat` to define this location. The dialog will be positioned here with the center of its dialog panel. Be aware, that locations near the edge of the screen might make parts of the dialog not accessible (this is not checked). This location will stay in effect until changed by another use of :py:func:`popat`. A :py:func:`popat` without parameters will reset it to the standard (center of primary screen).
 
 **Note for Java Usage** These methods are available in class ``org.sikuli.script.Sikuli``
