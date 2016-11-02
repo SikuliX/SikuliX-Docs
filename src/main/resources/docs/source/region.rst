@@ -1708,9 +1708,10 @@ if the image could not be found on the current image path and hence could not be
 .. versionadded:: X1.1.1
 
 To implement even more sophisticated concepts, it is possible to declare **handler functions**, that are visited in
-case of a FindFailed and/or ImageMissing situations and allow to take corrective actions. 
+case of a FindFailed and/or ImageMissing situations and :ref:`allow to take corrective actions <FindFailedHandler>`. 
 Before leaving the handler you can specify how the case should finally be handled (ABORT, SKIP, RETRY or PROMPT). 
 If specified, a handler is always visited before any other action is taken.
+Handlers can be specified for a single Region object and/or globally with class FindFailed, so that each new Region object afterwards would call this handler in case.
 
 The PROMPT response now allows to recapture the image on the fly or just to capture an image, that is not loadable.
 
@@ -1800,6 +1801,8 @@ statement, that does nothing, but maintains indentation to form the blocks)::
 		
 		:param functionname: the name of a function, that should handle ImageMissing situations (no apostrophes!)
 		
+	To specify the respective handlers globally for all new Regions use ``FindFailed.setFindFailedHandler`` (or as a shortcut for that: ``FindFailed.setHandler``) and ``FindFailed.setImageMissingHandler`` respectively.
+		
 	Both methods might name the same handler function, since it is possible to differentiate the situation to handle by inspecting the type of the event, that is the parameter, when the handler is called. On the other hand with 2 handlers it is easier and more transparent to handle both situations completely different.
 	
 	This is a basic handler::
@@ -1817,11 +1820,23 @@ statement, that does nothing, but maintains indentation to form the blocks)::
 	
 		someRegion.setFindFailedHandler(new ObserveCallback() {
                 	@Override
-                	public void happened(ObserveEvent event) {
+                	public void findfailed(ObserveEvent event) {
                         	// here goes your handler code
                 	}
         	});
-
+		
+	... and to set globally::
+		
+		FindFailed.setFindFailedHandler(new ObserveCallback() {
+                	@Override
+                	public void findfailed(ObserveEvent event) {
+                        	// here goes your handler code
+                	}
+        	});
+		
+	... for the image missing situation combine ``setImageMissingHandler`` with overriding ``missing``.
+		
+		
 .. py:class:: Region
 
 	**Reminder** If used without specifying a region, the default/primary screen
