@@ -214,6 +214,8 @@ Sikuli can listen to global hotkeys that you register with ``Env.addHotkey``
 and call the corresponding handler (sikuli functions) when the user presses
 the hotkeys.
 
+**BE AWARE** Be sure, that the key combination you use is free and not used by the system or any other application. The hotkey feature may not report an error in such situations and as a consequence your hotkey definition simply does not work as expected. An example is the F12 key on Windows alone or with SHIFT, which in the standard is occupied by the system as global debugging key (might be released by hacking the registry).
+
 .. py:method:: Env.addHotkey(key, modifiers, handler)
 
  	Register the specified *key* + *modifiers* as a global hotkey. 
