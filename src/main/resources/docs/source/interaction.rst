@@ -254,7 +254,7 @@ The whole process is blocking in the sense, that hotkeys are processed one after
 
 This setup keeps things more transparent and straightforward. Other setups even with threading are possible, but need much more effort to correctly synchronize the processing especially when mouse or keyboard actions are involved.
 
-  .. pycode::
+Example::
 
     # hotkey to stop the script
     hotKeyX = False; # global to communicate with main loop
