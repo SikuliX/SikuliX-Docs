@@ -250,7 +250,7 @@ the hotkeys.
 
 It keeps the handlers free from processing code, just signals the keypress using a global variable to the main loop. The main loop simply permanently scans the global variables and then does what has to be done.
 
-The whole process is blocking in the sense, that hotkeys are processed one after the other in the sequence they appear in the main loop and each hotkey is only recognized again, when its current press is processed in the main loop.
+The whole process is blocking in the sense, that hotkeys are processed one after the other in the sequence they appear in the main loop and each hotkey is only recognized again, after its current press is processed in the main loop.
 
 This setup keeps things more transparent and straightforward. Other setups even with threading are possible, but need much more effort to correctly synchronize the processing especially when mouse or keyboard actions are involved.
 
@@ -277,12 +277,14 @@ This setup keeps things more transparent and straightforward. Other setups even 
 		while True:
 		  if (hotKeyX): 
 		    popup("processing ctrl+shift+x: stopping")
-		    exit()    
+		    exit()  
+		    
 		  if (hotKeyN):
 		    hotKeyN = False # reset the hotkey variable
 		    # and now do something
 		    count += 1
 		    popup("processing ctrl+shift+n: %d" % count)
+		    
 		  wait(1)
 
 Starting and stopping other applications and bring them to front
