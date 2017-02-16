@@ -254,38 +254,36 @@ The whole process is blocking in the sense, that hotkeys are processed one after
 
 This setup keeps things more transparent and straightforward. Other setups even with threading are possible, but need much more effort to correctly synchronize the processing especially when mouse or keyboard actions are involved.
 
-        .. sikulicode::
+  .. pycode::
 
-		# hotkey to stop the script
-		hotKeyX = False; # global to communicate with main loop
-		def xHandler(event):
-		  global hotKeyX
-		  hotKeyX = True # tell main loop that hotkey was pressed
-		# add the hotkey with its handler
-		Env.addHotkey("x", KeyModifier.CTRL + KeyModifier.SHIFT, xHandler)
+    # hotkey to stop the script
+    hotKeyX = False; # global to communicate with main loop
+    def xHandler(event):
+      global hotKeyX
+      hotKeyX = True # tell main loop that hotkey was pressed
+    # add the hotkey with its handler
+    Env.addHotkey("x", KeyModifier.CTRL + KeyModifier.SHIFT, xHandler)
 
-		# function hotkey: something to do when pressed  
-		hotKeyN = False;
-		def nHandler(event):
-		  global hotKeyN
-		  hotKeyN = True  
-		Env.addHotkey("n", KeyModifier.CTRL + KeyModifier.SHIFT, nHandler)
+    # function hotkey: something to do when pressed
+    hotKeyN = False;
+    def nHandler(event):
+      global hotKeyN
+      hotKeyN = True
+    Env.addHotkey("n", KeyModifier.CTRL + KeyModifier.SHIFT, nHandler)
 
-		# the main loop, that simply waits for pressed hotkeys
-		# which are then processed
-		count = 0;
-		while True:
-		  if (hotKeyX): 
-		    popup("processing ctrl+shift+x: stopping")
-		    exit()  
-		    
-		  if (hotKeyN):
-		    hotKeyN = False # reset the hotkey variable
-		    # and now do something
-		    count += 1
-		    popup("processing ctrl+shift+n: %d" % count)
-		    
-		  wait(1)
+    # the main loop, that simply waits for pressed hotkeys
+    # which are then processed
+    count = 0;
+    while True:
+      if (hotKeyX):
+        popup("processing ctrl+shift+x: stopping")
+        exit()
+      if (hotKeyN):
+        hotKeyN = False # reset the hotkey variable
+        # and now do something
+        count += 1
+        popup("processing ctrl+shift+n: %d" % count)
+      wait(1)
 
 Starting and stopping other applications and bring them to front
 ----------------------------------------------------------------
