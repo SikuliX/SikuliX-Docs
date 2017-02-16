@@ -245,8 +245,47 @@ the hotkeys.
 	:param modifiers: Key modifiers, which can be one or multiple constants defined in :py:class:`KeyModifier`.
 
 	:return: True if success.
+	
+**A more generic example**
 
-Starting and stopping other apllications and bring them to front
+It keeps the handlers free from processing code, just signals the keypress using a global variable to the main loop. The main loop simply permanently scans the global variables and then does what has to be done.
+
+The whole process is blocking in the sense, that hotkeys are processed one after the other in the sequence they appear in the main loop and each hotkey is only recognized again, when its current press is processed in the main loop.
+
+This setup keeps things more transparent and straightforward. Other setups even with threading are possible, but need much more effort to correctly synchronize the processing especially when mouse or keyboard actions are involved.
+
+        .. sikulicode::
+
+		# hotkey to stop the script
+		hotKeyX = False; # global to communicate with main loop
+		def xHandler(event):
+		  global hotKeyX
+		  hotKeyX = True # tell main loop that hotkey was pressed
+		# add the hotkey with its handler
+		Env.addHotkey("x", KeyModifier.CTRL + KeyModifier.SHIFT, xHandler)
+
+		# function hotkey: something to do when pressed  
+		hotKeyN = False;
+		def nHandler(event):
+		  global hotKeyN
+		  hotKeyN = True  
+		Env.addHotkey("n", KeyModifier.CTRL + KeyModifier.SHIFT, nHandler)
+
+		# the main loop, that simply waits for pressed hotkeys
+		# which are then processed
+		count = 0;
+		while True:
+		  if (hotKeyX): 
+		    popup("processing ctrl+shift+x: stopping")
+		    exit()    
+		  if (hotKeyN):
+		    hotKeyN = False # reset the hotkey variable
+		    # and now do something
+		    count += 1
+		    popup("processing ctrl+shift+n: %d" % count)
+		  wait(1)
+
+Starting and stopping other applications and bring them to front
 ----------------------------------------------------------------
 
 .. versionadded:: 1.1.0
