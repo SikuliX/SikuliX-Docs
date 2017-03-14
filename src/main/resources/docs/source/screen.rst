@@ -340,7 +340,7 @@ Due to the current implementation concept of VNCScreen, **Region or Location obj
 	
 **BE AWARE**
 
- - Due to the correct RFB protocol implementaion in TigerVNC Viewer, it may take some time (up to few seconds depending on line speed and remote screen size) to initialize the frame buffer content after connection start. So if you get problems with the first access to the remote screen content (capture, userCapture, find operations explicit or implicit), you should simply add an appropriate wait() after the vncStart(). Experiences in local environemt with large screens: 2 - 3 seconds are sufficient.
+ - Due to the correct RFB protocol implementaion in TigerVNC Viewer, it may take some time (up to few seconds depending on line speed and remote screen size) to initialize the frame buffer content after connection start. So if you get problems with the first access to the remote screen content (capture, userCapture, find operations explicit or implicit), you should simply add an appropriate wait() after the vncStart(). Experiences in local environment with large screens: 2 - 3 seconds are sufficient.
 
  - Not all documented Screen/Region/Location methods might work as expected due to implementation quirks. In case, feel free to report a bug.
  
