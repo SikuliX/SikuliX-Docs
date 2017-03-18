@@ -270,20 +270,21 @@ evaluations using e.g. :py:meth:`Region.hover` together with
 Connecting to a VNC Server (VNCScreen)
 --------------------------------------
 
-The VNC solution bundled with SikuliX is based on a **contribution by Mike Johnson during his time at InterOperability Laboratory (University of New Hampshire)**. The package is located in ``edu.unh.iol.dlc``. Besides the javadocs in the package there is no other original usage documentation.
+.. versionadded:: 1.1.1
+
+The implementation is based on the TigerVNC Viewer package and was initially contributed by Pepijn Van Eeckhoudt https://github.com/pepijnve.
 
 The intention of the following information is to only describe what is officially supported by a VNCScreen object aquired using vncStart(). For usage of the classes in the package itself you have to read the javadocs or look into the sources.
 
-.. versionadded:: 1.1.1
-
 To make the package more useable there are now highlevel wrappers, that hide the logic to create, start and stop the socket based connection. More than one connection can be used at one time, each represented by a different VNCScreen object.
 
-.. py:method:: vncStart([ip="127.0.0.1"], [port=5900], [connectionTimeout=10], [timeout=1000])
+.. py:method:: vncStart([ip="127.0.0.1",] [port=5900,] [password=None,][connectionTimeout=10,] [timeout=1000])
 
 	Start a VNC session to the given (usually remote) running VNC server and on success get a VNCScreen object, that can be used like a Screen object. About the restrictions and special features see the comments below. 
 
 	:param ip: the server IP (default: 127.0.0.1 loopback/localhost)
 	:param port: the port number (default 5900)
+	:param password: for password protected connections as plain text
 	:param connectionTimeout: seconds to wait for a valid connection (default 10)
 	:param timeout: the timout value in milli-seconds during normal operation (default 1000)
 	:return: a new VNCScreen object useable like a Screen object
@@ -298,14 +299,16 @@ To make the package more useable there are now highlevel wrappers, that hide the
 	
 **USAGE IN JAVA** as being a static method in class VNCScreen, ``vncStart()`` has to be used as::
 
-        VNCScreen vnc = VNCScreen.start(ip, port, connectionTimeout, timeout)
+        VNCScreen vnc = VNCScreen.start(ip, port, connectionTimeout, timeout) // or
+	VNCScreen vnc = VNCScreen.start(ip, port, password, connectionTimeout, timeout)
         // the parameters are mandatory with values as mentioned above
+	// password can be null for unprotected connections
         // do something with the vnc object
         vnc.stop() // optional - see above
         
 **Some general information and comments**
 
-Due to the current implementation concept of VNCScreen, **Region or Location objects intented to be on a remote screen have to know this fact**. Otherwise they are simply Regions and Locations on a local screen with fitting coordinates. This knowledge of being on a remote screen is internally propagated from one object to a new object created by a feature of the existing object. Hence in the beginning only the created VNCScreen object knows about being on a remote screen. So to create Regions and Locations on the remote screen from scratch, you have to use features of VNCScreen. 
+Due to the current implementation concept of VNCScreen, **Region or Location objects intended to be on a remote screen have to know this fact**. Otherwise they are simply Regions and Locations on a local screen with fitting coordinates. This knowledge of being on a remote screen is internally propagated from one object to a new object created by a feature of the existing object. Hence in the beginning only the created VNCScreen object knows about being on a remote screen. So to create Regions and Locations on the remote screen from scratch, you have to use features of VNCScreen. 
 
 **These are the rules**:
  - the VNCScreen object itself is a remote Region in this sense
@@ -337,13 +340,12 @@ Due to the current implementation concept of VNCScreen, **Region or Location obj
 	
 **BE AWARE**
 
+ - Due to the correct RFB protocol implementaion in TigerVNC Viewer, it may take some time (up to few seconds depending on line speed and remote screen size) to initialize the frame buffer content after connection start. So if you get problems with the first access to the remote screen content (capture, userCapture, find operations explicit or implicit), you should simply add an appropriate wait() after the vncStart(). Experiences in local environment with large screens: 2 - 3 seconds are sufficient.
+
  - Not all documented Screen/Region/Location methods might work as expected due to implementation quirks. In case, feel free to report a bug.
  
  - The current implementation only supports a **limited set of RemoteFrameBuffer protocols**. The above described level of usage is successfully tested from a Mac OSX 10.10+ against a TightVNC server running on a Windows 10 64-Bit in the local network or both client and server on the mentioned Windows machine using the loopback IP (127.0.0.1).
 
- - If a connection is refused, you should first switch on debugging with -d 4 to get more detailed information. (In the script simply put a Debug.on(4) before the vncStart()). If you are told something about setPixelFormat, you have to dive into the sources to find a way how to do that. Some deeper knowledge of the VNC protocols are needed in this case.
- 
- - It is intended to further improve the code quality and usability of the VNC package in version 1.1.x
 
 .. _VNCConnection:
 
