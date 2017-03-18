@@ -7,6 +7,11 @@ PopUps and input dialogs
 In the standard the following dialog boxes are shown in the middle of the screen, where SikuliX (IDE or from commandline) is running (usually the primary screen).
 
 .. versionadded:: 1.1.1
+As a backport from `SikuliX version 2 <https://github.com/RaiMan/SikuliX2>`_ I added the timed/autoclosing
+versions of ``popup``, ``popAsk``, ``popError`` and
+``input``. For more information :ref:`look here <TimedPopups>`.
+
+.. versionadded:: 1.1.1
 They are always on top from the beginning, no matter which application currently is the frontmost. While the dialog is visible, you might move it around and act on other applications, until you work with the dialog box.
 
 .. versionadded:: 1.1.1
@@ -206,7 +211,134 @@ If you want the dialog to appear in a special location on the screen (even on ot
 	
 	:return: the absolute path of the selected file or folder as a string
 
-	
+.. _TimedPopups:
+
+Timed (autoclosing) popups
+--------------------------
+.. versionadded:: 1.1.1
+
+As a backport from `SikuliX version 2 <https://github.com/RaiMan/SikuliX2>`_ I added the timed/autoclosing
+versions of ``popup``, ``popAsk``, ``popError`` and ``input``.
+
+General information on using these features:
+
+* the respective methods are implemented in the class ``org.sikuli.script.Do`` (this corresponds to the implementation
+  of all toplevel features in SikuliX version 2 in ``com.sikulix.api.Do``). Hence the usage in scripts is upward compatible.
+  At the Java level at least the import would have to be changed.
+
+* **the usage in all cases** is ``returnValue = Do.function()``. Do not try any other usage, since this might clash with
+  existing version 1 implementations.
+
+* since the implementation is only on the Java level, there are no named parameters
+  (unlike the known non-timed versions of ``popup``, ``popAsk``, ...).
+  Nevertheless it is possible to only give a subset of parameters,
+  as long as the defined sequence is obeyed. In doubt use ``None/null`` for a parameter, to get the default value.
+  See the given examples for use cases.
+
+* if the dialog is autoclosed by intention, the return value is ``None/null`` in all cases.
+
+* the dialogs can only be displayed on the primary screen
+
+These are the **possible parameters and their defined sequence**:
+
+* **message** a declarative text to be shown in the dialog (``all methods``, default ``"not set"``)
+
+* **title** the dialog box title (``all methods``, default ``"SikuliX"``)
+
+* **preset** a prefilled input text (``input``, default empty)
+
+* **hidden** a boolean value, ``True/true`` will show the input text as dots ((``input``, default ``False/false``)
+
+* **timeout** an integer as seconds after that the dialog will autoclose (``all methods``, default stay open)
+
+* **location** a Region object, over which the dialog will be displayed centered (``all methods``, default screen center)
+  which allows to place the dialog anywhere on the screen.
+  As a convenience you can use ``Region(x, y)`` if you want to specify a point. Hence no need to use ``popAt()``.
+
+.. versionadded:: 1.1.1
+.. py:function:: Do.popup([parameters])
+
+  Display an informational message with an ``OK`` button.
+
+  :param parameters: see above
+
+  :return: always ``True``, ``None/null`` if autoclosed
+
+Example::
+
+  result = popup("autoclosed after 3 seconds", 3)
+  if not result:
+    print "user did not click ok"
+
+.. versionadded:: 1.1.1
+.. py:function:: Do.popAsk([parameters])
+
+  Display an informational message with ``YES`` and ``NO`` button.
+
+  :param parameters: (see above)
+
+  :return: ``True`` if ``YES`` was clicked, ``False`` otherwise, ``None/null`` if autoclosed
+
+Example::
+
+  result = popAsk("Nothing done if not\nclicked within 3 seconds", "Your decision", 3)
+  if None == result:
+    print "nothing to do"
+  elif result:
+    print "user said yes"
+  else:
+    print "user said no"
+
+.. versionadded:: 1.1.1
+.. py:function:: Do.popError([parameters])
+
+  Display an error message with an ``OK`` button.
+
+  :param parameters: see above
+
+  :return: always ``True``, ``None/null`` if autoclosed
+
+Example::
+
+  result = popError("autoclosed after 3 seconds", "Severe Error", 3, Region(300,300))
+  # the dialog will display somewhere in the upper left of the screen
+  # with a box title as "Severe Error"
+  if not result:
+    print "user did not click ok"
+
+.. versionadded:: 1.1.1
+.. py:function:: Do.input([parameters])
+
+  Display an informational message and ask for a text input with a possible preset text in the input field.
+  The dialog has an ``OK`` and a ``Cancel`` button. With the ``hidden`` parameter as ``True/true`` the text
+  in the input field will be shown as dots (not readable).
+
+  :param parameters: see above
+
+  :return: the text in the input field, when clicked ``OK``, ``False/false`` otherwise, ``None/null`` if autoclosed
+
+Example::
+
+  result = input("please fill in", "A filename", "someImage.png", Region(300,300))
+  # the dialog will display somewhere in the upper left of the screen
+  # with a box title as "A filename"
+  # and a preset input field containing "someImage.png"
+  if not result:
+    # input field was left empty
+    print "we will use a default file name"
+  else:
+    print "we will use as filename: " + result
+
+Example for hidden input::
+
+  password = input("please enter your secret", "Secret", "defaultSecret", True, 10)
+  # the dialog's input field displays the text as dots per character
+  if not password:
+    # password is empty or dialog autoclosed
+    print "not allowed - exiting"
+    exit(1)
+  # we can proceed
+
 Listening to Global Hotkeys
 ---------------------------
 
