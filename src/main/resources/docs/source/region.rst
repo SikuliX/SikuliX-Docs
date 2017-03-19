@@ -1530,6 +1530,8 @@ application for accepting the action.
 		a short ``wait()`` after a ``type()`` might be necessary 
 		to give the target application some time to react and be prepared 
 		for the next Sikuli action. 
+		
+		**SPECIAL macOS Sierra 10.12+** If type does not behave as expected (characters like e or s are not typed) then `look here for explanation and workaround <https://bugs.launchpad.net/sikuli/+bug/1673089>`_. 
 
 	.. py:method:: paste([PSMRL], text)
 
