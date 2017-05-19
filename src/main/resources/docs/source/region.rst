@@ -1643,7 +1643,7 @@ Low-level Mouse and Keyboard Actions
 		:param yoff: vertical offset
 		:return: 1 if possible, 0 otherwise
 
-	.. py:method:: wheel(PSRML, WHEEL_DOWN | WHEEL_UP, steps)
+	.. py:method:: wheel(PSRML, direction, steps)
 
 		Move the mouse pointer to a location indicated by PSRML and turn the mouse
 		wheel in the specified direction by the specified number of steps.
@@ -1651,8 +1651,8 @@ Low-level Mouse and Keyboard Actions
 		:param PSMRL: a pattern, a string, a match, a region or a location that
 			evaluates to a click point.
 
-		:param WHEEL_DOWN|WHEEL_UP: one of the two constants denoting the wheeling
-			direction.
+		:param direction: one of the button constants ``Button.WHEEL_DOWN`` or ``Button.WHEEL_UP`` 
+			denoting the wheeling direction.
 
 		:param steps: an integer indicating the amoung of wheeling.
 
