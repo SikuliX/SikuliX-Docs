@@ -95,7 +95,7 @@ Controlling Sikuli Scripts and their Behavior
 .. py:attribute:: Settings.TypeDelay
 
 	 Specify a delay between the key presses in seconds as 0.nnn. This
-	 only applies to the next click action and is then reset to 0 again. 
+	 only applies to the next type action and is then reset to 0 again. 
 	 A value > 1 is cut to 1.0 (max delay of 1 second)
 
 **NOTE:** If the internal timing of the compound mouse functions like 
