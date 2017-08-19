@@ -277,7 +277,7 @@ Dealing with Application windows
 			firefox.focus()
 			wait(1)
 			# now your just opened new window should be the frontmost 
-			with firefox.window(): # see the general notes below
+			with Region(firefox.window()): # see the general notes below
 				# some actions inside the window(0)'s region
 				click("somebutton.png")
 			firefox.close() # close the window - stop the process
