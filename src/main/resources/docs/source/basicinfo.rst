@@ -3,7 +3,7 @@
 SikuliX - the basics
 ====================
 
-SikuliX allows to automate visual workflows
+SikuliX allows one to automate visual workflows
 -------------------------------------------
 
 Something like that we do every day sitting in front of our PC:
@@ -11,7 +11,7 @@ Something like that we do every day sitting in front of our PC:
  - we want to achieve something 
  - we use an application for that (e.g. the browser to access web content)
  - we click some buttons, links or other visuals
- - we wait that the app reacts and shows the expected result on the screen
+ - we wait for the app to react and shows the expected result on the screen
  - we fill in some text somewhere and press some functional keys like TAB or ENTER
  - again we wait for some expected reaction or result
  - we click ...
@@ -33,7 +33,7 @@ There are basically 3 categories of tools:
  
  - **GUI aware** the tool allows to programmatically operate on GUI elements like buttons. This is based on the knowledge of internal structures and names of the GUI elements and their features. Some of these tools also have a recording feature.
  
- - **Visually** the tool "sees" images (usually retangular pixel areas) on the screen and allows to act on these images using mouse and keyboard simulation. There might be some recorder feture as well with such a tool.
+ - **Visually** the tool "sees" images (usually retangular pixel areas) on the screen and allows one to act on these images using mouse and keyboard simulation. There might be some recorder feature as well with such a tool.
  
 SikuliX belongs to the 3rd category and currently does not have a recorder feature. While you work through your workflow you capture some images, that you want to act on or that you expect to appear after an action. These images are used by click and type actions or are used to wait for the screen to be ready for the next action.
 
@@ -43,7 +43,7 @@ So again taking the above workflow, now using SikuliX commands:
 
  | **openApp(someApp)** # we use an application someApp
  | **click(imageButton)** # we click some button
- | **wait(imageExpected1)** # we wait that the app reacts and shows the expected result on the screen
+ | **wait(imageExpected1)** # we wait for the app to react and show the expected result on the screen
  | **type("some text"); type(Key.ENTER)** # we fill in some text and press ENTER
  | **wait(imageExpected2)** # again we wait for some expected reaction or result
  | **click(...)** # we click ...
@@ -57,7 +57,7 @@ Using the SikuliX IDE, you can setup and maintain such visual workflows includin
 SikuliX can be used for visual testing
 --------------------------------------
 
-In software testing people use tools, to check, wether an application driven by some workflow reveals the expected results. With applications having a visually complex GUI, sooner or later the testers want to check some visual content against their expectation. This might be the presentation of GUI elements on the screen or the visual content of some part of the screen.
+In software testing people use tools, to check, whether an application driven by some workflow reveals the expected results. With applications having a visually complex GUI, sooner or later the testers want to check some visual content against their expectation. This might be the presentation of GUI elements on the screen or the visual content of some part of the screen.
 
 SikuliX can be integrated in various ways into such testing environments, either on the scripting level or using the Java based API (where the SikuliX features are implemented). Prominent examples for this approach are RobotFramework or Cucumber.
 
@@ -107,7 +107,7 @@ If the image is not found (result score not acceptable), we either terminate the
 
 A word on elapsed time for search operations: The larger the base image the longer the search. The smaller the size difference of the 2 images, the faster. On modern systems with large monitors searching a small to medium sized image (up to 10.000 pixels), the elapsed time might be between 0.5 and 1 second or even more. The usual approach, to reduce search time is to reduce the search region as much as possible to the area, one expects the target image to appear. Small images of some 10 pixels in search regions of some 1000 pixels are found within some 10 milliseconds or even faster.
 
-The actual version 1.1.0 of Sikulix implements a still-there-feature: before searching in the search region, it is first checked, wether the image is still in the same place as at the time of the last search (if the search region contains this last match). On success, this preflight operation usually takes some  milliseconds, which speeds up workflows enormously if they contain repetitive tasks with the same images.
+The actual version 1.1.0 of Sikulix implements a still-there-feature: before searching in the search region, it is first checked, whether the image is still in the same place as at the time of the last search (if the search region contains this last match). On success, this preflight operation usually takes some  milliseconds, which speeds up workflows enormously if they contain repetitive tasks with the same images.
 
 Not knowing the magic behind SikuliX's search feature and the matchTemplate() function, people always wonder, why images showing up multiple times on the screen, are not found in some regular order (e.g. top left to bottom right). That this is not the case is caused by the implementation of the matchTemplate() function as some statistical numeric matrix calculations. So never expect SikuliX to return the top left appearance of a visual being more than once on the screen at time of search. The result is not predictable in this sense.
 
@@ -130,7 +130,7 @@ To load the images SikuliX has 2 principles:
  
  - **image path**: additionally SikuliX supports a list of places as an image path. Possible places are folders in the file system, folders in a jar-file and folders somewhere in the internet. There are functions available to manage your own image path. When an image has to be loaded (exception: the absolute path is given), the places are sequentially checked for the existence of the image. The first matching place wins.
  
-It is strongly recommended, to have a naming sceme for the image files and to not rely on the basic timestamped image file naming of the SikuliX IDE, which is basically for new users with little programming experience.
+It is strongly recommended, to have a naming scheme for the image files and to not rely on the basic timestamped image file naming of the SikuliX IDE, which is basically for new users with little programming experience.
 
 Version 2 will have a capturing tool as a standalone app, that supports the basic aspects of image handling:
  - capture and recapture screeshots along a workflow (some kind of recorder)
@@ -152,15 +152,15 @@ Some general aspects
 A major aspect of SikuliX is to be available on Windows, Mac and Linux with as little differences as possible. This means, that features will only be added to SikuliX as standard, if they can be made available on all these systems.
 Nevertheless it will be possible beginning with version 2, to add extensions or plugins, that might not be available on all systems from the beginning or forever. Version 2 will have a suitable eco-system for that.
 
-Mainly bacause of this major aspect SikuliX is a Java based application or library. Hence the usable artifacts are delivered as jar-files. Were possible the SikuliX IDE is delivered as application (currently Mac only, Windows .exe planned for version 2).
+Mainly bacause of this major aspect SikuliX is a Java based application or library. Hence the usable artifacts are delivered as jar-files. Where possible the SikuliX IDE is delivered as an application (currently Mac only, Windows .exe planned for version 2).
 
 To use the SikuliX features you need a valid Java runtime installation (JRE, preferably the Oracle versions) of at least version 6. SikuliX works with version 7 and 8 too and version 2 will need at least Java 7.
 
-With version 1.1.x, there are still vital parts of SikuliX written in C++, which makes a SikuliX artefact system specific in the end. This currently is supported by an initial setup process, that produces the finally usable artefacts for this system environment.
+With version 1.1.x, there are still vital parts of SikuliX written in C++, which makes a SikuliX artifact system specific in the end. This currently is supported by an initial setup process, that produces the finally usable artifacts for this system environment.
 
 The only exception is Java programming with some Maven compatible build system, that allows to simply start programming without having done a setup. The needed artifacts for this system are dynamically loaded according to the Maven dependency concept.
 
-Beginning with version 1.1.0 the resulting artefacts (currently sikulix.jar and/or sikulixapi.jar) can be moved around as needed (though it is still recommended to have the SikuliX stuff in one well defined place, to avoid update/upgrade problems). Everything else SikuliX needs during runtime is stored either in the system's temp space or in a special system specific area in the user's home space (see the system specific topics below). Missing or outdated things in these areas are created/recreated at runtime by SikuliX automatically (means: you can delete everything at any time, as long as you keep the jars).
+Beginning with version 1.1.0 the resulting artifacts (currently sikulix.jar and/or sikulixapi.jar) can be moved around as needed (though it is still recommended to have the SikuliX stuff in one well defined place, to avoid update/upgrade problems). Everything else SikuliX needs during runtime is stored either in the system's temp space or in a special system specific area in the user's home space (see the system specific topics below). Missing or outdated things in these areas are created/recreated at runtime by SikuliX automatically (means: you can delete everything at any time, as long as you keep the jars).
 
 The current layout of this space is as follows (we call it **SikulixAppData**):
 
