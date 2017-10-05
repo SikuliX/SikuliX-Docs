@@ -72,13 +72,9 @@ and it is not possible yet, to bring such a window to front with a compound Siku
 	
 		*Usage:* ``someApp = App(application)``
 
-		Open the specified application, if it is not yet opened and bring it to front
+		Create an App instance, to later use with the instance methods (:ref:`see above <CreateAppInstance>`)
 
-		:param application: The name of an application (case-insensitive), that can
-			be found in the path used by the system to locate applications, or the
-			full path to an application. Optionally you might add parameters, 
-			that will be given to the application at open (see :py:func:`setUsing`).
-			
+		:param application: The name of an application (case-insensitive), that can be found in the path used by the system to locate applications, or the full path to an application. Optionally you might add parameters, that will be given to the application at open (see :py:func:`setUsing`).	
 		:return: an App object, that can be used with the instance methods
 		
 	.. py:method:: isRunning([waitTime])
@@ -150,10 +146,7 @@ and it is not possible yet, to bring such a window to front with a compound Siku
 
 		Open the specified application, if it is not yet opened and bring it to front
 
-		:param application: The name of an application (case-insensitive), that can
-			be found in the path used by the system to locate applications, or the
-			full path to an application (Windows: use double backslash \\ in the
-			path string to represent a backslash)
+		:param application: The name of an application (case-insensitive), that can be found in the path used by the system to locate applications, or the full path to an application (Windows: use double backslash \\ in the	path string to represent a backslash)
 			
 		:return: an App object, that can be used with the instance methods, None in case of failing
 		
@@ -175,8 +168,7 @@ and it is not possible yet, to bring such a window to front with a compound Siku
 
 		Switch the input focus to an application/window.
 
-		:param application: The name of an application (case-insensitive) or (part
-			of) a window title (Windows/Linux) (case-sensitive).
+		:param application: The name of an application (case-insensitive) or (part of) a window title (Windows/Linux) (case-sensitive).
 
 		:return: an App object, that can be used with the instance methods, , None in case of failing
 		
