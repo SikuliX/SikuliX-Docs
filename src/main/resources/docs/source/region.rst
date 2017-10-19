@@ -1328,22 +1328,44 @@ application for accepting the action.
 
 		:param modifiers: one or more key modifiers
 
-		:return: the number of performed right cilicks (actually 1). A 0 (integer null)
+		:return: the number of performed right clicks (actually 1). A 0 (integer null)
 			means that because of some reason, no click could be performed (in case of *PS* may be :ref:`not Found <PatternNotFound>`).
 
 		**Side Effect** if *PS* was used, the match can be accessed using :py:meth:`Region.getLastMatch` afterwards.
 
-	.. py:method:: highlight([seconds])
+	.. py:method:: highlight()
 
-		Highlight the region for some period of time.
+		Highlight the region, showing a red colored frame around it, until the effect is stopped by another parameterless highlight call with the same region. The script continues after switching highlight on with the first call.
+
+	.. py:method:: highlight(color)
+
+		:param color: see **Note** below
+
+		Highlight the region, showing a frame with the given color around it, until the effect is stopped by another parameterless highlight call with the same region. The script continues after switching highlight on with the first call.
+
+	.. py:method:: highlight(seconds)
+
+		Highlight the region for the given time in seconds, showing a red colored frame around it.
 
 		:param seconds: a decimal number taken as duration in seconds
 
-		The region is highlighted showing a red colored frame around it. If the
-		parameter seconds  is given, the script is suspended for the specified time.
-		If no time is given, the highlighting is started and the script continues.
-		When later on the same highlight call without a parameter is made, the
-		highlighting is stopped (behaves like a toggling switch). 
+		The region is highlighted showing the frame around it for the given time, while the script is suspended for  this time.
+
+	.. py:method:: highlight(seconds, color)
+
+		Highlight the region for the given time in seconds, showing a frame with the given color around it.
+
+		:param seconds: a decimal number taken as duration in seconds
+
+		:param color: see **Note** below
+
+		The region is highlighted showing a frame with the given color around it for the given time, while the script is suspended for the this time.
+		
+	**Note on parameter color**: There are these options to specify the color
+	 - name of a color as string. The following names are accepted: black, blue, cyan, gray, green, magenta, orange, pink, red, white, yellow (lowercase and uppercase can be mixed, internally transformed to all uppercase)
+	 - the following color names exactly so: lightGray, LIGHT_GRAY, darkGray, DARK_GRAY
+	 - a string containing a hex value like in HTML: #XXXXXX (6 hex digits) specifying an RGB value
+	 - a string containing digits #rrrgggbbb, where rrr, ggg, bbb are integer values in range 0 - 255 padded with leading zeros if needed (hence exactly 9 digits) and so specifying an RGB value
 
 		Example::
 
@@ -1366,7 +1388,7 @@ application for accepting the action.
 				m.highlight(1)
 				m = m.nearby(20)
 
-	**Note**: The red frame is just an overlay in front of all other screen content and
+	**Note**: The coloured frame is just an overlay in front of all other screen content and
 	stays in its place, independently from the behavior of this other content,
 	which means it is not "connected" to the *content* of the defining region. 
 	But it will be adjusted automatically, if you change position and/or dimension 
