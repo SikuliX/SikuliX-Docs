@@ -772,13 +772,13 @@ using a string containing the file name (path to an image file).
 Observing Visual Events in a Region
 -----------------------------------
 
-**This feature is completetely revised in version 1.1.0**
+**This feature is completetely revised in version 1.1.x**
 
 	**Note** Some features have a changed behavior, are no longer available or differ in usage 
 	compared to prior versions.
 	This break of downward compatibility is by intention, since the complexity of changes could not be hidden.
 	In some cases it forces the revision of scripts, 
-	that use the observe feature and are run with version 1.1.0+. 
+	that use the observe feature and are run with version 1.1.x. 
 	Watch the notes with a specific feature that changed.
 		Main areas of change:
 		 	* onAppear, onVanish are stopped after first event - use repeat in handler
@@ -851,8 +851,10 @@ have at least the following statements in your script::
 	onAppear("path-to-an-image-file", myHandler) # or any other onXYZ()
 	observe(10) # observes for 10 seconds
 
-**Note for Java** And this is how you setup a handler in your Java program::
+**Note for Java** And this is how you setup a handler in your Java program and run the observation::
 
+	// one has to combine observed event and its handler
+	// overriding the appropriate method
 	someRegion.onAppear("path-to-an-image-file", 
 		new ObserverCallBack() {
 			@Override
@@ -861,9 +863,11 @@ have at least the following statements in your script::
 			}
 		}
 	);
+	// run observation in foreground for 10 seconds
+	someRegion.observe(10)
 	
-Here ObserverCallBack is a class defining the three possible callback funtions ``appeared``,
-``vanished`` and ``changed`` as noop-methods, that have to be overwritten as needed in your implementation 
+Here ``ObserverCallBack`` is a class defining the possible callback funtions ``appeared``,
+``vanished`` and ``changed`` as well as ``findfailed`` and ``missing`` as noop-methods, that have to be overwritten as needed in your implementation 
 of the ObserverCallBack. You only need to overwrite the one method, that corresponds to your event.
 	
 Read :py:class:`ObserveEvent` to know what is contained in the event object and what its features are.
@@ -947,9 +951,8 @@ So parallel clicks in main workflow and handler should do their job correctly, b
 			r = selectRegion("select a region to observe")
 			# any change in r larger than 50 pixels would trigger the changed function
 			r.onChange(50, changed) 
-			r.observe(background=True)
-
-			wait(30) # another way to observe for 30 seconds
+			# another way to observe for 30 seconds
+			r.observeInBackground(); wait(30) 
 			r.stopObserver()
 
 	.. py:method:: observe([seconds])
@@ -1032,7 +1035,7 @@ So parallel clicks in main workflow and handler should do their job correctly, b
 	
 .. versionadded:: X1.1.1
 
-The feature FindFailed and/or ImageMissing handler allows to specify functions that are visited in the case of these failures happening. The handler gets an ObserveEvent object as parameter, that can be used to analyse the situation and define how the situation should be handled finally.
+The feature ``FindFailed`` and/or ``ImageMissing`` handler allows to specify functions that are visited in the case of these failures happening. The handler gets an ObserveEvent object as parameter, that can be used to analyse the situation and define how the situation should be handled finally (for details see: :ref:`comments on FindFailed / ImageMissing <FindFailedHandler>`)
 
 	.. py:method:: getType()
 	
