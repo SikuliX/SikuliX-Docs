@@ -4,6 +4,27 @@ SikuliX - general aspects of scripting
 What is a SikuliX script
 ------------------------
 
+A SikuliX script is a workflow, that tries to perform actions against the GUI seen on a real screen, that otherwise must be performed manually. Usually it is a series of waiting for images to get visible on the screen and actions (mouse and/or keyboard) on visible GUI elements. The workflow statements usually are complemented with other elements of the used scripting language to implement more complex solutions with decisions, repetitions and states.
+
+Example in Python language
+::
+
+    while True: # repeat the body forever
+        wait(image1, 10) # wait max 10 seconds for image1 to get visible, otherwise die
+        click(button1) # click the button given by image button1
+        if exists(image2): # wait max 3 seconds for image2 to get visible, return True or False
+           doSomething() # in case True execute function doSomething (defined somewhere else)
+        else:
+           break # in case False get out of the loop, which ends the workflow
+        # start all over with the line after the while
+    # the end of the workflow    
+
+To write, execute and debug SikuliX scripts you should know about the features of SikuliX and have at least a basic knowledge about the used scripting language.
+
+A good starting point is to use the SikuliX IDE, to get used to the SikuliX features.
+
+If things become more complex it might make sense, to switch to another IDE that supports your selected scripting language better.
+
 Where and how can a SikuliX script be stored
 --------------------------------------------
 
