@@ -10,14 +10,16 @@ Example in Python language
 ::
 
     while True: # repeat the body forever
-        wait(image1, 10) # wait max 10 seconds for image1 to get visible, otherwise die
-        click(button1) # click the button given by image button1
-        if exists(image2): # wait max 3 seconds for image2 to get visible, return True or False
+        wait("image1.png", 10) # wait max 10 seconds for image1 to get visible, otherwise die
+        click("button1.png") # click the button given by image button1
+        if exists("image2.png"): # wait max 3 seconds for image2 to get visible, return True or False
            doSomething() # in case True execute function doSomething (defined somewhere else)
         else:
            break # in case False get out of the loop, which ends the workflow
         # start all over with the line after the while
-    # the end of the workflow    
+    # the end of the workflow  
+    
+In the IDE as standard the "foobar.png" are shown as thumbnails of the images (other options available).
 
 To write, execute and debug SikuliX scripts you should know about the features of SikuliX and have at least a basic knowledge about the used scripting language.
 
@@ -28,8 +30,39 @@ If things become more complex it might make sense, to switch to another IDE that
 Where and how can a SikuliX script be stored
 --------------------------------------------
 
-How to run a SikuliX script or a series of scripts
---------------------------------------------------
+A SikuliX script consists of one file containing the statements of your scripted workflow and zero to many image files, that you have captured, to support your workflow.
+
+This bunch of related files is meant when we talk about a SikuliX script.
+
+The standard storage for a SikuliX script is a folder/directory having the name that you have given to the script, when saving it from the IDE. It is mandatory, that the contained scriptfile has the same name as the folder, which is guaranteed, when working with the SikuliX IDE. To avoid any problems, you should never directly access the folder content outside the SikuliX IDE, except you really know, what you are doing.
+
+On Mac the folder is seen as a package/bundle, which at the top level in Finder hides the content.
+
+The folder and its content for the above example (in IDE we named it myscript)
+::
+    
+    myscript.sikuli
+        button1.png
+        image1.png
+        image2.png
+        myscript.py
+        
+There are two other storage variants for SikuliX scripts: zip-file and jar-file, which are intended for distribution of your scripts. Both variants pack the SikuliX script content in one file, which makes distribution easier. Both variants can be run with the means of SikuliX, as long as the target system has a valid SikuliX installation/setup.
+
+The jar-file variant has an option to be packed together with the scripting and SikuliX feature support (self contained), so it might be run on systems only having a valid Java installation.
+
+- variant zip-file
+
+  It can be created in the SikuliX IDE with the file menu entry "Export packed source" and gets the ending .skl instead of .sikuli. As such it cannot be reopened for editing nor used for import, it can only be run using SikuliX features on systems having a valid SikuliX setup. In fact it is simply a zip-file, which can be brought back to a .sikuli folder using a zip utility. So be aware, that this variant does not really hide your script content.
+  
+- variant jar-file (only available in 1.1.2+)
+
+  It can be created in the SikuliX IDE (file menu entry "Export as jar"). It can be run using SikuliX features on systems having a valid SikuliX setup. The script source is contained in compiled form (Java byte code) and hence not visible, even if one accesses the jar content. So this variant gives some level of secrecy for your scripted workflow.
+  
+  There is a sub-variant, containing the scripting and SikuliX feature support additionally to the script content, which makes it runnable even on systems not having a valid SikuliX setup, but only a valid Java installation. Be aware, that such a jar has at least 60 MB though. `How to make and use it look here <https://answers.launchpad.net/sikuli/+faq/>`.
+        
+How to run a SikuliX script 
+---------------------------
 
 Using JavaScript
 ================
