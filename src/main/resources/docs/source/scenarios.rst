@@ -34,6 +34,8 @@ A SikuliX script consists of one file containing the statements of your scripted
 
 This bunch of related files is meant when we talk about a SikuliX script.
 
+How to run such a script is shown in the next chapter.
+
 The standard storage for a SikuliX script is a folder/directory having the name that you have given to the script, when saving it from the IDE. It is mandatory, that the contained scriptfile has the same name as the folder, which is guaranteed, when working with the SikuliX IDE. To avoid any problems, you should never directly access the folder content outside the SikuliX IDE, except you really know, what you are doing.
 
 On Mac the folder is seen as a package/bundle, which at the top level in Finder hides the content.
@@ -59,7 +61,7 @@ The jar-file variant has an option to be packed together with the scripting and 
 
   It can be created in the SikuliX IDE (file menu entry "Export as jar"). It can be run using SikuliX features on systems having a valid SikuliX setup. The script source is contained in compiled form (Java byte code) and hence not visible, even if one accesses the jar content. So this variant gives some level of secrecy for your scripted workflow.
   
-  There is a sub-variant, containing the scripting and SikuliX feature support additionally to the script content, which makes it runnable even on systems not having a valid SikuliX setup, but only a valid Java installation. Be aware, that such a jar has at least 60 MB though. `How to make and use it look here <https://answers.launchpad.net/sikuli/+faq/>`.
+  There is a sub-variant, containing the scripting and SikuliX feature support additionally to the script content, which makes it runnable even on systems not having a valid SikuliX setup, but only a valid Java installation. Be aware, that such a jar has at least 60 MB though. `How to make and use it look here <https://answers.launchpad.net/sikuli/+faq/2947>`_.
         
 How to run a SikuliX script 
 ---------------------------
