@@ -75,7 +75,7 @@ Command Line Options (intention: run a script without opening the IDE)
    
 .. option::  -r,--run <sikuli-folder/file>  (one or more entries seperated by space)       
 
-   run one or more .sikuli or .skl files one after the other
+   run one or more .sikuli or .skl files or .jar files (1.1.2+) one after the other
    
    *<sikuli-folder/file>* can be 
     * a relative or absolute path with or without dotted parts (e.g. ../some-script) 
