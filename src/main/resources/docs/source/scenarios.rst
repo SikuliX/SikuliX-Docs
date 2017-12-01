@@ -73,7 +73,7 @@ Saved scripts (.sikuli) and exported scripts (.skl and .jar) can be run from com
 Using JavaScript
 ================
 
-One can use JavaScript for scripting with SikuliX features. The easiest approach is to switch a new editor tab in the IDE to type JavaScript (rigt-click on an empty Tab, select `Set Type`in the context menü and then select `javascript` from the drop down list). The status line at the right side now will show `(javascript)` and you can write JavaScript code according to the `specifications of the Java bundled JavaScript interpreter (Nashorn since Java 1.7) <https://docs.oracle.com/javase/8/docs/technotes/guides/scripting/nashorn/index.html>`_.
+One can use JavaScript for scripting with SikuliX features. The easiest approach is to switch a new editor tab in the IDE to type JavaScript (rigt-click on an empty Tab, select ``Set Type`` in the context menü and then select ``javascript`` from the drop down list). The status line at the right side now will show ``(javascript)`` and you can write JavaScript code according to the `specifications of the Java bundled JavaScript interpreter (Nashorn since Java 1.7) <https://docs.oracle.com/javase/8/docs/technotes/guides/scripting/nashorn/index.html>`_.
 
 There is some special support for using SikuliX features from JavaScript which is still experimental and not yet documented.
 
