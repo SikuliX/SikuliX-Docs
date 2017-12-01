@@ -1,6 +1,6 @@
 .. index:: run scripts from command line
 
-.. _RunningScriptsCommandLine:
+.. _RunningScriptsFromCommandLine:
 
 How to run SikuliX from Command Line
 ====================================
