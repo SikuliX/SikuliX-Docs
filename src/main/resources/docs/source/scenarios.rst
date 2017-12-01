@@ -79,6 +79,8 @@ Setup a Jython environment
 
 **This only applies to SikuliX 1.1.0+ with Jython 2.7.0+**
 
+**Be aware:** Make sure you have a valid Java installation (version 1.7 or preferred: 1.8) 
+
 **Note for Mac OSX**
 If you ever encounter an error like ``ValueError: unknown locale: UTF-8``, then take care, that your environment at runtime of Jython contains these 2 entries:
  - LC_ALL=en_US.UTF-8
@@ -185,7 +187,34 @@ Run in an empty IDE tab or as part of a script:
 copies the complete content from sourcefolder to targetfolder (the parent folder must exist, the folder is emptied if exists) and then traverses the targetfolder replacing each ``foobar.py`` with it's compiled version ``foobar$py.class``, that contains JVM-byte-code, so your script code cannot be edited anymore in this targetfolder, but still be used with ``import foobar``.
 
 **Be aware:** Be sure, your code compiles without errors, because the compile feature either succeeds or fails (compile errors), but you will not get any information about the cause or even the place of the compile problem.
- 
+
+Working with IntelliJ PyCharm Community Edition
+-----------------------------------------------
+
+.. versionadded:: X1.1.1
+
+Among the free IDE's, that allow to work with Python projects, I made the best experiences over the years with JetBrains's PyCharm (using the free Community Edition). One reason might of course be, that I use JetBrains's IntelliJ IDEA CE for the Java development.
+
+If you are more used to Eclipse, the Eclipse PyDev might be your choice for Python development. The steps to get it running for use with SikuliX are similar to the following steps for PyCharm. If someone wants to document the details for Eclipse PyDev, he/she is always welcome - I will not do it on my own.
+
+This information is related to SikuliX version 1.1.1+ (recommended for use with mature IDE's).
+
+**Step 1: get Jython up and running**
+
+Just follow the steps mentioned in the chapter ``Setup a Jython environment`` above.
+
+**Step 2: get PyCharm up and running**
+
+Download and install the `PyCharm Community Edition <https://www.jetbrains.com/pycharm/>`_.
+
+**Step 3: tell PyCharm to use Jython as interpreter**
+
+Start PyCharm and make sure to have closed all projects and be in the start-up window titled ``Welcome to PyCharm``.
+
+At bottom right in the menu ``Configure`` select ``Preferences``. You should get a dialog window titled ``Default Preferences``.
+
+At the left side select ``Project Interpreter``.
+
 Using Ruby
 ==========
 
