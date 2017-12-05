@@ -196,12 +196,16 @@ copies the complete content from sourcefolder to targetfolder (the parent folder
 
 **Be aware:** Be sure, your code compiles without errors, because the compile feature either succeeds or fails (compile errors), but you will not get any information about the cause or even the place of the compile problem.
 
-Working with IntelliJ PyCharm Community Edition
------------------------------------------------
+Scripting with IntelliJ PyCharm and IDEA with Python plugin
+-----------------------------------------------------------
 
 .. versionadded:: X1.1.1
 
-Among the free IDE's, that allow to work with Python projects, I made the best experiences over the years with JetBrains's PyCharm (using the free Community Edition). One reason might of course be, that I use JetBrains's IntelliJ IDEA CE for the Java development.
+Among the free IDE's, that allow to work with Python projects, I made the best experiences over the years with JetBrains's PyCharm (using the free Community Edition) or the Python plugin in JetBrain's IntelliJ IDEA. For working with the SikuliX features, you have to use it with the Java based Jython as interpreter.
+
+PyCharm has a weakness, in that code completion while editing does not look into jar-files nor Java classes, while in the built-in Python console after having imported a Java class, code completion about the class attributes/methods works, so having a console open while editing might help as a workaround for inspecting Java classes.
+
+IntelliJ IDEA with Python plugin supports complete code completion (while editing and in console) including Java classes, but is a bit more complex to setup and use with just Python.
 
 If you are more used to Eclipse, the Eclipse PyDev might be your choice for Python development. The steps to get it running for use with SikuliX are similar to the following steps for PyCharm. If someone wants to document the details for Eclipse PyDev, he/she is always welcome - I will not do it on my own.
 
