@@ -231,6 +231,12 @@ Click ``Apply`` and watch how the Jython setup is analyzed and implemented in Py
 
 .. image:: pycharmDefaultInterpreter.png
 
+**Step 4: setup the environment for a Python console**
+
+As with the step before get the ``Default Preferences`` dialog open.
+
+At the left side select ``Build, Execution, Deployment``... ``Console``... ``Python Console``.
+
 Using Ruby
 ==========
 
