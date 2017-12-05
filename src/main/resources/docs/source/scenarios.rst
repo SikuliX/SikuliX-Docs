@@ -237,6 +237,17 @@ As with the step before get the ``Default Preferences`` dialog open.
 
 At the left side select ``Build, Execution, Deployment``... ``Console``... ``Python Console``.
 
+To the ``Environment variables`` add antry ``CLASSPATH``, that points to a valid ``sikulixapi.jar`` (created using setup).
+
+In the ``Starting script`` you might add the 2 lines
+```
+import org.sikuli.script.SikulixForJython
+from sikuli import *
+```
+so each time you start a console, the prompt is already prepared to know about SikuliX features.
+
+.. image:: pycharmDefaultConsole.png
+
 Using Ruby
 ==========
 
