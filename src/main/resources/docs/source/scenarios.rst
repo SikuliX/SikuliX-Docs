@@ -221,7 +221,11 @@ Start PyCharm and make sure to have closed all projects and be in the start-up w
 
 At bottom right in the menu ``Configure`` select ``Preferences``. You should get a dialog window titled ``Default Preferences``.
 
-At the left side select ``Project Interpreter``.
+At the left side select ``Project Interpreter`` and choose your installed Jython by pointing to the contained ``.../bin/jython`` script/command-file.
+
+Click ``Apply`` and watch how the Jython setup is analyzed and implemented in PyCharm. If it worked click ``Ok``.
+
+.. image:: pycharmDefaultInterpreter.png
 
 Using Ruby
 ==========
