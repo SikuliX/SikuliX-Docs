@@ -765,7 +765,82 @@ using a string containing the file name (path to an image file).
 		**Side Effect** *lastMatch*: the best match can be accessed using :py:meth:`Region.getLastMatch` afterwards.
 
 		**Note**: You may adjust the scan rate (how often a search during the wait
-		takes place) by setting :py:attr:`Settings.WaitScanRate` appropriately. 
+		takes place) by setting :py:attr:`Settings.WaitScanRate` appropriately.
+		
+Find more than one image in a Region at the same time
+-----------------------------------------------------
+
+.. versionadded:: X1.1.2
+
+In a Region one wants to look for more than one image at the same time and analyse the resulting matches. This approach can be used for example, to differentiate between GUI states, verify larger patterns by only searching for parts of it or find out the best match for variants of an image.
+
+Internally the searches for the given images are run in parallel against the same screenshot taken at start of the operation, to optimize the overall searchtime.
+
+The result is a list of matches, where each match carries a zero-based index, pointing to the corresponding image in the given list of images. Hence this index is the base information for the post-processing of the matches if any (the list of matches is empty in case none of the given images matched).
+
+Supposing the variables ``img0, img1, img2, img3`` have been setup before as image filenames or patterns, then the following example would print, if all images are visible in that moment except ``img1``:
+
+::
+	
+	images = [img0, img1, img2, img3]
+	matches = findAnyList(images)
+	for match in matches:
+  	    print match.getIndex(), match.getScore(), match.toStringShort()
+	    
+	# prints out something like:
+	0 0.999999761581 M[137,46 136x28]@S(0)
+	2 0.999999761581 M[368,99 124x27]@S(0)
+	3 0.999994277954 M[489,72 220x29]@S(0)
+
+Currently there are 2 features available, based on this concept:
+
+ - ``findBest(img0, img1, img2, ...)`` and ``findBestList(ListOfImages)`` return the best match of all (might be null)
+ - ``findAny(img0, img1, img2, ...)`` and ``findAnyList(ListOfImages)`` return a list of matches (might be empty)
+ 
+The variant having as parameter ``(img0, img1, img2, ...)`` expects an arbitrary number of image filenames and/or patterns.
+
+The ...List variant expects a prepared Tuple/List, that contains an arbitrary number of image filenames and/or patterns. 
+
+This is an example for ``findBest()`:
+
+::
+
+	match = findBest(img0, img1, img2, img3)
+	if match:
+	    print "found img%d" % match.getIndex()
+	    
+	# prints out something like
+	found img1
+	
+.. py:class:: Region
+
+	.. py:method:: findBest(PS...)
+
+		:param PS...: one or more image filenames and/or patterns as a variable parameterlist
+		:return: a :py:class:`Match` object that contains the best match or None if no image was found at all
+		
+		Use ``match.getIndex()`` to identify the best image from the list of images (index left to right, zero-based).
+
+	.. py:method:: findBestList(ListPS)
+
+		:param ListPS: a Tuple/List containing one or more image filenames and/or patterns 
+		:return: a :py:class:`Match` object that contains the best match or None if no image was found at all
+
+		Use ``match.getIndex()`` to identify the best image from the image-list (index zero-based).
+
+	.. py:method:: findAny(PS...)
+
+		:param PS...: one or more image filenames and/or patterns as a variable parameterlist
+		:return: a list of matches for the images found
+		
+		Use ``match.getIndex()`` to identify the corresponding image from the list of images (index left to right, zero-based). See example above about how to access the returned list.
+
+	.. py:method:: findAnyList(ListPS)
+
+		:param ListPS: a Tuple/List containing one or more image filenames and/or patterns 
+		:return: a list of matches for the images found
+
+		Use ``match.getIndex()`` to identify the best image from the image-list (index zero-based). See example above about how to access the returned list.
 
 .. _ObservingVisualEventsinaRegion:
 
