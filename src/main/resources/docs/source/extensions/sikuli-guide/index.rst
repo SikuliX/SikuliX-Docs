@@ -3,6 +3,16 @@ Sikuli Guide
 
 .. _sikuliguide:
 
+.. versionadded:: 1.1.1
+
+**IMPORTANT NOTE:**
+
+The Guide feature has been completely revised. The following original documentation might give an impression about the intention and the principally available features, but might not work as expected in 1.1.1+
+
+For information about the API you currently have to look into the sources (Lib/guide/guide.py for Python and org.sikuli.guide.xxx for Java). The revision focused on the static features (annotation types), so the interactive features might not work as expected. 
+
+This feature has the state experimental, meaning it might change at any time without notice and without any guarantee to be fully backwards compatible.
+
 .. versionadded:: X1.0-rc2
 
 Sikuli Guide is an extension to Sikuli that provides a revolutionary way to
