@@ -4,21 +4,14 @@ Screen
 .. py:class:: Screen
 
 Class Screen is there, to have a representation for a pysical monitor where the
-capturing process (grabbing a rectangle from a screenshot, to be used for further
-processing with find operations is implemented. For :ref:`Multi Monitor Environments
+capturing process (grabbing a rectangle of pixels from a screenshot). For :ref:`Multi Monitor Environments
 <MultimonitorEnvironments>` it contains features to map to the relevant monitor.
 
 Since Screen extends class :py:class:`Region`, all methods of 
-class Region can be used with a screen object.
-
-Of special interest might be the grouping of region method calls using ``with:`` in Multi Monitor
-Environments: use it for other screens, than the default/primary screen, where
-you have this feature by default. 
+class Region can be used with a Screen object.
 
 Be aware, that using the whole screen for find
-operations may have an impact on performance. So if possible either use ``setROI()`` or
-restrict a find operation to a smaller region object (e.g. ``reg.find()``) to speed up
-processing.
+operations may have an impact on performance. So if possible restrict a find operation to a smaller region object (e.g. ``reg.find()``) to speed up processing.
 
 
 Screen: Setting, Getting Attributes and Information
@@ -69,18 +62,15 @@ Screen: Setting, Getting Attributes and Information
 Screen as (Default) Region
 --------------------------
 
-Normally all region methods are used as reg.find(PS), where reg is a region object
-(or a screen or a match object). If written as find(PS) it acts on the default
+All region methods have to be used as ``reg.find(PS)``, where reg is a Region object
+(or a Screen or a Match object). If written as ``find(PS)`` it acts on the default
 screen being the implicit region in this case (mapped to the constant reference
 SCREEN). In Multi Monitor Environments  this is the primary monitor (use the
 constant reference SCREEN, to access it all the time), that normally is Screen(0),
-but might be another Screen() object depending on your platform.
-
-So its a convenience feature, that can be seen as an implicit use of the python
-construct '''with object:'''.
+but might be another Screen() object depending on your platform and settings.
 
 On the other hand this may slow down processing speed, because of time consuming
-searches. So to speed up processing, saying region.find() will restrict the search
+searches on the whole screen. So to speed up processing, saying region.find() will restrict the search
 to the specified rectangle. Another possibility is to say setROI() to restrict the
 search for all following find operations to a smaller region than the whole screen.
 This will speed up processing, if the region is significantly smaller than the whole
@@ -89,15 +79,12 @@ screen.
 Capturing
 ---------
 
-Capturing is the feature, that allows to grab a rectangle from a screenshot, to save
-it for later use. At each time, a capturing is initiated, a new screenshot is taken.
+Capturing is the feature, to grab a rectangle of pixels from a screenshot and save it to a temporary file for later use with find operations: :py:meth:`Screen.capture`. Each time, a capturing is done, a new screenshot is taken. 
 
-There are two different versions: the first one :py:meth:`Screen.capture` saves the
-content of the selected rectangle in a file and returns its file name, whereas the
-second one :py:meth:`Screen.selectRegion` just returns the position and dimension of
-the selected rectangle.
+There is an interactive variant :py:meth:`Screen.selectRegion`, that just returns the position and dimension of
+the rectangle selected by the user interactively..
 
-Both features are available in the IDE via the buttons in the toolbar. 
+**Note on IDE:** Both features are available in the IDE via buttons in the toolbar. The ``Capture button`` will allow to interactively select the rectangle on the screen, whose pixel content should be saved to the current script's bundlpath and then insert the imagename at the current edit position in the script.
 
 .. py:class:: Screen
 
@@ -106,7 +93,7 @@ Both features are available in the IDE via the buttons in the toolbar.
 
 		:param region: an existing region object.
 		:param rectangle: an existing rectangle object (e.g., as a return value of
-			another region method).	
+			another appropriate region method).	
 		:param text: text to display in the middle of the screen in the interactive
 			mode.
 		:param x: x position of the rectangle to capture
@@ -145,6 +132,10 @@ Both features are available in the IDE via the buttons in the toolbar.
 		region the same way as using the selection tool in the IDE. 
 		
 		**Note:** You should check the result, since the user may cancel the capturing.
+		
+**Save the captured image elsewhere (not temporary)**
+
+to be written
 
 .. _MultimonitorEnvironments:
 
