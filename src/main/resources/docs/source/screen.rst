@@ -135,7 +135,28 @@ the rectangle selected by the user interactively..
 		
 **Save the captured image elsewhere (not temporary)**
 
-to be written
+.. versionadded:: 1.1.2
+
+.. py:class:: Screen
+
+	.. py:method:: capture(region | text, [path,] name)
+	
+		only available in Python scripting
+
+		:param region | text: an existing region object or text to display in the interactive mode.
+		:param path: a path to a folder where the image is stored
+		:param text: name of the image file (.png can be omitted)
+		:return: the absolute path of the stored image as ``path/name.png`` or None if no success
+
+		Works principally the same as the normal capture, but directly stores the resulting image to the specified location. The ``name``spec need not have the .png ending.  
+		
+		If the path specification is omitted, the imagefile is stored in the :ref:`current bundlepath <ImageSearchPath>`. In this case the imagename will finally be ``bundlepath/_name.png``, where the leading underscore is an IDE convention to block the deletion of images, that are not namely referenced somewhere in the script, at the time the script is saved in the IDE. 
+		
+**Note on Java usage or in non-Python**
+
+``String filename = screen.cmdCapture(Object... args).getStoredAt()``
+
+... where screen is some existing Screen object. The `args` are according to the above specification. The intermediate result of cmdCapture is a ScreenImage object, that holds the image internally as BufferedImage.
 
 .. _MultimonitorEnvironments:
 
