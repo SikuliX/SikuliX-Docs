@@ -416,6 +416,69 @@ Example::
         count += 1
         popup("processing ctrl+shift+n: %d" % count)
       wait(1)
+      
+**Another example showing some specials**
+
+All hotkeys use ``ctrl-alt`` as modifieres::
+
+	### hotkey setup section ###
+
+	# variants to end the script
+	Env.addHotkey("x", KeyModifier.ALT+KeyModifier.CTRL, lambda e: exit())
+	Env.addHotkey("q", KeyModifier.ALT+KeyModifier.CTRL, quit)
+
+	def quit(event):
+	  print "handler quit ctrl-alt-x"
+	  global running
+	  running = False
+
+	# basic hotkey definition with a related handler name
+	Env.addHotkey("c", KeyModifier.ALT+KeyModifier.CTRL, handlerC)
+
+	def handlerC(event):
+	  print "handlerC: seconds since start:", int((time.time() - start))
+
+	# at hotkey press a function will be called whose name is currently held by variable todo 
+	Env.addHotkey("v", KeyModifier.ALT+KeyModifier.CTRL, lambda e: todo(e))
+
+	def handlerC1(event):
+	  print "handlerC1: seconds since start:", int((time.time() - start))
+
+	todo = handlerC # default at start of script
+
+	# at hotkey press the function handlerParam will be called 
+	# with a parameter value currently held by global variable start
+	Env.addHotkey("b", KeyModifier.ALT+KeyModifier.CTRL, lambda e: handlerParam(start))
+
+	def handlerParam(begin):
+	  print "handlerParam: seconds since start:", int((time.time() - begin))
+
+	### main workflow start ###
+	start = time.time() # a global variable used in the handlers
+	count = 0
+
+	running = True 
+	while running: # will end the loop if running is False
+
+	  wait(1) # some timeconsuming stuff here
+
+	  # one can always check in between and leave the loop
+	  if not running: break
+
+	  wait(1) # some timeconsuming stuff here
+
+	# changes the handler for hotkey v after about 20 seconds
+	  count += 1
+	  if count > 10: todo = handlerC1
+
+	# here might be some postprocessing before script finally ends
+	# you might remove your hotkeys before, to avoid interference by the handlers
+	print "PostProcessing"
+
+The ``variants to end the script`` show a graceful version (``ctrl-alt-q``) and a brute-force version (``ctrl-alt-x``).
+
+ - The graceful version just signals the keypress via a global variable and leaves it to the main workflow to react, when it makes sense.
+ - The brute-force variant uses a lambda expression (anonymous function with only a single expression), that stops the script without notice at time of key press
 
 Starting and stopping other applications and bring them to front
 ----------------------------------------------------------------
