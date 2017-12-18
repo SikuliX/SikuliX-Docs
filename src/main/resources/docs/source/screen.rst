@@ -325,14 +325,21 @@ Due to the current implementation concept of VNCScreen, **Region or Location obj
 **These are the rules**:
  - the VNCScreen object itself is a remote Region in this sense
  - each ``Match/Region/Location`` created using a ``VNCScreen`` object knows about being remote
- - each ``Region/Location`` object created using a feature of a ``remote Region/Location`` also knows about being remote
+ - each ``Region/Location`` object created using a feature of a ``remote Region/Location`` is also remote (see comment)
  - to create a ``new Region/Location`` from scratch use the ``newRegion()/newLocation()`` methods of VNCScreen
  - all mouse and keyboard actions using remote Regions/Locations are going to the remote screen
+ 
+**Comment** If you encounter problems with a ``remote Region/Location`` you think should be remote, but is not (e.g. clicking locally), then this is a bug, that can be worked around using::
+
+	# vnc is a VNCScreen object
+	# reg/loc are faulty Region/Location
+	reg = vnc.set(reg)
+	loc = vnc.set(loc)
+	# now both are set to being remote
  
 **Methods to create new remote Regions and Locations**::
 
 	# someRegion/someLocation may be normal Region/Location objects
-	# someRectangle/somePoint are normal java.awt.Rectangle/java.awt.Point objects
 	# remoteRegion/remoteLocation/remoteMatch know about being remote
 	
 	vnc = vncStart("192.168.2.25") # some VNC Server in the local net
@@ -340,10 +347,8 @@ Due to the current implementation concept of VNCScreen, **Region or Location obj
 	# create from scratch
 	remoteRegion = vnc.newRegion(x, y, w, h)
 	remoteRegion = vnc.newRegion(someRegion)
-	remoteRegion = vnc.newRegion(someRectangle)
 	remoteLocation = vnc.newLocation(x, y)
 	remoteLocation = vnc.newLocation(someLocation)
-	remoteLocation = vnc.newLocation(somePoint)
 	
 	# propagate remote aspect
 	remoteRegion = remoteRegion.right(200)
@@ -354,12 +359,12 @@ Due to the current implementation concept of VNCScreen, **Region or Location obj
 
  - Due to the correct RFB protocol implementaion in TigerVNC Viewer, it may take some time (up to few seconds depending on line speed and remote screen size) to initialize the frame buffer content after connection start. So if you get problems with the first access to the remote screen content (capture, userCapture, find operations explicit or implicit), you should simply add an appropriate wait() after the vncStart(). Experiences in local environment with large screens: 2 - 3 seconds are sufficient.
 
- - Not all documented Screen/Region/Location methods might work as expected due to implementation quirks. In case, feel free to report a bug.
+ - Not all documented Screen/Region/Location methods might work as expected due to implementation quirks. In case, feel free to report a bug (see comment above).
  
  - The current implementation only supports a **limited set of RemoteFrameBuffer protocols**. The above described level of usage is successfully tested from a Mac OSX 10.10+ against a TightVNC server running on a Windows 10 64-Bit in the local network or both client and server on the mentioned Windows machine using the loopback IP (127.0.0.1).
 
 
-.. _VNCConnection:
+.. _ADBConnection:
 
 Connecting to an Android device or emulator (ADBScreen)
 -------------------------------------------------------
