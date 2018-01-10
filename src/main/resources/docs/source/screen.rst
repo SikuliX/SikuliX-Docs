@@ -350,10 +350,15 @@ Due to the current implementation concept of VNCScreen, **Region or Location obj
 	remoteLocation = vnc.newLocation(x, y)
 	remoteLocation = vnc.newLocation(someLocation)
 	
-	# propagate remote aspect
+	# remote aspect will automatically be propagated (in most cases :-(
 	remoteRegion = remoteRegion.right(200)
 	remoteMatch = vnc.find("someImage.png")
 	remoteLocation = remoteMatch.getCenter()
+	
+	# inject the remote aspect if needed
+	vnc.getRow(3, 4).getCol(1, 3).click() # will not be on VNC screen
+	# so write as:
+	vnc.set(vnc.getRow(3, 4).getCol(1, 3)).click() # now on VNC Screen
 	
 **BE AWARE**
 
