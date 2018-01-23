@@ -643,6 +643,8 @@ and keeps available the original parameters given and the current image path.
 	:param: parameter: one or more parameters seperated by comma
 	:return: the return code that the called script has given with exit(n)
 	
+**BE AWARE:** each parameter MUST be a simple string.
+	
 **Rules for the given script_path**
 
  * absolut path to a folder in the file system
