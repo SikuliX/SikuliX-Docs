@@ -273,3 +273,34 @@ In case of errors and other oddities, you have to inspect the Build folder and t
 
 At least on newer Ubuntu versions ldd -r reports unresolved symbols pthread… It seems, that this can be ignored, since JXGrabKey works.
 If you get problems, that are related to JXGrabKey, you have to build from the sources after having downloaded the package from here or other places and provide the ready built library before setup in the folder libs.
+
+SikuliX Offline Setup
+---------------------
+
+If during setup for some reason internal downloads are blocked on your system, you might try an **Offline Setup** according to the following steps.
+
+ - make a folder Downloads in the folder intended to contain SikuliX
+ - manually download the respective packages (see below)
+ - put them in the setup Downloads folder
+ - run setup and select the respective options
+ - when asked, confirm the usage of the already downloaded packages
+
+You might as well store the manually downloaded artefacts in the same folder as the **sikulixsetup....jar**. 
+During setup the artefacts will be moved to the SikuliX local application data folder anyways.
+
+Packages to download manually for **version 1.1.2** (the links should directly start the download):
+
+ - to get the **IDE (option 1)** download from OSSRH (`sikulixsetupIDE....jar <https://oss.sonatype.org/content/groups/public/com/sikulix/sikulixsetupIDE/1.1.2-SNAPSHOT/sikulixsetupIDE-1.1.2-20180308.083933-100.jar>`_)
+ - to get the **Java API (option 1 and 2)** download from OSSRH (`sikulixsetupAPI....jar <https://oss.sonatype.org/content/groups/public/com/sikulix/sikulixsetupAPI/1.1.2-SNAPSHOT/sikulixsetupAPI-1.1.2-20180308.083909-100.jar>`_)
+ - to get the **native libraries for your system** (always needed)
+  - for **Windows** download from MavenCentral (`sikulixlibswin....jar <http://repo1.maven.org/maven2/com/sikulix/sikulixlibswin/1.1.1/sikulixlibswin-1.1.1.jar>`_)
+  - for **Mac** download from MavenCentral (`sikulixlibsmac....jar <http://repo1.maven.org/maven2/com/sikulix/sikulixlibsmac/1.1.1/sikulixlibsmac-1.1.1.jar>`_)
+  - for **Linux/Unix** download from MavenCentral (`sikulixlibslux....jar <http://repo1.maven.org/maven2/com/sikulix/sikulixlibslux/1.1.1/sikulixlibslux-1.1.1.jar>`_)
+ - to get **Jython 2.7** (for option 1) download from MavenCentral (`jython-standalone-2.7.....jar <http://repo1.maven.org/maven2/org/python/jython-standalone/2.7.1/jython-standalone-2.7.1.jar>`_)
+ - to get **JRuby** (for option 1) download from MavenCentral (`jruby-complete-9.1…..jar <http://repo1.maven.org/maven2/org/jruby/jruby-complete/9.1.15.0/jruby-complete-9.1.15.0.jar>`_)
+ 
+ For the text features (based on Tesseract) the files for supporting english language are bundled with sikulixapi.jar. If you need the files for other languages: `here they are <https://github.com/tesseract-ocr/tessdata>`_.
+
+
+
+
