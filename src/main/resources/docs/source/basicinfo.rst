@@ -151,18 +151,20 @@ Some general aspects
 
 **This is valid for version 1.1.1+ (prior versions are no longer supprted)**
 
+Might be a good idea to first read this `SikuliX 1.1.x Quickstart <http://sikulix.com/quickstart/>`_.
+
 A major aspect of SikuliX is to be available on Windows, Mac and Linux with as little differences as possible. This means, that features will only be added to SikuliX as standard, if they can be made available on all these systems.
 Nevertheless it will be possible beginning with version 2, to add extensions or plugins, that might not be available on all systems from the beginning or forever. Version 2 will have a suitable eco-system for that.
 
 Mainly bacause of this major aspect SikuliX is a Java based application or library. Hence the usable artifacts are delivered as jar-files. Additionally you get scripts for starting the IDE and running scripts from commandline and on Mac the IDE is delivered as an application.
 
-To use the SikuliX features you need a valid Java runtime installation (JRE, preferably the Oracle versions) of at least version 7. SikuliX works with version 7 and 8 too and version 2 will need at least Java 8. Java 9 is not yet supported
+To use the SikuliX features you need a valid Java runtime installation (JRE, preferably the Oracle versions) of at least version 7 (up to 1.1.1) or version 8 (1.1.2+). Java 9 is supported with 1.1.2+ but currently (March 2018) not free of all quirks. Language and Byte-Code level both are at 1.8.
 
 With version 1.1.x, there are still vital parts of SikuliX written in C++, which makes a SikuliX artifact system specific in the end. This currently is supported by an initial setup process, that produces the finally usable artifacts for this system environment.
 
 The only exception is Java programming with some Maven compatible build system, that allows to simply start programming without having done a setup. The needed artifacts for this system are dynamically loaded according to the Maven dependency concept.
 
-Beginning with version 1.1.0 the resulting artifacts (currently sikulix.jar and/or sikulixapi.jar) can be moved around as needed (though it is still recommended to have the SikuliX stuff in one well defined place, to avoid update/upgrade problems). Everything else SikuliX needs during runtime is stored either in the system's temp space or in a special system specific area in the user's home space (see the system specific topics below). Missing or outdated things in these areas are created/recreated at runtime by SikuliX automatically (means: you can delete everything at any time, as long as you keep the jars).
+Beginning with version 1.1.x the resulting artifacts (currently sikulix.jar and/or sikulixapi.jar) can be moved around as needed (though it is still recommended to have the SikuliX stuff in one well defined place, to avoid update/upgrade problems). Everything else SikuliX needs during runtime is stored either in the system's temp space or in a special system specific area in the user's home space (see the system specific topics below). Missing or outdated things in these areas are created/recreated at runtime by SikuliX automatically (means: you can delete everything at any time, as long as you keep the jars).
 
 The current layout of this space is as follows (we call it **SikulixAppData**):
 
@@ -216,4 +218,58 @@ Usually on Linux systems SikuliX does not run out of the box, since it is not po
 
 If setup fails due to library problems, have a look at the setup log to get hints on how to proceed.
 
-About how to get the native libraries working `in case look here <http://www.sikulix.com/quickstart.html>`_.
+SikuliX internally uses OpenCV to support the image related features and Tesseract for the text features. 
+
+On Linux/Unix systems one has to provide **OpenCV 2.4.x and Tesseract 3.0.2**.
+Additionally the packages **wmctrl and xdotool** are needed, when you want to use the App class features.
+
+On systems based on the Debian package system (Debian, Ubuntu, ...) using the apt tools (apt-get to install a package) should do the job. On other Linux Systems (Fedora, RedHat, ...) you have to use the appropriate package manager, which in many cases should then be yum.
+
+For the bundled native library **libVisionProxy.so** to be useable, you have to take care, that at least the following libraries are available: ::
+        
+        libopencv_core.so.2.4
+        libopencv_imgproc.so.2.4
+        libopencv_highgui.so.2.4
+        libtesseract.so.3
+
+... and they must be listed in the loader cache (check with ldconfig -p)
+... and they must not have any unresolved items (check with ldd -r libsomething.so)
+... and it is not needed to install any dev/develop packages, just the libs is sufficient.
+For more information read the docs for the respective system and/or package.
+
+On Ubuntu 16.04 this did the job: ::
+
+        sudo apt install libopencv-dev (you get 2.4.9)
+        sudo apt install tesseract-ocr (you get 3.0.2)
+
+During setup the availability and usability of these libraries is checked together with the usability of the bundled or provided native library libVisionProxy.so.
+
+So it is ok, to just run setup and look at the results you get: It either works or you have to correct something.
+
+**Case 1:**
+
+The bundled libraries are checked positive (should work): be happy.
+The build was processed on a newer LTS versions of Ubuntu and hence should work with the above prerequisites (tested on 16.04).
+
+**Case 2:**
+
+If you know, what you are doing, you might provide the ready built libraries before starting setup.
+Setup will detect and use artifacts found in the libs folder in the setup folder, but they might be checked negative (see case 3).
+
+**Case 3:**
+
+Neither the bundled nor the provided libraries are checked positive (not useable on your system): Setup will offer the possibility to build on the fly. Setup will tell you about the missing prerequisites.
+
+You might also run the setup from command line with the parameters: ::
+
+        options 2 buildv notest
+
+to force an inline build.
+
+The inline build will create a folder ~/.Sikulix/sikulixlibs/Build, that contains the sources, include files not present on your system, the created build script and the resulting libVisionProxy.so, that might have already been incorporated into the resulting jars.
+In case of errors and other oddities, you have to inspect the Build folder and the setup log file, to find out how to fix.
+
+**Special information on libJXGrabKey.so**
+
+At least on newer Ubuntu versions ldd -r reports unresolved symbols pthread… It seems, that this can be ignored, since JXGrabKey works.
+If you get problems, that are related to JXGrabKey, you have to build from the sources after having downloaded the package from here or other places and provide the ready built library before setup in the folder libs.
