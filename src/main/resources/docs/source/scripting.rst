@@ -583,6 +583,8 @@ The imports for other .sikuli scripts are now tracked during one IDE session. On
 .. versionadded:: 1.1.0
 
 **Loading a jar-file containing Java/Python modules and additional resources as needed**
+
+**BE AWARE currently only works up to Java 8** (in Java 9+ not yet possible)
 	
 .. py:function:: load(jar-file)
 
