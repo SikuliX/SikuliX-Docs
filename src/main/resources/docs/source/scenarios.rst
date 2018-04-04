@@ -283,8 +283,12 @@ Using Ruby
 Using SikuliX in Java programming
 =================================
 
+To be written - but until then `read here <http://sikulix-2014.readthedocs.io/en/latest/faq/030-java-dev.html>`_
+
 Using SikuliX in non-Java programming scenarios
 ===============================================
+
+To be written
 
 Using RobotFramework
 ====================
