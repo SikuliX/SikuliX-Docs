@@ -11,7 +11,7 @@ This applies to any Java aware scripting environment like Jython, JRuby, Scala, 
 **NOTE:** When using the scripting support provided by the SikuliX IDE and when running Jython/JRuby scripts from command line using SikuliX, it is automatically taken care, that a basic path is setup, where SikuliX will look for image files, that are given only by their name (no path given).
    For information what you can do when using the Java API to have this convenience too, look here :ref:`SIKULI_IMAGE_PATH <ImageSearchPath>`.
 
-After having setup SikuliX on your system, as recommended at `Getting started <http://www.sikulix.com/quickstart.html>`_, you have to do the following:
+After having setup SikuliX on your system, as recommended at `Getting started <http://sikulix.com/quickstart/>`_, you have to do the following:
 
 1. Include sikulixapi.jar in the CLASSPATH of your Java project.
 ------------------------------------------------------------------- 
@@ -86,7 +86,7 @@ It is planned, to publish sikulixapi.jar version 1.1.0+ on MavenCentral, so havi
 **The coordinates:**
   | <groupId>com.sikulix</groupId>
   | <artifactId>sikulixapi</artifactId>
-  | <version>1.1.0</version>
+  | <version>1.1.x</version>
 
 **Snapshots of developement head can be loaded from OSSRH**
   they are created daily (most of the time ;-)
@@ -105,13 +105,13 @@ It is planned, to publish sikulixapi.jar version 1.1.0+ on MavenCentral, so havi
   | </repository>
 
 **and as version use:** 
-  <version>1.1.0-SNAPSHOT</version>
+  <version>1.1.x-SNAPSHOT</version>
 
 
 Other valuable information
 --------------------------
 Be aware, that some method signatures in the Java API differ from the scripting level.
- * `Javadoc of SikuliX (temporary location) <http://nightly.sikuli.de/docs/index.html>`_.
+ * `Javadoc of SikuliX (latest version) <https://raiman.github.io/SikuliX1/javadocs/index.html>`_.
 
 How to use images stored in jar files
 -------------------------------------
