@@ -338,6 +338,11 @@ the first 2 lines
         
 signal, that you want to run an inline Robot script, that follows on the next lines terminated by ``""")``. This construct is a multiline Python comment, that can be used as a string.
 
+**BE AWARE** In the standard, a report HTML will be automatically opened in the standard browser at termination. If you do not wnat that (e.g. in unattended situations) use this instaed as the first 2 lines. Take care: after robot 1 space, a linefeed directly after silent and nothing else.
+::
+        runScript("""
+        robot silent
+
 Normally when working with SikuliX features, you have to do some Robot Keyword implementation at the Python level. To Robot you tell where to find these implementation using the ``Library setting``.
 
 In this case we have the implementations inline in the same scriptfile according to the Robot rules packed into a Python class having the Keyword methods according to the Robot naming conventions. At runtime this class will be exported to a Python file, whose absolute path is then replacing the Library setting.
