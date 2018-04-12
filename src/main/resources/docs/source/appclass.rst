@@ -9,12 +9,25 @@ Using class or instance methods
 Generally you have the choice between using the class methods (e.g.
 ``App.open("application-identifier")``) or first create an App instance and use
 the instance methods afterwards (e.g. ``myApp = App("application-identifier")``
-and then later on ``myApp.open()``). There is no recomendation for a preferred usage.
-The only real difference is, that you might save some ressources, when using the
-instance approach, since using the class methods produces more intermediate
-objects. So if you plan to act on the same app or window more often, 
-it might be more transparent, to use the instance approach 
+and then later on ``myApp.open()``). There is no recomendation for a preferred usage, but
+if you plan to act on the same app or window more often, 
+it might be more efficient, to use the instance approach. 
 
+For the string ``application-identifier`` principally the same rules apply, as if you would use the identifier on a command line. Especially if an item (app-name, app-path or window-name) contains blanks, it must be enclosed in double-quotes.
+
+If the application name is given without a path specification, then it must be found on the system, according to the rules of that system (Windows: is on system path, Mac: is in an /Applications folder, ...).
+
+Examples::
+	
+	# Python scripting
+	myApp = App("someApp")
+	myApp = App("/myapps/someApp.app")
+	myApp = App(r"c:\myapps\someApp.exe")
+	myApp = App(r'"c:\folder with spaces\someApp.exe"')
+	myApp = App('"c:\\folder with spaces\\someApp.exe"')
+	# in Java with spaces
+	myApp = App("\"c:\\folder with spaces\\someApp.exe\"")	
+	
 .. _CreateAppInstance:
 
 **How to create an App instance**
@@ -52,22 +65,19 @@ that makes this window unique in the current context (e.g. save a document with
 a specific name, before accessing it's window).
 
 (Mac OS X) not yet possible, to identify a running app by part of the title of one of it's windows.
-The window title you get by ``getWindow()``is the one of the currently frontmost window of that application.
+The window title you get by ``getWindow()`` is the one of the currently frontmost window of that application.
 
 **NOTE** Currently the information, wether a window is hidden or minimized, is not available 
 and it is not possible yet, to bring such a window to front with a compound SikuliX feature.
+
+**Open, close an application or focus on it**
+
+ 
 
 .. _ClassAppMethods:
 
 .. py:class:: App
   
-	.. py:classmethod:: pause(waitTime)
-	
-		*Usage:* ``App.pause(someTime)`` (convenience function)
-		
-		Just do nothing for the given amount of time in seconds (integer or float). 
-
-
 	.. py:classmethod:: App(application)
 	
 		*Usage:* ``someApp = App(application)``
@@ -77,69 +87,6 @@ and it is not possible yet, to bring such a window to front with a compound Siku
 		:param application: The name of an application (case-insensitive), that can be found in the path used by the system to locate applications, or the full path to an application. Optionally you might add parameters, that will be given to the application at open (see :py:func:`setUsing`).	
 		:return: an App object, that can be used with the instance methods
 		
-	.. py:method:: isRunning([waitTime])
-	
-		*Usage:* ``if not someApp.isRunning(): someApp.open()`` 
-		where App instance ``someApp`` was :ref:`created before <CreateAppInstance>`.
-	
-		:param waitTime: optional: seconds as integer, that should be waited for the app to get running
-		:return: True if the app is running (has a process ID), False otherwise
-		
-		**Windows** It is common, to identify an app by (part of) it's window title. 
-		If it is not open yet, one has to use methods, to open it first before proceeding.
-		
-		So this is a typical example, how to deal with that:
-		
-		Example::
-			
-			# we want to act in a VirtualBox VM window and use the VM's name
-			# which is always part of the Window title when running
-			vb = App("VM-name")
-			if not vb.isRunning():
-  				App.open(r'"C:\Program Files\Oracle\VirtualBox\VBoxManage.exe" startvm VM-name')
-  				while not vb.isRunning():
-    					wait(1) 
-			vb.focus()
-			appWindow = App.focusedWindow()
-		
-	.. py:method:: hasWindow()
-	
-		*Usage:* ``if not someApp.hasWindow(): openNewWindow() # some private function`` 
-		where App instance ``someApp`` was :ref:`created before <CreateAppInstance>`.
-	
-		:return: True if the app is running and has a main window registered, False otherwise
-		
-	.. py:method:: getWindow()
-	
-		*Usage:* ``title = someApp.getWindow()`` 
-		where App instance ``someApp`` was :ref:`created before <CreateAppInstance>`.
-	
-		:return: the title of the frontmost window of this application, might be an empty string
-		
-	.. py:method:: getPID()
-	
-		*Usage:* ``pid = someApp.getPID()`` 
-		where App instance ``someApp`` was :ref:`created before <CreateAppInstance>`.
-	
-		:return: the process ID as number if app is running, -1 otherwise
-		
-	.. py:method:: getName()
-	
-		*Usage:* ``appName = someApp.getName()`` 
-		where App instance ``someApp`` was :ref:`created before <CreateAppInstance>`.
-	
-		:return: the short name of the app as it is shown in the process list
-
-	.. py:method:: setUsing(parametertext)
-	
-		*Usage:* ``appName = someApp.setUsing("parm1 x parm2 y parm3 z")`` 
-		where App instance ``someApp`` was :ref:`created before <CreateAppInstance>`.
-		
-		:param parametertext: a string, that is given to the applications startup as you would
-		give it, if you would start the app from a commandline.
-	
-		:return: the app instance
-
 	.. py:classmethod:: open(application)
 	
 		*Usage:* ``App.open(application)``
@@ -200,6 +147,78 @@ and it is not possible yet, to bring such a window to front with a compound Siku
 		*Usage:* ``someApp.close()`` where App instance ``someApp`` was :ref:`created before <CreateAppInstance>`.
 
 		Close this application.
+		
+**Getting information about a running application**
+
+	.. py:classmethod:: pause(waitTime)
+	
+		*Usage:* ``App.pause(someTime)`` (convenience function)
+		
+		Just do nothing for the given amount of time in seconds (integer or float). 
+
+
+	.. py:method:: isRunning([waitTime])
+	
+		*Usage:* ``if not someApp.isRunning(): someApp.open()`` 
+		where App instance ``someApp`` was :ref:`created before <CreateAppInstance>`.
+	
+		:param waitTime: optional: seconds as integer, that should be waited for the app to get running
+		:return: True if the app is running (has a process ID), False otherwise
+		
+		**Windows** It is common, to identify an app by (part of) it's window title. 
+		If it is not open yet, one has to use methods, to open it first before proceeding.
+		
+		So this is a typical example, how to deal with that:
+		
+		Example::
+			
+			# we want to act in a VirtualBox VM window and use the VM's name
+			# which is always part of the Window title when running
+			vb = App("VM-name")
+			if not vb.isRunning():
+  				App.open(r'"C:\Program Files\Oracle\VirtualBox\VBoxManage.exe" startvm VM-name')
+  				while not vb.isRunning():
+    					wait(1) 
+			vb.focus()
+			appWindow = App.focusedWindow()
+		
+	.. py:method:: hasWindow()
+	
+		*Usage:* ``if not someApp.hasWindow(): openNewWindow() # some private function`` 
+		where App instance ``someApp`` was :ref:`created before <CreateAppInstance>`.
+	
+		:return: True if the app is running and has a main window registered, False otherwise
+		
+	.. py:method:: getWindow()
+	
+		*Usage:* ``title = someApp.getWindow()`` 
+		where App instance ``someApp`` was :ref:`created before <CreateAppInstance>`.
+	
+		:return: the title of the frontmost window of this application, might be an empty string
+		
+	.. py:method:: getPID()
+	
+		*Usage:* ``pid = someApp.getPID()`` 
+		where App instance ``someApp`` was :ref:`created before <CreateAppInstance>`.
+	
+		:return: the process ID as number if app is running, -1 otherwise
+		
+	.. py:method:: getName()
+	
+		*Usage:* ``appName = someApp.getName()`` 
+		where App instance ``someApp`` was :ref:`created before <CreateAppInstance>`.
+	
+		:return: the short name of the app as it is shown in the process list
+
+	.. py:method:: setUsing(parametertext)
+	
+		*Usage:* ``appName = someApp.setUsing("parm1 x parm2 y parm3 z")`` 
+		where App instance ``someApp`` was :ref:`created before <CreateAppInstance>`.
+		
+		:param parametertext: a string, that is given to the application at startup (when using ``open()`` ) as if you would start the app from a commandline.
+	
+		:return: the app instance
+
 
 Dealing with Application windows
 --------------------------------
