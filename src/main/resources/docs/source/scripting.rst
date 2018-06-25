@@ -142,7 +142,7 @@ you might as well build your own functions using the basic mouse functions
 
 	A decimal value greater 0 and not equal to 1 to switch the feature on.
 	
-	With this setting you can tell SikuliX to generally resize a given image before a search operation using the given factor, which is applied to both width and height. The implementation internally uses the standard behavior of resizing a Java-AWT-BufferedImage.
+	With this setting you can tell SikuliX to generally resize all given images before a search operation using the given factor, which is applied to both width and height. The implementation internally uses the standard behavior of resizing a Java-AWT-BufferedImage.
 	
 	To switch the feature off again, just assign 0 or 1.
 	
@@ -150,6 +150,47 @@ you might as well build your own functions using the basic mouse functions
 	
 	**Example** A working example situation is the scenario on a Mac with a Retina device, when you decide to capture your images with the standard Mac tools. In this case width and height of the captures will be doubled against a normal display (4 pixels for 1 pixel). Now you can say ``Settings.AlwaysResize = 0.5`` and every image will be downsized to the corerct pixel width and height as needed by the internal search operation. **Be aware** Using the SikuliX capture features will automatically adjust the images in the Retina situation already at the Java level. No need for extra work. 
 
+	**Alternative 1** If you do not need this for all, but only for some images, then the class ``Pattern`` has a feature, to only scale the given image at time of search: :py:meth:`Pattern.resize`. 
+	
+	**Alternative 2** If you have the need for even more specific filtering and/or additional modifications of an image, you can use a global callback feature, that, if set, will allow you to return a modified version of the given image for the search: :py:attribute:`Settings.ImageCallback`.
+	
+.. versionadded:: 1.1.3
+.. py:attribute:: Settings.ImageCallback
+
+	A callback function, that is visited before a search of an image. The callback itself is implemented at the Java level and hence can only use the SikuliX Java API and standard Java features.
+	
+	**Be aware:** :py:attribute:`Settings.AlwaysResize` must be switched off and :py:meth:`Pattern.resize` must not be used for the image in parallel. 
+	
+	**Usage** ::
+	
+		    * Java example
+		    // define and activate the callback
+		    Settings.ImageCallback = new ImageCallback() {
+		      public BufferedImage callback(Image img) {
+		        BufferedImage bufferedImage = img.get();
+			// add code, to modify the buffered image
+			// and return the modified or original (=noop) BufferedImage
+			return bufferedImage;
+		      }
+		    };
+		    // deactivate the callback
+		    Settings.ImageCallback = null;
+
+		    * Jython example
+		    # define the callback
+		    import org.sikuli.script.ImageCallback as ImageCallback
+		    class MyCallback(ImageCallback):
+		      def callback(self, img):
+		        bufferedImage = img.get()
+			# add Jython-Java code, to modify the buffered image
+			# and return the modified or original (=noop) BufferedImage
+			return bufferedImage
+		    # activate the callback
+		    Settings.ImageCallback = MyCallback()
+		    # deactivate the callback
+		    Settings.ImageCallback = None
+		    
+	
 .. _DebugLog:
 
 .. versionadded:: 1.1.0
@@ -383,7 +424,7 @@ Use the following functions to manipulate this list.
 		for p in imgPath:
 			print p
 
-        **Note on Java usage**::
+        **Note on Java usage** ::
                 
                String[] paths = ImagePath.getImagePath();
                for (String path : paths) {
