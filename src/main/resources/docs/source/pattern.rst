@@ -54,7 +54,7 @@ relative to the center using :py:meth:`targetOffset() <Pattern.targetOffset>`.
 
 	        A decimal value greater 0 and not equal to 1 to switch the feature on.
 
-	        With this setting you can tell SikuliX to TO resize THE given image before a search operation using the given factor, which is applied to both width and height. The implementation internally uses the standard behavior of resizing a Java-AWT-BufferedImage. See also: :py:attribute:`Settings.AlwaysResize`
+	        With this setting you can tell SikuliX to TO resize THE given image before a search operation using the given factor, which is applied to both width and height. The implementation internally uses the standard behavior of resizing a Java-AWT-BufferedImage. See also: :py:attr:`Settings.AlwaysResize`
 
         	To switch the feature off again, just assign 0 or 1.
 		
