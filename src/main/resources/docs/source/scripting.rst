@@ -137,15 +137,18 @@ you might as well build your own functions using the basic mouse functions
 	 The minimum area size in pixels that changes it's content to trigger a change event when using :py:meth:`Region.onChange` 
 	 when no value is specified. The default value is 50 (a rectangle of about 7x7 Pixels).
 
+.. versionadded:: 1.1.3
 .. py:attribute:: Settings.AlwaysResize
 
-	A decimal value greater 0 and not equal to 1.
+	A decimal value greater 0 and not equal to 1 to switch the feature on.
 	
-	With this setting you can tell SikuliX to generally resize a given image before a search operation using the given factor, which is applied to both width and height. The implementation internally uses the standard behavior of resizing a Java-AWT-BufferedImage. 
+	With this setting you can tell SikuliX to generally resize a given image before a search operation using the given factor, which is applied to both width and height. The implementation internally uses the standard behavior of resizing a Java-AWT-BufferedImage.
+	
+	To switch the feature off again, just assign 0 or 1.
 	
 	**Usage** This might be helpful in cases, where you want to use a set of images in a different environment, where the rendering process shows everything in a different resolution. This option can only be used, if the behavior of the rendering is compatible to the above mentioned resize implementation.
 	
-	**Example** A working example situation is the scenario on a Mac with a Retina device, if you decided to capture your images with the standard Mac tools. The width and height will be doubled against a normal display (4 pixels for 1 pixel). In this case you can say ``Settings.AlwaysResize = 0.5`` and every image will be downsized to the corect pixel width and height as needed by the internal search operation.
+	**Example** A working example situation is the scenario on a Mac with a Retina device, when you decide to capture your images with the standard Mac tools. In this case width and height of the captures will be doubled against a normal display (4 pixels for 1 pixel). Now you can say ``Settings.AlwaysResize = 0.5`` and every image will be downsized to the corerct pixel width and height as needed by the internal search operation. **Be aware** Using the SikuliX capture features will automatically adjust the images in the Retina situation already at the Java level. No need for extra work. 
 
 .. _DebugLog:
 
