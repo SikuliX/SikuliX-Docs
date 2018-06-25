@@ -50,6 +50,7 @@ relative to the center using :py:meth:`targetOffset() <Pattern.targetOffset>`.
 
 		:return: the pattern object
 
+.. versionadded:: 1.1.3
 	.. py:method:: resize(factor)
 
 	        A decimal value greater 0 and not equal to 1 to switch the feature on.
