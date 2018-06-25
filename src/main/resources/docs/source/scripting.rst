@@ -44,7 +44,7 @@ Controlling Sikuli Scripts and their Behavior
 	this time, the mouse pointer is moved continuosly with decreasing speed to the
 	target point. An additional benefit of this behavior is, that it gives the
 	active application some time to react on the previous mouse action, since the
-	e.g. click is simulated at the end of the mouse movement::
+	e.g. click is simulated at the end of the mouse movement ::
 
 		mmd = Settings.MoveMouseDelay # save default/actual value
 		click(image1) # implicitly wait 0.5 seconds before click
@@ -74,10 +74,7 @@ Controlling Sikuli Scripts and their Behavior
 	before the mouse up at the target location of a dragDrop operation  are
 	controlled. The standard settings are 0.3 seconds for each value. The time that
 	is taken, to move the mouse from source to target is controlled by
-	:py:attr:`Settings.MoveMouseDelay`::. 
-	
-	**Be aware** The given values are only valid for the next following action. 
-	The inner timing will be reset to the defaults after the action's completion.
+	:py:attr:`Settings.MoveMouseDelay` :: 
 
 		Settings.DelayBeforeMouseDown = 0.5
 		Settings.DelayBeforeDrag = 0.2
@@ -86,6 +83,9 @@ Controlling Sikuli Scripts and their Behavior
 		dragDrop(source_image, target_image)
 		# time for complete dragDrop: about 4 seconds + search times
 		
+	**Be aware** The given values are only valid for the next following action. 
+	The inner timing will be reset to the defaults after the action's completion.
+
 .. py:attribute:: Settings.ClickDelay
 
 	 Specify a delay between the mouse down and up in seconds as 0.nnn. This
@@ -152,14 +152,14 @@ you might as well build your own functions using the basic mouse functions
 
 	**Alternative 1** If you do not need this for all, but only for some images, then the class ``Pattern`` has a feature, to only scale the given image at time of search: :py:meth:`Pattern.resize`. 
 	
-	**Alternative 2** If you have the need for even more specific filtering and/or additional modifications of an image, you can use a global callback feature, that, if set, will allow you to return a modified version of the given image for the search: :py:attribute:`Settings.ImageCallback`.
+	**Alternative 2** If you have the need for even more specific filtering and/or additional modifications of an image, you can use a global callback feature, that, if set, will allow you to return a modified version of the given image for the search: :py:attr:`Settings.ImageCallback`.
 	
 .. versionadded:: 1.1.3
 .. py:attribute:: Settings.ImageCallback
 
 	A callback function, that is visited before a search of an image. The callback itself is implemented at the Java level and hence can only use the SikuliX Java API and standard Java features.
 	
-	**Be aware:** :py:attribute:`Settings.AlwaysResize` must be switched off and :py:meth:`Pattern.resize` must not be used for the image in parallel. 
+	**Be aware:** :py:attr:`Settings.AlwaysResize` must be switched off and :py:meth:`Pattern.resize` must not be used for the image in parallel. 
 	
 	**Usage** ::
 	
