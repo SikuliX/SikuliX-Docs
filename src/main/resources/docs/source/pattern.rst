@@ -29,7 +29,7 @@ relative to the center using :py:meth:`targetOffset() <Pattern.targetOffset>`.
 	.. py:method:: Pattern(string)
 
 		:param string: a path to an image file
-		:return: a new pattern object
+		:return: the pattern object
 
 		This will initialize a new pattern object without any additional attributes.
 		As long as no pattern methods are used additionally, it is the same as just
@@ -37,33 +37,37 @@ relative to the center using :py:meth:`targetOffset() <Pattern.targetOffset>`.
 
 	.. py:method:: similar(similarity)
 
-		Return a new Pattern object containing the same attributes (image, click
-		point) with the minimum similarity set to the specified value.
+		Set the minimum similarity of the given Pattern object to the specified value.
 
 		:param similarity: the minimum similarity to use in a find operation. The
 			value should be between 0 and 1.
-		:return: a new pattern object
+		:return: the pattern object
 
 	.. py:method:: exact()
 
-		Return a new Pattern object containing the same attributes (image, click
-		point) with the minimum similarity set to 1.0, which means exact match is
+		Set the minimum similarity of the given Pattern object to 0.99, which means exact match is
 		required.
 
-		:return: a new pattern object
+		:return: the pattern object
+
+	.. py:method:: resize(factor)
+
+	        A decimal value greater 0 and not equal to 1 to switch the feature on.
+
+	        With this setting you can tell SikuliX to TO resize THE given image before a search operation using the given factor, which is applied to both width and height. The implementation internally uses the standard behavior of resizing a Java-AWT-BufferedImage. See also: :py:attribute:`Settings.AlwaysResize`
+
+        	To switch the feature off again, just assign 0 or 1.
+		
+		:param factor: a decimal value
+		:return: the pattern object
 
 	.. py:method:: targetOffset(dx, dy)
 
-		Return a new Pattern object containing the same attributes (image,
-		similarity), but a different definition for the click. By
-		default, the click point is the center of the found match. By setting the
-		target offset, it is possible to specify a click point other than the
-		center. *dx* and *dy* will be used to calculate the position relative to the
-		center.
+		 For the given Pattern object define a click offset. By default, the click point is the center of the found match. By setting the target offset, it is possible to specify a click point other than the center. *dx* and *dy* will be used to calculate the position relative to the center.
 
 		:param dx: x offset from the center
 		:param dy: y offset from the center
-		:return: a new pattern object
+		:return: the pattern object
 
 	.. py:method:: getFilename()
 
