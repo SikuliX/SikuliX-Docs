@@ -551,3 +551,14 @@ Finally stop the server
     
 ... and try to implement your own, tailored solution.
 
+**One more thing** (in memory of Steve Jobs)
+
+You might give parameters to your script via the following http command structure::
+
+        /run/testpy?parm1=value1;&parm2=value2
+        
+In your script you will get ``--parm1=value1``and so on in ``sys.argv[1]``and so on. The server output reports the identified parameter strings.
+
+It is your own job then to split each sys.argv item into the parameter name and the given value (Python method split()).
+
+Be aware: Everything is just strings. It is not tested, what the whole processing chain does with parameter strings containing other characters than letters or numbers. Feedback and suggestions are welcome. 
