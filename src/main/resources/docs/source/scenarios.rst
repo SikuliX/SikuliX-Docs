@@ -494,6 +494,8 @@ These are the valid commands currently - to be written RESTful after localhost:5
         - the runner to use is evaluated from the ending of the script file (.py or .js) contained in the script folder
         - The folder ending .sikuli can be omitted for Python scripts, JS scripts currently should not have a .sikuli at all
         - With the first run request you get the known startup delay, if a runner has not yet been started using the start/startp command 
+        
+Go through the following showcase, to get a feeling about what is possible.
 
 **Showcase for use with Python based scripts**
 
@@ -513,26 +515,39 @@ Clicking the below links (CLICK ME) should open a new page displaying the server
 Just for a basic test: Stop the RunServer 
     `CLICK ME <http://localhost:50001/stop>`_ (issues: localhost:50001/stop)
     
-Make sure, it is stopped and start it again.
+Make sure, the server is stopped and then start it again.
 
 Start a script runner, that subsequently will run scripts instantly (no startup delay):
-    CLICK ME (issues: localhost:50001/startp)
+    `CLICK ME <http://localhost:50001/startp>`_ (issues: localhost:50001/startp)
 
 Since this playground is a static environment, you have to implement some prerequisites, to run scripts.
 
 To your home folder add a folder sikulixrunserver.
 
 Having done this, you now tell the server to use this folder to find scripts as folder where scripts are stored 
-    CLICK ME (issues: localhost:50001/scripts/home/sikulixrunserver)
+    `CLICK ME <http://localhost:50001/scripts/home/sikulixrunserver>`_ (issues: localhost:50001/scripts/home/sikulixrunserver)
 
 If you want to use one place, where you put your captured images (here as folder images in folder sikulixrunserver), you can tell the server to use this folder as folder where images are stored (of course you can have images in the script folders as well)
-    CLICK ME (issues: localhost:50001/images/home/sikulixrunserver/images)
+    `CLICK ME <http://localhost:50001/images/home/sikulixrunserver/images>`_ (issues: localhost:50001/images/home/sikulixrunserver/images)
 
-To prepare a Python script, add a script named testpy.sikuli (take care, that it contains a testpy.py as well) to the folder sikulixrunserver. This could easily be accomplished by using the SikuliX IDE using SaveAs with an existing script. To get a valid return code, use exit() (yields 0) or exit(n). Other script terminations will be reported as FAIL.
+To prepare a Python script, add a script named ``testpy.sikuli`` (take care, that it contains a ``testpy.py`` as well) to the folder sikulixrunserver. 
+
+This could easily be accomplished by using the SikuliX IDE using SaveAs with an existing script. 
+
+To get a valid return code, use ``exit()`` (yields 0) or ``exit(n)``. Other script terminations will be reported as FAIL.
+
+A basic test script for this showcase::
+
+        popup("hello world")
+        print "I said: hello world"
+
+Be aware: Print output of your script will be sent to the terminal/commandline session of the server. Besides redirecting the server's output to a file and grabbing it with some command like tail, there is currently no feature to redirect the output of one scriptrun to one file. If you need something like that, have a look at SikuliX's debug feature. 
 
 Run the script 
-    CLICK ME (issues: localhost:50001/run/testpy)
+    `CLICK ME <http://localhost:50001/run/testpy>`_ (issues: localhost:50001/run/testpy)
     
 Finally stop the server
-    CLICK ME (issues: localhost:50001/stop)
+    `CLICK ME <http://localhost:50001/stop>`_ (issues: localhost:50001/stop)
+    
+... and try to implement your own, tailored solution.
 
