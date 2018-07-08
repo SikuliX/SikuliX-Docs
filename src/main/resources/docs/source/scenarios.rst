@@ -427,8 +427,8 @@ If you want to use any of these variants outside the SikuliX context (some exter
         
 to get the SikuliX context ready.
 
-Experimental: Use the RunServer - run scripts from anywhere with zero-delay
-===========================================================================
+Experimental: RunServer - run scripts from anywhere with zero-delay
+===================================================================
 
 .. _UsingRunServer
 
@@ -446,7 +446,6 @@ Experimental: Use the RunServer - run scripts from anywhere with zero-delay
 **The intended use of this feature is**
 
         - run prepared scripts from environments, that cannot easily use one of the SikuliX APIs, like command line, C#, C++, Python, AppleScript, Java versions before version 6, ...
-        - run single line JavaScript snippets from any of the above environments to get a tighter integration with the SikuliX features (the return values will be in some JSON format, not yet fully available)
         - run prepared scripts on other machines (not yet fully tested, but should work)
         - setup some web based application, that runs scripts from the net on the local machine (not yet fully available), which would e.g. allow to setup some showcase webpage enriched with the features of the annotation tool (the former Guide extension)
 
@@ -487,5 +486,13 @@ These are the valid commands currently - to be written RESTful after localhost:5
         images/folder/folder/folder/...  - sets the folder where the runner finds the used images (image path)
         
 **Comments:**
+
+        - Ruby scripts are not yet supported.
+        - if the first folder is named home, the subsequent structure is expected in the user's home folder 
+        - Windows: drive letters are not yet supported
+        - For images, the folder finally containing the images, might be a .sikuli (so it can be managed with the IDE)
+        - the runner to use is evaluated from the ending of the script file (.py or .js) contained in the script folder
+        - The folder ending .sikuli can be omitted for Python scripts, JS scripts currently should not have a .sikuli at all
+        - With the first run request you get the known startup delay, if a runner has not yet been started using the start/startp command 
 
 
