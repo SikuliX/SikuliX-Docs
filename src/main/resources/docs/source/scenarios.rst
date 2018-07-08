@@ -476,9 +476,16 @@ The following clients or client solutions as examples:
 
 These are the valid commands currently - to be written RESTful after localhost:50001/::
 
-        **stop** - stops the server
-        start - initiates a JavaScript runner, so the next run request will start the script without delay
-        startp - initiates a Jython runner, so the next run request will start the script without delay *
-        scripts/folder/folder/folder/... - sets the folder where the runner finds the scripts **
-        images/folder/folder/folder/... - sets the folder where the runner finds the images used in a script (image path) **
-        run/script - looks for the script in the given folder and runs it (starts the respective runner if not yet done) ***
+        stop       - stops the server
+        
+        start      - initiates a JavaScript runner, so the next run request will start the script without delay
+        startp     - initiates a Jython runner, so the next run request will start the script without delay
+        
+        run/script - looks for the script in the given folder (see command scripts) and runs it 
+        
+        scripts/folder/folder/folder/... - sets the folder where the runner finds the scripts
+        images/folder/folder/folder/...  - sets the folder where the runner finds the used images (image path)
+        
+**Comments:**
+
+
