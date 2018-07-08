@@ -511,7 +511,7 @@ Clicking the below links (CLICK ME) should open a new page displaying the server
         Specific-Information is what it says, in case of RUN it ends with the string representation of the return value.
 
 Just for a basic test: Stop the RunServer 
-    `CLICK ME <http:>localhost:50001/stop`_ (issues: localhost:50001/stop)
+    `CLICK ME <http://localhost:50001/stop>`_ (issues: localhost:50001/stop)
     
 Make sure, it is stopped and start it again.
 
