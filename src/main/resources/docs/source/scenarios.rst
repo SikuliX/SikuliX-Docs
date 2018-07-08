@@ -495,4 +495,40 @@ These are the valid commands currently - to be written RESTful after localhost:5
         - The folder ending .sikuli can be omitted for Python scripts, JS scripts currently should not have a .sikuli at all
         - With the first run request you get the known startup delay, if a runner has not yet been started using the start/startp command 
 
+**Showcase for use with Python based scripts**
 
+Start the server as mentioned above and make sure it is running.
+
+Clicking the below links (CLICK ME) should open a new page displaying the server response::
+
+        Just have a look at it, close it and come back to this page.
+        
+        The display looks like this: PASS or FAIL NNN Specific-Information
+        PASS signals a successful processing of the request
+        FAIL means, that at least the request could not be processed successfully to it's end
+        NNN is a suitable HTTP status code
+        
+        Specific-Information is what it says, in case of RUN it ends with the string representation of the return value.
+
+Just for a basic test: Stop the RunServer 
+    CLICK ME (issues: http://localhost:50001/stop)
+    Make sure, it is stopped and start it again.
+
+Start a script runner, that subsequently will run scripts instantly (no startup delay):
+    CLICK ME (issues: http://localhost:50001/startp)
+
+Since this playground is a static environment, you have to implement some prerequisites, to run scripts.
+
+To your home folder add a folder sikulixrunserver. 
+Having done this, you now tell the server to use this folder to find scripts as folder where scripts are stored 
+    CLICK ME (issues: http://localhost:50001/scripts/home/sikulixrunserver)
+
+If you want to use one place, where you put your captured images (here: folder images in folder sikulixrunserver), you can tell the server to use this folder as folder where images are stored (of course you can have images in the script folders as well)
+    CLICK ME (issues: http://localhost:50001/images/home/sikulixrunserver/images)
+
+
+To run a Python script:
+Add a script named testpy.sikuli (take care, that it contains a testpy.py as well) to the folder sikulixrunserver.
+This could easily be accomplished by using the SikuliX IDE using SaveAs with an existing script.
+To get a valid return code, use exit() (yields 0) or exit(n). Other script terminations will be reported as FAIL.
+Run the script CLICK ME (issues: http://localhost:50001/run/testpy)
