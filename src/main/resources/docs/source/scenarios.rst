@@ -463,4 +463,22 @@ If the RunServer start succeeds, you should see something like the following::
         [info] RunServer: Starting: trying port: 50001
         [info] RunServer: now waiting on port: 50001 at 192.168.2.108
         
+**Available features and how to use them**
 
+Any client solution, that is able to issue valid HTTP GET requests against the server at localhost:50001 can be used.
+
+The following clients or client solutions as examples:
+
+        - of course any browser using it's address line or links in a webpage like here in the below showcase.
+        - any programmatical browser feature like when using Selenium
+        - the command line tool curl or similar 
+        - any programmed client in any language, that issues valid HTTP GET requests
+
+These are the valid commands currently - to be written RESTful after localhost:50001/::
+
+        **stop** - stops the server
+        start - initiates a JavaScript runner, so the next run request will start the script without delay
+        startp - initiates a Jython runner, so the next run request will start the script without delay *
+        scripts/folder/folder/folder/... - sets the folder where the runner finds the scripts **
+        images/folder/folder/folder/... - sets the folder where the runner finds the images used in a script (image path) **
+        run/script - looks for the script in the given folder and runs it (starts the respective runner if not yet done) ***
