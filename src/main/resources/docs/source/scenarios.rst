@@ -426,3 +426,21 @@ If you want to use any of these variants outside the SikuliX context (some exter
         from sikuli import *
         
 to get the SikuliX context ready.
+
+Experimental: Use the RunServer - run scripts from anywhere with zero-delay
+===========================================================================
+
+.. _UsingRunServer
+
+To start the local RunServer on port 50001 from a command line or terminal-session use either::
+        
+        runsikulix(.cmd) -s (supports running Python and JavaScript scripts
+        
+or::
+        
+        java -jar sikulixapi.jar -s (supports running JavaScript scripts only) 
+
+If the RunServer start succeeds, you should see something like the following::
+
+        [info] RunServer: Starting: trying port: 50001
+        [info] RunServer: now waiting on port: 50001 at 192.168.2.108
