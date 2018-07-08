@@ -511,24 +511,32 @@ Clicking the below links (CLICK ME) should open a new page displaying the server
         Specific-Information is what it says, in case of RUN it ends with the string representation of the return value.
 
 Just for a basic test: Stop the RunServer 
-    CLICK ME (issues: http://localhost:50001/stop)
-    Make sure, it is stopped and start it again.
+    CLICK ME (issues: localhost:50001/stop)
+    
+Make sure, it is stopped and start it again.
 
 Start a script runner, that subsequently will run scripts instantly (no startup delay):
-    CLICK ME (issues: http://localhost:50001/startp)
+    CLICK ME (issues: localhost:50001/startp)
 
 Since this playground is a static environment, you have to implement some prerequisites, to run scripts.
 
-To your home folder add a folder sikulixrunserver. 
+To your home folder add a folder sikulixrunserver.
+
 Having done this, you now tell the server to use this folder to find scripts as folder where scripts are stored 
-    CLICK ME (issues: http://localhost:50001/scripts/home/sikulixrunserver)
+    CLICK ME (issues: localhost:50001/scripts/home/sikulixrunserver)
 
-If you want to use one place, where you put your captured images (here: folder images in folder sikulixrunserver), you can tell the server to use this folder as folder where images are stored (of course you can have images in the script folders as well)
-    CLICK ME (issues: http://localhost:50001/images/home/sikulixrunserver/images)
+If you want to use one place, where you put your captured images (here as folder images in folder sikulixrunserver), you can tell the server to use this folder as folder where images are stored (of course you can have images in the script folders as well)
+    CLICK ME (issues: localhost:50001/images/home/sikulixrunserver/images)
 
+To run a Python script
 
-To run a Python script:
 Add a script named testpy.sikuli (take care, that it contains a testpy.py as well) to the folder sikulixrunserver.
 This could easily be accomplished by using the SikuliX IDE using SaveAs with an existing script.
 To get a valid return code, use exit() (yields 0) or exit(n). Other script terminations will be reported as FAIL.
-Run the script CLICK ME (issues: http://localhost:50001/run/testpy)
+
+Run the script 
+    CLICK ME (issues: localhost:50001/run/testpy)
+    
+Finally stop the server
+    CLICK ME (issues: localhost:50001/stop)
+
