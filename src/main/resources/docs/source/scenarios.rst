@@ -432,7 +432,25 @@ Experimental: Use the RunServer - run scripts from anywhere with zero-delay
 
 .. _UsingRunServer
 
-To start the local RunServer on port 50001 from a command line or terminal-session use either::
+**Experimental**
+
+... means
+
+    - basic features are implemented and useable in selected environments
+    - might not be tested with all possible variations 
+    - are usually only poorly documented or not at all
+    - might have bugs and other oddities
+
+... so play with it and report requests and bugs as needed: always welcome. 
+
+**The intended use of this feature is**
+
+        - run prepared scripts from environments, that cannot easily use one of the SikuliX APIs, like command line, C#, C++, Python, AppleScript, Java versions before version 6, ...
+        - run single line JavaScript snippets from any of the above environments to get a tighter integration with the SikuliX features (the return values will be in some JSON format, not yet fully available)
+        - run prepared scripts on other machines (not yet fully tested, but should work)
+        - setup some web based application, that runs scripts from the net on the local machine (not yet fully available), which would e.g. allow to setup some showcase webpage enriched with the features of the annotation tool (the former Guide extension)
+
+**To start the local RunServer** on port 50001 from a command line or terminal-session use either::
         
         runsikulix(.cmd) -s (supports running Python and JavaScript scripts
         
@@ -444,3 +462,5 @@ If the RunServer start succeeds, you should see something like the following::
 
         [info] RunServer: Starting: trying port: 50001
         [info] RunServer: now waiting on port: 50001 at 192.168.2.108
+        
+
