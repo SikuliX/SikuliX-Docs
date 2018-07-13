@@ -266,7 +266,7 @@ These are the **possible parameters and their defined sequence**:
 
 Example::
 
-  result = popup("autoclosed after 3 seconds", 3)
+  result = Do.popup("autoclosed after 3 seconds", 3)
   if not result:
     print "user did not click ok"
 
@@ -281,7 +281,7 @@ Example::
 
 Example::
 
-  result = popAsk("Nothing done if not\nclicked within 3 seconds", "Your decision", 3)
+  result = Do.popAsk("Nothing done if not\nclicked within 3 seconds", "Your decision", 3)
   if None == result:
     print "nothing to do"
   elif result:
@@ -300,7 +300,7 @@ Example::
 
 Example::
 
-  result = popError("autoclosed after 3 seconds", "Severe Error", 3, Region(300,300))
+  result = Do.popError("autoclosed after 3 seconds", "Severe Error", 3, Region(300,300))
   # the dialog will display somewhere in the upper left of the screen
   # with a box title as "Severe Error"
   if not result:
@@ -319,7 +319,7 @@ Example::
 
 Example::
 
-  result = input("please fill in", "A filename", "someImage.png", Region(300,300))
+  result = Do.input("please fill in", "A filename", "someImage.png", Region(300,300))
   # the dialog will display somewhere in the upper left of the screen
   # with a box title as "A filename"
   # and a preset input field containing "someImage.png"
@@ -331,7 +331,7 @@ Example::
 
 Example for hidden input::
 
-  password = input("please enter your secret", "Secret", "defaultSecret", True, 10)
+  password = Do.input("please enter your secret", "Secret", "defaultSecret", True, 10)
   # the dialog's input field displays the text as dots per character
   if not password:
     # password is empty or dialog autoclosed
