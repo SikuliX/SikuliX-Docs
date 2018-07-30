@@ -595,20 +595,25 @@ Finding inside a Region and Waiting for a Visual Event
 Besides :ref:`acting on visual objects <ActingonaRegion>`, finding them is one of the core
 functions of Sikuli. 
 
-**PS**: means, that either a :py:class:`Pattern` or a string (path to an image
+**PARAMETER PS**: means, that either a :py:class:`Pattern` or a string (path to an image
 file or just plain text) can be used as parameter. A find operation is
 successful, if the given image is found with the given minimum similarity or
-the given text is found exactly. Similarity is a value between 0 and 1 to
-specify how likely the given image looks like the target. By default, the
-similarity is 0.7 if an image rather than a pattern object with a specific
-similarity is given to :py:meth:`Region.find()`.
+the given text is found as specified. 
 
-Normally all these region methods are used as ``reg.find(PS)``, where reg is a
+.. versionadded:: 1.1.4
+**Revision of the text and OCR features** The implementation is now based on the package **Tess4J**, that provides a Java-level API to **Tesseract 3.x**. ::ref:`All you need to know about can be found here <RegionExtractingText>`
+
+**Similarity** is a value between 0 and 1, that tells us how likely the given image looks like (matches) the target (the higher the value the higer the probability of an exact match). With most features, the similarity is trimmed to 2 decimals and a value greater than 0.99 meaning exact match (reported as 1.00). 
+The default similarity used for searching is 0.7, if not specified using a :py:class:`Pattern`. A search success (a match) is reported, if an image is found with a similarity score higher than the given similarity, which might be the default.
+
+Normally all these region methods are used as ``reg.find(PS)``, where ``reg`` is a
 region object. If written as ``find(PS)`` it acts on the default screen, which is
 an implicit region in this case (see: :ref:`SCREEN as Default Region <DefaultScreen>`). 
 But in most cases it is a good idea to use
-``region.find()`` to restrict the search to a smaller region in order to speed up
-processing. 
+``reg.find()`` to restrict the search to a smaller region in order to speed up
+processing.
+
+**BE AWARE with Java** or other scripting/programming languages not supported by the SikuliX IDE/scripting feature: you must **always** use the so called dotted version of the :py:class:`Region` methods (``someRegion.find(someImage)``).
 
 If a find operation is successful, the returned match is additionally stored
 internally with the region that was used for the search. So instead of using a
@@ -619,8 +624,8 @@ it afterwards. Unsuccessful find operations will leave these values unchanged.
 
 By default, if the **visual object (image or text) cannot be found**, Sikuli
 will stop the script by raising an :ref:`Exception FindFailed <ExceptionFindFailed>`. 
-This follows the standards of the Python language, so that you could handle such exceptions using
-``try: ... except: ...``. 
+Following the standards of the Python language, you could handle such exceptions using
+``try: ... except: ...``. The same is true for other scripting/programming languages.
 
 If you are not used to programming using the Python language or because of other reasons, you might just want to bypass the
 exception handling, which means just ignoring it (None is returned in that case). 
