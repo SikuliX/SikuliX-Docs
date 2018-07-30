@@ -601,7 +601,11 @@ successful, if the given image is found with the given minimum similarity or
 the given text is found as specified. 
 
 .. versionadded:: 1.1.4
-**Revision of the text and OCR features** The implementation is now based on the package **Tess4J**, that provides a Java-level API to **Tesseract 3.x**. ::ref:`All you need to know about can be found here <RegionExtractingText>`
+**Revision of the text and OCR features** 
+
+The implementation is now based on the package **Tess4J**, that provides a Java-level API to **Tesseract 3.x**. 
+
+:ref:`All you need to know about can be found here <RegionExtractingText>`
 
 **Similarity** is a value between 0 and 1, that tells us how likely the given image looks like (matches) the target (the higher the value the higer the probability of an exact match). With most features, the similarity is trimmed to 2 decimals and a value greater than 0.99 meaning exact match (reported as 1.00). 
 The default similarity used for searching is 0.7, if not specified using a :py:class:`Pattern`. A search success (a match) is reported, if an image is found with a similarity score higher than the given similarity, which might be the default.
