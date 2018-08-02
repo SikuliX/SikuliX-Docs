@@ -93,7 +93,7 @@ SikuliX - how does it work and system specific information
    
    basicinfo
 
-New Features and major changes (version 1.1.0+)
+New Features and major changes (version 1.1.4+)
 -----------------------------------------------
 
 .. toctree::
