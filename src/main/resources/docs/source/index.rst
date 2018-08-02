@@ -85,14 +85,6 @@ places of interest using the :doc:`table of contents<toc>` or
 use the :ref:`genindex` to browse all classes, 
 methods and functions in alphabetical order.
 
-SikuliX - how does it work and system specific information
-----------------------------------------------------------
-
-.. toctree::
-   :maxdepth: 2
-   
-   basicinfo
-
 New Features and major changes (version 1.1.4+)
 -----------------------------------------------
 
@@ -101,6 +93,14 @@ New Features and major changes (version 1.1.4+)
    
    news
    
+SikuliX - how does it work and system specific information
+----------------------------------------------------------
+
+.. toctree::
+   :maxdepth: 2
+   
+   basicinfo
+
 SikuliX scripting and usage in programming scenarios (preferably Java based)
 ----------------------------------------------------------------------------
 
