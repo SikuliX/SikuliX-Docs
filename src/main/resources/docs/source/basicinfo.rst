@@ -279,11 +279,13 @@ SikuliX Offline Setup
 
 **BE AWARE** This is only supported for **SikuliX 1.1.2 and later**.
 
+In any case, you need a valid **sikulixsetup....jar** in a folder of your choice. 
+
 If during setup for some reason internal downloads are blocked on your system, you might try an **Offline Setup** according to the following steps.
 
- - make a folder Downloads in the folder intended to contain SikuliX
+ - optional: make a folder Downloads in the folder intended to contain SikuliX
  - manually download the respective packages (see below, links should start the download)
- - put them in the setup Downloads folder
+ - optional: put them in the setup Downloads folder
  - run setup and select the respective options
  - when asked, confirm the usage of the already downloaded packages
 
