@@ -21,3 +21,9 @@ function   repeats-search   throws-FindFailed
 find       no               yes
 wait       yes              yes
 --------   --------------   -----------------
+has        no               no
+exists     yes              no
+--------   --------------   -----------------
+findText   no               yes
+waitText   yes              yes
+========   ==============   =================
