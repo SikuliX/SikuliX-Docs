@@ -15,18 +15,18 @@ A summary for now (until released):
  
 **1.1.4 (as nightly build) will be available latest August 17, 2018**
 
-==============   ==============   =================
+==================   ==================   =====================
 **image-function**   **repeats-search**   **throws-FindFailed**
-  find                no                yes
-  wait                yes               yes
-  has                 no                no
-  exists              yes               no
-==============   ==============   =================
+  find                  no                  yes
+  wait                  yes                 yes
+  has                   no                  no
+  exists                yes                 no
+==================   ==================   =====================
 
-==============   ==============   =================
+==================   ==================   =====================
 **text-function**    **repeats-search**   **throws-FindFailed**
-  findText            no                yes
-  waitText            yes               yes
-  hasText             no                no
-  existsText          yes               no
-==============   ==============   =================
+  findText             no                   yes
+  waitText             yes                  yes
+  hasText              no                   no
+  existsText           yes                  no
+==================   ==================   =====================
