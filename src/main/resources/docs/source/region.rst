@@ -636,7 +636,8 @@ will stop the script by raising an :ref:`Exception FindFailed <ExceptionFindFail
 Following the standards of the Python language, you could handle such exceptions using
 ``try: ... except: ...``. The same is true for other scripting/programming languages.
 
-If you are not used to programming using the Python language or because of other reasons, you might just want to bypass the
+If you are not used to programming using the Python language or because of other reasons,
+you might just want to bypass the
 exception handling, which means just ignoring it (None is returned in that case). 
 Or you might interactively react on a FindFailed situation (e.g. optionally repeat the find).
 Read more about concepts and options at: :ref:`Exception FindFailed <ExceptionFindFailed>`.

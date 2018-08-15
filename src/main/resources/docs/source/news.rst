@@ -38,8 +38,8 @@ details :ref:`see the function description itself<FindinginsideaRegionandWaiting
 In all cases, these functions return a :py:class:`Match` object as result, which is ``null/None`` if not found.
 
  - **repeats-search** ``yes`` means, that the search is continued until either the image/text appears in the search region
-  or until the standard/given waiting time is exceeded (which means a FindFailed). ``no`` means, that only one search is
-  performed with the content of the search region at that moment (meaning either found or not found)
+   or until the standard/given waiting time is exceeded (which means a FindFailed). ``no`` means, that only one search is
+   performed with the content of the search region at that moment (meaning either found or not found)
 
  - **throws-FindFailed** ``yes`` means, that in case of not found (also for elapsed waiting time), a FindFailed
    exception is thrown, which leads to script/program termination, if not handled somehow. ``no`` means, that the function
