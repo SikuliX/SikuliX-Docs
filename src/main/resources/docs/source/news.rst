@@ -79,12 +79,12 @@ Revision of the findAll feature
 -------------------------------
 
 All findAll variants only search once and do not throw a FindFailed. If nothing was found, you have to check the result
-for being empty (not found) or not. How to do that depends on the function variant.
+for being empty (not found) or not being empty. How to do that, depends on the function variant.
 
 As with the find functions there are also findAllText and findAllT for the text only findAll functions.
 
 The function findAll returns a so called ``Match-Iterator`` (Java: Iterator<Match>), that reveals its content by the two
-methods ``hasNext()`` (true if still some matches available or false) and ``next()` (return the next match in the row).
+methods ``hasNext()`` (true if still some matches available or false) and ``next()`` (return the next match in the row).
 The function ``next`` is greedy in that it removes the returned match from the internally managed list of matches.
 So if you wanted a list, you always had to insert a step, that collects the matches into a list first.
 
