@@ -13,7 +13,7 @@ A summary for now (until released):
  
  - **Transparency** images with transparent areas (called masks) are now supported for search (ignoring the parts of the rectangles being transparent). Features will be available to create masks and masked images.
  
-**1.1.4 (as nightly build) will be available latest August 17, 2018**
+**1.1.4 (as nightly build) will be available earliest August 20, 2018**
 
 ==================   ==================   =====================
 **image-function**   **repeats-search**   **throws-FindFailed**
