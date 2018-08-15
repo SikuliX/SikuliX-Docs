@@ -33,9 +33,9 @@ In doubt it is recommended, to change the function calls to their text equivalen
 **How to read the following tables:**
 
 In the 1st column you have the function names to be used as ``function(parameter1, parameter2, ...)``. About more
-details see the function description itself.
+details :ref:`see the function description itself<FindinginsideaRegionandWaitingforaVisualEvent>`.
 
-In all cases, these functions return a ``match object`` as result, which is ``null/None`` if not found.
+In all cases, these functions return a :py:class:`Match` object as result, which is ``null/None`` if not found.
 
  - **repeats-search** ``yes`` means, that the search is continued until either the image/text appears in the search region
   or until the standard/given waiting time is exceeded (which means a FindFailed). ``no`` means, that only one search is
@@ -44,6 +44,7 @@ In all cases, these functions return a ``match object`` as result, which is ``nu
  - **throws-FindFailed** ``yes`` means, that in case of not found (also for elapsed waiting time), a FindFailed
    exception is thrown, which leads to script/program termination, if not handled somehow. ``no`` means, that the function
    silently returns ``null/None``, which must be checked if relevant.
+   :ref:`About handling FindFailed cases read more here<ExceptionFindFailed>`.
 
 ==================   ==================   =====================
 **image-function**   **repeats-search**   **throws-FindFailed**

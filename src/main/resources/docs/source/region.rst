@@ -607,17 +607,22 @@ The implementation is now based on the package **Tess4J**, that provides a Java-
 
 :ref:`All you need to know about can be found here <RegionExtractingText>`
 
-**Similarity** is a value between 0 and 1, that tells us how likely the given image looks like (matches) the target (the higher the value the higer the probability of an exact match). With most features, the similarity is trimmed to 2 decimals and a value greater than 0.99 meaning exact match (reported as 1.00). 
-The default similarity used for searching is 0.7, if not specified using a :py:class:`Pattern`. A search success (a match) is reported, if an image is found with a similarity score higher than the given similarity, which might be the default.
+**Similarity** is a value between 0 and 1, that tells us how likely the given image looks like (matches)
+the target (the higher the value the higher the probability of an exact match).
+With most features, the similarity is trimmed to 2 decimals and a value greater
+than 0.99 meaning exact match (reported as 1.00). The default similarity used for searching is 0.7,
+if not specified using a :py:class:`Pattern`. A search success (a match) is reported, if an image is found
+with a similarity score higher than the given similarity, which might be the default.
 
-Normally all these region methods are used as ``reg.find(PS)``, where ``reg`` is a
-region object. If written as ``find(PS)`` it acts on the default screen, which is
+Normally all these region methods are used as ``reg.find(PS)``, where ``reg`` is a region object.
+
+**In SikuliX scripts**: If written as ``find(PS)`` it acts on the default screen, which is
 an implicit region in this case (see: :ref:`SCREEN as Default Region <DefaultScreen>`). 
-But in most cases it is a good idea to use
-``reg.find()`` to restrict the search to a smaller region in order to speed up
-processing.
+But in most cases it is a good idea to use ``reg.find()`` to restrict the search to a
+smaller region in order to speed up processing.
 
-**BE AWARE with Java** or other scripting/programming languages not supported by the SikuliX IDE/scripting feature: you must **always** use the so called dotted version of the :py:class:`Region` methods (``someRegion.find(someImage)``).
+**BE AWARE with Java** or other scripting/programming languages not supported by the SikuliX IDE/scripting feature:
+you must **always** use the so called dotted version of the :py:class:`Region` methods (``someRegion.find(someImage)``).
 
 If a find operation is successful, the returned match is additionally stored
 internally with the region that was used for the search. So instead of using a
@@ -652,15 +657,15 @@ using a string containing the file name (path to an image file).
 		:param PS: a :py:class:`Pattern` object or a string (path to an image file or just plain text)
 		:return: a :py:class:`Match` object that contains the best match or fails if :ref:`not found <PatternNotFound>`
 
-		Find a particular GUI element, which is seen as the given image or
-		just plain text. The given file name of an image specifies the element's
-		appearance. It searches within the region and returns the best match,
-		which shows a similarity greater than the minimum similarity given by
+		Find a particular pattern, which is the given image or
+		just plain text. It searches within the region and returns the best match,
+		that shows a similarity greater than the minimum similarity given by
 		the pattern. If no similarity was set for the pattern by
 		:py:meth:`Pattern.similar` before, a default minimum similarity of 0.7
 		is set automatically. 
-		
-		If autoWaitTimeout is set to a non-zero value, find() just acts as a wait().
+
+		**Be aware** ``find(PS)`` does not wait for the appearence, it just comes back after one search try and will
+		throw FindFailed in case of not found.
 
 		**Side Effect** *lastMatch*: the best match can be accessed using :py:meth:`Region.getLastMatch` afterwards.
 
@@ -678,7 +683,8 @@ using a string containing the file name (path to an image file).
 
 		By default, the returned matches are sorted by the similiarty.
 		If you need them ordered by their positions, say the Y coordinates,
-		you have to use Python's `sorted <http://wiki.python.org/moin/HowTo/Sorting/>`_ function. Here is a example of sorting the matches from top to bottom.
+		you have to use Python's `sorted <http://wiki.python.org/moin/HowTo/Sorting/>`_ function.
+		Here is a example of sorting the matches from top to bottom.
 
 		.. sikulicode::
 
@@ -702,6 +708,8 @@ using a string containing the file name (path to an image file).
 
 	.. py:method:: wait([PS],[seconds])
 
+		Wait until the given pattern *PS* appears in the region.
+
 		:param PS: a :py:class:`Pattern` object or a string (path to an image
 			file or just plain text)
 		:param seconds: a number, which can have a fraction, as maximum waiting
@@ -722,12 +730,12 @@ using a string containing the file name (path to an image file).
 
 		**Side Effect** *lastMatch*: the best match can be accessed using :py:meth:`Region.getLastMatch` afterwards.
 
-		Note: You may adjust the scan rate (how often a search during the wait
+		**Note**: You may adjust the scan rate (how often a search during the wait
 		takes place) by setting :py:attr:`Settings.WaitScanRate` appropriately. 
 
 	.. py:method:: waitVanish(PS, [seconds])
 
-		Wait until the give pattern *PS* in the region vanishes.
+		Wait until the given pattern *PS* in the region vanishes.
 
 		:param PS: a :py:class:`Pattern` object or a string (path to an image
 			file or just plain text)
@@ -750,7 +758,7 @@ using a string containing the file name (path to an image file).
 
 	.. py:method:: exists(PS, [seconds])
 
-		Check whether the give pattern is visible on the screen.
+		Wait until the given pattern *PS* appears in the region. Does not throw FindFailed.
 
 		:param PS: a :py:class:`Pattern` object or a string (path to an image
 			file or just plain text)
@@ -776,6 +784,12 @@ using a string containing the file name (path to an image file).
 		**Note**: You may adjust the scan rate (how often a search during the wait
 		takes place) by setting :py:attr:`Settings.WaitScanRate` appropriately.
 		
+	.. py:method:: has(PS)
+
+		Checks wether the given pattern *PS* is visible in the region. Does not throw FindFailed.
+
+		A convenience shortcut for ``exists(PS, 0)``.
+
 Find more than one image in a Region at the same time
 -----------------------------------------------------
 
