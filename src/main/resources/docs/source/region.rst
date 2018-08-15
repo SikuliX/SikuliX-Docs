@@ -685,9 +685,7 @@ using a string containing the file name (path to an image file).
 		By default, the returned matches are sorted by the similiarty.
 		If you need them ordered by their positions, say the Y coordinates,
 		you have to use Python's `sorted <http://wiki.python.org/moin/HowTo/Sorting/>`_ function.
-		Here is a example of sorting the matches from top to bottom.
-
-		.. sikulicode::
+		Here is a example of sorting the matches from top to bottom::
 
 			def by_y(match):
 			   return match.y
@@ -700,8 +698,6 @@ using a string containing the file name (path to an image file).
 			for icon in sorted_icons:
 			   pass # do whatever you want to do with the sorted icons
 
-
-                
 		**Side Effect** *lastMatches*: a reference to the returned iterator object containing the 
 		found matches is stored with the region that was searched. It can be
 		accessed using getLastMatches() afterwards. How to iterate through an
