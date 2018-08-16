@@ -77,7 +77,7 @@ And there are new text functions, that only search once and do not throw findFai
  - ``findWord("a word")`` looks for a word, whose text can be a regular expression
  - ``findLine("some text")`` looks for and returns the line, that contains the text (might be a regular expression)
 
-For details you have to look into the description of the functions itself.
+For details :ref:`see the function description itself<FindinginsideaRegionandWaitingforaVisualEvent>`.
 
 Revision of the findAll feature
 -------------------------------
@@ -116,5 +116,17 @@ the size/length of the list, that is 0 when empty (not found)::
     result = getWords();
     result = getLines();
 
-For details you have to look into the description of the functions itself.
+For details :ref:`see the function description itself<FindinginsideaRegionandWaitingforaVisualEvent>`.
+
+**Be Aware** Since version 1.1.2 there are also functions, that search for more than one image at the same time ::
+
+    # find the best matching pattern of the given list of patterns
+    result = findBest(pattern, pattern, pattern, ...) # var-arg parameterlist
+    result = findBestList(List<patterns>) # a list of patterns
+
+    # find all matching patterns in the list
+    result = findAny(pattern, pattern, pattern, ...) # var-arg parameterlist
+    result = findAnyList(List<patterns>) # a list of patterns
+
+For details :ref:`see the function description itself<FindMoreThanOneImage>`.
 

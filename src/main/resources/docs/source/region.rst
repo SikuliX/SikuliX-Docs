@@ -787,6 +787,8 @@ using a string containing the file name (path to an image file).
 
 		A convenience shortcut for ``exists(PS, 0)``.
 
+.. _FindMoreThanOneImage:
+
 Find more than one image in a Region at the same time
 -----------------------------------------------------
 
