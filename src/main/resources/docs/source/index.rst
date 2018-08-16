@@ -133,6 +133,7 @@ SikuliX API for scripting and Java programming
    finder
    keys
    appclass
+   textandocr
    
 Miscellanous
 ------------

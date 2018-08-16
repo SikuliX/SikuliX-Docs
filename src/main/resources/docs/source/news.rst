@@ -129,3 +129,44 @@ For details :ref:`see the function description itself<FindinginsideaRegionandWai
 
 For details :ref:`see the function description itself<FindMoreThanOneImage>`.
 
+Revision of the text and OCR feature
+------------------------------------
+
+The features are still supported by the library ``Tesseract OCR``. Until version 1.1.3 the usage of the library
+was implemented via a C++ interface and the available features based on Tesseract 2.x have not changed for the last 6 years.
+
+Now the Java library ``Tess4j`` is used, that allows to use the Tesseract features at the Java level. Internally it
+depends on ``Tesseract 3.x``, that has some great improvements against Tesseract 2.x according to flexibility and accuracy.
+Additionally you will have full access to all options available with Tesseract.
+
+All SikuliX text features are currently used with the standard settings. Before the images are given to Tesseract,
+SikuliX tries to optimize them according to the rules of Tesseract. Currently based on the screen's resolution in DPI,
+the image is only enlarged to somewhere between 200 DPI and 300 DPI. Additional optimizations might be added
+in the future, including options available to the user at runtime, depending on the experiences made with
+the text features.
+
+If you want to know anything about the features available through Tess4J/Tesseract, you have to dive into
+the details on the respective home pages of the packages.
+ - `Tess4J <http://tess4j.sourceforge.net>`_
+ - `Tesseract <https://github.com/tesseract-ocr/tesseract>`_
+
+**Be aware** The respective documentation of these packages is in a very basic stage with not much structure and
+little information that focuses on usage. So to dive into these docs only makes sense, if you really want to do
+special things or are not satisfied with the results you get with the SikuliX features.
+
+Request bugs for new features and/or revision/augmentation of existing ones are welcome.
+
+In the standard SikuliX runs the text features with the english language set, which is bundled with SikuliX.
+It is possible **to add more languages to your SikuliX setup** and switch between the installed languages at runtime.
+
+It is possible to **directly access the Tesseract API through Tess4j** (as SikuliX does it).
+
+The Tesseract training features are currently not available in SikuliX directly, but you may add ``traineddata`` stuff
+to your SikuliX environment and activate it with the respective Tesseract options.
+
+For more detailed information and usage examples :ref:`look here<_textandocr>`.
+
+Using images with transparent parts
+-----------------------------------
+
+
