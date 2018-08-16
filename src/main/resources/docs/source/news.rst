@@ -164,7 +164,7 @@ It is possible to **directly access the Tesseract API through Tess4j** (as Sikul
 The Tesseract training features are currently not available in SikuliX directly, but you may add ``traineddata`` stuff
 to your SikuliX environment and activate it with the respective Tesseract options.
 
-For more detailed information and usage examples :ref:`look here<_textandocr>`.
+For more detailed information and usage examples :ref:`look here<textandocr>`.
 
 Using images with transparent parts
 -----------------------------------
