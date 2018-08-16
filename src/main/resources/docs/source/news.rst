@@ -99,7 +99,6 @@ the size/length of the list, that is 0 when empty (not found)::
 
     # these return an Iterator of matches
     result = findAll("image")
-    result = findAllText("some text") # or findAllT()
     result.hasNext() # True or False
     result.next() # the next match or null/None if no more match
 

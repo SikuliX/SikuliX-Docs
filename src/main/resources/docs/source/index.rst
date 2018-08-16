@@ -89,7 +89,7 @@ New Features and major changes (version 1.1.4+)
 -----------------------------------------------
 
 .. toctree::
-   :maxdepth: 1
+   :maxdepth: 2
    
    news
    
