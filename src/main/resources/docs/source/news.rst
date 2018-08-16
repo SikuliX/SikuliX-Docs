@@ -52,6 +52,7 @@ In all cases, these functions return a :py:class:`Match` object as result, which
   wait                  yes                 yes
   has                   no                  no
   exists                yes                 no
+  waitVanish            yes                 no
 ==================   ==================   =====================
 
 The equivalent functions that definitely look for the given text are named ``xxxText``.
@@ -69,11 +70,14 @@ In doubt you have to use the functions, that return all matches in a region and 
   waitText             yes                  yes
   hasText              no                   no
   existsText           yes                  no
+  waitVanishText       this function is     not available yet
 ==================   ==================   =====================
 
 And there are new text functions, that only search once and do not throw findFailed:
  - ``findWord("a word")`` looks for a word, whose text can be a regular expression
  - ``findLine("some text")`` looks for and returns the line, that contains the text (might be a regular expression)
+
+For details you have to look into the description of the functions itself.
 
 Revision of the findAll feature
 -------------------------------
@@ -81,28 +85,36 @@ Revision of the findAll feature
 All findAll variants only search once and do not throw a FindFailed. If nothing was found, you have to check the result
 for being empty (not found) or not being empty. How to do that, depends on the function variant.
 
-As with the find functions there are also findAllText and findAllT for the text only findAll functions.
+As with the find functions there are also findAllText and findAllT for the text only findAll functions. The resulting
+list contain the matches in order top left to bottom right.
 
 The function findAll returns a so called ``Match-Iterator`` (Java: Iterator<Match>), that reveals its content by the two
 methods ``hasNext()`` (true if still some matches available or false) and ``next()`` (return the next match in the row).
 The function ``next`` is greedy in that it removes the returned match from the internally managed list of matches.
-So if you wanted a list, you always had to insert a step, that collects the matches into a list first.
+So if you wanted a list, you always had to insert a step, that collects the matches into a list first. The order of the
+resulting matches is still not predictable. They have to be sorted if needed.
 
 Now there are function variants, that ``return match lists`` instead (Java: List<Match>). For empty or not you have to check
 the size/length of the list, that is 0 when empty (not found)::
 
-    # these return an Iterator
+    # these return an Iterator of matches
     result = findAll("image")
     result = findAllText("some text") # or findAllT()
     result.hasNext() # True or False
     result.next() # the next match or null/None if no more match
 
-    # these return lists
+    # these return a list of matches
     result = findAllList("image") # equivalent to findAll()
     result = getAll("image") # shortcut for findAllList()
+    result = findAllByRow() # sorted along rows
+    result = findAllByColumn() # sorted along columns
     result = findAllText("some text") # or findAllT()
     result = findWords("a word") # like findWord() but returns all matches in the region
     result = findLines("some text") # like findLine() but returns all matches in the region
+
+    # these return a list of words or lines in the region top left to bottom right
+    result = getWords();
+    result = getLines();
 
 For details you have to look into the description of the functions itself.
 
