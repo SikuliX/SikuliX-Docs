@@ -169,4 +169,22 @@ to your SikuliX environment and activate it with the respective Tesseract option
 Using images with transparent parts
 -----------------------------------
 
+SikuliX now accepts images (PNG format only) that are partly transparent. This allows to search for images
+on varying backgrounds and/or for images, whose content partly varies and should be ignored.
 
+This is possible with a variant of the ``OpenCV matchTemplate()`` feature, that allows to specify a mask
+as additional parameter. This mask has the same size in pixels as the image itself. All pixels that have a 0 in the mask
+are ignored in the search.
+
+SikuliX internally creates a mask from the transparency information in the image. All pixels having a transparency
+of 100% (opacity is 0%) are ignored (will be 0 in the mask).
+
+Additionaly the :py:class:`Pattern` now has features to specify images with the same size in pixels as the base image
+with black areas, that are interpreted as transparent areas to create a mask accordingly.
+
+Currently SikuliX has no features to create images with transparency nor mask images with black areas. To create such
+images you have to use respective tools from the world of image handling or photo editing.
+
+**Example on Mac** Open an image in the Preview app. Use one of the selection tools to select an area that should be
+fully transparent and simply click backspace to *delete* the area. These steps might be repeated.
+The image will automatically be a PNG file with an alpha-channel (the transparency information).

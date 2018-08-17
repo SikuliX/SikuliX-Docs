@@ -24,6 +24,31 @@ Normally when clicking on a match, the center pixel of the associated
 rectangle is used. With a pattern object, you can define a different click point 
 relative to the center using :py:meth:`targetOffset() <Pattern.targetOffset>`.
 
+.. versionadded:: 1.1.4
+
+**Masking:**
+
+Masking with SikuliX image search means, that the corresponding pixels in the image, that have a 0 in the mask pixel,
+will be ignored during search. Masks are internally created from given images having either
+black parts (masked on request) or transparency (masked automatically).
+
+Images having set some 100% transparency in the PNG-alpha-channel will always be treated as masked images so that
+the transparent parts are ignored during the search.
+
+Here we are talking about the cases,
+
+where you want an image having black parts to be treated as masked (:py:meth:`asMask()`)::
+
+        maskImg = Pattern(someImage).asMask()
+        maskedImg = Pattern(someImage).withMask()
+
+or that you want an image to be used as mask for another image (:py:meth:`withMask()`)::
+
+        maskImg = Pattern(someImage).asMask() # might have black parts or transparency
+        pImg = Pattern(someOtherImage).withMask(maskImg)
+
+Be aware: in the latter case, both images must have the same size in pixels.
+
 .. py:class:: Pattern
 
 	.. py:method:: Pattern(string)
@@ -51,6 +76,7 @@ relative to the center using :py:meth:`targetOffset() <Pattern.targetOffset>`.
 		:return: the pattern object
 
 .. versionadded:: 1.1.3
+
 	.. py:method:: resize(factor)
 
 	        A decimal value greater 0 and not equal to 1 to switch the feature on.
@@ -81,3 +107,21 @@ relative to the center using :py:meth:`targetOffset() <Pattern.targetOffset>`.
 		Get the target offset of the Pattern object.
 
 		:return: a :py:class:`Location` object as the target offset
+
+	.. py:method:: asMask()
+
+		The pattern will be made a mask based on the transparent or black parts of the image.
+		If there is transparency, black parts will be ignored for the mask creation.
+
+    :return: the modified pattern
+
+  .. py:method:: withMask([pattern])
+
+    :param pattern: another mask pattern, that should be used as mask
+
+    If the parameter is omitted, it does the same as :py:meth:`asMask()`
+
+		If the given pattern is a mask pattern, then it will become the mask for this pattern.
+
+    :return: the modified pattern
+
