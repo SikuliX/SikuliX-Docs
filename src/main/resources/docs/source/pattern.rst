@@ -109,12 +109,16 @@ Be aware: in the latter case, both images must have the same size in pixels.
 
     :return: a :py:class:`Location` object as the target offset
 
+  .. versionadded:: 1.1.4
+
   .. py:method:: asMask()
 
     The pattern will be made a mask based on the transparent or black parts of the image.
     If there is transparency, black parts will be ignored for the mask creation.
 
     :return: the modified pattern
+
+    .. versionadded:: 1.1.4
 
   .. py:method:: withMask([pattern])
 
