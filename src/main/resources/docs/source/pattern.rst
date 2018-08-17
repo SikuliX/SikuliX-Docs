@@ -75,22 +75,22 @@ Be aware: in the latter case, both images must have the same size in pixels.
 
 		:return: the pattern object
 
-.. versionadded:: 1.1.3
+  .. versionadded:: 1.1.3
 
 	.. py:method:: resize(factor)
 
-	        A decimal value greater 0 and not equal to 1 to switch the feature on.
+    A decimal value greater 0 and not equal to 1 to switch the feature on.
 
-	        With this setting you can tell SikuliX to TO resize THE given image before a search operation using the given factor, which is applied to both width and height. The implementation internally uses the standard behavior of resizing a Java-AWT-BufferedImage. See also: :py:attr:`Settings.AlwaysResize`
+      With this setting you can tell SikuliX to TO resize THE given image before a search operation using the given factor, which is applied to both width and height. The implementation internally uses the standard behavior of resizing a Java-AWT-BufferedImage. See also: :py:attr:`Settings.AlwaysResize`
 
-        	To switch the feature off again, just assign 0 or 1.
-		
+        To switch the feature off again, just assign 0 or 1.
+
 		:param factor: a decimal value
 		:return: the pattern object
 
 	.. py:method:: targetOffset(dx, dy)
 
-		 For the given Pattern object define a click offset. By default, the click point is the center of the found match. By setting the target offset, it is possible to specify a click point other than the center. *dx* and *dy* will be used to calculate the position relative to the center.
+    For the given Pattern object define a click offset. By default, the click point is the center of the found match. By setting the target offset, it is possible to specify a click point other than the center. *dx* and *dy* will be used to calculate the position relative to the center.
 
 		:param dx: x offset from the center
 		:param dy: y offset from the center
@@ -111,7 +111,7 @@ Be aware: in the latter case, both images must have the same size in pixels.
 	.. py:method:: asMask()
 
 		The pattern will be made a mask based on the transparent or black parts of the image.
-		If there is transparency, black parts will be ignored for the mask creation.
+		  If there is transparency, black parts will be ignored for the mask creation.
 
     :return: the modified pattern
 
@@ -121,7 +121,7 @@ Be aware: in the latter case, both images must have the same size in pixels.
 
     If the parameter is omitted, it does the same as :py:meth:`asMask()`
 
-		If the given pattern is a mask pattern, then it will become the mask for this pattern.
+		  If the given pattern is a mask pattern, then it will become the mask for this pattern.
 
     :return: the modified pattern
 
