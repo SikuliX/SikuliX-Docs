@@ -150,7 +150,7 @@ the details on the respective home pages of the packages.
  - `Tess4J <http://tess4j.sourceforge.net>`_
  - `Tesseract <https://github.com/tesseract-ocr/tesseract>`_
 
-**Be aware** The respective documentation of these packages is in a very basic stage with not much structure and
+**Be aware** The documentation of these packages is in a very basic stage with not much structure and
 little information that focuses on usage. So to dive into these docs only makes sense, if you really want to do
 special things or are not satisfied with the results you get with the SikuliX features.
 
@@ -164,7 +164,7 @@ It is possible to **directly access the Tesseract API through Tess4j** (as Sikul
 The Tesseract training features are currently not available in SikuliX directly, but you may add ``traineddata`` stuff
 to your SikuliX environment and activate it with the respective Tesseract options.
 
-For more detailed information and usage examples :ref:`look here<textandocr>`.
+**For detailed information and usage examples** :ref:`look here<textandocr>`.
 
 Using images with transparent parts
 -----------------------------------
