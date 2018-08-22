@@ -277,9 +277,9 @@ If you get problems, that are related to JXGrabKey, you have to build from the s
 SikuliX Offline Setup
 ---------------------
 
-**BE AWARE** This is only supported for **SikuliX 1.1.2 and later**.
+**BE AWARE** This is only for **SikuliX 1.1.3** (but no longer supported nor necessary with 1.1.4+).
 
-In any case, you need a valid **sikulixsetup....jar** in a folder of your choice. 
+In any case, you need a valid **sikulixsetup-1.1.3.jar** in a folder of your choice. 
 
 If during setup for some reason internal downloads are blocked on your system, you might try an **Offline Setup** according to the following steps.
 
@@ -292,19 +292,13 @@ If during setup for some reason internal downloads are blocked on your system, y
 You might as well store the manually downloaded artefacts in the same folder as the **sikulixsetup....jar**. 
 During setup the artefacts will be moved to the SikuliX local application data folder anyways.
 
-**Packages to download manually for version 1.1.2**:
-
-to get the **IDE (option 1)** download from OSSRH (`sikulixsetupIDE....jar <https://oss.sonatype.org/content/groups/public/com/sikulix/sikulixsetupIDE/1.1.2-SNAPSHOT/sikulixsetupIDE-1.1.2-20180308.083933-100.jar>`_)
-
-to get the **Java API (option 1 and 2)** download from OSSRH (`sikulixsetupAPI....jar <https://oss.sonatype.org/content/groups/public/com/sikulix/sikulixsetupAPI/1.1.2-SNAPSHOT/sikulixsetupAPI-1.1.2-20180308.083909-100.jar>`_)
-
 **Packages to download manually for version 1.1.3**:
 
 to get the **IDE (option 1)** download from OSSRH (`sikulixsetupIDE....jar <https://oss.sonatype.org/content/groups/public/com/sikulix/sikulixsetupIDE/1.1.3-SNAPSHOT/sikulixsetupIDE-1.1.3-20180711.082119-40-forsetup.jar>`_)
  
 to get the **Java API (option 1 and 2)** download from OSSRH (`sikulixsetupAPI....jar <https://oss.sonatype.org/content/groups/public/com/sikulix/sikulixsetupAPI/1.1.3-SNAPSHOT/sikulixsetupAPI-1.1.3-20180711.082046-40-forsetup.jar>`_)
 
-**native libraries for version 1.1.2 or version 1.1.3** (no longer needed for version 1.1.4+)
+**native libraries for version 1.1.3**:
 
 for **Windows** download from MavenCentral (`sikulixlibswin....jar <http://repo1.maven.org/maven2/com/sikulix/sikulixlibswin/1.1.1/sikulixlibswin-1.1.1.jar>`_)
 
@@ -314,9 +308,9 @@ for **Linux/Unix** download from MavenCentral (`sikulixlibslux....jar <http://re
   
 **Packages to download manually for version 1.1.2 and later** 
 
-to get **Jython 2.7** (for option 1) download from MavenCentral (`jython-standalone-2.7.....jar <http://repo1.maven.org/maven2/org/python/jython-standalone/2.7.1/jython-standalone-2.7.1.jar>`_)
+to get **Jython 2.7** (for option 1) download from MavenCentral (`jython-standalone-2.7.....jar <https://repo1.maven.org/maven2/org/python/jython-standalone/2.7.1/jython-standalone-2.7.1.jar>`_)
 
-to get **JRuby** (for option 1) download from MavenCentral (`jruby-complete-9.1…..jar <http://repo1.maven.org/maven2/org/jruby/jruby-complete/9.1.15.0/jruby-complete-9.1.15.0.jar>`_)
+to get **JRuby** (for option 1) download from MavenCentral (`jruby-complete-9.x ..... jar <https://repo1.maven.org/maven2/org/jruby/jruby-complete/9.2.0.0/jruby-complete-9.2.0.0.jar>`_)
  
 **For the text features (based on Tesseract)** the files supporting english language are bundled with sikulixapi.jar. 
 
