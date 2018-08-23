@@ -28,7 +28,7 @@ A summary of major aspects:
 
  - **the IDE is a little bit revised** and already got / will get some enhancements
 
-`Here is the new SikuliX Download page, where you can get the stuff needed.<https://raiman.github.io/SikuliX1/downloads.html>`_
+`The new SikuliX Download page, where you can get the stuff needed <https://raiman.github.io/SikuliX1/downloads.html>`_
 
 Revision of the find API
 ------------------------
