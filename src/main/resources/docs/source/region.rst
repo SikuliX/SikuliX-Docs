@@ -1697,7 +1697,7 @@ Extracting Text from a Region
 
 .. py:class:: Region
 
-.. versionadded:: X1.1.4
+.. versionadded:: 1.1.4
 
 The text and OCR features are completely revised. Everything is now available at the Java level
 through the use of ``Tess4j``, which in turn is a wrapper around the native library ``Tesseract``.
@@ -1709,17 +1709,17 @@ through the use of ``Tess4j``, which in turn is a wrapper around the native libr
 
 		:return: the text as a string. Multiple lines of text are separated by intervening linefeeds.
 
-		.. py:method:: getWords()
+		.. py:method:: collectWords()
 
 		only 1.1.4+: Extract the text contained as a list of the words in order top left to bottom right.
 
-		:return: the text as a list of words. (Java: List<string>)
+		:return: the text as a list of words. (Java: List<String>)
 
-		.. py:method:: getLines()
+		.. py:method:: collectLines()
 
 		only 1.1.4+: Extract the text contained as a list of the lines in order top to bottom.
 
-		:return: the text as a list of lines. (Java: List<string>)
+		:return: the text as a list of lines. (Java: List<String>)
 
 **Note for versions up to 1.1.3**: Since this feature was in an **experimental state** for about 6 years,
 one has to be aware, that in some cases it might not work as expected.
