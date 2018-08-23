@@ -27,15 +27,10 @@ I found the following solution for that::
     sudo apt install libcanberra-gtk0 libcanberra-gtk-module
     
 
-**now I have to solve the problem**::
+**The IDE starts up and principally works**
 
-    [1802 debug] RunTimeINIT: exists libs folder at: /home/raiman/.Sikulix/SikulixLibs
-    [1804 debug] RunTimeINIT: libs folder empty or has wrong content
-    [1817 debug] RunTimeINIT: export libs from: null
-    Exception in thread "main" java.lang.NullPointerException
-      at org.sikuli.script.RunTime.libsExport(RunTime.java:894)
-      at org.sikuli.script.RunTime.init(RunTime.java:695)
-      at org.sikuli.script.RunTime.get(RunTime.java:375)
-      at org.sikuli.ide.SikulixRunIDE.main(SikulixRunIDE.java:32)
-      
+**now I have to solve the problems:**
+
+ - create the libs for openCV and tesseract and make them available.
+
 **See you later - aligator**
