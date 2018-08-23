@@ -1,6 +1,12 @@
 New in version 1.1.4
 ====================
 
+**Sorry, Linux users - you have to wait - trying to get it running on Ubuntu 18.04**
+
+Here you can read, what I am currently doing.
+
+**The following is for all ;-) even for Linux users some day in the future ;-)**
+
 Version 1.1.4 has some features only planned for version 2, which seems to need some more time to get ready ;-)
 
 A summary for now (until released):
