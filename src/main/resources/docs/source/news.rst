@@ -3,13 +3,13 @@ New in version 1.1.4
 
 **Sorry, Linux users - you have to wait - trying to get it running on Ubuntu 18.04**
 
-Here you can read, what I am currently doing.
+:ref:`Here you can read, what I am currently doing<newslinux>`.
 
 **The following is for all ;-) even for Linux users some day in the future ;-)**
 
 Version 1.1.4 has some features only planned for version 2, which seems to need some more time to get ready ;-)
 
-A summary for now (until released):
+A summary of major aspects:
 
  - **Java-only** most of the stuff implemented in C++ up to version 1.1.3 is now at Java level.
  
@@ -22,8 +22,13 @@ A summary for now (until released):
  
  - **Transparency** images with transparent areas (called masks) are now supported for search (ignoring the parts
    of the rectangles being transparent). Features will be available to create masks and masked images.
- 
-**1.1.4 (as nightly build) will be available earliest August 20, 2018**
+
+ - **setup no longer needed** you just download either the API pack (Java programming or other Java based languages)
+ or the IDE pack and simply start using it.
+
+ - **the IDE is a little bit revised** and already got / will get some enhancements
+
+`Here is the new SikuliX Download page, where you can get the stuff needed.<https://raiman.github.io/SikuliX1/downloads.html>`
 
 Revision of the find API
 ------------------------

@@ -1,3 +1,5 @@
+.. _newslinux:
+
 Version 1.1.4 - Special for Linux people
 ========================================
 
