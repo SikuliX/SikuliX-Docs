@@ -92,6 +92,7 @@ New Features and major changes (version 1.1.4+)
    :maxdepth: 2
    
    news
+   newslinux
    
 SikuliX - how does it work and system specific information
 ----------------------------------------------------------
