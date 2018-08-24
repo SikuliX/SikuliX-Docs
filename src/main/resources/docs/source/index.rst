@@ -93,6 +93,7 @@ New Features and major changes (version 1.1.4+)
    
    news
    newslinux
+   newsbugs
    
 SikuliX - how does it work and system specific information
 ----------------------------------------------------------
