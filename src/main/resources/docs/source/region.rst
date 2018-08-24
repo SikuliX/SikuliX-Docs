@@ -1711,15 +1711,30 @@ through the use of ``Tess4j``, which in turn is a wrapper around the native libr
 
 		.. py:method:: collectWords()
 
-		only 1.1.4+: Extract the text contained as a list of the words in order top left to bottom right.
+		only 1.1.4+: Extract the text contained in the region as a list of the words (in fact match objects - see example)
+		in order top left to bottom right::
 
-		:return: the text as a list of words. (Java: List<String>)
+				words = someRegion.collectWords() # a list of match objects
+				firstWordMatch = words[0].getText() # the region on screen containing the word
+				firstWord = firstWordMatch.getText() # finally the text contained in the word's region
+
+		:return: the text as a list of match/regions containing words. (Java: List<Match>)
 
 		.. py:method:: collectLines()
 
-		only 1.1.4+: Extract the text contained as a list of the lines in order top to bottom.
+		only 1.1.4+: Extract the text contained in the region as a list of the words (in fact match objects - see example)
+		in order top left to bottom right::
 
-		:return: the text as a list of lines. (Java: List<String>)
+				lines = someRegion.collectLines() # a list of match objects
+				firstLineMatch = lines[0].getText() # the region on screen containing the line
+				firstLine = firstLineMatch.getText() # finally the text contained in the line's region
+
+		:return: the text as a list of match/regions containing lines. (Java: List<Match>)
+
+As a convenience there are variants that only return a list of the words/lines as text (Java: List<String>) (hence no information, where on the screen they are)::
+
+		words = collectWordsText() # only the list of words in order top left to bottom right
+		lines = collectLinesText() # only the list of textlines in order top left to bottom right
 
 **Note for versions up to 1.1.3**: Since this feature was in an **experimental state** for about 6 years,
 one has to be aware, that in some cases it might not work as expected.
