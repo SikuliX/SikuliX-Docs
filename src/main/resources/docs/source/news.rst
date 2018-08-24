@@ -26,7 +26,7 @@ A summary of major aspects:
    of the rectangles being transparent). Features will be available to create masks and masked images.
 
  - **setup no longer needed** you just download either the API pack (Java programming or other Java based languages)
- or the IDE pack and simply start using it.
+   or the IDE pack and simply start using it.
 
  - **the IDE is a little bit revised** and already got / will get some enhancements
 
