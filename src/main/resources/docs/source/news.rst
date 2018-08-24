@@ -7,6 +7,8 @@ New in version 1.1.4
 
 **The following is for all ;-) even for Linux users some day in the future ;-)**
 
+;ref:`Here is a list of current bugs and requests and possible workarounds<newsbugs>`
+
 Version 1.1.4 has some features only planned for version 2, which seems to need some more time to get ready ;-)
 
 A summary of major aspects:
