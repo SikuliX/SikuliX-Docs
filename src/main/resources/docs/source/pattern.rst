@@ -37,11 +37,11 @@ the transparent parts are ignored during the search.
 
 Here we are talking about the cases,
 
-where you want an image having black parts to be treated as masked (:py:meth:`mask()`)::
+where you want an image having black parts to be treated as masked (:py:meth:`Pattern.mask()`)::
 
         maskImg = Pattern(someImage).mask()
 
-or that you want an image (having black or transparent parts) to be used as mask for another image (:py:meth:`mask()`)::
+or that you want an image (having black or transparent parts) to be used as mask for another image (:py:meth:`Pattern.mask()`)::
 
         pImg = Pattern(someOtherImage).mask(ImageOrPattern)
 
