@@ -45,7 +45,7 @@ or that you want an image (having black or transparent parts) to be used as mask
 
         pImg = Pattern(someOtherImage).mask(ImageOrPattern)
 
-Be aware: in the latter case, both images must have the same size in pixels.
+Be aware: in the latter case, both base image and mask image must have the same size in pixels.
 
 .. py:class:: Pattern
 
@@ -107,22 +107,16 @@ Be aware: in the latter case, both images must have the same size in pixels.
 
     :return: a :py:class:`Location` object as the target offset
 
-  .. versionadded:: 1.1.4
-
-  .. py:method:: mask()
-
-    The pattern will be treated as masked based on black parts of the image.
-
-    :return: the modified pattern
-
     .. versionadded:: 1.1.4
 
-  .. py:method:: mask(imageOrPattern)
+  .. py:method:: mask([imageOrPattern])
 
     :param imageOrPattern: image filename, Image or Pattern
 
     If a mask can be derived from imageOrPattern (image has transparent or black parts or is a Pattern with a mask),
     then it will become the mask for this pattern.
+
+    If ``imageOrPattern`` is omitted: The pattern will be treated as masked based on black parts of the image.
 
     :return: the modified pattern
 
