@@ -17,3 +17,5 @@ Version 1.1.4 - Bugs, known Problems, requests and possible workarounds
 
  - Android support via jADB is currently switched off `bug <https://bugs.launchpad.net/sikuli/+bug/1788812>`_
 
+ - IDE: the Command-Bar (optional left side clickable list of basic features) is switched off. Will come back in a more general form asap.
+

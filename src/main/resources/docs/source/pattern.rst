@@ -37,15 +37,13 @@ the transparent parts are ignored during the search.
 
 Here we are talking about the cases,
 
-where you want an image having black parts to be treated as masked (:py:meth:`asMask()`)::
+where you want an image having black parts to be treated as masked (:py:meth:`mask()`)::
 
-        maskImg = Pattern(someImage).asMask()
-        maskedImg = Pattern(someImage).withMask()
+        maskImg = Pattern(someImage).mask()
 
-or that you want an image to be used as mask for another image (:py:meth:`withMask()`)::
+or that you want an image (having black or transparent parts) to be used as mask for another image (:py:meth:`mask()`)::
 
-        maskImg = Pattern(someImage).asMask() # might have black parts or transparency
-        pImg = Pattern(someOtherImage).withMask(maskImg)
+        pImg = Pattern(someOtherImage).mask(ImageOrPattern)
 
 Be aware: in the latter case, both images must have the same size in pixels.
 
@@ -111,21 +109,20 @@ Be aware: in the latter case, both images must have the same size in pixels.
 
   .. versionadded:: 1.1.4
 
-  .. py:method:: asMask()
+  .. py:method:: mask()
 
-    The pattern will be made a mask based on the transparent or black parts of the image.
-    If there is transparency, black parts will be ignored for the mask creation.
+    The pattern will be treated as masked based on black parts of the image.
 
     :return: the modified pattern
 
     .. versionadded:: 1.1.4
 
-  .. py:method:: withMask([pattern])
+  .. py:method:: mask(imageOrPattern)
 
-    :param pattern: another mask pattern, that should be used as mask
+    :param imageOrPattern: image filename, Image or Pattern
 
-    If the parameter is omitted, it does the same as :py:meth:`asMask()`.
-    If the given pattern is a mask pattern, then it will become the mask for this pattern.
+    If a mask can be derived from imageOrPattern (image has transparent or black parts or is a Pattern with a mask),
+    then it will become the mask for this pattern.
 
     :return: the modified pattern
 
