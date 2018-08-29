@@ -44,7 +44,7 @@ we want to check and click on it.
 	click(t)
 
 If we do ``click(t)``, Sikuli will click on the center of the label. However, what
-we want is to click on the right of the label where the check box is.
+we want is to click on the left of the label where the check box is.
 
 Sikuli IDE provides a convenient interface for specifying where to click relative to
 the center of a pattern. This is known as the *target offset*. The interface is
