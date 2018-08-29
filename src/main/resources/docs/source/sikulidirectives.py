@@ -196,7 +196,5 @@ class SikuliCodeDirective(Directive):
       txt = txtout.getvalue()
       return [nodes.raw('', txt, format='html')]
 
-
-
 def setup(app):
    app.add_directive('sikulicode', SikuliCodeDirective)
