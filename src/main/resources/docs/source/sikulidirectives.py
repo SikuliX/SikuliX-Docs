@@ -173,27 +173,26 @@ class SikuliCodeDirective(Directive):
       
       src = self.state.document.settings._source
       srcdir = os.path.dirname(src)
-      
-      #print env.__dict__
+      print "##### src:", src
+      print "##### srcdir:", srcdir
+
+      print "##### env"
+      print env.__dict__
+      print "##### env ---------"
       relpath = relative_path(root, src)
-      #print relpath
+      print "##### relpath:", relpath
       
       dest = os.path.join(root, "../build/html", relpath)
       destdir = os.path.dirname(dest)
-      #print destdir
+      print "##### destdir:", destdir
 
       if not os.path.exists(destdir):
          os.makedirs(destdir)
 
-      dir = os.path.dirname(src)
-      #print os.path.basename(src)
-      #print os.path.join(dir, "../build/html")
       txtout = StringIO.StringIO()
       txtin = '\n'.join(self.content)
       p = Parser(txtin,txtout)
       p.format(srcdir, destdir)
-      #print txti
-      #print txtout.getvalue()
       txt = txtout.getvalue()
       return [nodes.raw('', txt, format='html')]
 
