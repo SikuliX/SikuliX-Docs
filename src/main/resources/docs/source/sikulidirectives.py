@@ -182,7 +182,7 @@ class SikuliCodeDirective(Directive):
       relpath = relative_path(root, src)
       print "##### relpath:", relpath
       
-      dest = os.path.join(root, "../build/html", relpath)
+      dest = os.path.join(root, "../../../../../build/html", relpath)
       destdir = os.path.dirname(dest)
       print "##### destdir:", destdir
 
