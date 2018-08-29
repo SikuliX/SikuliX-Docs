@@ -147,8 +147,8 @@ Miscellanous
    faq/*
    extensions/index
    
-Tutorials (not yet revised for version 1.1.0+)
-----------------------------------------------
+Tutorials
+---------
 
 .. toctree::
    :maxdepth: 1
@@ -160,7 +160,7 @@ Tutorials (not yet revised for version 1.1.0+)
    tutorials/checkone/checkone
    tutorials/sliders/sliders
    tutorials/surveillance/surveillance
-   rtutorials/esize/resize
+   tutorials/resize/resize
 
 For Developers
 --------------
