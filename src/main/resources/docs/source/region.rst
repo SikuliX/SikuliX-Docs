@@ -703,6 +703,25 @@ using a string containing the file name (path to an image file).
 		accessed using getLastMatches() afterwards. How to iterate through an
 		iterator of matches is :ref:`documented here <IteratingMatches>`.
 
+    **Convenience methods** for :py:meth:`findAll`::
+
+        findAllByRow() # sorted along rows top down - left to right in a row
+        findAllByColumn() # sorted along columns left to right - top down in a column
+
+        findAllList() # same as findAll(), but returns a list (Java: List<Match>) sorted by score descending
+        getAll() # shortcut for findAllList()
+
+        All these methods return lists (Java: List<match>) - an empty list if nothing was found.
+
+        In Python scripts this works (empty list is taken as False):
+
+        matches = getAll(someImage)
+        if matches:
+            print "found: ", len(matches)
+        else:
+            print "not found", someImage
+
+
 	.. py:method:: wait([PS],[seconds])
 
 		Wait until the given pattern *PS* appears in the region.
