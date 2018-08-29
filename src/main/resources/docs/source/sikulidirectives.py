@@ -146,7 +146,8 @@ class Parser:
          self.out.write(cgi.escape(toktext))
 
 
-from sphinx.util.compat import Directive
+#TODO from sphinx.util.compat import Directive
+from docutils.parsers.rst import Directive
 from docutils import nodes
 from docutils.utils import relative_path
 import os.path
