@@ -14,7 +14,7 @@ These are the steps to switch to another language than the standard english (eng
 
 4. in your script say before using OCR features::
 
-        tr = TextRecognizer.start()
+        tr = TextOCR.start()
         tr.setLanguage("xxx")
 
 where xxx is the shorthand for the wanted language (the letters in the filename (step 3.) before the .traineddata)
