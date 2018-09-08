@@ -147,7 +147,7 @@ The usual way to solve the problems is to install the relevant packages.
 
 You may fine tune, what you get by editing the file ``CMAKE_CACHE.txt`` and run ``cmake ..`` again.
 
-The relevant section near the top::
+The relevant section near the top of ``CMAKE_CACHE.txt``::
 
     //Build CUDA modules stubs when no CUDA SDK
     BUILD_CUDA_STUBS:BOOL=OFF
