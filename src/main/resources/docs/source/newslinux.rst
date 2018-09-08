@@ -45,7 +45,7 @@ On Debian systems (like Ubuntu) you should get it with the apt-tool, on other Li
 A link (``ln -s ...``) as ``libopencv_java.so`` in any folder, that is on the library path
 (e.g. on Ubuntu: /usr/lib), to the real library module ``libopencv_javaXYZ.so``
 
-**worked on Ubuntu 18.04**::
+**should work on Ubuntu 18.04 (or other actual Debian systems)**::
 
         sudo apt install libopencv3.2-java
         ln -s /usr/lib/jni/libopencv_java320.so /usr/lib/libopencv_java.so
@@ -54,21 +54,22 @@ A ``libopencv_java320.so`` will be in ``/usr/lib/jni``, to where you have to sym
 On Ubuntu the best place seems to be ``/usr/lib``, but that is up to you,
 as long as the containing folder is in the current lib path at runtime.
 
-**build OpenCV library from the sources**
+**build OpenCV library from the sources (might be needed on non-Debian Linux)**
 
 Get a `source package (recommended: 3.4+) <https://opencv.org/releases.html>`_
 and unzip/untar it to a work folder of your choice.
 
-In a terminal session go into the source folder and make a folder ``build``.
+In a terminal session go into the OpenCV folder and make a folder ``build`` at the top level.
+Finally go into that ``build`` folder
 
-All the following steps have to be done in this folder.
+All the following steps have to be done being inside this ``build`` folder.
 
 There are some general prerequisites for the build process to work, that you have to fulfill either before you start
-or every time you run into a problem. On Ubuntu, the usual way is to use the apt-tool.
+or solve it every time you run into a problem. On Ubuntu, the usual way is to use the apt-tool.
 
-You need: cmake, ant, build-tools, Python (2.7 or 3.x), a Java JDK
+You need: cmake, ant, build-tools, Python (2.7 or 3.x) and a Java JDK
 
-All prerequisites must be available in the standard environment.
+All prerequisites must be available/accessible in the standard environment.
 
 In the build folder run the build setup::
 
@@ -129,7 +130,7 @@ It should look something like that towards the end::
     -- Generating done
     -- Build files have been written to: /home/raiman/SikuliX/opencv-3.4.2/build
 
-Some notes (top down):
+**Some notes (top down):**
 
  - ``Built as dynamic libs``: you will have to install the built stuff to your system in a second step.
  - ``OpenCV modules``: the list in the line after ``To be built`` MUST contain ``java``.
@@ -145,9 +146,11 @@ that a Python is not available and a valid JDK is not found in the environment.
 
 The usual way to solve the problems is to install the relevant packages.
 
-You may fine tune, what you get by editing the file ``CMAKE_CACHE.txt`` and run ``cmake ..`` again.
+Each time you fixed something simply run ``cmake ..`` again.
 
-The relevant section near the top of ``CMAKE_CACHE.txt``::
+You may fine tune, what you get, by editing the file ``CMakeCache.txt`` and run ``cmake ..`` again.
+
+The relevant section near the top of ``CMakeCache.txt``::
 
     //Build CUDA modules stubs when no CUDA SDK
     BUILD_CUDA_STUBS:BOOL=OFF
@@ -297,6 +300,16 @@ The relevant section near the top of ``CMAKE_CACHE.txt``::
     //Include opencv_world module into the OpenCV build
     BUILD_opencv_world:BOOL=OFF
 
-This example minimizes what is build, to what SikuliX needs, and builds the media i/o libs from the bundled sources.
+This example minimizes what is built, to what SikuliX needs, and builds the media i/o libs from the bundled sources.
 Simply write ON or OFF after the = of an option.
 
+If you made any changes to ``CMakeCache.txt`` just run ``cmake ..`` again.
+
+When you are finally satisfied with the result, just run::
+
+    make install
+
+This will install the stuff into your system.
+
+As a last step you need to find the installed ``libopencv_javaXYZ.so`` and create a symbolic link as mentioned above,
+that is found in the library path.
