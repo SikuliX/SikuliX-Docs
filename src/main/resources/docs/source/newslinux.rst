@@ -48,13 +48,13 @@ A link (``ln -s ...``) as ``libopencv_java.so`` in any folder, that is on the li
 **should work on Ubuntu 18.04 (or other actual Debian systems)**::
 
         sudo apt install libopencv3.2-java
-        ln -s /usr/lib/jni/libopencv_java320.so /usr/lib/libopencv_java.so
+        sudo ln -s /usr/lib/jni/libopencv_java320.so /usr/lib/libopencv_java.so
         
 A ``libopencv_java320.so`` will be in ``/usr/lib/jni``, to where you have to symbolically link ``libopencv_java.so``.
 On Ubuntu the best place seems to be ``/usr/lib``, but that is up to you,
 as long as the containing folder is in the current lib path at runtime.
 
-**build OpenCV library from the sources (might be needed on non-Debian Linux)**
+**Build OpenCV library from the sources (might be needed on non-Debian Linux)**
 
 Get a `source package (recommended: 3.4+) <https://opencv.org/releases.html>`_
 and unzip/untar it to a work folder of your choice.
