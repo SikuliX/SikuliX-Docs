@@ -36,7 +36,7 @@ I found the following solution for that::
 
 **Be aware** To make it finally useable, you have to **make sure, that your system supports OpenCV and Tesseract.**.
 
-... and if you want to use the **App class features** you still need ``xdotool``and ``wmctrl``.
+... and if you want to use the **App class features** you still need ``xdotool`` and ``wmctrl``.
 
 **For programming with Java** you might use the ready to use ``sikulixapi.jar`` or the Maven snapshot dependency
 in a Maven/Gradle project. In any case you have to make ``OpenCV`` and ``Tesseract`` ready before.
