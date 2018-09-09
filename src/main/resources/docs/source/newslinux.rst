@@ -3,8 +3,8 @@
 Version 1.1.4 - Special for Linux people
 ========================================
 
-Getting a JDK and SikuliX IDE
------------------------------
+Getting a JDK and the SikuliX packages (IDE and/or API)
+-------------------------------------------------------
 
 You need a Java JDK version 8 or later.
 
@@ -35,6 +35,11 @@ I found the following solution for that::
 **The IDE should start up and the GUI should principally work.**
 
 **Be aware** To make it finally useable, you have to **make sure, that your system supports OpenCV and Tesseract.**.
+
+... and if you want to use the **App class features** you still need ``xdotool``and ``wmctrl``.
+
+**For programming with Java** you might use the ready to use ``sikulixapi.jar`` or the Maven snapshot dependency
+in a Maven/Gradle project. In any case you have to make ``OpenCV`` and ``Tesseract`` ready before.
 
 Getting the OpenCV support ready
 --------------------------------
