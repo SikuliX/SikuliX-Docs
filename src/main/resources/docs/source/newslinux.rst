@@ -60,7 +60,7 @@ A link (``ln -s ...``) as ``libopencv_java.so`` in any folder, that is on the li
         sudo apt install libopencv3.2-java
         sudo ln -s /usr/lib/jni/libopencv_java320.so /usr/lib/libopencv_java.so
         
-A ``libopencv_java320.so`` will be in ``/usr/lib/jni``, to where you have to symbolically link ``libopencv_java.so``.
+A ``libopencv_java320.so`` will be in ``/usr/lib/jni``, to where you have to symbolical link ``libopencv_java.so``.
 On Ubuntu the best place seems to be ``/usr/lib``, but that is up to you,
 as long as the containing folder is in the current lib path at runtime.
 
@@ -328,24 +328,27 @@ that is found in the library path.
 Getting the Tesseract support ready
 -----------------------------------
 
-You have to make sure, that a ``libtesseract....so`` is available on your system (version 3.04+).
+You have to make sure, that a ``libtesseract....so`` is available on your system.
 
 You should first try with your package manager.
+
+**It must be a version 3.x** (preferably 3.0.4+).
+    **Version 4 cannot be used yet** (would be apt-installed on Ubuntu 18.04)
 
 To test, what you have on your system, run this::
 
     tesseract -v
 
-    # what should show up with something like that:
+    # should show up with something like that:
     ...> tesseract 3.05.02
     ...>    leptonica-1.74.4
     ...>       libjpeg 8d (libjpeg-turbo 1.5.2) : libpng 1.6.34 : libtiff 4.0.9 : zlib 1.2.11
 
 If anything looks odd, than you have to dive into the gory details.
 
-**On Ubuntu 18.04 the following steps did the job**
+**On Ubuntu 18.04 the following steps installed a Tesseract 3.0.5**
 
-Be aware: this is not a runnable shell script. Only the used command are listed::
+Be aware: this is not a runnable shell script. Only the used commands are listed::
 
     # this worked on Ubuntu 18.04 on August 1st, 2018
     # thanks to https://lucacerone.net/2017/install-tesseract-3-0-5-in-ubuntu-16-04/
