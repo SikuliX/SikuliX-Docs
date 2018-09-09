@@ -6,21 +6,23 @@ Version 1.1.4 - Special for Linux people
 Getting a JDK and SikuliX IDE
 -----------------------------
 
-**This is some diary about my trials to get it running on Ubuntu 18.04**
+You need a Java JDK version 8 or later.
+
+Since ``Java 11`` will be available from mid September 2018 on, I used that and had success.
 
 **openJDK 11** using the latest from the `Java 11 EarlyAccess Builds page <http://jdk.java.net/11/>`_
 
- - downloaded the openJDK Linux pack and put the resulting ``jdk11 folder into my home folder``
+ - download the openJDK Linux pack and put the resulting ``jdk11 folder into your home folder``
  - in a Terminal window try ``<home>/jdk11/bin/java -version`` - should show up as Java 11
  
-**Downloaded the SikuliX IDE jar** from the `SikuliX Download page <https://raiman.github.io/SikuliX1/downloads.html>`_
-and put it in my ``home into a folder SikuliX``
+**Download the SikuliX IDE jar** from the `SikuliX Download page <https://raiman.github.io/SikuliX1/downloads.html>`_
+and put it in your ``home into a folder SikuliX``
 
-Trying to run it in a Terminal Window being in folder SikuliX as::
+Try to run it in a Terminal Window being in folder SikuliX as::
 
     <home>/jdk11/bin/java -jar sikulix.jar -v
     
-The parameter ``-v`` gives full debug output from the very beginning - hence keep it until all works.
+The parameter ``-v`` gives full debug output from the very beginning - hence keep it until everything works.
     
 **You might get the following error** message::
 
@@ -30,15 +32,18 @@ I found the following solution for that::
 
     sudo apt install libcanberra-gtk0 libcanberra-gtk-module
     
+**The IDE should start up and the GUI should principally work.**
 
-**The IDE starts up and principally works**
+**Be aware** To make it finally useable, you have to **make sure, that your system supports OpenCV and Tesseract.**.
 
 Getting the OpenCV support ready
 --------------------------------
 
-SikuliX needs access to the OpenCV Java/JNI bindings (an OpenCV native library named ``libopencv_java320.so``, where 320 is a shortcut for the version).
+SikuliX needs access to the OpenCV Java/JNI bindings (an OpenCV native library named ``libopencv_java320.so``,
+where 320 is a shortcut for the version).
 
-On Debian systems (like Ubuntu) you should get it with the apt-tool, on other Linux systems you might get it with their package-tool. In any case it is possible, to create it from the sources (see below). 
+On Debian systems (like Ubuntu) you should get it with the apt-tool, on other Linux systems you might
+get it with their package-tool. In any case it is possible, to create it from the sources (see below).
 
 **Generally needed:**
 
