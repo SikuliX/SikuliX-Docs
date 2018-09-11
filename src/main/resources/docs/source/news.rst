@@ -1,15 +1,14 @@
 New in version 1.1.4
 ====================
 
-**Sorry, Linux users - you have to wait - trying to get it running on Ubuntu 18.04**
+**Sorry, Linux users - you have to do a little bit more than Windows/Mac users:** :ref:`look here<newslinux>`.
+    It makes sense to first go there and know what is needed ;-)
 
-:ref:`Here you can read, what I am currently doing<newslinux>`.
-
-**The following is for all ;-) even for Linux users some day in the future ;-)**
+**The following is for all**
 
 :ref:`Here is a list of current bugs and requests and possible workarounds<newsbugs>`
 
-Version 1.1.4 has some features only planned for version 2, which seems to need some more time to get ready ;-)
+Version 1.1.4 has features only planned for version 2, which seems to need some more time to get ready ;-)
 
 A summary of major aspects:
 
@@ -22,18 +21,19 @@ A summary of major aspects:
    Tesseract 3.0.5). All Tesseract options will be available at the Java API level.
    The Text/OCR features are completely revised and augmented.
  
- - **Transparency** images with transparent areas (called masks) are now supported for search (ignoring the parts
+ - **Transparency** Images with transparent areas (called masks) are now supported for search (ignoring the parts
    of the rectangles being transparent). Features will be available to create masks and masked images.
 
- - **setup no longer needed** you just download either the API pack (Java programming or other Java based languages)
-   or the IDE pack and simply start using it.
+ - **setup no longer needed** You just download the IDE pack and simply start using it
+ (for Jython and/or JRuby an additional download is needed). Same goes for the API pack
+ (for programming in Java or other Java based languages). JavaScript support is not yet fully available.
 
  - **the IDE is a little bit revised** and already got / will get some enhancements
 
-`The new SikuliX Download page, where you can get the stuff needed <https://raiman.github.io/SikuliX1/downloads.html>`_
+`The new SikuliX Download page, where you can get more info and the needed stuff <https://raiman.github.io/SikuliX1/downloads.html>`_
 
-Revision of the find API
-------------------------
+Revision of the image find API
+------------------------------
 
 To support all features both for image and text search, the text search now has its own function set,
 whose behavior is the same as for image search, except, that a given text is directly taken as the text to be
@@ -66,7 +66,15 @@ In all cases, these functions return a :py:class:`Match` object as result, which
   has                   no                  no
   exists                yes                 no
   waitVanish            yes                 no
+  findChanges           no                  no
 ==================   ==================   =====================
+
+**findChanges** The feature *look-for-changes* is already known from the ``observe`` feature ``onChange``.
+The new find variant compares two images (must have exactly the same size) and returns a list of the areas,
+that are different in the second image (for details see the function description in class Finder).
+
+Revision of the text find API
+-----------------------------
 
 The equivalent functions that definitely look for the given text are named ``xxxText``.
 There is also a shortcut set named only ``xxxT``. This might be helpful, when migrating to the new function set
@@ -90,7 +98,7 @@ And there are new text functions, that only search once and do not throw findFai
  - ``findWord("a word")`` looks for a word, whose text can be a regular expression
  - ``findLine("some text")`` looks for and returns the line, that contains the text (might be a regular expression)
 
-For details :ref:`see the function description itself<FindinginsideaRegionandWaitingforaVisualEvent>`.
+For details :ref:`see the function descriptions <FindinginsideaRegionandWaitingforaVisualEvent>`.
 
 Revision of the findAll feature
 -------------------------------
@@ -179,8 +187,8 @@ to your SikuliX environment and activate it with the respective Tesseract option
 
 **For detailed information and usage examples** :ref:`look here<textandocr>`.
 
-Using images with transparent parts
------------------------------------
+Using images with transparent parts (masked images)
+---------------------------------------------------
 
 SikuliX now accepts images (PNG format only) that are partly transparent. This allows to search for images
 on varying backgrounds and/or for images, whose content partly varies and should be ignored.
@@ -195,7 +203,7 @@ of 100% (opacity is 0%) are ignored (will be 0 in the mask).
 Additionaly the :py:class:`Pattern` now has features to specify images with the same size in pixels as the base image
 with black areas, that are interpreted as transparent areas to create a mask accordingly.
 
-Currently SikuliX has no features to create images with transparency nor mask images with black areas. To create such
+SikuliX does not have features yet to create images with transparency nor mask images with black areas. To create such
 images you have to use respective tools from the world of image handling or photo editing.
 
 **Example on Mac** Open an image in the Preview app. Use one of the selection tools to select an area that should be
