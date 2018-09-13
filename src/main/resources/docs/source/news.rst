@@ -209,3 +209,5 @@ images you have to use respective tools from the world of image handling or phot
 **Example on Mac** Open an image in the Preview app. Use one of the selection tools to select an area that should be
 fully transparent and simply click backspace to *delete* the area. These steps might be repeated.
 The image will automatically be a PNG file with an alpha-channel (the transparency information).
+
+**There is a tutorial**: :ref:`Working with masked images (ignoring parts of the image) <tutorialMasking>`

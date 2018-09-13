@@ -1,5 +1,7 @@
-Working with masked images (ignoring parts of the image)
-========================================================
+.. _tutorialMasking:
+
+Working with masked images (ignoring parts of the image) # 1.1.4
+================================================================
 
 .. versionadded:: 1.1.4
 
