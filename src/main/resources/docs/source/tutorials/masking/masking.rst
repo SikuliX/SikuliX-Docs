@@ -70,14 +70,26 @@ It comes in 3 different flavors (see :py:class:`Pattern`):
         search(shot, "original image")
 
         # showcase auto-masked
-        search(shotTrans, "having transparency (auto masked)")
+        search(shotTrans, "transparency (auto-masked)")
 
         # showcase black-masked
-        search(shotBlack, "having black parts used as mask")
+        search(shotBlack, "black parts as mask (black-masked")
 
         # showcase image-masked
-        search(shotMasked, "masked with other black/white image")
+        search(shotMasked, "masked with other image (image-masked)")
 
 **This image must be visible on the screen, when running the example.**
 
 .. image:: shot-tile-small.png
+
+... and this is the output you should get principally::
+
+        ##### searching for: (shot.png) original image
+            found: 6 matches score max/min: 0.9971 / 0.9971
+        ##### searching for: (shotTransparent.png) transparency (auto-masked)
+            found: 6 matches score max/min: 0.9907 / 0.9900
+        ##### searching for: (P(shotBlack.png) S: 0.7 masked) black parts as mask (black-masked
+            found: 6 matches score max/min: 0.9985 / 0.9983
+        ##### searching for: (P(shot.png) S: 0.7 masked) masked with other image (image-masked)
+            found: 6 matches score max/min: 0.9985 / 0.9983
+
