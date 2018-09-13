@@ -15,7 +15,7 @@ It comes in 3 different flavors (see :py:class:`Pattern`):
  - using images with 100% transparent parts (``auto-masked``)
  - saying, that the black parts of an image should be ignored (``black-masked``)
         ``Pattern(imageWithBlackParts).mask()``
- - using one of the above (auto-masked or black-masked) as the mask for another image (``image-masked``)
+ - using an auto-masked or black-masked image as the mask (``image-masked``)
         ``Pattern(someImage).mask(imageWithBlackParts)``
 
 .. sikulicode::
@@ -23,7 +23,7 @@ It comes in 3 different flavors (see :py:class:`Pattern`):
         # original image
         shot = "shot.png"
 
-        # image with transparency (here shown as black, auto masked)
+        # image with transparency (auto-masked)
         shotTrans = "shotTransparent.png"
 
         # image with black parts useable as mask (black-masked)
