@@ -73,6 +73,10 @@ Saved scripts (.sikuli) and exported scripts (.skl and .jar) can be run from com
 Using JavaScript
 ================
 
+**BE AWARE** The support for JavaScript is based on the **integrated engine Nashorn** (available since Java 7).
+    It looks like, that Nashorn might be removed with Java 11+ (it is still there though in the current early access versions).
+    Until I have a solution, in case you have to stick with Java 10 to use Nashorn.
+
 One can use **JavaScript** for scripting with SikuliX features. 
 
 The easiest approach:

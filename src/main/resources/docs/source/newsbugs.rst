@@ -11,11 +11,14 @@ Version 1.1.4 - Bugs, known Problems, requests and possible workarounds
 
 ... and hence have to be accepted for now.
 
- - Java 9+: WARNING: Illegal reflective access ... `bug <https://bugs.launchpad.net/sikuli/+bug/1749262>`_
+ - **Java 9+: WARNING:** Illegal reflective access ... `bug <https://bugs.launchpad.net/sikuli/+bug/1749262>`_
 
- - IDE: finding text in a script is urrently switched off (menu Edit -> Find) `bug <https://bugs.launchpad.net/sikuli/+bug/1788811>`_
+ - **IDE: Menu Edit -> Find** is currently switched off `bug <https://bugs.launchpad.net/sikuli/+bug/1788811>`_
 
- - Android support via jADB is currently switched off `bug <https://bugs.launchpad.net/sikuli/+bug/1788812>`_
+ - **Android support via jADB** is currently switched off `bug <https://bugs.launchpad.net/sikuli/+bug/1788812>`_
 
- - IDE: the Command-Bar (optional left side clickable list of basic features) is switched off. Will come back in a more general form asap.
+ - **IDE: Command-Bar** (optional left side clickable list of basic features) is switched off. Will come back in a more general form asap.
+
+ - **Java 11+**: the future of the **integrated JavaScript engine Nashorn** looks bad: might be removed.
+ Until I have a solution, you have to stick with Java 10, if you want to use JavaScript.
 

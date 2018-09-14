@@ -187,6 +187,20 @@ to your SikuliX environment and activate it with the respective Tesseract option
 
 **For detailed information and usage examples** :ref:`look here<textandocr>`.
 
+**System specific aspects**
+
+For Mac and Windows the needed native libraries are bundled with SikuliX.
+Since I am testing with macOS 10.13 and Windows 10, there might well be problems with prior system versions, that can be
+reported but might not be solved ;-)
+
+Linux users have to look at the gory details in the special chapter below.
+
+``Lessons learned``
+
+ - Windows: Ensure you have latest Visual C++ Redistributable Pack (>=2013) installed
+
+
+
 Using images with transparent parts (masked images)
 ---------------------------------------------------
 
@@ -209,3 +223,5 @@ images you have to use respective tools from the world of image handling or phot
 **Example on Mac** Open an image in the Preview app. Use one of the selection tools to select an area that should be
 fully transparent and simply click backspace to *delete* the area. These steps might be repeated.
 The image will automatically be a PNG file with an alpha-channel (the transparency information).
+
+**There is a tutorial**: :ref:`Working with masked images (ignoring parts of the image) <tutorialMasking>`

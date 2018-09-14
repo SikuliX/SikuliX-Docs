@@ -161,6 +161,7 @@ Tutorials
    tutorials/sliders/sliders
    tutorials/surveillance/surveillance
    tutorials/resize/resize
+   tutorials/masking/masking
 
 For Developers
 --------------
