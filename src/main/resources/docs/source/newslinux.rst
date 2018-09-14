@@ -24,14 +24,14 @@ Try to run it in a Terminal Window being in folder SikuliX as::
     
 The parameter ``-v`` gives full debug output from the very beginning - hence keep it until everything works.
     
-**You might get the following error** message::
-
+**You might get the following error**
     Gtk-Message: 11:28:51.117: Failed to load module "canberra-gtk-module"
-    
-I found the following solution for that::
+    solution: ``sudo apt install libcanberra-gtk0 libcanberra-gtk-module``
 
-    sudo apt install libcanberra-gtk0 libcanberra-gtk-module
-    
+**You might get the following error**
+    Assistive technology not found AWTError
+    `look here for possible solutions <https://askubuntu.com/questions/695560/assistive-technology-not-found-awterror>`_
+
 **The IDE should start up and the GUI should principally work.**
 
 **Be aware** To make it finally useable, you have to **make sure, that your system supports OpenCV and Tesseract.**.
