@@ -24,6 +24,8 @@ A summary of major aspects:
  - **Transparency** Images with transparent areas (called masks) are now supported for search (ignoring the parts
    of the rectangles being transparent). Features will be available to create masks and masked images.
 
+ - **App class revised** the implementation is now more robust and has some enhancements.
+
  - **setup no longer needed** You just download the IDE pack and simply start using it
  (for Jython and/or JRuby an additional download is needed). Same goes for the API pack
  (for programming in Java or other Java based languages). JavaScript support is not yet fully available.
@@ -200,7 +202,6 @@ Linux users have to look at the gory details in the special chapter below.
  - Windows: Ensure you have latest Visual C++ Redistributable Pack (>=2013) installed
 
 
-
 Using images with transparent parts (masked images)
 ---------------------------------------------------
 
@@ -225,3 +226,21 @@ fully transparent and simply click backspace to *delete* the area. These steps m
 The image will automatically be a PNG file with an alpha-channel (the transparency information).
 
 **There is a tutorial**: :ref:`Working with masked images (ignoring parts of the image) <tutorialMasking>`
+
+App class revised
+=================
+
+ - ``App.focus`` and ``App.close()`` now check, wether the app is still running
+   (might have been closed manually meanwhile or simply crashed)
+
+ - there is a new ``App.closeByKey()``, that tries to get the app to front and then use the system specific key
+   combination (``Alt-F4, cmd-Q, ctrl-Q``) to gracefully close the application, which might not always be accomplished
+   using the normal ``App.close()``.
+
+ - ``App.open()`` and ``App.close()`` now have an optional parameter, to specify the maximum number of seconds
+   to wait for the completion of the request.
+
+ - ``App.toString()`` (scripting: ``print myApp``) now checks the internal state of the app and hence shows its
+   actual state.
+
+ - the logging verbosity is reduced to error situations, but can be raised with ``Debug.on(3)``.
