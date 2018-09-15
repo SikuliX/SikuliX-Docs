@@ -228,7 +228,7 @@ The image will automatically be a PNG file with an alpha-channel (the transparen
 **There is a tutorial**: :ref:`Working with masked images (ignoring parts of the image) <tutorialMasking>`
 
 App class revised
-=================
+-----------------
 
  - ``App.focus`` and ``App.close()`` now check, wether the app is still running
    (might have been closed manually meanwhile or simply crashed)
