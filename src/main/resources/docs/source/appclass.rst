@@ -171,8 +171,7 @@ and it is not possible yet, to bring such a window to front with a compound Siku
 		*Usage:* ``appName = someApp.setUsing("parm1 x parm2 y parm3 z")``
 		where App instance ``someApp`` was :ref:`created before <CreateAppInstance>`.
 
-		:param parametertext: a string, that is given to the application at startup (when using ``open()`` )
-		as if you would start the app from a commandline.
+		:param parametertext: a string, that is given to the application at startup (when using ``open()`` ) as if you would start the app from a commandline.
 
 
 **Getting information about a running application**
@@ -190,19 +189,19 @@ and it is not possible yet, to bring such a window to front with a compound Siku
 
 	.. py:method:: isRunning([waitTime])
 	
-		*Usage:* ``if not someApp.isRunning(): someApp.open()``
-		where App instance ``someApp`` was :ref:`created before <CreateAppInstance>`.
+		*Usage:* ``if not someApp.isRunning(): someApp.open()`` where App instance ``someApp`` was :ref:`created before <CreateAppInstance>`.
 
 		:param waitTime: optional: seconds as integer, that should be waited for the app to get running
-	  :return: True if the app is running (has a process ID), False otherwise
+		:return: True if the app is running (has a process ID), False otherwise
 
-		**Be aware** Until the wait time is elapsed, the state of the application is checked every second. If you use just
-    ``isRunning()``, the state check is done twice, waiting 1 second in between. Hence this might take up to 2 seconds.
-    If you want, that only one check is done, use ``isRunning(0)``.
+		**Be aware** Until the wait time is elapsed, the state of the application is checked every second.
+		If you use just ``isRunning()``, the state check is done twice, waiting 1 second in between.
+		Hence this might take up to 2 seconds.
+		If you want, that only one check is done, use ``isRunning(0)``.
 
 	.. py:method:: hasWindow()
 	
-		*Usage:* ``if not someApp.hasWindow(): openNewWindow() # some private function`` 
+		*Usage:* ``if not someApp.hasWindow(): openNewWindow() # some private function``
 		where App instance ``someApp`` was :ref:`created before <CreateAppInstance>`.
 	
 		:return: True if the app is running and has a main window registered, False otherwise
