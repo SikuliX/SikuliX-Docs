@@ -85,7 +85,16 @@ and it is not possible yet, to bring such a window to front with a compound Siku
 
 		Create an App instance, to later use with the instance methods (:ref:`see above <CreateAppInstance>`)
 
-		:param application: The name of an application (case-insensitive), that can be found in the path used by the system to locate applications, or the full path to an application. Optionally you might add parameters, that will be given to the application at open (see :py:func:`setUsing`).	
+		The string ``application`` must allow the system to locate the application in the system specific mannor.
+    If this is not possible you might try the full path to an application`` executable.
+
+		Optionally you might add parameters, that will be given to the application at time of open.
+			There are 3 options:
+       - put the application string in apostrophes and the rest following the second apostroph will be taken as parameter string
+       - put `` -- `` between the applications name or path (no apostrophes!) and the parameter string.
+       - use :py:func:`setUsing` with an already existing application object (:ref:`created before <CreateAppInstance>`)
+
+		:param application: The name of an application (case-insensitive) or the path to the executable and optionally parameters
 		:return: an App object, that can be used with the instance methods
 		
 	.. py:classmethod:: open(application)
@@ -94,7 +103,7 @@ and it is not possible yet, to bring such a window to front with a compound Siku
 
 		Open the specified application, if it is not yet opened and bring it to front
 
-		:param application: The name of an application (case-insensitive), that can be found in the path used by the system to locate applications, or the full path to an application (Windows: use double backslash \\ in the	path string to represent a backslash)
+		:param application: The name of an application (case-insensitive)
 		:return: an App object, that can be used with the instance methods
 		
 		This method is functionally equivalent to :py:func:`openApp`.
@@ -123,7 +132,6 @@ and it is not possible yet, to bring such a window to front with a compound Siku
 
 		Switch the input focus to this application/window.
 
-
 	.. py:classmethod:: close(application)
 	
 		*Usage:* ``App.close(application)``
@@ -147,7 +155,7 @@ and it is not possible yet, to bring such a window to front with a compound Siku
 
 		:param waitTime: optional: seconds as integer, that should be waited for the app to no longer being running
 
-		.. py:method:: closeByKey([waitTime])
+	.. py:method:: closeByKey([waitTime])
 
 		*Usage:* ``someApp.closeByKey()`` where App instance ``someApp`` was :ref:`created before <CreateAppInstance>`.
 
@@ -157,12 +165,13 @@ and it is not possible yet, to bring such a window to front with a compound Siku
 
 		:param waitTime: optional: seconds as integer, that should be waited for the app to no longer being running
 
-		.. py:method:: setUsing(parametertext)
+	.. py:method:: setUsing(parametertext)
 
 		*Usage:* ``appName = someApp.setUsing("parm1 x parm2 y parm3 z")``
 		where App instance ``someApp`` was :ref:`created before <CreateAppInstance>`.
 
-		:param parametertext: a string, that is given to the application at startup (when using ``open()`` ) as if you would start the app from a commandline.
+		:param parametertext: a string, that is given to the application at startup (when using ``open()`` )
+		as if you would start the app from a commandline.
 
 
 **Getting information about a running application**
