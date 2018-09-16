@@ -86,13 +86,14 @@ and it is not possible yet, to bring such a window to front with a compound Siku
 		Create an App instance, to later use with the instance methods (:ref:`see above <CreateAppInstance>`)
 
 		The string ``application`` must allow the system to locate the application in the system specific mannor.
-    If this is not possible you might try the full path to an application`` executable.
+		If this is not possible you might try the full path to an application's executable.
 
 		Optionally you might add parameters, that will be given to the application at time of open.
-			There are 3 options:
-       - put the application string in apostrophes and the rest following the second apostroph will be taken as parameter string
-       - put `` -- `` between the applications name or path (no apostrophes!) and the parameter string.
-       - use :py:func:`setUsing` with an already existing application object (:ref:`created before <CreateAppInstance>`)
+
+		There are 3 options:
+		 - put the application string in apostrophes and the rest following the second apostroph will be taken as parameter string
+		 - put `` -- `` between the applications name or path (no apostrophes!) and the parameter string.
+		 - use :py:func:`setUsing` with an already existing application object (:ref:`created before <CreateAppInstance>`)
 
 		:param application: The name of an application (case-insensitive) or the path to the executable and optionally parameters
 		:return: an App object, that can be used with the instance methods
@@ -390,6 +391,6 @@ to make suggestions on enhancements.
 **Linux**
 
 The features are implemented by either running an appropriate shell command or by using appropriate features of
-the packages ``xdotool``and ``wmctrl``, which must be provided by the user.
+the packages ``xdotool`` and ``wmctrl``, which must be provided by the user.
 
 
