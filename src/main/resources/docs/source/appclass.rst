@@ -13,9 +13,12 @@ and then later on ``myApp.open()``). There is no recomendation for a preferred u
 if you plan to act on the same app or window more often, 
 it might be more efficient, to use the instance approach. 
 
-For the string ``application-identifier`` principally the same rules apply, as if you would use the identifier on a command line. Especially if an item (app-name, app-path or window-name) contains blanks, it must be enclosed in double-quotes.
+For the string ``application-identifier`` principally the same rules apply, as if you would use the identifier
+on a command line. Especially if an item (app-name, app-path or window-name) contains blanks,
+it must be enclosed in double-quotes.
 
-If the application name is given without a path specification, then it must be found on the system, according to the rules of that system (Windows: is on system path, Mac: is in an /Applications folder, ...).
+If the application name is given without a path specification, then it must be found on the system,
+according to the rules of that system (Windows: is on system path, Mac: is in an /Applications folder, ...).
 
 Examples::
 	
@@ -72,8 +75,6 @@ and it is not possible yet, to bring such a window to front with a compound Siku
 
 **Open, close an application or focus on it**
 
- 
-
 .. _ClassAppMethods:
 
 .. py:class:: App
@@ -94,8 +95,7 @@ and it is not possible yet, to bring such a window to front with a compound Siku
 		Open the specified application, if it is not yet opened and bring it to front
 
 		:param application: The name of an application (case-insensitive), that can be found in the path used by the system to locate applications, or the full path to an application (Windows: use double backslash \\ in the	path string to represent a backslash)
-			
-		:return: an App object, that can be used with the instance methods, None in case of failing
+		:return: an App object, that can be used with the instance methods
 		
 		This method is functionally equivalent to :py:func:`openApp`.
 
@@ -117,8 +117,6 @@ and it is not possible yet, to bring such a window to front with a compound Siku
 
 		:param application: The name of an application (case-insensitive) or (part of) a window title (Windows/Linux) (case-sensitive).
 
-		:return: an App object, that can be used with the instance methods, , None in case of failing
-		
 	.. py:method:: focus()
 	
 		*Usage:* ``someApp.focus()`` where App instance ``someApp`` was :ref:`created before <CreateAppInstance>`.
@@ -135,53 +133,63 @@ and it is not possible yet, to bring such a window to front with a compound Siku
 		if no running application or opened window (Windows/Linux) can be
 		found. On Windows/Linux, whether the application itself is closed depends on
 		weather all open windows are closed or a main window of the application is
-		closed, that in turn closes all other opened windows. 
+		closed, that in turn closes all other opened windows.
 
-		:param application: The name of an application (case-insensitive) or (part
-			of) a window title (Windows/Linux)(case-sensitive).
+		:param application: The name of an application (case-insensitive) or (part of) a window title (Windows/Linux)(case-sensitive).
 
 		This method is functionally equivalent to :py:func:`closeApp`. 
 
-	.. py:method:: close()
+	.. py:method:: close([waitTime])
 
 		*Usage:* ``someApp.close()`` where App instance ``someApp`` was :ref:`created before <CreateAppInstance>`.
 
 		Close this application.
-		
+
+		:param waitTime: optional: seconds as integer, that should be waited for the app to no longer being running
+
+		.. py:method:: closeByKey([waitTime])
+
+		*Usage:* ``someApp.closeByKey()`` where App instance ``someApp`` was :ref:`created before <CreateAppInstance>`.
+
+		Close this application by bringing it to front first (``focus()``) an then issue the systemspecific
+		keybord shortcut to close an application. This might help in situations where the normal ``close()`` leads to
+		oddities at a later restart of the application.
+
+		:param waitTime: optional: seconds as integer, that should be waited for the app to no longer being running
+
+		.. py:method:: setUsing(parametertext)
+
+		*Usage:* ``appName = someApp.setUsing("parm1 x parm2 y parm3 z")``
+		where App instance ``someApp`` was :ref:`created before <CreateAppInstance>`.
+
+		:param parametertext: a string, that is given to the application at startup (when using ``open()`` ) as if you would start the app from a commandline.
+
+
 **Getting information about a running application**
 
-	.. py:classmethod:: pause(waitTime)
-	
-		*Usage:* ``App.pause(someTime)`` (convenience function)
-		
-		Just do nothing for the given amount of time in seconds (integer or float). 
+	.. py:method:: isValid()
 
+		*Usage:* ``if not someApp.isValid(): someApp.open()``
+		where App instance ``someApp`` was :ref:`created before <CreateAppInstance>`.
+
+		:return: True if the app has a process ID, False otherwise
+
+		**Be aware** This simply checks wether the app object has a valid process ID. Hence it returns instantly. But there
+		is no guarantee, that the app is still running. If you want to be sure, you have to use ``isRunning(0)``, which
+		evaluates the state of the app, but might take some 100 millisecs, depending on your system's state.
 
 	.. py:method:: isRunning([waitTime])
 	
-		*Usage:* ``if not someApp.isRunning(): someApp.open()`` 
+		*Usage:* ``if not someApp.isRunning(): someApp.open()``
 		where App instance ``someApp`` was :ref:`created before <CreateAppInstance>`.
-	
+
 		:param waitTime: optional: seconds as integer, that should be waited for the app to get running
-		:return: True if the app is running (has a process ID), False otherwise
-		
-		**Windows** It is common, to identify an app by (part of) it's window title. 
-		If it is not open yet, one has to use methods, to open it first before proceeding.
-		
-		So this is a typical example, how to deal with that:
-		
-		Example::
-			
-			# we want to act in a VirtualBox VM window and use the VM's name
-			# which is always part of the Window title when running
-			vb = App("VM-name")
-			if not vb.isRunning():
-  				App.open(r'"C:\Program Files\Oracle\VirtualBox\VBoxManage.exe" startvm VM-name')
-  				while not vb.isRunning():
-    					wait(1) 
-			vb.focus()
-			appWindow = App.focusedWindow()
-		
+	  :return: True if the app is running (has a process ID), False otherwise
+
+		**Be aware** Until the wait time is elapsed, the state of the application is checked every second. If you use just
+    ``isRunning()``, the state check is done twice, waiting 1 second in between. Hence this might take up to 2 seconds.
+    If you want, that only one check is done, use ``isRunning(0)``.
+
 	.. py:method:: hasWindow()
 	
 		*Usage:* ``if not someApp.hasWindow(): openNewWindow() # some private function`` 
@@ -210,15 +218,11 @@ and it is not possible yet, to bring such a window to front with a compound Siku
 	
 		:return: the short name of the app as it is shown in the process list
 
-	.. py:method:: setUsing(parametertext)
-	
-		*Usage:* ``appName = someApp.setUsing("parm1 x parm2 y parm3 z")`` 
-		where App instance ``someApp`` was :ref:`created before <CreateAppInstance>`.
-		
-		:param parametertext: a string, that is given to the application at startup (when using ``open()`` ) as if you would start the app from a commandline.
-	
-		:return: the app instance
+		.. py:classmethod:: pause(waitTime)
 
+		*Usage:* ``App.pause(someTime)`` (convenience function)
+
+		Just do nothing for the given amount of time in seconds (integer or float).
 
 Dealing with Application windows
 --------------------------------
@@ -349,4 +353,34 @@ General aspects, hints and tipps
 
 		*	It is sometimes possible to use the OCR text extraction feature 
 			:py:meth:`Region.text` to obtain the window title.
+
+Some technical information on the implementation
+------------------------------------------------
+
+The following information on how the features are implemented might help to understand problematic situations or
+to make suggestions on enhancements.
+
+**Windows**
+
+ - Applications are opened by internally running an appropriate ``start command``.
+
+ - The state of an application is evaluated by using the appropriate output of a ``tasklist command``.
+
+ - ``focus()`` and the ``window related`` features are still implemented at the native level (``WinUtil.dll``). Same goes
+   for finding an application by part of its frontmost window's title.
+
+**Mac**
+
+ - Applications are opened by internally running an appropriate ``open command``.
+
+ - The state of an application is evaluated by using the output of an appropriate AppleScript snippet, internally run
+   using macOS's ``osascript command``.
+
+ - ``focus()`` and the ``window related`` features are still implemented at the native level (``MacUtil.dll``).
+
+**Linux**
+
+The features are implemented by either running an appropriate shell command or by using appropriate features of
+the packages ``xdotool``and ``wmctrl``, which must be provided by the user.
+
 

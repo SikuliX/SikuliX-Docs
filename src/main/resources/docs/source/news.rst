@@ -230,6 +230,8 @@ The image will automatically be a PNG file with an alpha-channel (the transparen
 App class revised
 -----------------
 
+For details look into the function descriptions at :py:class:`App`.
+
  - ``App.focus`` and ``App.close()`` now check, wether the app is still running
    (might have been closed manually meanwhile or simply crashed)
 
