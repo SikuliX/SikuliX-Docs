@@ -92,7 +92,7 @@ and it is not possible yet, to bring such a window to front with a compound Siku
 
 		There are 3 options:
 		 - put the application string in apostrophes and the rest following the second apostroph will be taken as parameter string
-		 - put `` -- `` between the applications name or path (no apostrophes!) and the parameter string.
+		 - put `` -- `` (2 hyphens!) between the applications name or path (no apostrophes!) and the parameter string.
 		 - use :py:func:`setUsing` with an already existing application object (:ref:`created before <CreateAppInstance>`)
 
 		:param application: The name of an application (case-insensitive) or the path to the executable and optionally parameters
