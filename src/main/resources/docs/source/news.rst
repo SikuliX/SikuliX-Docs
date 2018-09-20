@@ -8,6 +8,8 @@ New in version 1.1.4
 
 :ref:`Here is a list of current bugs and requests and possible workarounds<newsbugs>`
 
+`... and this is a list of things already fixed <https://bugs.launchpad.net/sikuli/+bugs?field.searchtext=&orderby=-importance&field.status%3Alist=FIXCOMMITTED&field.importance%3Alist=CRITICAL&assignee_option=any&field.assignee=&field.bug_reporter=&field.bug_commenter=&field.subscriber=&field.structural_subscriber=&field.milestone%3Alist=86164&field.tag=&field.tags_combinator=ANY&field.has_cve.used=&field.omit_dupes.used=&field.omit_dupes=on&field.affects_me.used=&field.has_patch.used=&field.has_branches.used=&field.has_branches=on&field.has_no_branches.used=&field.has_no_branches=on&field.has_blueprints.used=&field.has_blueprints=on&field.has_no_blueprints.used=&field.has_no_blueprints=on&search=Search>`_
+
 Version 1.1.4 has features only planned for version 2, which seems to need some more time to get ready ;-)
 
 A summary of major aspects:
