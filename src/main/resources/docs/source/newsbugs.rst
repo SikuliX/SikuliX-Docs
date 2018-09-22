@@ -19,6 +19,8 @@ Version 1.1.4 - Bugs, known Problems, requests and possible workarounds
 
  - **IDE: Command-Bar** (optional left side clickable list of basic features) is switched off. Will come back in a more general form asap.
 
+ - **IDE Export as runnable jar** feature retracted -- looking for new solution
+
  - **Java 11+**: the future of the **integrated JavaScript engine Nashorn** looks bad: might be removed.
  Until I have a solution, you have to stick with Java 10, if you want to use JavaScript.
 
