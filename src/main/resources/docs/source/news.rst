@@ -28,9 +28,8 @@ A summary of major aspects:
 
  - **App class revised** the implementation is now more robust and has some enhancements.
 
- - **setup no longer needed** You just download the IDE pack and simply start using it
- (for Jython and/or JRuby an additional download is needed). Same goes for the API pack
- (for programming in Java or other Java based languages). JavaScript support is not yet fully available.
+ - **setup no longer needed** You just download the IDE or API pack and simply start using it.
+ With the IDE for Jython and/or JRuby support an additional download is needed, since JavaScript support is not yet fully available.
 
  - **the IDE is a little bit revised** and already got / will get some enhancements
 
