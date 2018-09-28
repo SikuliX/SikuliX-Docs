@@ -141,25 +141,30 @@ the rectangle selected by the user interactively..
 
 	.. py:method:: capture(region | text, [path,] name)
 	
-		only available in Python scripting
+		only available in Python scripting (MUST be used as such undotted)
 
 		:param region | text: an existing region object or text to display in the interactive mode.
 		:param path: a path to a folder where the image is stored
 		:param text: name of the image file (.png can be omitted)
 		:return: the absolute path of the stored image as ``path/name.png`` or None if no success
 
-		Works principally the same as the normal capture, but directly stores the resulting image to the specified location. The ``name``spec need not have the .png ending.  
+		Works principally the same as the normal capture, but directly stores the resulting image
+		to the specified location. The ``name`` spec need not have the ``.png`` ending.  
 		
-		If the path specification is omitted, the imagefile is stored in the :ref:`current bundlepath <ImageSearchPath>`. In this case the imagename will finally be ``bundlepath/_name.png``, where the leading underscore is an IDE convention to block the deletion of images, that are not namely referenced somewhere in the script, at the time the script is saved in the IDE. 
+		If the path specification is omitted, the imagefile is stored in the :ref:`current bundlepath <ImageSearchPath>`.
+		In this case the imagename will finally be ``bundlepath/_name.png``,
+		where the leading underscore is an IDE convention to block the deletion of images,
+		that are not namely referenced somewhere in the script, at the time the script is saved in the IDE.
 		
 **Note on Java usage or in non-Python**
 
 ``String filename = screen.cmdCapture(Object... args).getStoredAt()``
 
-... where screen is some existing Screen object. The `args` are according to the above specification. The intermediate result of cmdCapture is a ScreenImage object, that holds the image internally as BufferedImage.
+... where screen is some existing Screen object. The ```args`` are according to the above specification.
+The intermediate result of cmdCapture is a ``ScreenImage object``, that holds the image internally as BufferedImage.
 
 .. _MultimonitorEnvironments:
-
+`
 Multi-Monitor Environments
 --------------------------
 
@@ -311,10 +316,10 @@ To make the package more useable there are now highlevel wrappers, that hide the
 	
 **USAGE IN JAVA** as being a static method in class VNCScreen, ``vncStart()`` has to be used as::
 
-        VNCScreen vnc = VNCScreen.start(ip, port, connectionTimeout, timeout) // or
-	VNCScreen vnc = VNCScreen.start(ip, port, password, connectionTimeout, timeout)
+        VNCScreen vnc = VNCScreen.start(ip, port, connectionTimeout, timeout)
+        // or	VNCScreen vnc = VNCScreen.start(ip, port, password, connectionTimeout, timeout)
         // the parameters are mandatory with values as mentioned above
-	// password can be null for unprotected connections
+        // password can be null for unprotected connections
         // do something with the vnc object
         vnc.stop() // optional - see above
         
