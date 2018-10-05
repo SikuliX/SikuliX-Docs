@@ -13,8 +13,6 @@ Version 1.1.4 - Bugs, known Problems, requests and possible workarounds
 
  - **Java 9+: WARNING:** Illegal reflective access ... `bug <https://bugs.launchpad.net/sikuli/+bug/1749262>`_
 
- - **IDE: Menu Edit -> Find** is currently switched off `bug <https://bugs.launchpad.net/sikuli/+bug/1788811>`_
-
  - **Android support via jADB** is currently switched off `bug <https://bugs.launchpad.net/sikuli/+bug/1788812>`_
 
  - **IDE: Command-Bar** (optional left side clickable list of basic features) is switched off.
