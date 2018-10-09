@@ -251,5 +251,5 @@ For details look into the function descriptions at :py:class:`App`.
 New and revised features in the IDE
 -----------------------------------
 
- - It is now possible to `run parts of a script <RunOnlyParts>`
+ - It is now possible to :ref:`run parts of a script <RunOnlyParts>`
 
