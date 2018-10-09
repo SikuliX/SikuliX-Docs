@@ -32,7 +32,32 @@ At startup these places are searched for a file ``SikulixOptions.txt`` (first ap
      when saving images in the IDE, usually when using a name, that already exists, this is not overwritten, but  stored with a name having a suffix -n appended.
      With this option switched on (default is off) naming images with an existing name will replace the image file without notice. 
      
- - ``classpath = list of absolute-paths``
+ - ``classpath = list of absolute-paths`` (works only up to version 1.1.3)
  
-     will be added to the end of the classpath in the given sequence. Rules are the same as for Java classpath on that system. On Windows backslashes have to be doubled (escaped).
+     will be added to the end of the classpath in the given sequence.
+     Rules are the same as for Java classpath on that system. On Windows backslashes have to be doubled (escaped).
+
+.. _RunOnlyParts:
+
+.. versionadded:: 1.1.4
+
+Run only parts of a script
+--------------------------
+
+(Until noted only available for Jython scripting)
+
+By ``right-clicking`` on a line number the pop-up context menu lets you
+
+ - run only the line at this line number
+ - run the script from beginning up to and including this line
+ - run the script from this line to the end
+ - run the snippet in the current selection or this line if nothing is selected
+
+The ``Run menu`` now contains the entry ``Run selection SHIFT-CTRL/CMD-R``, that also runs the current selection
+or the line at the caret, if nothing is selected (advantage: the available shortcut, which saves additional mouse actions)
+
+BE AWARE for Jython: If the first line of a selection has an indent, ``if True:`` is added as first line,
+to make the snippet runnable
+
+This feature might be a neat replacement for the no longer available interactive mode from commandline.
  

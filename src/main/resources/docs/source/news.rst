@@ -247,3 +247,9 @@ For details look into the function descriptions at :py:class:`App`.
    actual state.
 
  - the logging verbosity is reduced to error situations, but can be raised with ``Debug.on(3)``.
+
+New and revised features in the IDE
+-----------------------------------
+
+ - It is now possible to `run parts of a script <RunOnlyParts>`
+
