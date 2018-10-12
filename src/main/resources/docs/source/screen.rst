@@ -379,15 +379,39 @@ Due to the current implementation concept of VNCScreen, **Region or Location obj
 Connecting to an Android device or emulator (ADBScreen)
 -------------------------------------------------------
 
-.. versionadded:: 1.1.1
+.. versionadded:: 1.1.4
 
-Based on the ideas and first implementation of Gergő Törcsvári https://github.com/tg44 it is now possible to capture images from an Android device in the IDE and run scripts the same way as with a local screen. You can wait for images to appear on the Android screen and act with taps, swipes and text input. Since the avarage latency for a search operation is about 1 second (varies with screen resolution, region size and device processor speed), this solution only makes sense for basic automation and testing, where speed does not matter.
+Based on the ideas and first implementation of Gergő Törcsvári https://github.com/tg44
+it is now possible to capture images from an Android device in the IDE and run scripts
+the same way as with a local screen. You can wait for images to appear on the Android screen and act with taps,
+swipes and text input. Since the avarage latency for a search operation is about 1 second
+(varies with screen resolution, region size and device processor speed),
+this solution only makes sense for basic automation and testing, where speed does not matter.
 
-The implementation uses adb (Android Debugging Bridge) and the Java wrapper jadb. It can be used with devices and emulators with minimum Android version 4 and does not need rooting. A device has to be attached via USB (first tests using a WiFi connection where discouraging). Currently only one connection is supported. If more than one device is available, then the one is connected, that shows up in first place on the device list. 
+The implementation uses the ``Android Debugging Bridge tool adb`` and the ``Java wrapper jadb``:
+ - ``jadb``: the sources (1.1.0-SNAPSHOT per September 2018) are bundled in SikuliX (https://github.com/vidstige/jadb)
+ - ``adb``: the tool must be present on your system (see: https://developer.android.com/studio/releases/platform-tools)
+
+It can be used with devices and emulators with minimum Android version 4 and does not need rooting.
+A device has to be attached via USB (first tests using a WiFi connection where discouraging).
+Currently only one connection is supported. If more than one device is available, then the one is connected,
+that shows up in first place on the device list.
+
+The SikuliX IDE has a menu entry in the ``Tools menu``, that lets you make some basic tests, to assure, that your
+setup will work.
 
 If you want to use this feature, you should be familiar at least with the basics of adb.
 
-The usage is similar to VNCScreen: you work with an ADBScreen object, that represents the device's screen and in SikuliX terms is a Region that provides all search and action features. As far as possible the actions are transformed to Android actions: a click gets a tap and type/paste result in an input text. Most mouse and keyboard actions will do nothing but produce an error log. Furthermore Android typical actions are now available with class Region: tap, swipe, input, ... and it is possible to issue device commands via exec. If used with a local screen, these features  silently do nothing.
+The usage is similar to VNCScreen: you work with an ADBScreen object, that represents the device's screen
+and in SikuliX terms is a Region that provides all search and action features.
+As far as possible the actions are transformed to Android actions:
+a click gets a tap and type/paste result in an input text.
+Most mouse and keyboard actions will do nothing but produce an error log.
+Furthermore Android typical actions are now available with class Region: tap, swipe, input,
+... and it is possible to issue device commands via exec.
+If used with a local screen, these features  silently do nothing.
+
+**Here will be more information asap**
 
 
 	
