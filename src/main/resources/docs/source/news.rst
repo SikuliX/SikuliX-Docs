@@ -28,6 +28,8 @@ A summary of major aspects:
 
  - **App class revised** the implementation is now more robust and has some enhancements.
 
+ - **Android support** via ``adb`` platform-tool :ref:`is reimplemented - please read<ADBConnection>`.
+
  - **setup no longer needed** You just download the IDE or API pack and simply start using it.
  With the IDE for Jython and/or JRuby support an additional download is needed, since JavaScript support is not yet fully available.
 
