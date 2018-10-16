@@ -404,15 +404,55 @@ If you want to use this feature, you should be familiar at least with the basics
 
 The usage is similar to VNCScreen: you work with an ADBScreen object, that represents the device's screen
 and in SikuliX terms is a Region that provides all search and action features.
+
 As far as possible the actions are transformed to Android actions:
-a click gets a tap and type/paste result in an input text.
+``a click gets a tap and type/paste result in an input text``
 Most mouse and keyboard actions will do nothing but produce an error log.
-Furthermore Android typical actions are now available with class Region: tap, swipe, input,
-... and it is possible to issue device commands via exec.
+
+Furthermore Android typical actions are ``available with class Region: tap, swipe, input,``
+... and it is possible to ``issue device commands via exec``.
+
 If used with a local screen, these features  silently do nothing.
 
-**Here will be more information asap**
+**How to tell SikuliX, where you have adb on your system**
 
+With a standard setup, there is somewhere a folder containing a folder ``plattform-tools``, that in turn contains the
+executable ``adb``(Windows: adb.exe). In this case, specifying the absolute path to the folder containing
+the ``platform-tools`` is sufficient.
 
-	
- 
+In all other cases you must specify the complete absolute path to the executable ``adb``.
+
+In the following ``adb-path`` is one of the above alternatives.
+
+*Option 1:* have a system environment variable with the key ``sikulixadb`` and the value ``adb-path``
+
+*Option 2:* have a Java property (-D...) with the key ``sikulixadb`` and the value ``adb-path``
+
+*Option 3:* specify ``adb-path`` as parameter when starting the adb service in your script/program (see below).
+Be aware: This option 3 will not help, if you want to use the menu entry in the IDE's Tools menu
+
+**How to start and use the adb service**
+
+Take care, that your Android device is attached via USB to your system and is setup as accessible (see Android docs).
+
+Now you might use the IDE's Tool menu entry, to check, whether the device is found and accessible. Of course you might
+use your own script/program/solution to do that.
+
+AS already mentioned: The Java class ``ADBScreen`` is the implementation, that represents the Android device in SikuliX
+and has the features of a normal Screen object and bound Regions implemented to work towards the device.
+
+To get an object representing the device you either use
+
+``adbscr = ADBScreen.start()`` with above options 1 or 2
+
+or
+
+``adbscr = ADBScreen.start("adb-path")`` hence using option 3
+
+For Jython scripting there is a shortcut: ``adbscr = adbStart()`` or ``adbscr = adbStart("adb-path")``.
+
+Now for the rest of your script/program the variable ``adbscr`` represents the attached device and allows
+to use the implemented features in the normal way as ``adbscr.someImplementedFeature(...)``.
+
+To close a connection to a device use ``adbscr.stop()``. This is done automatically when a script/program ends.
+
