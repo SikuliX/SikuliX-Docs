@@ -300,7 +300,8 @@ Example::
 
 Example::
 
-  result = Do.popError("autoclosed after 3 seconds", "Severe Error", 3, Region(300,300))
+  where = Region(0,0,300,300)
+  result = Do.popError("autoclosed after 3 seconds", "Severe Error", 3, where)
   # the dialog will display somewhere in the upper left of the screen
   # with a box title as "Severe Error"
   if not result:
@@ -319,7 +320,8 @@ Example::
 
 Example::
 
-  result = Do.input("please fill in", "A filename", "someImage.png", Region(300,300))
+  where = Region(0,0,300,300)
+  result = Do.input("please fill in", "A filename", "someImage.png", where)
   # the dialog will display somewhere in the upper left of the screen
   # with a box title as "A filename"
   # and a preset input field containing "someImage.png"
