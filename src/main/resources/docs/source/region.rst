@@ -586,7 +586,13 @@ they are fully equivalent. The reason behind is some better compatibility to the
 		:return: a new :py:class:`Region` object
 		
 	.. py:method:: grow(width, height)
+
+			same as ``grow(range)``, but with separate values horizontally and vertically. 0 means no change.
 	
+	.. py:method:: grow(left, right, top, bottom)
+
+			same as ``grow(range)``, but with a separate value for each side. 0 means no change.
+
 .. _FindinginsideaRegionandWaitingforaVisualEvent:
 
 Finding inside a Region and Waiting for a Visual Event

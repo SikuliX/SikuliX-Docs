@@ -417,7 +417,7 @@ If used with a local screen, these features  silently do nothing.
 **How to tell SikuliX, where you have adb on your system**
 
 With a standard setup, there is somewhere a folder containing a folder ``plattform-tools``, that in turn contains the
-executable ``adb``(Windows: adb.exe). In this case, specifying the absolute path to the folder containing
+executable ``adb`` (Windows: adb.exe). In this case, specifying the absolute path to the folder containing
 the ``platform-tools`` is sufficient.
 
 In all other cases you must specify the complete absolute path to the executable ``adb``.
