@@ -208,6 +208,8 @@ Besides Java there are no prerequisites. All native libraries (64Bit, since Siku
 SikuliX on Linux
 ----------------
 
+**BE AWARE** This is only for **SikuliX 1.1.3** (for 1.1.4 look :ref:`New in 1.1.4 <NewIn114>`)
+
 The IDE is only available as jar-file, that can be double-clicked to start it (setting the executable bit of the jar-file might be necessary). 
 
 Setup installs a runsikulix command script, that can be used to start the IDE from commandline or to run scripts.
