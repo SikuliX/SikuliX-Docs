@@ -3,6 +3,10 @@ The Application Class (App)
 
 .. py:class:: App
 
+.. versionadded:: 1.1.4
+
+**Completely revised - makes sense to read**
+
 Using class or instance methods
 -------------------------------
 
@@ -14,7 +18,7 @@ if you plan to act on the same app or window more often,
 it might be more efficient, to use the instance approach. 
 
 For the string ``application-identifier`` principally the same rules apply, as if you would use the identifier
-on a command line. Especially if an item (app-name, app-path or window-name) contains blanks,
+on a command line. Especially if path specification contains blanks,
 it must be enclosed in double-quotes.
 
 If the application name is given without a path specification, then it must be found on the system,
@@ -52,25 +56,10 @@ and get the process id (PID) (``getPID``).
 The string representation of an app instance looks like this:
    ``[nPID:executableName (main/frontmost window title)] given text``
 
-(Windows/Linux) If it is not found, the titles of the currently 
-known windows are scanned, wether they contain the given text.
-The first matching window found evaluates to the application, that initializes the app instance.
+**BE AWARE** The ``application-identifier`` can no longer be (part of) a window title - it must specify an executable.
+If you want to reference a running application with (part of) a window title, you have to use ``App.focus()``.
 
-If neither the executable is found in the process list, nor a matching window, 
-the app instance is initialized as not running (the PID is set to -1). The given text is remembered.
-
-If you specify the exact window title of an open window, you will get exactly
-this one. But if you specify some text, that is found in more than one open
-window title, you will get the first in the row of all these windows. 
-So if you want exactly one specific window, you either
-need to know the exact window title or at least some part of the title text,
-that makes this window unique in the current context (e.g. save a document with
-a specific name, before accessing it's window).
-
-(Mac OS X) not yet possible, to identify a running app by part of the title of one of it's windows.
-The window title you get by ``getWindow()`` is the one of the currently frontmost window of that application.
-
-**NOTE** Currently the information, wether a window is hidden or minimized, is not available 
+**NOTE** Currently the information, wether a window is hidden or minimized, is not available
 and it is not possible yet, to bring such a window to front with a compound SikuliX feature.
 
 **Open, close an application or focus on it**
@@ -92,7 +81,7 @@ and it is not possible yet, to bring such a window to front with a compound Siku
 
 		There are 3 options:
 		 - put the application string in apostrophes and the rest following the second apostroph will be taken as parameter string
-		 - put `` -- `` (2 hyphens!) between the applications name or path (no apostrophes!) and the parameter string.
+		 - put `` -- `` (space 2 hyphens! space) between the applications name or path (no apostrophes!) and the parameter string.
 		 - use :py:func:`setUsing` with an already existing application object (:ref:`created before <CreateAppInstance>`)
 
 		:param application: The name of an application (case-insensitive) or the path to the executable and optionally parameters
@@ -104,49 +93,76 @@ and it is not possible yet, to bring such a window to front with a compound Siku
 
 		Open the specified application, if it is not yet opened and bring it to front
 
-		:param application: The name of an application (case-insensitive)
+		:param application: the same as for ``App(application``
 		:return: an App object, that can be used with the instance methods
 		
 		This method is functionally equivalent to :py:func:`openApp`.
 
-	.. py:method:: open([waitTime])
-	
-		*Usage:* ``someApp.open()`` 
-		where App instance ``someApp`` was :ref:`created before <CreateAppInstance>`.
-	
-		Open this application.
+	.. py:classmethod:: focus(title [, index])
 
-		:param waitTime: optional: seconds as integer, that should be waited for the app to get running
-		:return: the app instance or null/None if open failed
+		*Usage:* ``App.focus(title [, index])``
 
-	.. py:classmethod:: focus(application)
+		Switch the input focus to a running application having a front-most window with a matching title.
 
-		*Usage:* ``App.focus(application)``
+		:param title: The name of an application (case-insensitive) or (part of) a window title (case-sensitive).
+		:param index: optional number (counting from 0) telling which one you want to have in the row of possible matches.
+		:return: an App object, that can be used with the instance methods
 
-		Switch the input focus to an application/window.
+		If no index is given, it is taken as 0. If the index is not applicable (not enough matches)
+		the returned App object is invalid and not useable.
 
-		:param application: The name of an application (case-insensitive) or (part of) a window title (Windows/Linux) (case-sensitive).
+		So you might loop through possible matches by counting the index up from 0 until you get an invalid
 
-	.. py:method:: focus()
-	
-		*Usage:* ``someApp.focus()`` where App instance ``someApp`` was :ref:`created before <CreateAppInstance>`.
+		If you specify the exact window title of an open window, you will get exactly
+		this one. But if you specify some text, that is found in more than one open
+		window title, you will get the first in the row of all these windows.
+		So if you want exactly one specific window, you either
+		need to know the exact window title or at least some part of the title text,
+		that makes this window unique in the current context (e.g. save a document with
+		a specific name, before accessing it's window).
 
-		Switch the input focus to this application/window.
+		**macOS and Linux** not yet possible, to identify a running app by part of the title of it's frontmost window.
+		If you want to use a window title to match the application, use ``App.focus()`` before,
+		to get a valid App object.
+
+		This method is functionally equivalent to :py:func:`switchApp`.
 
 	.. py:classmethod:: close(application)
 	
 		*Usage:* ``App.close(application)``
 
-		It closes the
-		given application or the matching windows (Windows/Linux). It does nothing
-		if no running application or opened window (Windows/Linux) can be
-		found. On Windows/Linux, whether the application itself is closed depends on
-		weather all open windows are closed or a main window of the application is
-		closed, that in turn closes all other opened windows.
+		It closes the running application matching the given string. It does nothing
+		if no running application matches. If you want to use a window title to match the application, use ``App.focus()`` before,
+		to get a valid App object.
 
-		:param application: The name of an application (case-insensitive) or (part of) a window title (Windows/Linux)(case-sensitive).
+		:param application: The name of an application (case-insensitive)
 
 		This method is functionally equivalent to :py:func:`closeApp`. 
+
+	.. py:method:: setUsing(parametertext)
+
+		*Usage:* ``appName = someApp.setUsing("parm1 x parm2 y parm3 z")``
+		where App instance ``someApp`` was :ref:`created before <CreateAppInstance>`.
+
+		:param parametertext: a string, that is given to the application at startup (when using ``open()`` ) as if you would start the app from a commandline.
+
+	.. py:method:: open([waitTime])
+
+		*Usage:* ``someApp.open()``
+		where App instance ``someApp`` was :ref:`created before <CreateAppInstance>`.
+
+		Open this application.
+
+		:param waitTime: optional: seconds as integer, that should be waited for the app to get running
+		:return: the app instance, which will be invalid, if open failed.
+
+	.. py:method:: focus()
+
+		*Usage:* ``someApp.focus()`` where App instance ``someApp`` was :ref:`created before <CreateAppInstance>`.
+
+		Switch the input focus to this application.
+
+		:return: the app instance, which will be invalid, if open failed.
 
 	.. py:method:: close([waitTime])
 
@@ -155,6 +171,8 @@ and it is not possible yet, to bring such a window to front with a compound Siku
 		Close this application.
 
 		:param waitTime: optional: seconds as integer, that should be waited for the app to no longer being running
+
+		:return: the app instance, which should be invalid (not running) afterwards.
 
 	.. py:method:: closeByKey([waitTime])
 
@@ -165,14 +183,6 @@ and it is not possible yet, to bring such a window to front with a compound Siku
 		oddities at a later restart of the application.
 
 		:param waitTime: optional: seconds as integer, that should be waited for the app to no longer being running
-
-	.. py:method:: setUsing(parametertext)
-
-		*Usage:* ``appName = someApp.setUsing("parm1 x parm2 y parm3 z")``
-		where App instance ``someApp`` was :ref:`created before <CreateAppInstance>`.
-
-		:param parametertext: a string, that is given to the application at startup (when using ``open()`` ) as if you would start the app from a commandline.
-
 
 **Getting information about a running application**
 
