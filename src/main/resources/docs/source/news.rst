@@ -59,7 +59,7 @@ In all cases, these functions return a :py:class:`Match` object as result, which
 
  - **repeats-search** ``yes`` means, that the search is continued until either the image/text appears in the search region
    or until the standard/given waiting time is exceeded (which means a FindFailed). ``no`` means, that only one search is
-   performed with the content of the search region at that moment (meaning either found or not found)
+   performed with the content of the search region at that moment (meaning either found or not found).
 
  - **throws-FindFailed** ``yes`` means, that in case of not found (also for elapsed waiting time), a FindFailed
    exception is thrown, which leads to script/program termination, if not handled somehow. ``no`` means, that the function
@@ -70,11 +70,14 @@ In all cases, these functions return a :py:class:`Match` object as result, which
 **image-function**   **repeats-search**   **throws-FindFailed**
   find                  no                  yes
   wait                  yes                 yes
-  has                   no                  no
   exists                yes                 no
+  has                   yes                 no
   waitVanish            yes                 no
   findChanges           no                  no
 ==================   ==================   =====================
+
+**has** is a convenience wrapper for exists and intended to be used in logical expressions (if, while, ...) since it
+returns true in case of found and false otherwise. To get the match in case of found use ``getLastMatch()``.
 
 **findChanges** The feature *look-for-changes* is already known from the ``observe`` feature ``onChange``.
 The new find variant compares two images (must have exactly the same size) and returns a list of the areas,
