@@ -806,11 +806,14 @@ using a string containing the file name (path to an image file).
 		**Note**: You may adjust the scan rate (how often a search during the wait
 		takes place) by setting :py:attr:`Settings.WaitScanRate` appropriately.
 		
-	.. py:method:: has(PS)
+	.. py:method:: has(PS, [seconds])
 
 		Checks wether the given pattern *PS* is visible in the region. Does not throw FindFailed.
 
-		A convenience shortcut for ``exists(PS, 0)``.
+		Same as :py:meth:`Region.exists`, but returns true if found and false otherwise. So it is a convenience wrapper
+		intended to be used in logical expressions (if, while, ...).
+
+		If you need the match in case of found, you have to use :py:meth:`Region.getLastMatch` afterwards.
 
 .. _FindMoreThanOneImage:
 
