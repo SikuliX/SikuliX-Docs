@@ -79,7 +79,6 @@ You can start a new find or findAll operation on the same Finder object at any t
 
     Find rectangle areas in an image (the one the Finder was created with), that differ from another image.
       **Be aware**: Both images must have exactly the same size in pixels
-
     This feature is the image variant of ``onChange`` in the Region observe feature for one-time-use.
 
     :param path-to-imagefile: the target image to compare with (same size)
