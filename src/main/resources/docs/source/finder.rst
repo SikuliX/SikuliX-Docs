@@ -78,10 +78,9 @@ You can start a new find or findAll operation on the same Finder object at any t
 	.. py:method:: findChanges(path-to-imagefile)
 
     Find rectangle areas in an image (the one the Finder was created with), that differ from another image.
-      **Be aware**: Both images must have exactly the same size in pixels
     This feature is the image variant of ``onChange`` in the Region observe feature for one-time-use.
 
-    :param path-to-imagefile: the target image to compare with (same size)
+    :param path-to-imagefile: the target image to compare with (exactly same size in pixels)
     :return: a list of Region objects (empty, if no changes where detected).
 
 Example 1: findAll using a Finder
