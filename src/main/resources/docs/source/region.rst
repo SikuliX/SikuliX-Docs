@@ -1681,7 +1681,8 @@ application for accepting the action.
 		to give the target application some time to react and be prepared 
 		for the next Sikuli action. 
 		
-		**SPECIAL macOS Sierra 10.12+** If type does not behave as expected (characters like e or s are not typed) then `look here for explanation and workaround <https://bugs.launchpad.net/sikuli/+bug/1673089>`_. 
+		**SPECIAL macOS Sierra 10.12+** If type does not behave as expected (characters like e or s are not typed)
+		then `look here for explanation and workaround <https://bugs.launchpad.net/sikuli/+bug/1673089>`_.
 
 	.. py:method:: paste([PSMRL], text)
 
@@ -1717,7 +1718,17 @@ application for accepting the action.
 		Characters like \\n	(enter/new line) and \\t (tab) should work as expected with ``paste()``, 
 		but be aware of timing problems, when using e.g. intervening \\t to jump 
 		to the next input field of a form.
-		
+
+    **Be aware**: **Python scripting** In the IDE you can use Unicode/UTF8 characters, since this is the default
+    encoding for the script text. The current Jython still is at Python level 2.7, which does not support UTF8 characters
+    natively in the way it is expected by the underlying Java API. There is a convenience function available
+    ``unicd("some text containing non-ascii characters)``, that can be used, to make a string acceptable for the Java layer.
+
+    Example::
+
+      paste("йцуке") # will end up in some garbage
+      paste(unicd("йцуке")) # will work as expected
+
 .. _RegionExtractingText: 
 
 Extracting Text from a Region
