@@ -83,6 +83,7 @@ You can start a new find or findAll operation on the same Finder object at any t
     :param path-to-imagefile: the target image to compare with (exactly same size in pixels)
     :return: a list of Region objects (empty, if no changes where detected).
 
+
 Example 1: findAll using a Finder
 
 .. sikulicode::
