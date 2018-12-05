@@ -3,41 +3,32 @@ Finder
 
 .. py:class:: Finder
 
-.. versionadded:: 1.1.0
-The behavior is changed compared to previos versions, to be consistent with Region.find()/findAll().
+**Be aware:** Since 1.1.0 the behavior is changed compared to previous versions,
+to be consistent with Region.find()/findAll().
 
 A Finder object implements an iterator of matches and allows to search for a visual
 object in an image file that you provide (e.g. a screenshot taken and saved in a
 file before). After setting up the finder object and doing a find operation, you can
 iterate through the found matches if any.
 
-Important to know:
-
-*	per definition, an iterator can be stepped through only once - it is empty
-	afterwards
-*	it has to be destroyed using ``finder.destroy()``, especially when
-	used with ``for:`` or ``while:``
-*	when used in a ``with:`` construct, it is destroyed automatically
+**Be aware**: an iterator can be stepped through only once - it is empty afterwards
 
 Compared with the region based find/findAll operation, no exception FindFailed is
-raised in case nothing is found at all (use ``hasNext()`` to check). 
-
-The result using a finder object can be compared to what you get 
-with ``region.getLastMatch()`` when using :py:meth:`find() <Region.find>` or
-with ``region.getLastMatches()`` when using :py:meth:`findAll() <Region.findAll>`.
+raised in case nothing is found at all. Use ``hasNext()`` to check.
 
 **Note**: There is no chance, to get the number of matches in
 advance. If you iterate through to count, afterwards your finder is empty. 
 So you have to save your matches somehow while counting, if you need them later (one possible solution
 see example below).
 
-The workflow always is:
+The workflow always is (except for findChanges):
  * setup a Finder
  * do a find or findAll operation
  * check with hasNext(), wether anything was found at all
- * get the available matches with next() if hasNext() says more available
+ * get the available matches with next() if hasNext() says more are available
  * After a complete iteration, the finder object is empty. 
- * You can start a new find or findAll operation at any time.
+
+You can start a new find or findAll operation on the same Finder object at any time.
 
 .. py:class:: Finder
 
@@ -57,7 +48,6 @@ The workflow always is:
 		:param similarity: the minimum similarity a match should have. If omitted,
 			the default is used.
 	
-	.. versionadded:: 1.1.0
 	.. py:method:: findAll(path-to-imagefile, [similarity])
 
 		Find all occurences of the given image within a source image previously specified in the
@@ -81,12 +71,21 @@ The workflow always is:
 
 		:return: a :py:class:`Match` object or None, if empty or no more matches.
 
-		The returnd reference to a match object is no longer available in the finder
+		The returned reference to a match object is no longer available in the finder
 		object afterwards. So if it is needed later, it has to be saved to
 		another variable.
 
+	.. py:method:: findChanges(path-to-imagefile)
 
-Example 1: basic operations using a Finder
+    Find rectangle areas in an image (the one the Finder was created with), that differ from another image.
+      **Be aware**: Both images must have exactly the same size in pixels
+
+    This feature is the image variant of ``onChange`` in the Region observe feature for one-time-use.
+
+    :param path-to-imagefile: the target image to compare with (same size)
+    :return: a list of Region objects (empty, if no changes where detected).
+
+Example 1: findAll using a Finder
 
 .. sikulicode::
 	
@@ -100,8 +99,7 @@ Example 1: basic operations using a Finder
 		print "found: ", f.next() # access the next match in the row
 	
 	print f.hasNext() # is False, because f is empty now
-	f.destroy() # release the memory used by finder
-	
+
 Example 2: we want to know how many matches in advance 
 and want to save the matches for later use (based on the previous example).
 
@@ -118,11 +116,10 @@ and want to save the matches for later use (based on the previous example).
 		matches.append(f.next())	# access next match and add to matches
 
 	print f.hasNext() # is False, because f is empty now
-	f.destroy() # release the memory used by finder
-	
+
 	# now we have our matches saved in the list matches
 	print len(matches) # the number of matches
 
 	# we want to use our matches
 	for m in matches:
-		print m 
+		print m
