@@ -164,7 +164,7 @@ the rectangle selected by the user interactively..
 The intermediate result of cmdCapture is a ``ScreenImage object``, that holds the image internally as BufferedImage.
 
 .. _MultimonitorEnvironments:
-`
+
 Multi-Monitor Environments
 --------------------------
 
