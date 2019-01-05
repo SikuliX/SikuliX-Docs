@@ -131,7 +131,7 @@ There are 2 versions with different parameter configurations:
 		Select a region on the screen interactively 
 
 		:param text: Text to display in the middle of the screen.
-		:return: a new :py:class:`Region` object or None, if the user cancels the capturing process.
+		:return: a new :py:class:`Region` object or ``None``, if the user cancels the capturing process.
 		
 		**text**  is displayed for about 2 seconds in the middle of the screen.
 		If **text** is omitted, the default "Select a region on the screen" is
@@ -150,18 +150,19 @@ There are 2 versions with different parameter configurations:
 
 	.. py:method:: capture(region | text, [path,] name)
 	
-		only available in Python scripting (MUST be used as such undotted)
+    only available in Python scripting (MUST be used as such undotted)
 
-		:param region: an existing region object
+    :param region: an existing region object
     :param text: text to display in the interactive mode.
-		:param path: a path to a folder where the image is stored (bundlepath if omitted)
-		:param name: name of the image file (.png can be omitted)
-		:return: the absolute path of the stored image as ``path/name.png`` or None if no success
+    :param path: a path to a folder where the image is stored (bundlepath if omitted)
+    :param name: name of the image file (.png can be omitted)
+    :return: the absolute path of the stored image as ``path/name.png`` or None if no success
 
-		Works principally the same as the normal capture, but directly stores the resulting image
-		to the specified location. The ``name`` spec need not have the ``.png`` ending.  
+    Works principally the same as the normal capture, but directly stores the resulting image
+    to the specified location. The ``name`` spec need not have the ``.png`` ending.  
 		
-		If the path specification is omitted, the imagefile is stored in the :ref:`current bundlepath <ImageSearchPath>`.
+		If the path specification is omitted, the imagefile
+		is stored in the :ref:`current bundlepath <ImageSearchPath>`.
 		In this case the imagename will finally be ``bundlepath/_name.png``,
 		where the leading underscore is an IDE convention to block the automatic deletion of images,
 		that are not namely referenced somewhere in the script, at the time the script is saved in the IDE.
@@ -173,7 +174,7 @@ There are 2 versions with different parameter configurations:
 ... where screen is some existing Screen object. The ``args`` are according to the above
 parameter specifications of the two variants.
 
-The intermediate result of ``cmdCapture`` is a ``ScreenImage object``,
+The intermediate result of ``cmdCapture`` is a ``ScreenImage`` object,
 that holds the image internally as BufferedImage (accessible using ``ScreenImage.get()``).
 
 .. _MultimonitorEnvironments:
