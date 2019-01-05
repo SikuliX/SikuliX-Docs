@@ -79,12 +79,21 @@ screen.
 Capturing
 ---------
 
-Capturing is the feature, to grab a rectangle of pixels from a screenshot and save it to a temporary file for later use with find operations: :py:meth:`Screen.capture`. Each time, a capturing is done, a new screenshot is taken. 
+Capturing is the feature, to grab a rectangle of pixels from a screenshot and
+optionally save it to a temporary file for later use with find operations: :py:meth:`Screen.capture`.
+Each time, a capturing is done, a new screenshot is taken.
 
 There is an interactive variant :py:meth:`Screen.selectRegion`, that just returns the position and dimension of
 the rectangle selected by the user interactively..
 
-**Note on IDE:** Both features are available in the IDE via buttons in the toolbar. The ``Capture button`` will allow to interactively select the rectangle on the screen, whose pixel content should be saved to the current script's bundlpath and then insert the imagename at the current edit position in the script.
+**Note on IDE:** Both features are available in the IDE via buttons in the toolbar.
+The ``Capture button`` will allow to interactively select the rectangle on the screen,
+whose pixel content is saved to the current script's bundlepath and
+then inserted (as thumbnail or the generated filename) at the current edit position in the script.
+
+There are 2 versions with different parameter configurations:
+ - the first one always stores the shot to a temporary file
+ - the second one allows to specify the name and/or where to store the shot
 
 .. py:class:: Screen
 
@@ -101,7 +110,7 @@ the rectangle selected by the user interactively..
 		:param w: width of the rectangle to capture
 		:param h: height of the rectangle to capture
 
-		:return: the path to the file, where the captured image was saved. In
+		:return: the path to the file (always a file in temp storage), where the captured image was saved. In
 			interactive mode, the user may cancel the capturing, in which case
 			*None* is returned.
 
@@ -110,9 +119,9 @@ the rectangle selected by the user interactively..
 		the screen. If no *text* is given, the default "Select a region on the screen"
 		is displayed. 
 
-		If any arguments other than text are specified, capture() automatically
-		captures the given rectangle of the screen. In any case, a new screenshot is
-		taken, the content of the selected rectangle is saved in a temporary file.
+		If any valid arguments other than text are specified, capture() automatically
+		captures the given rectangle of the screen. If valid, a new screenshot is
+		taken and the content of the selected rectangle is saved in a temporary file.
 		The file name is returned and can be used later in the script as a reference
 		to this image. It can be used directly in cases, where a parameter PS is
 		allowed (e.g. :py:meth:`Region.find`, :py:meth:`Region.click`, ...). 
@@ -143,9 +152,10 @@ the rectangle selected by the user interactively..
 	
 		only available in Python scripting (MUST be used as such undotted)
 
-		:param region | text: an existing region object or text to display in the interactive mode.
-		:param path: a path to a folder where the image is stored
-		:param text: name of the image file (.png can be omitted)
+		:param region: an existing region object
+    :param text: text to display in the interactive mode.
+		:param path: a path to a folder where the image is stored (bundlepath if omitted)
+		:param name: name of the image file (.png can be omitted)
 		:return: the absolute path of the stored image as ``path/name.png`` or None if no success
 
 		Works principally the same as the normal capture, but directly stores the resulting image
@@ -153,15 +163,18 @@ the rectangle selected by the user interactively..
 		
 		If the path specification is omitted, the imagefile is stored in the :ref:`current bundlepath <ImageSearchPath>`.
 		In this case the imagename will finally be ``bundlepath/_name.png``,
-		where the leading underscore is an IDE convention to block the deletion of images,
+		where the leading underscore is an IDE convention to block the automatic deletion of images,
 		that are not namely referenced somewhere in the script, at the time the script is saved in the IDE.
 		
 **Note on Java usage or in non-Python**
 
 ``String filename = screen.cmdCapture(Object... args).getStoredAt()``
 
-... where screen is some existing Screen object. The ```args`` are according to the above specification.
-The intermediate result of cmdCapture is a ``ScreenImage object``, that holds the image internally as BufferedImage.
+... where screen is some existing Screen object. The ``args`` are according to the above
+parameter specifications of the two variants.
+
+The intermediate result of ``cmdCapture`` is a ``ScreenImage object``,
+that holds the image internally as BufferedImage (accessible using ``ScreenImage.get()``).
 
 .. _MultimonitorEnvironments:
 
