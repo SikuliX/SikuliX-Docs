@@ -1471,17 +1471,21 @@ application for accepting the action.
 
 		Highlight toggle (switched on if off and vice versa): highlight the region, showing a frame with the given color around it, until the effect is stopped by another parameterless highlight call with the same region. The script continues.
 
-	.. py:method:: highlight(True/False)
+	.. py:method:: highlightOn()
 
-		Definitely switch the highlight on (True) or off (False) (current state ignored). The script continues.
+		Definitely switch the highlight on (red frame, current state ignored). The script continues.
 
-	.. py:method:: highlight(True/False, color)
+	.. py:method:: highlightOn(color)
 
 		:param color: see **Note** below
 
-		Definitely switch the highlight on (True) or off (False) (current state ignored) using the given color. The script continues.
+		Definitely switch the highlight on (True) (current state ignored) using the given color. The script continues.
 
 	.. py:method:: highlightOff()
+
+		Definitely switch the highlight off (current state ignored). The script continues.
+
+	.. py:method:: highlightAllOff()
 
 		Switch off all currently active highlights.
 

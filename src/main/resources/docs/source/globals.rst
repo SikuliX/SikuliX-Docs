@@ -285,7 +285,7 @@ to **check wether we are running on a specific system**:
 	
 	:return: True if we are running on this system, False otherwise
 
-.. py:method:: Settings.getSikuliVersion()
+.. py:method:: Settings.getVersion()
 	Env.getSikuliVersion()
 	
 	Get the version of Sikuli.
@@ -298,6 +298,18 @@ to **check wether we are running on a specific system**:
 			print "This script needs SikuliX 1.0.1"
 			exit(1)
 		
+.. py:method:: Settings.getVersionBuild()
+	Env.getSikuliVersionBuild()
+
+	Get the version of Sikuli with detaile build info (number and date-time)
+
+	:return: a string containing the version string
+
+	::
+
+		print Settings.getVersionBuild()
+		# prints: 1.1.4-SNAPSHOT-#205-2019-02-22_10:50
+
 .. py:method:: App.getClipboard()
 	Env.getClipboard()
 
