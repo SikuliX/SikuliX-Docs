@@ -60,4 +60,18 @@ BE AWARE for Jython: If the first line of a selection has an indent, ``if True:`
 to make the snippet runnable
 
 This feature might be a neat replacement for the no longer available interactive mode from commandline.
+
+.. _EditPython:
+
+.. versionadded:: 1.1.4
+
+Plain Python scripts - edit, load, save and run
+-----------------------------------------------
+
+(Until noted only available for Jython scripting)
+
+This is work in progress and `related to this request bug <https://bugs.launchpad.net/sikuli/+bug/1818514>`_
+
+
+
  
