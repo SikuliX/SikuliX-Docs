@@ -695,8 +695,24 @@ and keeps available the original parameters given and the current image path.
 	
 	:param: script_path: a path to a script folder (rules see below)
 	:param: parameter: one or more parameters seperated by comma
-	:return: the return code that the called script has given with exit(n)
-	
+	:return: the return code that the called script has given with exit(n) (exception: n = 1 - see note)
+
+**Note on the returned value** If the called script runs into an exception (e.g. FindFailed), that is not catched
+internally, the exception info is logged as [error] messages and the returned value is set to 1. So to sort things
+out correctly, the called script should use exit(0) (which is the default if omitted) on success and use exit(n) with n > 1,
+to signal other cases to the calling script. Do not use values < 0.
+
+An example::
+
+    exitValue = runScript(whatever)
+    if exitValue > 1:
+       print "there was a special case"
+    elif exitValue == 1:
+       print "there was an exception"
+    else:
+       print "ran with success"
+    exit(exitValue)
+
 **BE AWARE:** each parameter MUST be a simple string.
 	
 **Rules for the given script_path**
