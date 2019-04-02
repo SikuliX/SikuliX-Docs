@@ -182,7 +182,7 @@ SikuliX on Windows
 
 The IDE is only available as jar-file, that can be double-clicked to start it.
 
-Usage in a command window: ``java -jar <path-to>/sikulix.jar`` (`for options see<RunningScriptsFromCommandLine>`)
+Usage in a command window: ``java -jar <path-to>/sikulix.jar`` (:ref:`for options see<RunningScriptsFromCommandLine>`)
 
 The ``SikulixAppData`` is stored in the folder ``Sikulix`` inside the folder the environment variable ``%APPDATA%`` points to.
 
@@ -193,7 +193,7 @@ SikuliX on Mac
 
 The IDE is only available as jar-file, that can be double-clicked to start it.
 
-Usage in a Terminal window: ``java -jar <path-to>/sikulix.jar`` (`for options see<RunningScriptsFromCommandLine>`)
+Usage in a Terminal window: ``java -jar <path-to>/sikulix.jar`` (:ref:`for options see<RunningScriptsFromCommandLine>`)
 
 The ``SikulixAppData`` folder is here ``~/Library/Application Support/Sikulix``
 
@@ -206,7 +206,7 @@ As Java you should use the OpenJDK versions (or the Oracle versions where approp
 
 The IDE is only available as jar-file, that can be double-clicked to start it (setting the executable bit of the jar-file might be necessary).
 
-Usage in a Terminal window: ``java -jar <path-to>/sikulix.jar`` (`for options see<RunningScriptsFromCommandLine>`)
+Usage in a Terminal window: ``java -jar <path-to>/sikulix.jar`` (:ref:`for options see<RunningScriptsFromCommandLine>`)<<
 
 On Linux Systems SikuliX cannot be used out of the box. For the details see :ref:`New in 1.1.4 <NewIn114>`.
 
