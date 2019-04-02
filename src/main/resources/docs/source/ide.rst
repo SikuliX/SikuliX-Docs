@@ -35,7 +35,10 @@ At startup these places are searched for a file ``SikulixOptions.txt`` (first ap
  - ``classpath = list of absolute-paths`` (works only up to version 1.1.3)
  
      will be added to the end of the classpath in the given sequence.
-     Rules are the same as for Java classpath on that system. On Windows backslashes have to be doubled (escaped).
+     Rules are the same as for Java classpath on that system.
+     On Windows backslashes have to be doubled (escaped).
+
+.. versionadded:: 1.1.4 1.1.4+ see the :ref:`Extensions<ExtensionsFeature>` feature
 
 .. _RunOnlyParts:
 
@@ -65,13 +68,35 @@ This feature might be a neat replacement for the no longer available interactive
 
 .. versionadded:: 1.1.4
 
-Plain Python scripts - edit, load, save and run
+Plain Python scripts - open, edit, save and run
 -----------------------------------------------
 
-(Until noted only available for Jython scripting)
+This is work in progress
+and `related to this request bug <https://bugs.launchpad.net/sikuli/+bug/1818514>`_
 
-This is work in progress and `related to this request bug <https://bugs.launchpad.net/sikuli/+bug/1818514>`_
+It is now possible, to work with plain Python files in the IDE, which allows to directly support the
+classic Python style of scripts and folder structures (modules).
 
+**Open and save .py files**
+
+**Image handling in the .py context**
+
+**Running .py files**
+
+.. _EditText:
+
+.. versionadded:: 1.1.4
+
+Text files - open, edit and save
+--------------------------------
+
+This is work in progress.
+
+**Special Sikulix text files**
+
+ - SikulixOptions.txt
+ - extensions.txt
+ - sites.txt
 
 
  
