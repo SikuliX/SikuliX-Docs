@@ -170,6 +170,10 @@ Prereqisites:
  You can use the SikuliX IDE to capture your images even in plain .py files (:ref:`see plain .py in IDE<plainPyIDE>`).
 
  If you want to run scripts from within the SikuliX IDE or from commandline using SikuliX, just open and run the main script unchanged (:ref:`see plain .py in IDE<plainPyIDE>`).
+
+**Usage with SikuliX --- Case 2: Using the installed Jython with SikuliX**
+
+You have to tell SikuliX about your installed Jython by using the Extensions feature.
  
 Access Python packages from SikuliX scripts run by SikuliX (GUI or commandline)
 -------------------------------------------------------------------------------
@@ -259,20 +263,25 @@ copies the complete content from sourcefolder to targetfolder (the parent folder
 
 **Be aware:** Be sure, your code compiles without errors, because the compile feature either succeeds or fails (compile errors), but you will not get any information about the cause or even the place of the compile problem.
 
+Using SikuliX with real C-based Python (version 2.7 up to 3.7 latest)
+---------------------------------------------------------------------
+
+.. _RealPython:
+
+This feature is under development (see on GitHub: `sikulix4python<https://github.com/RaiMan/sikulix4python>`_ for details and status)
+
+Comments and ideas are welcome and can be posted there as issues.
+
 Scripting with IntelliJ PyCharm and IDEA with Python plugin
 -----------------------------------------------------------
 
-.. versionadded:: X1.1.1
-
-Among the free IDE's, that allow to work with Python projects, I made the best experiences over the years with JetBrains's PyCharm (using the free Community Edition) or the Python plugin in JetBrain's IntelliJ IDEA. For working with the SikuliX features, you have to use it with the Java based Jython as interpreter.
+Among the free IDE's, that allow to work with Python projects, I made the best experiences over the years with JetBrains's PyCharm (using the free Community Edition) or the Python plugin in JetBrain's IntelliJ IDEA.
 
 PyCharm has a weakness, in that code completion while editing does not look into jar-files nor Java classes, while in the built-in Python console after having imported a Java class, code completion about the class attributes/methods works, so having a console open while editing might help as a workaround for inspecting Java classes.
 
 IntelliJ IDEA with Python plugin supports complete code completion (while editing and in console) including Java classes, but is a bit more complex to setup and use with just Python.
 
 If you are more used to Eclipse, the Eclipse PyDev might be your choice for Python development. The steps to get it running for use with SikuliX are similar to the following steps for PyCharm. If someone wants to document the details for Eclipse PyDev, he/she is always welcome - I will not do it on my own.
-
-This information is related to SikuliX version 1.1.1+ (recommended for use with mature IDE's).
 
 **Step 1: get Jython up and running**
 
@@ -282,7 +291,7 @@ Just follow the steps mentioned in the chapter ``Setup a Jython environment`` ab
 
 Download and install the `PyCharm Community Edition <https://www.jetbrains.com/pycharm/>`_.
 
-**Step 3: tell PyCharm to use Jython as interpreter**
+**Step 3a: tell PyCharm to use Jython as interpreter**
 
 Start PyCharm and make sure to have closed all projects and be in the start-up window titled ``Welcome to PyCharm``.
 
@@ -294,7 +303,11 @@ Click ``Apply`` and watch how the Jython setup is analyzed and implemented in Py
 
 .. image:: pycharmDefaultInterpreter.png
 
-**Step 4: setup the environment for a Python console**
+**Step 3b: tell PyCharm to use Python as interpreter**
+
+With respect to SikuliX features used in Python scripts :ref:`look here for details<RealPython>`.
+
+**Step 4: setup the environment for a SikuliX-aware Python console**
 
 As with the step before get the ``Default Preferences`` dialog open.
 
