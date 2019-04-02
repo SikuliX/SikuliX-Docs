@@ -152,7 +152,7 @@ Some general aspects
 
 Might be a good idea to first read this `SikuliX 1.1.x Quickstart <http://sikulix.com/quickstart/>`_.
 
-**SikuliX does only supports 64-Bit Systems.**
+**SikuliX does only support 64-Bit Systems.**
 
 A major aspect of SikuliX is to be available on Windows, Mac and Linux with as little differences as possible. This means, that features will only be added to SikuliX as standard, if they can be made available on all these systems. Nevertheless it is possible to :ref:`add extensions or plugins<sxExtensions>`, that might not be available for all systems.
 
@@ -182,6 +182,8 @@ SikuliX on Windows
 
 The IDE is only available as jar-file, that can be double-clicked to start it.
 
+Usage in a command window: ``java -jar <path-to>/sikulix.jar`` (`for options see<RunningScriptsFromCommandLine>`)
+
 The ``SikulixAppData`` is stored in the folder ``Sikulix`` inside the folder the environment variable ``%APPDATA%`` points to.
 
 Besides Java there are no prerequisites. All native libraries are bundled in the jar-files and exported at runtime as needed.
@@ -190,6 +192,8 @@ SikuliX on Mac
 --------------
 
 The IDE is only available as jar-file, that can be double-clicked to start it.
+
+Usage in a Terminal window: ``java -jar <path-to>/sikulix.jar`` (`for options see<RunningScriptsFromCommandLine>`)
 
 The ``SikulixAppData`` folder is here ``~/Library/Application Support/Sikulix``
 
@@ -201,6 +205,8 @@ SikuliX on Linux
 As Java you should use the OpenJDK versions (or the Oracle versions where appropriate).
 
 The IDE is only available as jar-file, that can be double-clicked to start it (setting the executable bit of the jar-file might be necessary).
+
+Usage in a Terminal window: ``java -jar <path-to>/sikulix.jar`` (`for options see<RunningScriptsFromCommandLine>`)
 
 On Linux Systems SikuliX cannot be used out of the box. For the details see :ref:`New in 1.1.4 <NewIn114>`.
 
