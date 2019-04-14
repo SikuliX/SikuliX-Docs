@@ -3,34 +3,26 @@ General Information About Sikuli Extensions
 
 .. _sikuliextensions:
 
-**This feature is currently under developement and might only be available on request.**
+**This feature is currently under developement**
 
-Extensions allow to implement new Sikuli features by adding packages to your current Sikuli installation. 
-
-They are maintained by the developers (see **Technical Details** below). 
+Extensions allow to implement additional Sikuli features by adding packages to your current Sikuli installation.
 
 If you want to contribute a new extension or a modified exisiting one, please look at **How to contribute an extension** below.
+
+Extensions are finally stored in the ``AppData area in the folder Extensions`` either manually or with support by SikuliX at start-up.
+
+Additionally a file ``extensions.txt`` in this folder will be evaluated at startup. It may contain absolute filenames of extensions stored elsewhere on the system. It may also contain key-value-pairs for special purposes.
+
+Currently defined and accepted:
+ - ``jython = <path-to>/jython.jar`` pointer to outside SikuliX installed Jython. If there, it takes precedence over the standard SikuliX Jython package.
+ - ``python = <path-to>/<python-executable>`` (experimental) allows to run scripts with the real Python interpreter (:ref:`for details see<RealPython>`)
+
+Jar-files will be added to the Java classpath. For other filetypes there are special treatments to be implemented.
 
 How to Download and use an Extension
 ------------------------------------
 
-The download of an extension is supported by the IDE through the menu 
-:menuselection:`Tools -> Extensions`.
-You get a popup, that lists the available and already installed extensions and allows to download new packages or updates for installed ones.
-
-This popup shows a new **package not yet installed**:
-
-.. image:: extension-new.png
-
-If you need more information about the features of the extension, just click :guilabel:`More Info` - this will open the related documentation from the web in a browser window.
-
-If you want to install the extension, just click the :guilabel:`Install...` button. The package will be downloaded and added to your extensions repository. 
-
-This popup shows an **installed package**:
-
-.. image:: extension-installed.png
-
-If a new version would be available at that time, the :guilabel:`Install...` button would be active again, showing the new version number. Now you could click and download the new version.
+The download of extensions will be supported by the IDE through the ``menu Tools -> Extensions`` (under development).
 
 **How to Use an Extension**
 
