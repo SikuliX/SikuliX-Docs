@@ -146,6 +146,14 @@ and it is not possible yet, to bring such a window to front with a compound Siku
 
 		:param parametertext: a string, that is given to the application at startup (when using ``open()`` ) as if you would start the app from a commandline.
 
+	.. py:method:: setWorkDir([workingFolder])
+
+    **WINDOWS ONLY**
+		*Usage:* ``appName = someApp.setWorkDir("path to the working directory")``
+		where App instance ``someApp`` was :ref:`created before <CreateAppInstance>`.
+
+		:param workingFolder: the absolute path, which gets the working directory. The location of the app exec-file is used if omitted.
+
 	.. py:method:: open([waitTime])
 
 		*Usage:* ``someApp.open()``
