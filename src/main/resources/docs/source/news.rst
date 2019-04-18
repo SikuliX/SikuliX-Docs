@@ -150,6 +150,10 @@ the size/length of the list, that is 0 when empty (not found)::
     result = collectWordsText();
     result = collectLinesText();
 
+    # to retrieve the found text from a text match
+    theWordMatch = collectWords[0]
+    theWord = theWordMatch.getText()
+
 For details :ref:`see the function description itself<FindinginsideaRegionandWaitingforaVisualEvent>`.
 
 **Be Aware** Since version 1.1.2 there are also functions, that search for more than one image at the same time ::
