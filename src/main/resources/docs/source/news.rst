@@ -142,9 +142,13 @@ the size/length of the list, that is 0 when empty (not found)::
     result = findWords("a word") # like findWord() but returns all matches in the region
     result = findLines("some text") # like findLine() but returns all matches in the region
 
-    # these return a list of words or lines in the region top left to bottom right
+    # these return a list of matches (words or lines) in the region top left to bottom right
     result = collectWords();
     result = collectLines();
+
+    # these return a list of words or lines in the region top left to bottom right (no match info)
+    result = collectWordsText();
+    result = collectLinesText();
 
 For details :ref:`see the function description itself<FindinginsideaRegionandWaitingforaVisualEvent>`.
 
