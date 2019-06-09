@@ -479,9 +479,17 @@ Experimental: RunServer - run scripts from anywhere with zero-delay
 
 .. _UsingRunServer
 
-**Experimental**
+.. versionadded:: X1.1.4
 
-... means
+**This feature is currently completely revised** and might be switched off in actual 1.1.4 builds until further notice.
+
+The design/implementation goals `are here. <https://github.com/RaiMan/SikuliX1/wiki/New-SikulixServer-Design>`_.
+
+The feature is available until ready only in the branch `dev-SX-Server <https://github.com/RaiMan/SikuliX1/tree/dev-SX-Server>`_ on GitHub.
+
+**The following information is for the current experimental implementation only**
+
+... experimental means
 
     - basic features are implemented and useable in selected environments
     - might not be tested with all possible variations 
