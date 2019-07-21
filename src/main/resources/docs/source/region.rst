@@ -1081,10 +1081,12 @@ So parallel clicks in main workflow and handler should do their job correctly, b
 
 	.. py:method:: observe([seconds])
 
-		Begin observation within the region. The script waits for the completion of the observation 				(meaning until the observation is stopped by intention or timed out).
+		Begin observation within the region. The script waits for the completion of the observation
+		(meaning until the observation is stopped by intention or timed out).
 
 		:param seconds: a number, which can have a fraction, as maximum
-			observation time in seconds. Omit it or use the constant FOREVER to
+			observation time in seconds. Use it without parameter as ``observeInBackground()``
+			or use the constant FOREVER to
 			tell the observation to run for an infinite time (or until stopped
 			by ``stopObserve()``). 
 		
@@ -1106,6 +1108,12 @@ So parallel clicks in main workflow and handler should do their job correctly, b
 		Take care, that your script continues with some time consuming stuff. 
 		Additionally :ref:`Named Events <NamedObserveEvents>` might be of interest.
 		
+		:param seconds: a number, which can have a fraction, as maximum
+			observation time in seconds. Use without parameter as ``observeInBackground()``
+			or use the constant FOREVER to
+			tell the observation to run for an infinite time (or until stopped
+			by ``stopObserve()``).
+
 		The over all behavior and the features are the same as :py:meth:`Region.observe`.
 	
 	.. py:method:: observe([seconds], background = True)
