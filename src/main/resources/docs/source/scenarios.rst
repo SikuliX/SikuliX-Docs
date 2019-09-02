@@ -73,13 +73,18 @@ Saved scripts (.sikuli) and exported scripts (.skl and .jar) can be run from com
 Using JavaScript
 ================
 
-**BE AWARE** The support for JavaScript is based on the **integrated engine Nashorn** (available since Java 7).
-    It looks like, that Nashorn might be removed with Java 11+ (it is still there though in the current early access versions).
-    Until I have a solution, in case you have to stick with Java 10 to use Nashorn.
+One can use **JavaScript** for scripting with SikuliX features.
 
-One can use **JavaScript** for scripting with SikuliX features. 
+The support for JavaScript is based on the **Java integrated engine Nashorn** (available since Java 7).
 
-The easiest approach:
+**BE AWARE**  Since Java 11 Nashorn is marked deprecated and might be removed in a future Java version.
+With Java 13 (available September 2019) it is still there and hence will be there till September 2020.
+
+A candidate to be used with SikuliX and JavaScript scripting in the future will be the GraalVM package. It can surely be
+used with SikuliX (sikulixapi.jar) already now, but probably will have special support in SikuliX 1.1.5 beginning towards end of 2019.
+People who try already now with SikuliX 1.1.4 are welcome to give feedback about their experiences.
+
+The easiest approach for JavaScript scripting:
  - switch a new editor tab in the IDE to type JavaScript (rigt-click on an empty Tab, select ``Set Type`` in the context menü and then select ``javascript`` from the drop down list). 
  - The bottom status line at the right side now will show ``(javascript)`` 
  - now you can write JavaScript code according to the `specifications of the Java bundled JavaScript interpreter (Nashorn since Java 1.7) <https://docs.oracle.com/javase/8/docs/technotes/guides/scripting/nashorn/index.html>`_.
