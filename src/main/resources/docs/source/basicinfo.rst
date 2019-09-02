@@ -107,7 +107,7 @@ If the image is not found (result score not acceptable), we either terminate the
 
 A word on elapsed time for search operations: The larger the base image the longer the search. The smaller the size difference of the 2 images, the faster. On modern systems with large monitors searching a small to medium sized image (up to 10.000 pixels), the elapsed time might be between 0.5 and 1 second or even more. The usual approach, to reduce search time is to reduce the search region as much as possible to the area, one expects the target image to appear. Small images of some 10 pixels in search regions of some 1000 pixels are found within some 10 milliseconds or even faster.
 
-The actual version 1.1.0 of Sikulix implements a still-there-feature: before searching in the search region, it is first checked, whether the image is still in the same place as at the time of the last search (if the search region contains this last match). On success, this preflight operation usually takes some  milliseconds, which speeds up workflows enormously if they contain repetitive tasks with the same images.
+Sikulix implements a still-there-feature: before searching in the search region, it is first checked, whether the image is still in the same place as at the time of the last search (if the search region contains this last match). On success, this preflight operation usually takes some  milliseconds, which speeds up workflows if they contain repetitive tasks with the same images.
 
 Not knowing the magic behind SikuliX's search feature and the matchTemplate() function, people always wonder, why images showing up multiple times on the screen, are not found in some regular order (e.g. top left to bottom right). That this is not the case is caused by the implementation of the matchTemplate() function as some statistical numeric matrix calculations. So never expect SikuliX to return the top left appearance of a visual being more than once on the screen at time of search. The result is not predictable in this sense.
 
@@ -132,14 +132,13 @@ To load the images SikuliX has 2 principles:
  
 It is strongly recommended, to have a naming scheme for the image files and to not rely on the basic timestamped image file naming of the SikuliX IDE, which is basically for new users with little programming experience.
 
-Version 2 will have a capturing tool as a standalone app, that supports the basic aspects of image handling:
+It is planned to have a capturing tool as a standalone app, that supports the basic aspects of image handling:
  - capture and recapture screeshots along a workflow (some kind of recorder)
  - organize your image path
  - organize groups of "same" images, that can be switched depending on environment aspects
  - organize a group of images, that somehow relate to each other and should be found together
  - organize different states of an image (e.g. selected/not selected)
  - optimize screenshots to get the highest possible scores at find
- - some kind of basic support for transparency (e.g. ignore inner part of button) 
 
 SikuliX - system specifics
 ==========================
@@ -149,132 +148,74 @@ SikuliX - system specifics
 Some general aspects
 --------------------
 
-**This is valid for version 1.1.1+ (prior versions are no longer supprted)**
+**This is valid for version 1.1.4+ (prior versions are no longer supprted)**
 
 Might be a good idea to first read this `SikuliX 1.1.x Quickstart <http://sikulix.com/quickstart/>`_.
 
-A major aspect of SikuliX is to be available on Windows, Mac and Linux with as little differences as possible. This means, that features will only be added to SikuliX as standard, if they can be made available on all these systems.
-Nevertheless it will be possible beginning with version 2, to add extensions or plugins, that might not be available on all systems from the beginning or forever. Version 2 will have a suitable eco-system for that.
+**SikuliX does only support 64-Bit Systems.**
 
-Mainly bacause of this major aspect SikuliX is a Java based application or library. Hence the usable artifacts are delivered as jar-files. Additionally you get scripts for starting the IDE and running scripts from commandline and on Mac the IDE is delivered as an application.
+A major aspect of SikuliX is to be available on Windows, Mac and Linux with as little differences as possible. This means, that features will only be added to SikuliX as standard, if they can be made available on all these systems. Nevertheless it is possible to :ref:`add extensions or plugins<sxExtensions>`, that might not be available for all systems.
 
-To use the SikuliX features you need a valid Java runtime installation (JRE, preferably the Oracle versions) of at least version 7 (up to 1.1.1) or version 8 (1.1.2+). Java 9 is supported with 1.1.2+ but currently (March 2018) not free of all quirks. Language and Byte-Code level both are at 1.8.
+SikuliX is a Java based application or library. Hence the usable artifacts are delivered as jar-files.
 
-With version 1.1.x, there are still vital parts of SikuliX written in C++, which makes a SikuliX artifact system specific in the end. This currently is supported by an initial setup process, that produces the finally usable artifacts for this system environment.
+To use the SikuliX features you need a valid Java runtime installation of at least version 8 (Oracle JRE or JDK). Java 9+ is supported with version 1.1.4+ (preferably OpenJDK latest, version 12 as of March 2019).
 
-The only exception is Java programming with some Maven compatible build system, that allows to simply start programming without having done a setup. The needed artifacts for this system are dynamically loaded according to the Maven dependency concept.
+The Sikulix artefacts ``sikulix.jar`` and/or ``sikulixapi.jar`` can be moved around as needed (though it is still recommended to have the SikuliX stuff in one well defined place, to avoid update/upgrade problems). Everything else SikuliX needs during runtime is stored either in the system's temp space or in a special system specific area in the user's home space (see the system specific topics below). Missing or outdated things in these areas are created/recreated at runtime by SikuliX automatically (means: you can delete everything at any time, as long as you keep the jars).
 
-Beginning with version 1.1.x the resulting artifacts (currently sikulix.jar and/or sikulixapi.jar) can be moved around as needed (though it is still recommended to have the SikuliX stuff in one well defined place, to avoid update/upgrade problems). Everything else SikuliX needs during runtime is stored either in the system's temp space or in a special system specific area in the user's home space (see the system specific topics below). Missing or outdated things in these areas are created/recreated at runtime by SikuliX automatically (means: you can delete everything at any time, as long as you keep the jars).
+For the same reason when working with other IDE's, it is strongly recommended to work with links/pointers to ``sikulixapi.jar`` and in case the ``Lib folder (Python stuff)`` and not having copies in different places.
 
 The current layout of this space is as follows (we call it **SikulixAppData**):
 
  | ``Extensions`` (place for extensions/Plugins)
  | ``Lib`` (the stuff to support Jython/JRuby usage)
  | ``SikulixDownloads`` (non SikuliX artefacts like Jython, JRuby, Tesseract support, ...)
- | ``SikulixDownloads_TIMESTAMP`` (versioned SikuliX stuff needed for setup)
- | ``SikulixLibs_TIMESTAMP`` (the place for the exported native libraries)
- | ``SikulixSetup`` (optional: used when the setup is run from the project context)
+ | ``SikulixLibs`` (folder containing system specific native libraries)
  | ``SikulixStore`` (place for persistent or optional information)
  | ``SikulixTesseract`` (place for language specific tessdata files)
 
-Currently there is no need to step into these folders except for debugging purposes. In case of setup problems, it might help to delete ``SikulixAppData`` and the jars besides the setup jar and start all over new. 
+Currently there is no need to step into these folders except for debugging purposes. In case of startup problems, it might help to delete ``SikulixAppData`` and restart.
 
 SikuliX in the standard does not need any environment settings anymore. It is a good idea, to remove anything from your environment, that points to stuff from prior versions.
 
 SikuliX on Windows
 ------------------
 
-The IDE still is only available as jar-file, that can be double-clicked to start it. 
+The IDE is only available as jar-file, that can be double-clicked to start it.
 
-Setup installs a runsikulix.cmd, that can be used to start the IDE from commandline or to run scripts.
+Usage in a command window: ``java -jar <path-to>/sikulix.jar`` (:ref:`for options see<RunningScriptsFromCommandLine>`)
 
 The ``SikulixAppData`` is stored in the folder ``Sikulix`` inside the folder the environment variable ``%APPDATA%`` points to.
 
-Besides Java there are no prerequisites. All native libraries for 32Bit and/or 64Bit are bundled in the jar-files and exported at runtime as needed. 
-
-**Be aware**: the bitness of the native libraries depends on the bitness of the used Java version, which might as well be a 32Bit version on a 64Bit Windows (though not recommended).
+Besides Java there are no prerequisites. All native libraries are bundled in the jar-files and exported at runtime as needed.
 
 SikuliX on Mac
 --------------
 
-The IDE is available as Sikulix.app after setup and should be moved to the /Applications folder.
+The IDE is only available as jar-file, that can be double-clicked to start it.
 
-Additionally there is a command script runsikulix to run scripts from commandline (Terminal).
+Usage in a Terminal window: ``java -jar <path-to>/sikulix.jar`` (:ref:`for options see<RunningScriptsFromCommandLine>`)
 
 The ``SikulixAppData`` folder is here ``~/Library/Application Support/Sikulix``
 
-Besides Java there are no prerequisites. All native libraries (64Bit, since SikuliX needs OSX 10.6+) are bundled in the jar-files and exported at runtime as needed.
+Besides Java there are no prerequisites. All native libraries are bundled in the jar-files and exported at runtime as needed.
 
 SikuliX on Linux
 ----------------
 
-**BE AWARE** This is only for **SikuliX 1.1.3** (for 1.1.4 look :ref:`New in 1.1.4 <NewIn114>`)
+As Java you should use the OpenJDK versions (or the Oracle versions where appropriate).
 
-The IDE is only available as jar-file, that can be double-clicked to start it (setting the executable bit of the jar-file might be necessary). 
+The IDE is only available as jar-file, that can be double-clicked to start it (setting the executable bit of the jar-file might be necessary).
 
-Setup installs a runsikulix command script, that can be used to start the IDE from commandline or to run scripts.
+Usage in a Terminal window: ``java -jar <path-to>/sikulix.jar`` (:ref:`for options see<RunningScriptsFromCommandLine>`)
 
-As Java you might use the OpenJDK versions (though the Oracle versions are recommended). A JRE is sufficient, if you do not need a JDK for your own purposes.
+On Linux Systems SikuliX cannot be used out of the box. For the details see :ref:`New in 1.1.4 <NewIn114>`.
 
-Usually on Linux systems SikuliX does not run out of the box, since it is not possible to bundle all native libraries for all possible Linux flavors. It is intended, to have at least a version for the latest Ubuntu systems, that runs out of the box.
+One has to provide the libraries **OpenCV and Tesseract** and additionally the packages **wmctrl and xdotool**, when you want to use the App class features.
 
-If setup fails due to library problems, have a look at the setup log to get hints on how to proceed.
-
-SikuliX internally uses OpenCV to support the image related features and Tesseract for the text features. 
-
-On Linux/Unix systems one has to provide **OpenCV 2.4.x and Tesseract 3.0.2**.
-Additionally the packages **wmctrl and xdotool** are needed, when you want to use the App class features.
-
-On systems based on the Debian package system (Debian, Ubuntu, ...) using the apt tools (apt-get to install a package) should do the job. On other Linux Systems (Fedora, RedHat, ...) you have to use the appropriate package manager, which in many cases should then be yum.
-
-For the bundled native library **libVisionProxy.so** to be useable, you have to take care, that at least the following libraries are available: ::
-        
-        libopencv_core.so.2.4
-        libopencv_imgproc.so.2.4
-        libopencv_highgui.so.2.4
-        libtesseract.so.3
-
-... and they must be listed in the loader cache (check with ldconfig -p)
-... and they must not have any unresolved items (check with ldd -r libsomething.so)
-... and it is not needed to install any dev/develop packages, just the libs is sufficient.
-For more information read the docs for the respective system and/or package.
-
-On Ubuntu 16.04 this did the job: ::
-
-        sudo apt install libopencv-dev (you get 2.4.9)
-        sudo apt install tesseract-ocr (you get 3.0.2)
-
-During setup the availability and usability of these libraries is checked together with the usability of the bundled or provided native library libVisionProxy.so.
-
-So it is ok, to just run setup and look at the results you get: It either works or you have to correct something.
-
-**Case 1:**
-
-The bundled libraries are checked positive (should work): be happy.
-The build was processed on a newer LTS versions of Ubuntu and hence should work with the above prerequisites (tested on 16.04).
-
-**Case 2:**
-
-If you know, what you are doing, you might provide the ready built libraries before starting setup.
-Setup will detect and use artifacts found in the libs folder in the setup folder, but they might be checked negative (see case 3).
-
-**Case 3:**
-
-Neither the bundled nor the provided libraries are checked positive (not useable on your system): Setup will offer the possibility to build on the fly. Setup will tell you about the missing prerequisites.
-
-You might also run the setup from command line with the parameters: ::
-
-        options 2 buildv notest
-
-to force an inline build.
-
-The inline build will create a folder ~/.Sikulix/sikulixlibs/Build, that contains the sources, include files not present on your system, the created build script and the resulting libVisionProxy.so, that might have already been incorporated into the resulting jars.
-In case of errors and other oddities, you have to inspect the Build folder and the setup log file, to find out how to fix.
-
-**Special information on libJXGrabKey.so**
+**Special information on the bundled libJXGrabKey.so**
 
 At least on newer Ubuntu versions ldd -r reports unresolved symbols pthread… It seems, that this can be ignored, since JXGrabKey works.
-If you get problems, that are related to JXGrabKey, you have to build from the sources after having downloaded the package from here or other places and provide the ready built library before setup in the folder libs.
+If you get problems, that are related to JXGrabKey, you might have to build from the sources and provide the ready built library in the ``~/.Sikulix/SikulixLibs`` folder.
 
 SikuliX Offline Setup
 ---------------------

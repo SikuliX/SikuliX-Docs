@@ -117,15 +117,24 @@ and you have undotted: ::
 
 .. _UsingPython:
 
-Using Python
-============
+Using Jython and Python
+=======================
 
-Setup a Jython environment
---------------------------
+Setup your own Jython environment
+---------------------------------
 
-**This only applies to SikuliX 1.1.0+ with Jython 2.7.0+**
+Out of the box, SikuliX can be setup with a Jython standalone package, which then is only available to SikuliX to run scripts in SikuliX IDE or from commandline using SikuliX.
 
-**Be aware:** Make sure you have a valid Java installation (version 1.7 or preferred: 1.8) 
+If you want to use the Jython REPL (interactive commandline) or another IDE like PyCharm, you have to install Jython seperately. In this case no need to have the Jython standalone package,
+but you can tell SikuliX to use your installed Jython environment:
+
+
+
+**This only applies to SikuliX 1.1.4+**
+
+**Strongly recommended: use Jython 2.7.1**
+
+**Make sure you have a valid Java installation (version 8+)**
 
 **Note for Mac OSX**
 If you ever encounter an error like ``ValueError: unknown locale: UTF-8``, then take care, that your environment at runtime of Jython contains these 2 entries:
@@ -133,11 +142,9 @@ If you ever encounter an error like ``ValueError: unknown locale: UTF-8``, then 
  - LANG=en_US.UTF-8
 You might use ``export`` or any other appropriate method.
 
-In cases you do not want to run scripts from inside the SikuliX IDE or from command line using the SikuliX command scripts or jar-files, you might setup your own Jython environment and run scripts.
+**Apply the following steps, to get a Jython environment, that can be used with SikuliX:**
 
-Apply the following steps, to get a Jython environment, that is SikuliX aware:
-
- - download the installer package from `Jython Downloads <http://www.jython.org/downloads.html>`_
+ - download the installer package from `Jython 2.7.1 Installer <https://search.maven.org/remotecontent?filepath=org/python/jython-installer/2.7.1/jython-installer-2.7.1.jar>`_
  - install (usually by double-clicking the package) using the standard setup into an empty folder 
  - test by running ``<jython-folder>/bin/jython`` from a commandline, which should open an interactive Jython session, that allows, to run Python statements line by line
  - make sure, that pip and easy_install are available:
@@ -146,30 +153,57 @@ Apply the following steps, to get a Jython environment, that is SikuliX aware:
   - if this is not the case run ``<jython-folder>/bin/jython -m ensurepip`` on a commandline and check again
   - if you do not get pip ready, don't bother: Jython is useable without it. The caveat: any additional packages have to be installed/setup manually.
   
-If you succeeded with pip:
+Additional stuff, if you succeeded with pip:
 
  - run ``<jython-folder>/bin/pip install jip`` to install the package ``jip``, which allows to add Java libraries easily to your Jython environment 
- - add any needed Python package (must not depend on C-based stuff) using ``pip``, ``easy-install`` or manual methods into ``<jython-folder>/Lib/site-packages`` and/or use ``jip`` for adding Java libraries preferably from Maven Central 
+ - add any needed Python package (must not depend on C-based stuff) using ``pip``, ``easy-install``
+ or manual methods into ``<jython-folder>/Lib/site-packages`` and/or use ``jip`` for adding Java libraries preferably from Maven Central
+
+**Usage with SikuliX --- Case 1: Using Jython from commandline or in a Python IDE**
+
+You can run SikuliX scripts using ``<path-to-jython>/bin/jython <path-to-youNameIt.sikuli>/youNameIt.py``.
+
+In a Python IDE you have to setup your project according to the rules.
+
+Prereqisites:
+ - ``sikulixapi.jar`` (NOT sikulix.jar!) must be on the Java classpath at runtime. This can be achieved using one of the methods that come with Jython or the IDE.
+ - in the main script have as first line ``import org.sikuli.script.SikulixForJython`` (preparation of sys.path)
+ - to give access to the images use the appropriate features of ``ImagePath``: ``setBundlePath()`` ``and add()``
+
+ If this case is planned to be your main usage, you should decide to use plain .py files according to the Python script/module rules and the ImagePath features to acces your images.
+
+ You can use the SikuliX IDE to capture your images even in plain .py files (:ref:`see plain .py in IDE<plainPyIDE>`).
+
+ If you want to run scripts from within the SikuliX IDE or from commandline using SikuliX, just open and run the main script unchanged (:ref:`see plain .py in IDE<plainPyIDE>`).
+
+**Usage with SikuliX --- Case 2: Using the installed Jython with SikuliX**
+
+You have to tell SikuliX about your installed Jython by using the Extensions feature.
  
 Access Python packages from SikuliX scripts run by SikuliX (GUI or commandline)
 -------------------------------------------------------------------------------
 
-The following approaches apply to situations, where you want to use Python modules installed somewhere on your system, without the need to manipulate ``sys.path``, meaning, that when using ``ìmport moduleXYZ`` this package is found automatically.
+The following approaches apply to situations, where you want to use Python modules installed somewhere on your system, without the need to manipulate ``sys.path``,
+meaning, that when using ``ìmport moduleXYZ`` this package is found automatically.
 
-SikuliX uses a central repository (``SikulixRepo`` in the following) for internal stuff (native libraries, downloaded artifacts, resources needed at runtime and simailar things). This is a folder in the user's private space (home folder) :ref:`look here <SikulixAppData>`:
+SikuliX uses a central repository (``SikulixRepo`` in the following) for internal stuff (native libraries, downloaded artifacts,
+resources needed at runtime and simailar things). This is a folder in the user's private space (home folder) :ref:`look here <SikulixAppData>`:
  - Windows: ``%APPDATA%\Sikulix``
  - Mac: ``~/Library/Application Support/Sikulix``
  - Linux: ``~/.Sikulix``
 
 **Basic preparation**
-    To ``SikulixRepo`` add a folder ``Lib`` (if not already there) and inside add a folder ``site-packages``
+    To ``SikulixRepo`` add a folder ``Lib`` and inside add ``site-packages`` (usually already there)
     
 **Approach 1**
-    Since an existing folder ``SikulixRepo/Lib/site-packages`` will be recognized and added automatically as the ``1st entry to sys.path``, modules/packages contained in here will be found when imported without any further preperations. This approach can be used, to "overwrite" modules/packages, that otherwise would be found elsewhere on ``sys.path`` (e.g. for testing)
+    Since an existing folder ``SikulixRepo/Lib/site-packages`` will be recognized and added automatically as the ``1st entry to sys.path``,
+    modules/packages contained in here will be found when imported without any further preperations.
+    This approach can be used, to "overwrite" modules/packages, that otherwise would be found elsewhere on ``sys.path`` (e.g. for testing)
     
 **Approach 2**
-    In the folder ``SikulixRepo/Lib/site-packages`` have a file ``sites.txt``, that contains absolute paths one per line, that point to other places, where modules packages can be found. These paths will be added automatically at startup to the ``end of sys.path`` in the given sequence. With this approach, you might for example add the ``Lib/site-packages`` folder of your own Jython installation.
-    
+    In the folder ``SikulixRepo/Lib/site-packages`` have a file ``sites.txt``,
+    that contains absolute paths one per line, that point to other places, where modules packages can be found.
+    These paths will be added automatically at startup to the ``end of sys.path`` in the given sequence.
 
 .. _LoadableJars:
 
@@ -234,20 +268,25 @@ copies the complete content from sourcefolder to targetfolder (the parent folder
 
 **Be aware:** Be sure, your code compiles without errors, because the compile feature either succeeds or fails (compile errors), but you will not get any information about the cause or even the place of the compile problem.
 
+Using SikuliX with real C-based Python (version 2.7 up to 3.7 latest)
+---------------------------------------------------------------------
+
+.. _RealPython:
+
+This feature is under development (see on GitHub: `sikulix4python<https://github.com/RaiMan/sikulix4python>`_ for details and status)
+
+Comments and ideas are welcome and can be posted there as issues.
+
 Scripting with IntelliJ PyCharm and IDEA with Python plugin
 -----------------------------------------------------------
 
-.. versionadded:: X1.1.1
-
-Among the free IDE's, that allow to work with Python projects, I made the best experiences over the years with JetBrains's PyCharm (using the free Community Edition) or the Python plugin in JetBrain's IntelliJ IDEA. For working with the SikuliX features, you have to use it with the Java based Jython as interpreter.
+Among the free IDE's, that allow to work with Python projects, I made the best experiences over the years with JetBrains's PyCharm (using the free Community Edition) or the Python plugin in JetBrain's IntelliJ IDEA.
 
 PyCharm has a weakness, in that code completion while editing does not look into jar-files nor Java classes, while in the built-in Python console after having imported a Java class, code completion about the class attributes/methods works, so having a console open while editing might help as a workaround for inspecting Java classes.
 
 IntelliJ IDEA with Python plugin supports complete code completion (while editing and in console) including Java classes, but is a bit more complex to setup and use with just Python.
 
 If you are more used to Eclipse, the Eclipse PyDev might be your choice for Python development. The steps to get it running for use with SikuliX are similar to the following steps for PyCharm. If someone wants to document the details for Eclipse PyDev, he/she is always welcome - I will not do it on my own.
-
-This information is related to SikuliX version 1.1.1+ (recommended for use with mature IDE's).
 
 **Step 1: get Jython up and running**
 
@@ -257,7 +296,7 @@ Just follow the steps mentioned in the chapter ``Setup a Jython environment`` ab
 
 Download and install the `PyCharm Community Edition <https://www.jetbrains.com/pycharm/>`_.
 
-**Step 3: tell PyCharm to use Jython as interpreter**
+**Step 3a: tell PyCharm to use Jython as interpreter**
 
 Start PyCharm and make sure to have closed all projects and be in the start-up window titled ``Welcome to PyCharm``.
 
@@ -269,7 +308,11 @@ Click ``Apply`` and watch how the Jython setup is analyzed and implemented in Py
 
 .. image:: pycharmDefaultInterpreter.png
 
-**Step 4: setup the environment for a Python console**
+**Step 3b: tell PyCharm to use Python as interpreter**
+
+With respect to SikuliX features used in Python scripts :ref:`look here for details<RealPython>`.
+
+**Step 4: setup the environment for a SikuliX-aware Python console**
 
 As with the step before get the ``Default Preferences`` dialog open.
 
@@ -441,9 +484,17 @@ Experimental: RunServer - run scripts from anywhere with zero-delay
 
 .. _UsingRunServer
 
-**Experimental**
+.. versionadded:: X1.1.4
 
-... means
+**This feature is currently completely revised** and might be switched off in actual 1.1.4 builds until further notice.
+
+The design/implementation goals `are here. <https://github.com/RaiMan/SikuliX1/wiki/New-SikulixServer-Design>`_.
+
+The feature is available until ready only in the branch `dev-SX-Server <https://github.com/RaiMan/SikuliX1/tree/dev-SX-Server>`_ on GitHub.
+
+**The following information is for the current experimental implementation only**
+
+... experimental means
 
     - basic features are implemented and useable in selected environments
     - might not be tested with all possible variations 

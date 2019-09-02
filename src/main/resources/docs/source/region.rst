@@ -709,26 +709,25 @@ using a string containing the file name (path to an image file).
 		accessed using getLastMatches() afterwards. How to iterate through an
 		iterator of matches is :ref:`documented here <IteratingMatches>`.
 
-    **Convenience methods** for :py:meth:`findAll`::
+        **Convenience methods** ::
 
-        findAllByRow() # sorted along rows top down - left to right in a row
-        findAllByColumn() # sorted along columns left to right - top down in a column
+            findAllByRow() # sorted along rows top down - left to right in a row
+            findAllByColumn() # sorted along columns left to right - top down in a column
 
-        findAllList() # same as findAll(), but returns a list (Java: List<Match>) sorted by score descending
-        getAll() # shortcut for findAllList()
+            findAllList() # same as findAll(), but returns a list (Java: List<Match>) sorted by score descending
+            getAll() # shortcut for findAllList()
 
-        All these methods return lists (Java: List<match>) - an empty list if nothing was found.
+            All these methods return lists (Java: List<match>) - an empty list if nothing was found.
 
-        In Python scripts this works (empty list is taken as False):
+            In Python scripts this works (empty list is taken as False):
 
-        matches = getAll(someImage)
-        if matches:
-            print "found: ", len(matches)
-        else:
-            print "not found", someImage
+            matches = getAll(someImage)
+            if matches:
+                print "found: ", len(matches)
+            else:
+                print "not found", someImage
 
-
-	.. py:method:: wait([PS],[seconds])
+    .. py:method:: wait([PS],[seconds])
 
 		Wait until the given pattern *PS* appears in the region.
 
@@ -1082,10 +1081,12 @@ So parallel clicks in main workflow and handler should do their job correctly, b
 
 	.. py:method:: observe([seconds])
 
-		Begin observation within the region. The script waits for the completion of the observation 				(meaning until the observation is stopped by intention or timed out).
+		Begin observation within the region. The script waits for the completion of the observation
+		(meaning until the observation is stopped by intention or timed out).
 
 		:param seconds: a number, which can have a fraction, as maximum
-			observation time in seconds. Omit it or use the constant FOREVER to
+			observation time in seconds. Use it without parameter as ``observeInBackground()``
+			or use the constant FOREVER to
 			tell the observation to run for an infinite time (or until stopped
 			by ``stopObserve()``). 
 		
@@ -1107,6 +1108,12 @@ So parallel clicks in main workflow and handler should do their job correctly, b
 		Take care, that your script continues with some time consuming stuff. 
 		Additionally :ref:`Named Events <NamedObserveEvents>` might be of interest.
 		
+		:param seconds: a number, which can have a fraction, as maximum
+			observation time in seconds. Use without parameter as ``observeInBackground()``
+			or use the constant FOREVER to
+			tell the observation to run for an infinite time (or until stopped
+			by ``stopObserve()``).
+
 		The over all behavior and the features are the same as :py:meth:`Region.observe`.
 	
 	.. py:method:: observe([seconds], background = True)
@@ -1546,15 +1553,15 @@ application for accepting the action.
 	for tracking the search results.
 	
 	A possible workaround is to use hover(), to move the mouse over the match 
-	or even use a function like this::
-	
-			def hoverHighlight(reg, loop = 1):
-			  for n in range(loop):
-			    hover(reg.getTopLeft())
-			    hover(reg.getTopRight())
-			    hover(reg.getBottomRight())
-			    hover(reg.getBottomLeft())
-			    hover(reg.getTopLeft())
+	or even use a function like this ::
+
+        def hoverHighlight(reg, loop = 1):
+          for n in range(loop):
+            hover(reg.getTopLeft())
+            hover(reg.getTopRight())
+            hover(reg.getBottomRight())
+            hover(reg.getBottomLeft())
+            hover(reg.getTopLeft())
 			    
 	Using this function instead of highlight will let the mousepointer visit the corners of the given region
 	clockwise, starting and stopping top left. With the standard move delay of 0.5 seconds this will last about
@@ -1764,7 +1771,7 @@ through the use of ``Tess4j``, which in turn is a wrapper around the native libr
 
 		Extract the text contained in the region using OCR.
 
-		:return: the text as a string. Multiple lines of text are separated by intervening linefeeds.
+		:return: the text as a string (unicode). Multiple lines of text are separated by intervening linefeeds.
 
 		.. py:method:: collectWords()
 
@@ -1772,10 +1779,10 @@ through the use of ``Tess4j``, which in turn is a wrapper around the native libr
 		in order top left to bottom right::
 
 				words = someRegion.collectWords() # a list of match objects
-				firstWordMatch = words[0].getText() # the region on screen containing the word
+				firstWordMatch = words[0] # the region on screen containing the word
 				firstWord = firstWordMatch.getText() # finally the text contained in the word's region
 
-		:return: the text as a list of match/regions containing words. (Java: List<Match>)
+		:return: the text as a list of match/regions containing words. (Java: List<Match>). Use ``Match.getText()`` to get a single text string.
 
 		.. py:method:: collectLines()
 
@@ -1783,19 +1790,30 @@ through the use of ``Tess4j``, which in turn is a wrapper around the native libr
 		in order top left to bottom right::
 
 				lines = someRegion.collectLines() # a list of match objects
-				firstLineMatch = lines[0].getText() # the region on screen containing the line
+				firstLineMatch = lines[0] # the region on screen containing the line
 				firstLine = firstLineMatch.getText() # finally the text contained in the line's region
 
-		:return: the text as a list of match/regions containing lines. (Java: List<Match>)
+		:return: the text as a list of match/regions containing lines. (Java: List<Match>) Use ``Match.getText()`` to get a single text string.
 
 As a convenience there are variants that only return a list of the words/lines as text (Java: List<String>) (hence no information, where on the screen they are)::
 
 		words = collectWordsText() # only the list of words in order top left to bottom right
 		lines = collectLinesText() # only the list of textlines in order top left to bottom right
 
-**Note for versions up to 1.1.3**: Since this feature was in an **experimental state** for about 6 years,
-one has to be aware, that in some cases it might not work as expected.
-If you face any problems you should upgrade to 1.1.4+.
+**BE AWARE in Jython scripts** The text is returned as unicode strings. Jython standard strings are not aware of unicode
+and hence will produce garbage or error messages when used with the normal print statement.
+
+There is a convenience print function ``uprint(someText, someOtherTexdt, ...)``, which is aware of the unicode situation::
+
+    words = collectWordsText()
+    for word in words:
+        uprint(word)
+
+    # or as one line
+    line = ""
+    for word in words:
+        line += word + ", "
+    uprint(line)
 
 .. _LowLevelMouseAndKeyboardActions:
 
