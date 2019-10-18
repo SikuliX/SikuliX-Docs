@@ -148,17 +148,17 @@ SikuliX - system specifics
 Some general aspects
 --------------------
 
-**This is valid for version 1.1.4+ (prior versions are no longer supprted)**
+**This is valid for version 2.0.0+ (prior versions are no longer supprted)**
 
-Might be a good idea to first read this `SikuliX 1.1.x Quickstart <http://sikulix.com/quickstart/>`_.
+Might be a good idea to first read this #WIKI_QUICKSTART# `SikuliX Quickstart <http://sikulix.com/quickstart/>`_.
 
 **SikuliX does only support 64-Bit Systems.**
 
-A major aspect of SikuliX is to be available on Windows, Mac and Linux with as little differences as possible. This means, that features will only be added to SikuliX as standard, if they can be made available on all these systems. Nevertheless it is possible to :ref:`add extensions or plugins<sxExtensions>`, that might not be available for all systems.
+A major aspect of SikuliX is to be available on Windows, Mac and Linux with as little differences as possible. This means, that features will only be added to SikuliX as standard, if they can be made available on all these systems. Nevertheless it is possible add extensions or plugins #WIKI_EXTENSIONS#, that might not be available for all systems.
 
 SikuliX is a Java based application or library. Hence the usable artifacts are delivered as jar-files.
 
-To use the SikuliX features you need a valid Java runtime installation of at least version 8 (Oracle JRE or JDK). Java 9+ is supported with version 1.1.4+ (preferably OpenJDK latest, version 12 as of March 2019).
+To use the SikuliX features you need a valid Java runtime installation of at least version 8 (OpenJDK or Oracle JRE/JDK). Java 9+ is supported (developement is done on OpenJDK).
 
 The Sikulix artefacts ``sikulix.jar`` and/or ``sikulixapi.jar`` can be moved around as needed (though it is still recommended to have the SikuliX stuff in one well defined place, to avoid update/upgrade problems). Everything else SikuliX needs during runtime is stored either in the system's temp space or in a special system specific area in the user's home space (see the system specific topics below). Missing or outdated things in these areas are created/recreated at runtime by SikuliX automatically (means: you can delete everything at any time, as long as you keep the jars).
 
@@ -188,6 +188,8 @@ The ``SikulixAppData`` is stored in the folder ``Sikulix`` inside the folder the
 
 Besides Java there are no prerequisites. All native libraries are bundled in the jar-files and exported at runtime as needed.
 
+For possible problems and workarounds look here #WIKI-WINDOWS#
+
 SikuliX on Mac
 --------------
 
@@ -197,7 +199,9 @@ Usage in a Terminal window: ``java -jar <path-to>/sikulix.jar`` (:ref:`for optio
 
 The ``SikulixAppData`` folder is here ``~/Library/Application Support/Sikulix``
 
-Besides Java there are no prerequisites. All native libraries are bundled in the jar-files and exported at runtime as needed.
+Besides Java there are no prerequisites. Some native libraries are bundled in the jar-files and exported at runtime as needed.
+
+For needed prerequisites, possible problems and workarounds look here #WIKI-MAC#
 
 SikuliX on Linux
 ----------------
@@ -208,53 +212,13 @@ The IDE is only available as jar-file, that can be double-clicked to start it (s
 
 Usage in a Terminal window: ``java -jar <path-to>/sikulix.jar`` (:ref:`for options see<RunningScriptsFromCommandLine>`)
 
-On Linux Systems SikuliX cannot be used out of the box. For the details see :ref:`New in 1.1.4 <NewIn114>`.
+On Linux Systems SikuliX cannot be used out of the box.
 
-One has to provide the libraries **OpenCV and Tesseract** and additionally the packages **wmctrl and xdotool**, when you want to use the App class features.
+One has to provide the libraries **OpenCV and Tesseract** and additionally the packages **wmctrl and xdotool**, when using the App class features.
+
+For the details see #WIKI-LINUX#.
 
 **Special information on the bundled libJXGrabKey.so**
 
 At least on newer Ubuntu versions ldd -r reports unresolved symbols pthread… It seems, that this can be ignored, since JXGrabKey works.
 If you get problems, that are related to JXGrabKey, you might have to build from the sources and provide the ready built library in the ``~/.Sikulix/SikulixLibs`` folder.
-
-SikuliX Offline Setup
----------------------
-
-**BE AWARE** This is only for **SikuliX 1.1.3** (but no longer supported nor necessary with 1.1.4+).
-
-In any case, you need a valid **sikulixsetup-1.1.3.jar** in a folder of your choice. 
-
-If during setup for some reason internal downloads are blocked on your system, you might try an **Offline Setup** according to the following steps.
-
- - optional: make a folder Downloads in the folder intended to contain SikuliX
- - manually download the respective packages (see below, links should start the download)
- - optional: put them in the setup Downloads folder
- - run setup and select the respective options
- - when asked, confirm the usage of the already downloaded packages
-
-You might as well store the manually downloaded artefacts in the same folder as the **sikulixsetup....jar**. 
-During setup the artefacts will be moved to the SikuliX local application data folder anyways.
-
-**Packages to download manually for version 1.1.3**:
-
-to get the **IDE (option 1)** download from OSSRH (`sikulixsetupIDE....jar <https://oss.sonatype.org/content/groups/public/com/sikulix/sikulixsetupIDE/1.1.3-SNAPSHOT/sikulixsetupIDE-1.1.3-20180711.082119-40-forsetup.jar>`_)
- 
-to get the **Java API (option 1 and 2)** download from OSSRH (`sikulixsetupAPI....jar <https://oss.sonatype.org/content/groups/public/com/sikulix/sikulixsetupAPI/1.1.3-SNAPSHOT/sikulixsetupAPI-1.1.3-20180711.082046-40-forsetup.jar>`_)
-
-**native libraries for version 1.1.3**:
-
-for **Windows** download from MavenCentral (`sikulixlibswin....jar <http://repo1.maven.org/maven2/com/sikulix/sikulixlibswin/1.1.1/sikulixlibswin-1.1.1.jar>`_)
-
-for **Mac** download from MavenCentral (`sikulixlibsmac....jar <http://repo1.maven.org/maven2/com/sikulix/sikulixlibsmac/1.1.1/sikulixlibsmac-1.1.1.jar>`_)
-
-for **Linux/Unix** download from MavenCentral (`sikulixlibslux....jar <http://repo1.maven.org/maven2/com/sikulix/sikulixlibslux/1.1.1/sikulixlibslux-1.1.1.jar>`_)
-  
-**Packages to download manually for version 1.1.2 and later** 
-
-to get **Jython 2.7** (for option 1) download from MavenCentral (`jython-standalone-2.7.....jar <https://repo1.maven.org/maven2/org/python/jython-standalone/2.7.1/jython-standalone-2.7.1.jar>`_)
-
-to get **JRuby** (for option 1) download from MavenCentral (`jruby-complete-9.x ..... jar <https://repo1.maven.org/maven2/org/jruby/jruby-complete/9.2.0.0/jruby-complete-9.2.0.0.jar>`_)
- 
-**For the text features (based on Tesseract)** the files supporting english language are bundled with sikulixapi.jar. 
-
-If you need the files for other languages: `here they are <https://github.com/tesseract-ocr/tessdata>`_.
