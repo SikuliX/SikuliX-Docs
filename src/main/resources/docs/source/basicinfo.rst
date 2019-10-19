@@ -188,7 +188,7 @@ The ``SikulixAppData`` is stored in the folder ``Sikulix`` inside the folder the
 
 Besides Java there are no prerequisites. All native libraries are bundled in the jar-files and exported at runtime as needed.
 
-For possible problems and workarounds look here: `Getting started on macOS <https://github.com/RaiMan/SikuliX1/wiki/GettingStarted-on-Windows>`_
+For possible problems and workarounds look here: `Getting started on Windows <https://github.com/RaiMan/SikuliX1/wiki/GettingStarted-on-Windows>`_
 
 SikuliX on Mac
 --------------
@@ -216,7 +216,7 @@ On Linux Systems SikuliX cannot be used out of the box.
 
 One has to provide the libraries **OpenCV and Tesseract** and additionally the packages **wmctrl and xdotool**, when using the App class features.
 
-For the details see: `Getting started on macOS <https://github.com/RaiMan/SikuliX1/wiki/GettingStarted-on-Linux>`_
+For the details see: `Getting started on Linux <https://github.com/RaiMan/SikuliX1/wiki/GettingStarted-on-Linux>`_
 
 **Special information on the bundled libJXGrabKey.so**
 
