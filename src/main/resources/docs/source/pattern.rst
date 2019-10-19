@@ -24,7 +24,7 @@ Normally when clicking on a match, the center pixel of the associated
 rectangle is used. With a pattern object, you can define a different click point 
 relative to the center using :py:meth:`targetOffset() <Pattern.targetOffset>`.
 
-.. versionadded:: 1.1.4
+.. versionadded:: 2.0.0
 
 **Masking:**
 
@@ -107,7 +107,7 @@ Be aware: in the latter case, both base image and mask image must have the same 
 
     :return: a :py:class:`Location` object as the target offset
 
-    .. versionadded:: 1.1.4
+    .. versionadded:: 2.0.0
 
   .. py:method:: mask([imageOrPattern])
 

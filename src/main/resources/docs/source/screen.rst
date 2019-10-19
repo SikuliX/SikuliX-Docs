@@ -393,7 +393,7 @@ Due to the current implementation concept of VNCScreen, **Region or Location obj
 Connecting to an Android device or emulator (ADBScreen)
 -------------------------------------------------------
 
-.. versionadded:: 1.1.4
+.. versionadded:: 2.0.0
 
 Based on the ideas and first implementation of Gergő Törcsvári https://github.com/tg44
 it is now possible to capture images from an Android device in the IDE and run scripts

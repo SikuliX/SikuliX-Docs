@@ -3,7 +3,7 @@
 Working with masked images (ignoring parts of the image) # 1.1.4
 ================================================================
 
-.. versionadded:: 1.1.4
+.. versionadded:: 2.0.0
 
 This tutorial demonstrates how you can ignore parts of images, that might vary in different scenarios (background,
 inner parts of GUI elements, ...) in the search process of SikuliX.

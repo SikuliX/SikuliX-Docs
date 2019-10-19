@@ -38,11 +38,11 @@ At startup these places are searched for a file ``SikulixOptions.txt`` (first ap
      Rules are the same as for Java classpath on that system.
      On Windows backslashes have to be doubled (escaped).
 
-.. versionadded:: 1.1.4 1.1.4+ see the :ref:`Extensions<ExtensionsFeature>` feature
+.. versionadded:: 2.0.0 1.1.4+ see the :ref:`Extensions<ExtensionsFeature>` feature
 
 .. _RunOnlyParts:
 
-.. versionadded:: 1.1.4
+.. versionadded:: 2.0.0
 
 Run only parts of a script
 --------------------------
@@ -66,7 +66,7 @@ This feature might be a neat replacement for the no longer available interactive
 
 .. _EditPython:
 
-.. versionadded:: 1.1.4
+.. versionadded:: 2.0.0
 
 Plain Python scripts - open, edit, save and run
 -----------------------------------------------
@@ -85,7 +85,7 @@ classic Python style of scripts and folder structures (modules).
 
 .. _EditText:
 
-.. versionadded:: 1.1.4
+.. versionadded:: 2.0.0
 
 Text files - open, edit and save
 --------------------------------

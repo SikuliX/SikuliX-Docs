@@ -3,7 +3,7 @@ The Application Class (App)
 
 .. py:class:: App
 
-.. versionadded:: 1.1.4
+.. versionadded:: 2.0.0
 
 **Completely revised - makes sense to read**
 

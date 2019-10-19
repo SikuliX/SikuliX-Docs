@@ -606,7 +606,7 @@ file or just plain text) can be used as parameter. A find operation is
 successful, if the given image is found with the given minimum similarity or
 the given text is found as specified. 
 
-.. versionadded:: 1.1.4
+.. versionadded:: 2.0.0
 **Revision of the text and OCR features** 
 
 The implementation is now based on the package **Tess4J**, that provides a Java-level API to **Tesseract 3.x**. 
@@ -1761,7 +1761,7 @@ Extracting Text from a Region
 
 .. py:class:: Region
 
-.. versionadded:: 1.1.4
+.. versionadded:: 2.0.0
 
 The text and OCR features are completely revised. Everything is now available at the Java level
 through the use of ``Tess4j``, which in turn is a wrapper around the native library ``Tesseract``.
