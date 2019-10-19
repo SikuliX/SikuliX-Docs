@@ -35,7 +35,7 @@ There are basically 3 categories of tools:
  
  - **Visually** the tool "sees" images (usually retangular pixel areas) on the screen and allows one to act on these images using mouse and keyboard simulation. There might be some recorder feature as well with such a tool.
  
-SikuliX belongs to the 3rd category and currently does not have a recorder feature. While you work through your workflow you capture some images, that you want to act on or that you expect to appear after an action. These images are used by click and type actions or are used to wait for the screen to be ready for the next action.
+SikuliX belongs to the 3rd category and has an experimental recorder feature #WIKI_RECORDER#. While you work through your workflow you capture some images, that you want to act on or that you expect to appear after an action. These images are used by click and type actions or are used to wait for the screen to be ready for the next action.
 
 SikuliX is a **WYSIWYS-Tool**: What You See Is What You Script.
 
@@ -154,7 +154,7 @@ Might be a good idea to first read this #WIKI_QUICKSTART# `SikuliX Quickstart <h
 
 **SikuliX does only support 64-Bit Systems.**
 
-A major aspect of SikuliX is to be available on Windows, Mac and Linux with as little differences as possible. This means, that features will only be added to SikuliX as standard, if they can be made available on all these systems. Nevertheless it is possible add extensions or plugins #WIKI_EXTENSIONS#, that might not be available for all systems.
+A major aspect of SikuliX is to be available on Windows, Mac and Linux with as little differences as possible. This means, that features will only be added to SikuliX as standard, if they can be made available on all these systems. Nevertheless it is possible to add extensions or plugins #WIKI_EXTENSIONS#, that might not be available for all systems.
 
 SikuliX is a Java based application or library. Hence the usable artifacts are delivered as jar-files.
 
@@ -188,7 +188,7 @@ The ``SikulixAppData`` is stored in the folder ``Sikulix`` inside the folder the
 
 Besides Java there are no prerequisites. All native libraries are bundled in the jar-files and exported at runtime as needed.
 
-For possible problems and workarounds look here #WIKI-WINDOWS#
+For possible problems and workarounds look here: `Getting started on macOS <https://github.com/RaiMan/SikuliX1/wiki/GettingStarted-on-Windows>`_
 
 SikuliX on Mac
 --------------
@@ -201,7 +201,7 @@ The ``SikulixAppData`` folder is here ``~/Library/Application Support/Sikulix``
 
 Besides Java there are no prerequisites. Some native libraries are bundled in the jar-files and exported at runtime as needed.
 
-For needed prerequisites, possible problems and workarounds look here #WIKI-MAC#
+For needed prerequisites, possible problems and workarounds look here: `Getting started on macOS <https://github.com/RaiMan/SikuliX1/wiki/GettingStarted-on-macOS>`_
 
 SikuliX on Linux
 ----------------
@@ -216,7 +216,7 @@ On Linux Systems SikuliX cannot be used out of the box.
 
 One has to provide the libraries **OpenCV and Tesseract** and additionally the packages **wmctrl and xdotool**, when using the App class features.
 
-For the details see #WIKI-LINUX#.
+For the details see: `Getting started on macOS <https://github.com/RaiMan/SikuliX1/wiki/GettingStarted-on-Linux>`_
 
 **Special information on the bundled libJXGrabKey.so**
 
