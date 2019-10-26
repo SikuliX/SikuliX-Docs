@@ -479,146 +479,17 @@ If you want to use any of these variants outside the SikuliX context (some exter
         
 to get the SikuliX context ready.
 
-Experimental: RunServer - run scripts from anywhere with zero-delay
+Experimental: SikulixServer - run scripts from anywhere with zero-delay
 ===================================================================
 
 .. _UsingRunServer
 
-.. versionadded:: X1.1.4
+.. versionadded:: X2.1.0
 
-**This feature is currently completely revised** and might be switched off in actual 1.1.4 builds until further notice.
+**This feature is completely revised** 
 
 The design/implementation goals `are here. <https://github.com/RaiMan/SikuliX1/wiki/New-SikulixServer-Design>`_.
 
-The feature is available until ready only in the branch `dev-SX-Server <https://github.com/RaiMan/SikuliX1/tree/dev-SX-Server>`_ on GitHub.
+... and have to be used as usage guide for now.
 
-**The following information is for the current experimental implementation only**
 
-... experimental means
-
-    - basic features are implemented and useable in selected environments
-    - might not be tested with all possible variations 
-    - are usually only poorly documented or not at all
-    - might have bugs and other oddities
-
-... so play with it and report requests and bugs as needed: always welcome. 
-
-**The intended use of this feature is**
-
-        - run prepared scripts from environments, that cannot easily use one of the SikuliX APIs, like command line, C#, C++, Python, AppleScript, Java versions before version 6, ...
-        - run prepared scripts on other machines (not yet fully tested, but should work)
-        - setup some web based application, that runs scripts from the net on the local machine (not yet fully available), which would e.g. allow to setup some showcase webpage enriched with the features of the annotation tool (the former Guide extension)
-
-**To start the local RunServer** on port 50001 from a command line or terminal-session use either::
-        
-        runsikulix(.cmd) -s (supports running Python and JavaScript scripts
-        
-or::
-        
-        java -jar sikulixapi.jar -s (supports running JavaScript scripts only) 
-
-If the RunServer start succeeds, you should see something like the following::
-
-        [info] RunServer: Starting: trying port: 50001
-        [info] RunServer: now waiting on port: 50001 at 192.168.2.108
-        
-**Available features and how to use them**
-
-Any client solution, that is able to issue valid HTTP GET requests against the server at localhost:50001 can be used.
-
-The following clients or client solutions as examples:
-
-        - of course any browser using it's address line or links in a webpage like here in the below showcase.
-        - any programmatical browser feature like when using Selenium
-        - the command line tool curl or similar 
-        - any programmed client in any language, that issues valid HTTP GET requests
-
-These are the valid commands currently - to be written RESTful after localhost:50001/::
-
-        stop       - stops the server
-        
-        start      - initiates a JavaScript runner, so the next run request will start the script without delay
-        startp     - initiates a Jython runner, so the next run request will start the script without delay
-        
-        run/script - looks for the script in the given folder (see command scripts) and runs it 
-        
-        scripts/folder/folder/folder/... - sets the folder where the runner finds the scripts
-        images/folder/folder/folder/...  - sets the folder where the runner finds the used images (image path)
-        
-**Comments:**
-
-        - Ruby scripts are not yet supported.
-        - if the first folder is named home, the subsequent structure is expected in the user's home folder 
-        - Windows: drive letters are not yet supported
-        - For images, the folder finally containing the images, might be a .sikuli (so it can be managed with the IDE)
-        - the runner to use is evaluated from the ending of the script file (.py or .js) contained in the script folder
-        - The folder ending .sikuli can be omitted for Python scripts, JS scripts currently should not have a .sikuli at all
-        - With the first run request you get the known startup delay, if a runner has not yet been started using the start/startp command 
-        
-Go through the following showcase, to get a feeling about what is possible.
-
-**Showcase for use with Python based scripts**
-
-Start the server as mentioned above and make sure it is running.
-
-Clicking the below links (CLICK ME) should open a new page displaying the server response::
-
-        Just have a look at it, close it and come back to this page.
-        
-        The display looks like this: PASS or FAIL NNN Specific-Information
-        PASS signals a successful processing of the request
-        FAIL means, that at least the request could not be processed successfully to it's end
-        NNN is a suitable HTTP status code
-        
-        Specific-Information is what it says, in case of RUN it ends with the string representation of the return value.
-
-Just for a basic test: Stop the RunServer 
-    `CLICK ME <http://localhost:50001/stop>`_ (issues: localhost:50001/stop)
-    
-Make sure, the server is stopped and then start it again.
-
-Start a script runner, that subsequently will run scripts instantly (no startup delay):
-    `CLICK ME <http://localhost:50001/startp>`_ (issues: localhost:50001/startp)
-
-Since this playground is a static environment, you have to implement some prerequisites, to run scripts.
-
-To your home folder add a folder sikulixrunserver.
-
-Having done this, you now tell the server to use this folder to find scripts as folder where scripts are stored 
-    `CLICK ME <http://localhost:50001/scripts/home/sikulixrunserver>`_ (issues: localhost:50001/scripts/home/sikulixrunserver)
-
-If you want to use one place, where you put your captured images (here as folder images in folder sikulixrunserver), you can tell the server to use this folder as folder where images are stored (of course you can have images in the script folders as well)
-    `CLICK ME <http://localhost:50001/images/home/sikulixrunserver/images>`_ (issues: localhost:50001/images/home/sikulixrunserver/images)
-
-To prepare a Python script, add a script named ``testpy.sikuli`` (take care, that it contains a ``testpy.py`` as well) to the folder sikulixrunserver. 
-
-This could easily be accomplished by using the SikuliX IDE using SaveAs with an existing script. 
-
-To get a valid return code, use ``exit()`` (yields 0) or ``exit(n)``. Other script terminations will be reported as FAIL.
-
-A basic test script for this showcase::
-
-        popup("hello world")
-        print "I said: hello world"
-
-Be aware: Print output of your script will be sent to the terminal/commandline session of the server. Besides redirecting the server's output to a file and grabbing it with some command like tail, there is currently no feature to redirect the output of one scriptrun to one file. If you need something like that, have a look at SikuliX's debug feature. 
-
-Run the script 
-    `CLICK ME <http://localhost:50001/run/testpy>`_ (issues: localhost:50001/run/testpy)
-    
-Finally stop the server
-    `CLICK ME <http://localhost:50001/stop>`_ (issues: localhost:50001/stop)
-    
-... and try to implement your own, tailored solution.
-
-**One more thing** (in memory of Steve Jobs)
-
-You might give parameters to your script via the following http command structure::
-
-        /run/testpy?parm1=value1;&parm2=value2
-        
-In your script you will get ``--parm1=value1``and so on in ``sys.argv[1]``and so on. The server output reports the identified parameter strings.
-
-It is your own job then to split each sys.argv item into the parameter name and the given value (Python method split()).
-
-Be aware: Everything is just strings. It is not tested, what the whole processing chain does with parameter strings containing other characters than letters or numbers. Feedback and suggestions are welcome. 
