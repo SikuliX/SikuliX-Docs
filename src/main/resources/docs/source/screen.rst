@@ -395,6 +395,8 @@ Connecting to an Android device or emulator (ADBScreen)
 
 .. versionadded:: 2.0.0
 
+**Planned to be revised in SikuliX 2.1.0 --- until then no support --- no bugs accepted --- use as is**
+
 Based on the ideas and first implementation of Gergő Törcsvári https://github.com/tg44
 it is now possible to capture images from an Android device in the IDE and run scripts
 the same way as with a local screen. You can wait for images to appear on the Android screen and act with taps,
