@@ -353,6 +353,8 @@ Using RobotFramework
 
 .. versionadded:: X1.1.1
 
+**Valid up to version 2.0.x**
+
 You can run ready Robot scripts out of the box in the Sikulix context (IDE or from commandline). The needed Python module robot ( from `robotframework 3.0 <https://pypi.python.org/pypi/robotframework>`_ ) is bundled with the ``sikulixapi.jar``. At runtime and already with setup, the module is exported to the folder ``<SikulixAppData>/Lib``, which is on ``sys.path`` automatically. So there is no need to have anything else available than a suitable setup of SikuliX.
 
 The easiest way is to use the SikuliX IDE with this principal setup
