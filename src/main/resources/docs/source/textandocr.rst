@@ -3,14 +3,22 @@
 Working with text and using OCR features
 ========================================
 
-These are the steps to **switch to another language** than the standard english (eng):
+`Special Info for SikuliX version 2 (incl. features under developement and/or evaluation) <https://github.com/RaiMan/SikuliX1/wiki/How-to-get-the-best-from-OCR-and-text-features>`_
 
-Find the folder ``SikulixTesseract/tessdata`` in your SikuliX <app-data> folder (see docs)
+ **Switch to another language** 
+ 
+These are the steps to switch to another language than the standard english (eng):
 
-Download the languages needed from `Tesseract languages version 3 <https://github.com/tesseract-ocr/tessdata/tree/3.04.00>`_
+Step 1: Find the folder ``SikulixTesseract/tessdata`` in your SikuliX <app-data> folder (see docs)
+
+Step 2: Download the languages needed from `Tesseract languages <https://github.com/tesseract-ocr/tessdata>`_
 (only the files with .traineddata)
 
-Put the .traineddata files into the tessdata folder (step 1.)
+For SikuliX version 2.0.x+ we use the files for Tesseract 4 (preferably those from **tessdata_fast**)
+
+For earlier Versions up to 1.1.3 use the files for Tesseract 3 (no longer supported).
+
+Step 3: Put the .traineddata files into the tessdata folder (Step 1)
 
 In your script say before using OCR features::
 
@@ -21,9 +29,16 @@ In your script say before using OCR features::
         TextRecognizer tr = TextRecognizer.start()
 
 Set the language of the text to be read:
-  where xxx is the shorthand for the wanted language (the letters in the filename (step 3.) before the .traineddata)::
+  where xxx is the shorthand for the wanted language (the letters in the filename (Step 3) before the .traineddata)::
 
         tr.setLanguage("xxx")
+        
+**Have your own Tesseract datapath**
+Instead of the above mentioned standard you can have your own folder with all stuff, that is needed by Tesseract at runtime. If you want to do that, simply have 
+
+                Settings.OcrDataPath = <some absolute Path>
+                
+Before starting the Textrecognizer. Take care, that all relevant files are in a subfolder **tessdata**.
 
 **There are many other possibilities to tweak the Tesseract OCR process**
 
