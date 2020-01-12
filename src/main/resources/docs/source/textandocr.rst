@@ -51,7 +51,7 @@ There is another option, that might be used instead::
         
 where value must be greater than seven and be the font size in dpi of the standard font used by Java in your environment.
 
-If you have problems with accuarcy, then before fiddling around with the height/size options have a look at the `Lessons learned and BestPractices <>`_.
+If you have problems with accuarcy, then before fiddling around with the height/size options have a look at the `Lessons learned and BestPractices <https://github.com/RaiMan/SikuliX1/wiki/How-to-get-the-best-from-OCR-and-text-features>`_.
 
 If your interested in the reported accuracy (confidence), you have to use one of the SikuliX features, that return text matches::
 
@@ -71,7 +71,7 @@ Most of the OCR and text find features work with standard settings out of the bo
         // in Java
         TextRecognizer tr = TextRecognizer.start()
         
-After that you have access to the settings/options via setters/getters like so:
+After that you have access to the settings/options via setters/getters like so::
 
         tr.setSomeOption(someValue)
         tr.getSomeOption()
@@ -82,7 +82,7 @@ For details see below.
 
 After a script run, a started Textrecognizer is reset to the defaults of OEM, PSM and text height. If Tesseract variables and/or configs have been set, it is even stopped and started again. So each script run starts with a defined default state of the engine.
 
-This reports the current settings of the engine:
+This reports the current settings of the engine::
 
             TextOCR.start().status()
             
@@ -181,4 +181,4 @@ that are supposed to contain readable text::
         *  12    Sparse text with OSD.  (needs osd.traineddata)
         *  13    Raw line. Treat the image as a single text line, bypassing hacks that are Tesseract-specific.
         
-Only in specuial cases there should be a need to use something else than the default (3).
+Only in special cases there should be a need to use something else than the default (3).
