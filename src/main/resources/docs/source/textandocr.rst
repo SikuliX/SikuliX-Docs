@@ -45,7 +45,7 @@ Before starting the Textrecognizer. Take care, that all relevant files are in a 
 About Tesseract variables, configurations, training and other gory details you have to consult the
 `Tesseract documentation <https://github.com/tesseract-ocr/tesseract/wiki/Documentation>`_.
 
-But before you step into Tesseract you should read about **`LessonsLearned and BestPractices <https://github.com/RaiMan/SikuliX1/wiki/How-to-get-the-best-from-OCR-and-text-features>`_**.
+But before you step into Tesseract you should read about `LessonsLearned and BestPractices <https://github.com/RaiMan/SikuliX1/wiki/How-to-get-the-best-from-OCR-and-text-features>`_.
 
 Set a variable as a single Tesseract setting, that controls a specific topic in the OCR process::
 
