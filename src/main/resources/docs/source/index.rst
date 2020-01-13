@@ -67,7 +67,7 @@ you have to check, wether they are supported in this SikuliX environment.
 **NOTE on Java usage** The features in SikuliX at the bottom line are implemented with Java. 
 So you might as well use SikuliX at this Java API level in your Java projects or other Java aware environments (:doc:`see how to <faq/030-java-dev>`). Though this documentation is targeted at the scripting people it contains basic information about the Java level API as well at places, where there are major differences between the two API level.
   Additionally you might **look through the JavaDocs** 
-  (`latest version <https://raiman.github.io/SikuliX1/javadocs/overview-summary.html>`_). 
+  (`latest version <https://raiman.github.io/SikuliX1/javadocs/index.html>`_).
 
 Each chapter in this documentaton briefly describes 
 a class or a group of methods regarding their basic features.
