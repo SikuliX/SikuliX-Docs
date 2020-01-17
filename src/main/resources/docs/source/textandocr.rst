@@ -5,6 +5,16 @@ Working with text and using OCR features
 
 .. versionadded:: 2.0.2
 
+**Important Note ----------------------------------------------** 
+
+Though the class names ``TextOCR`` (Python scripts) and ``TextRecognizer`` (Java API level) are still supported, they are deprecated. So you should not use them with new works anymore.
+
+In both environments it is now the class name ``OCR``.
+
+On top ``TextOCR.start()`` or ``TextRecognizer.start()`` are no longer needed beforehand (all methods are static). Simply start using the the OCR engin's features like so ``OCR.feature()``.
+
+**--------------------------------------------------------**
+
 SikuliX uses the Java library Tess4j, that allows to use the Tesseract features at the Java level. Internally it depends on Tesseract, 
 
 If you want to know anything about features not mentioned here or supported by SikuliX that are available in Tess4J/Tesseract, you have to dive into the details on the respective home pages of the packages.
@@ -37,46 +47,27 @@ Both variants have drawbacks, but the pixel approach seems to be the most promis
 
 To not make usage too complicated in the average, SikuliX comes with the following default:
 
-The height of a capital X in the default font in the current screen environment is taken as the base for the resize to 30 pixel.
-
-In case you might change this setting::
-
-        tr.setUppercaseXHeight(value)
-        
-where value must be greater than 7 and should be the height in pixels of the capital letter X in the respective font as shown on the screen or in the image.
-
-There is another option, that might be used instead::
-
-        tr.setFontSize(value)
-        
-where value must be greater than seven and be the font size in dpi of the standard font used by Java in your environment.
+The height of a capital X in the default font used in Java in the current screen environment is taken as the base for the resize to 30 pixel.
 
 If you have problems with accuarcy, then before fiddling around with the height/size options have a look at the `Lessons learned and BestPractices <https://github.com/RaiMan/SikuliX1/wiki/How-to-get-the-best-from-OCR-and-text-features>`_.
 
-If your interested in the reported accuracy (confidence), you have to use one of the SikuliX features, that return text matches::
+There are functions/methods (classes Region, Image, OCR), that tell The OCR engine, to treat the image as a single line, a single word or even a single character. In some cases their usage might help to get what you expect.
+
+Generally it makes sense, to try with a sample before investing in complex code::
+
+		TODO: Example script to be added
+
+If your interested in the reported accuracy (confidence), you have to use `one of the SikuliX features, that return text matches <>`_::
 
         match.getScore()
         
-which returns a decimal value between 0 and 100 (meant as percentage). Very good values are above 95, good values above 90.
+which returns a decimal value between 0 and 1 (meant as percentage). Very good values are above 0.95, good values above 0.90.
 
-Be aware: even if a good confidence is reported, there might still be very few errors in the returned text, though the risk is very small. If you need exact results in case you have to intelligently combine the SikuliX and Tesseract features. Suggestions and contributions are always very welcome.
+To get the text in such cases, simply use::
 
-**Getting access to the options/settings of OCR**
+        match.getText()
 
-Most of the OCR and text find features work with standard settings out of the box. If you need to tweak the OCR process, you have to start the engine (TextRecognizer) beforehand::
-
-        # in a script
-        tr = TextOCR.start()
-
-        // in Java
-        TextRecognizer tr = TextRecognizer.start()
-        
-After that you have access to the settings/options via setters/getters like so::
-
-        tr.setSomeOption(someValue)
-        tr.getSomeOption()
-        
-For details see below.
+**Be aware:** Even if a good confidence is reported, there might still be very few errors in the returned text, though the risk is very small. If you need exact results in case you have to intelligently combine the SikuliX and Tesseract features. Even lower confidence values do not mean, that the text is not correctly recognized. Suggestions and contributions are always very welcome.
 
 **Note on running scripts in the IDE**
 
@@ -84,9 +75,21 @@ After a script run, a started Textrecognizer is reset to the defaults of OEM, PS
 
 This reports the current settings of the engine::
 
-            TextOCR.start().status()
+            OCR.status()
             
-... but not everything is shown yet (under development).
+... but not everything is shown yet (under development)
+
+If you did not use any OCR feature yet, you will get the message::
+
+			OCR: not running
+			
+After the OCR engine is started (either by using ``OCR.start()`` or by using an OCR feature) you will get (under development)::
+
+			OCR: current settings
+			data = C:\Users\rmhde\AppData\Roaming\Sikulix\SikulixTesseract\tessdata
+			language(eng) oem(3) psm(3) height(15,1) factor(1,99) dpi(96) LINEAR
+
+The information is usually not relevant, only in cases where you want to report a problem or you are using non-standard SikuliX-OCR-features. More Details you may find below.			
 
 **OCR engine mode (OEM)**
 
@@ -98,7 +101,7 @@ The latest version of Tesseract (namely version 4) internally uses a new detecti
         * 2    Tesseract + Cube/LSTM. TESSERACT_LSTM_COMBINED
         * 3    Default, based on what is available. DEFAULT
         
-        tr.setOEM(value)
+        OCR.setOEM(value)
 
 **Switch to another language** 
  
@@ -119,7 +122,7 @@ Step 3: Put the .traineddata files into the tessdata folder (Step 1)
 
 In your script/program start the engine and say before using OCR features::
 
-        tr.setLanguage("xxx")
+        OCR.setLanguage("xxx")
         
 Set the language of the text to be read, where xxx is the shorthand for the wanted language (the letters in the filename (Step 3) before the .traineddata).
 
@@ -140,7 +143,7 @@ This is then recognized with each subsequent script start in the same IDE sessio
 
 After having the TextRecognizer started, you can also use::
 
-                tr.setDataPath("absolute path")
+                OCR.setDataPath("absolute path")
                 
 to switch the path dynamically.
 
@@ -153,17 +156,17 @@ But before you step into Tesseract you should read about `LessonsLearned and Bes
 
 Set a variable as a single Tesseract setting, that controls a specific topic in the OCR process::
 
-        tr.setVariable(variableKey, variableValue)
+        OCR.setVariable(variableKey, variableValue)
 
 Set a configuration which is a file containing a set of variables, that configure the behaviour
 of a tailored OCR process. The ``listOfConfigs`` simply is a list of filenames::
 
-        tr.setConfigs(listOfConfigs)
+        OCR.setConfigs(listOfConfigs)
 
 You can set the page segmentation mode (PSM), which tells Tesseract, how to split the given image into rectangles,
 that are supposed to contain readable text::
 
-        tr.setPSM(psm-value)
+        OCR.setPSM(psm-value)
 
         * Page segmentation modes:
         *   0    Orientation and script detection (OSD) only. (needs osd.traineddata)
