@@ -71,9 +71,11 @@ To get the text in such cases, simply use::
 
 **Handling options of OCR**
 
-There is one global options set (``OCR.globalOptions()``, that is used if nothing else is said. 
+There is one **global options set** (``OCR.options()``), that is used if nothing else is said. 
 
-Using ``OCR.options()`` you can create an options set, derived from the initial global options. This can be modified using the setters shown below and later be used with features allowing to specify an option set to use.
+Using ``OCR.Options()`` you can **create a new options set**, derived from the initial global options. This can be modified using the setters shown below and later be used with features allowing to specify an option set to use.
+
+**Be Aware** of the significance oflowercase/Upperase: options (global) vs. Options (new set)
 
 As well you can apply the setters to the global options, to run OCR with specific defaults. At any time, you can reset the global options to its initial state using ``OCR.reset()``.
 
@@ -91,7 +93,18 @@ This reports the currently used global options::
 
 The information is usually not relevant, only in cases where you want to report a problem or you are using non-standard SikuliX-OCR-features. More Details you may find below.
 
-For a specific options set (created before using ``OCR.options()``) you can use ``(Java) someOptions.toString()`` to get this information as text (use ``print someOptions`` in scripts).
+For a specific options set (created before using ``OCR.Options()``) you can use ``(Java) someOptions.toString()`` to get this information as text (use ``print someOptions`` in scripts).
+
+The options setters can be chained::
+
+		myOptions = OCR.Options().setter(value).setter(value)...
+		
+or used alone::
+
+		myOptions = OCR.Options()
+		myOptions.setter(value)
+		myOptions.setter(value)
+
 
 **Note on running scripts in the IDE**
 
@@ -99,7 +112,7 @@ After a script run, OCR is reset to the defaults of OEM, PSM and text height. If
 
 **BE AWARE** If you want to modify the global options using the following setters, you have to use::
 
-		OCR.globalOptions().setter(value)
+		OCR.options().setter(value)
 
 **OCR engine mode (OEM)**
 
@@ -111,7 +124,7 @@ The latest version of Tesseract (namely version 4) internally uses a new detecti
         * 2    Tesseract + Cube/LSTM. TESSERACT_LSTM_COMBINED
         * 3    Default, based on what is available. DEFAULT
         
-        OCR.options().oem(value)
+        OCR.Options().oem(value)
 
 **Switch to another language** 
  
@@ -130,17 +143,17 @@ For earlier Versions up to 1.1.3 use the files for Tesseract 3 (no longer suppor
 
 Step 3: Put the .traineddata files into the tessdata folder (Step 1)
 
-In your script/program start the engine and say before using OCR features::
+In your script say before using an OCR feature, that should use the language::
 
         OCR.options().language("xxx")
         
-Set the language of the text to be read, where xxx is the shorthand for the wanted language (the letters in the filename (Step 3) before the .traineddata).
+This sets the language globally until changed again or reset, where xxx is the shorthand for the wanted language (the letters in the filename (Step 3) before the .traineddata).
 
-Another way to set a default language to be used at startup::
+Another way to set a default language to be used after startup::
 
         Settings.OcrLanguage = "xxx"
         
-This is then recognized with each subsequent script start in the same IDE session (so no need to use start()/setLanguage()).
+This is then recognized with each subsequent script start in the same IDE session (so no need to use ``language()).
         
 **Have your own Tesseract datapath**
 Instead of the above mentioned standard you can have your own folder with all stuff, that is needed by Tesseract at runtime. If you want to do that, simply have:: 
@@ -151,7 +164,7 @@ Before starting the Textrecognizer. Take care, that all relevant files are in a 
 
 This is then recognized with each subsequent script start in the same IDE session (so no need to use start()/setDataPath()).
 
-After having the TextRecognizer started, you can also use::
+in your script you can use::
 
                 OCR.options().dataPath("absolute path")
                 
