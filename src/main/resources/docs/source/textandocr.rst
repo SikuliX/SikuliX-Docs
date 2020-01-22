@@ -69,27 +69,37 @@ To get the text in such cases, simply use::
 
 **Be aware:** Even if a good confidence is reported, there might still be very few errors in the returned text, though the risk is very small. If you need exact results in case you have to intelligently combine the SikuliX and Tesseract features. Even lower confidence values do not mean, that the text is not correctly recognized. Suggestions and contributions are always very welcome.
 
-**Note on running scripts in the IDE**
+**Handling options of OCR**
 
-After a script run, a started Textrecognizer is reset to the defaults of OEM, PSM and text height. If Tesseract variables and/or configs have been set, it is even stopped and started again. So each script run starts with a defined default state of the engine.
+There is one global options set (``OCR.globalOptions()``, that is used if nothing else is said. 
 
-This reports the current settings of the engine::
+Using ``OCR.options()`` you can create an options set, derived from the initial global options. This can be modified using the setters shown below and later be used with features allowing to specify an option set to use.
+
+As well you can apply the setters to the global options, to run OCR with specific defaults. At any time, you can reset the global options to its initial state using ``OCR.reset()``.
+
+This reports the currently used global options::
 
             OCR.status()
             
-... but not everything is shown yet (under development)
-
-If you did not use any OCR feature yet, you will get the message::
-
-			OCR: not running
+... but not everything is shown yet (under development)::
 			
-After the OCR engine is started (either by using ``OCR.start()`` or by using an OCR feature) you will get (under development)::
-
-			OCR: current settings
-			data = C:\Users\rmhde\AppData\Roaming\Sikulix\SikulixTesseract\tessdata
+			Global settings OCR.options:
+			data = ...some-path.../tessdata
 			language(eng) oem(3) psm(3) height(15,1) factor(1,99) dpi(96) LINEAR
+			configs: conf1, conf2, ...
+			variables: key:value, ...			
 
-The information is usually not relevant, only in cases where you want to report a problem or you are using non-standard SikuliX-OCR-features. More Details you may find below.			
+The information is usually not relevant, only in cases where you want to report a problem or you are using non-standard SikuliX-OCR-features. More Details you may find below.
+
+For a specific options set (created before using ``OCR.options()``) you can use ``(Java) someOptions.toString()`` to get this information as text (use ``print someOptions`` in scripts).
+
+**Note on running scripts in the IDE**
+
+After a script run, OCR is reset to the defaults of OEM, PSM and text height. If Tesseract variables and/or configs have been set, those are removed as well. So each script run starts with a defined default state of the Tesseract engine.
+
+**BE AWARE** If you want to modify the global options using the following setters, you have to use::
+
+		OCR.globalOptions().setter(value)
 
 **OCR engine mode (OEM)**
 
@@ -101,7 +111,7 @@ The latest version of Tesseract (namely version 4) internally uses a new detecti
         * 2    Tesseract + Cube/LSTM. TESSERACT_LSTM_COMBINED
         * 3    Default, based on what is available. DEFAULT
         
-        OCR.setOEM(value)
+        OCR.options().oem(value)
 
 **Switch to another language** 
  
@@ -122,7 +132,7 @@ Step 3: Put the .traineddata files into the tessdata folder (Step 1)
 
 In your script/program start the engine and say before using OCR features::
 
-        OCR.setLanguage("xxx")
+        OCR.options().language("xxx")
         
 Set the language of the text to be read, where xxx is the shorthand for the wanted language (the letters in the filename (Step 3) before the .traineddata).
 
@@ -143,7 +153,7 @@ This is then recognized with each subsequent script start in the same IDE sessio
 
 After having the TextRecognizer started, you can also use::
 
-                OCR.setDataPath("absolute path")
+                OCR.options().dataPath("absolute path")
                 
 to switch the path dynamically.
 
@@ -156,17 +166,17 @@ But before you step into Tesseract you should read about `LessonsLearned and Bes
 
 Set a variable as a single Tesseract setting, that controls a specific topic in the OCR process::
 
-        OCR.setVariable(variableKey, variableValue)
+        OCR.options().variable(variableKey, variableValue)
 
 Set a configuration which is a file containing a set of variables, that configure the behaviour
 of a tailored OCR process. The ``listOfConfigs`` simply is a list of filenames::
 
-        OCR.setConfigs(listOfConfigs)
+        OCR.options().configs(listOfConfigs)
 
 You can set the page segmentation mode (PSM), which tells Tesseract, how to split the given image into rectangles,
 that are supposed to contain readable text::
 
-        OCR.setPSM(psm-value)
+        OCR.options().psm(psm-value)
 
         * Page segmentation modes:
         *   0    Orientation and script detection (OSD) only. (needs osd.traineddata)
@@ -185,3 +195,11 @@ that are supposed to contain readable text::
         *  13    Raw line. Treat the image as a single text line, bypassing hacks that are Tesseract-specific.
         
 Only in special cases there should be a need to use something else than the default (3).
+
+Functions textXXX, findXXX and readXXX in Region, Image or OCR are internally using::
+
+		XXX as Line: psm 7
+		XXX as Word: psm 8
+		XXX as Char: psm 10
+		
+So with these convenience functions there is no need to fiddle around with OCR.options beforehand.
