@@ -143,7 +143,7 @@ Another way to set a default language to be used at startup::
 This is then recognized with each subsequent script start in the same IDE session (so no need to use start()/setLanguage()).
         
 **Have your own Tesseract datapath**
-Instead of the above mentioned standard you can have your own folder with all stuff, that is needed by Tesseract at runtime. If you want to do that, simply have 
+Instead of the above mentioned standard you can have your own folder with all stuff, that is needed by Tesseract at runtime. If you want to do that, simply have:: 
 
                 Settings.OcrDataPath = <some absolute Path>
                 
