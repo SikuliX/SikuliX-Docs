@@ -106,7 +106,7 @@ And there are new text functions, that only search once and do not throw findFai
  - ``findWord("a word")`` looks for a word, whose text can be a regular expression
  - ``findLine("some text")`` looks for and returns the line, that contains the text (might be a regular expression)
 
-For details :ref:`see the function descriptions <FindinginsideaRegionandWaitingforaVisualEvent>`.
+:ref:`For details read about Text and OCR <textandocr>`.
 
 Revision of the findAll feature
 -------------------------------
