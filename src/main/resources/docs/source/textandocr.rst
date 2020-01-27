@@ -5,13 +5,21 @@ Working with text and using OCR features
 
 .. versionadded:: 2.0.2
 
+OCR Summary
+-----------
+
 **Important Note ----------------------------------------------** 
 
-Though the class names ``TextOCR`` (Python scripts) and ``TextRecognizer`` (Java API level) are still supported, they are deprecated. So you should not use them with new works anymore.
+.. note::
+	Though the class names ``TextOCR`` (Python scripts) and ``TextRecognizer`` (Java API level) are still supported, they are deprecated. So you should not use them with new works anymore.
 
-In both environments it is now the class name ``OCR``.
+	In both environments it is now the class name ``OCR``.
 
-On top ``TextOCR.start()`` or ``TextRecognizer.start()`` are no longer needed beforehand (all methods are static). Simply start using the the OCR engin's features like so ``OCR.feature()``.
+	On top ``TextOCR.start()`` or ``TextRecognizer.start()`` are no longer needed beforehand (all methods are static). 
+
+	Simply start using the text/OCR features with :py:class:`Region` or :py:class:`Image` (:ref:`see the summary below <reg_img_summary>`).
+
+	In special cases, where you need to tweak the OCR engine, you can use the :py:class:`OCR` features directly (:ref:`see the summary below <ocr_summary>`).
 
 **--------------------------------------------------------**
 
@@ -25,12 +33,13 @@ If you want to know anything about features not mentioned here or supported by S
 There are three feature groups (for method specs follow the links):
 
  - handling general options or settings including those of Tesseract (see below)
- - `reading the text from a region on a screen or from an image (OCR) <https://sikulix-2014.readthedocs.io/en/latest/region.html#extracting-text-from-a-region>`_
- - `finding the position (Match) of a given text (string/RegEx) in a region on a screen or in an image <>`_
+ - :ref:`reading the text from a region on screen or from an image (OCR) <>`
+ - :ref:`finding the position (Match) of a given text (string/RegEx) in a region on screen or in an image <>`
 
 `Special Information for SikuliX version 2 - Lessons learned and BestPractices (incl. features under developement and/or evaluation) <https://github.com/RaiMan/SikuliX1/wiki/How-to-get-the-best-from-OCR-and-text-features>`_
 
-**Accuracy of text recognition (confidence)**
+Accuracy of text recognition (confidence)
+-----------------------------------------
 
 According to the recommendations of Tesseract and experiences found in the net, SikuliX does some optimization of the images before handing over to OCR:
 
@@ -69,19 +78,16 @@ To get the text in such cases, simply use::
 
 **Be aware:** Even if a good confidence is reported, there might still be very few errors in the returned text, though the risk is very small. If you need exact results in case you have to intelligently combine the SikuliX and Tesseract features. Even lower confidence values do not mean, that the text is not correctly recognized. Suggestions and contributions are always very welcome.
 
-**Handling options of OCR**
+Handling OCR options
+--------------------
 
 There is one **global options set** (``OCR.options()``), that is used if nothing else is said. 
 
-Using ``OCR.Options()`` you can **create a new options set**, derived from the initial global options. This can be modified using the setters shown below and later be used with features allowing to specify an option set to use.
+Using ``myOptions = OCR.Options()`` you can **create a new options set**, derived from the initial global options. This can be modified using the setters shown below (``myOptions.setXXX(value)``) and later be used with features allowing to specify an option set to use.
 
-**Be Aware** of the significance oflowercase/Upperase: options (global) vs. Options (new set)
+As well you can apply the setters to the global options (``OCR.globalOptions().setXXX(value)``), to run OCR with specific defaults. At any time, you can reset the global options to its initial state using ``OCR.reset()``.
 
-As well you can apply the setters to the global options, to run OCR with specific defaults. At any time, you can reset the global options to its initial state using ``OCR.reset()``.
-
-This reports the currently used global options::
-
-            OCR.status()
+``OCR.status()`` reports the currently used global options::
             
 ... but not everything is shown yet (under development)::
 			
@@ -105,16 +111,14 @@ or used alone::
 		myOptions.setter(value)
 		myOptions.setter(value)
 
+.. note::
 
-**Note on running scripts in the IDE**
+	**Note on running scripts in the IDE**
 
-After a script run, OCR is reset to the defaults of OEM, PSM and text height. If Tesseract variables and/or configs have been set, those are removed as well. So each script run starts with a defined default state of the Tesseract engine.
+	After a script run, OCR is reset to the defaults of OEM, PSM and text height. If Tesseract variables and/or configs have been set, those are removed as well. So each script run starts with a defined default state of the Tesseract engine.
 
-**BE AWARE** If you want to modify the global options using the following setters, you have to use::
-
-		OCR.options().setter(value)
-
-**OCR engine mode (OEM)**
+OCR engine mode (OEM)
+---------------------
 
 The latest version of Tesseract (namely version 4) internally uses a new detection engine (LSTM), that has again raised accuracy and speed. If the corresponding language models are supplied at runtime (which is the case with SikuliX now), then this engine is used as a default (OEM = 3). There should be no need to run another engine mode::
 
@@ -126,65 +130,8 @@ The latest version of Tesseract (namely version 4) internally uses a new detecti
         
         OCR.Options().oem(value)
 
-**Switch to another language** 
- 
-In the standard SikuliX runs the text features with the english language set, which is bundled with SikuliX. It is possible to add more languages to your SikuliX setup and switch between the installed languages at runtime.
-
-These are the steps to switch to another language than the standard english (eng):
-
-Step 1: Find the folder ``SikulixTesseract/tessdata`` in your SikuliX <app-data> folder (see docs)
-
-Step 2: Download the languages needed from `Tesseract languages <https://github.com/tesseract-ocr/tessdata>`_
-(only the files with .traineddata)
-
-For SikuliX version 2.0.x+ we use the files for Tesseract 4 (preferably those from **tessdata_fast**)
-
-For earlier Versions up to 1.1.3 use the files for Tesseract 3 (no longer supported).
-
-Step 3: Put the .traineddata files into the tessdata folder (Step 1)
-
-In your script say before using an OCR feature, that should use the language::
-
-        OCR.options().language("xxx")
-        
-This sets the language globally until changed again or reset, where xxx is the shorthand for the wanted language (the letters in the filename (Step 3) before the .traineddata).
-
-Another way to set a default language to be used after startup::
-
-        Settings.OcrLanguage = "xxx"
-        
-This is then recognized with each subsequent script start in the same IDE session (so no need to use ``language()).
-        
-**Have your own Tesseract datapath**
-Instead of the above mentioned standard you can have your own folder with all stuff, that is needed by Tesseract at runtime. If you want to do that, simply have:: 
-
-                Settings.OcrDataPath = <some absolute Path>
-                
-Before starting the Textrecognizer. Take care, that all relevant files are in a subfolder **tessdata**.
-
-This is then recognized with each subsequent script start in the same IDE session (so no need to use start()/setDataPath()).
-
-in your script you can use::
-
-                OCR.options().dataPath("absolute path")
-                
-to switch the path dynamically.
-
-**There are many other possibilities to tweak the Tesseract OCR process**
-
-About Tesseract variables, configurations, training and other gory details you have to consult the
-`Tesseract documentation <https://github.com/tesseract-ocr/tesseract/wiki/Documentation>`_.
-
-But before you step into Tesseract you should read about `LessonsLearned and BestPractices <https://github.com/RaiMan/SikuliX1/wiki/How-to-get-the-best-from-OCR-and-text-features>`_.
-
-Set a variable as a single Tesseract setting, that controls a specific topic in the OCR process::
-
-        OCR.options().variable(variableKey, variableValue)
-
-Set a configuration which is a file containing a set of variables, that configure the behaviour
-of a tailored OCR process. The ``listOfConfigs`` simply is a list of filenames::
-
-        OCR.options().configs(listOfConfigs)
+OCR page segmentation mode(PSM)
+-------------------------------
 
 You can set the page segmentation mode (PSM), which tells Tesseract, how to split the given image into rectangles,
 that are supposed to contain readable text::
@@ -216,3 +163,67 @@ Functions textXXX, findXXX and readXXX in Region, Image or OCR are internally us
 		XXX as Char: psm 10
 		
 So with these convenience functions there is no need to fiddle around with OCR.options beforehand.
+
+Switch to another language
+--------------------------
+ 
+In the standard SikuliX runs the text features with the english language set, which is bundled with SikuliX. It is possible to add more languages to your SikuliX setup and switch between the installed languages at runtime.
+
+These are the steps to switch to another language than the standard english (eng):
+
+Step 1: Find the folder ``SikulixTesseract/tessdata`` in your SikuliX <app-data> folder (see docs)
+
+Step 2: Download the languages needed from `Tesseract languages <https://github.com/tesseract-ocr/tessdata>`_
+(only the files with .traineddata)
+
+For SikuliX version 2.0.x+ we use the files for Tesseract 4 (preferably those from **tessdata_fast**)
+
+For earlier Versions up to 1.1.3 use the files for Tesseract 3 (no longer supported).
+
+Step 3: Put the .traineddata files into the tessdata folder (Step 1)
+
+In your script say before using an OCR feature, that should use the language::
+
+        OCR.options().language("xxx")
+        
+This sets the language globally until changed again or reset, where xxx is the shorthand for the wanted language (the letters in the filename (Step 3) before the .traineddata).
+
+Another way to set a default language to be used after startup::
+
+        Settings.OcrLanguage = "xxx"
+        
+This is then recognized with each subsequent script start in the same IDE session (so no need to use ``language()).
+        
+Have your own Tesseract datapath
+--------------------------------
+
+Instead of the above mentioned standard you can have your own folder with all stuff, that is needed by Tesseract at runtime. If you want to do that, simply have:: 
+
+                Settings.OcrDataPath = <some absolute Path>
+                
+Before starting the Textrecognizer. Take care, that all relevant files are in a subfolder **tessdata**.
+
+This is then recognized with each subsequent script start in the same IDE session (so no need to use start()/setDataPath()).
+
+in your script you can use::
+
+                OCR.options().dataPath("absolute path")
+                
+to switch the path dynamically.
+
+Other possibilities to tweak the Tesseract OCR process
+------------------------------------------------------
+
+About Tesseract variables, configurations, training and other gory details you have to consult the
+`Tesseract documentation <https://github.com/tesseract-ocr/tesseract/wiki/Documentation>`_.
+
+But before you step into Tesseract you should read about `LessonsLearned and BestPractices <https://github.com/RaiMan/SikuliX1/wiki/How-to-get-the-best-from-OCR-and-text-features>`_.
+
+Set a variable as a single Tesseract setting, that controls a specific topic in the OCR process::
+
+        OCR.options().variable(variableKey, variableValue)
+
+Set a configuration which is a file containing a set of variables, that configure the behaviour
+of a tailored OCR process. The ``listOfConfigs`` simply is a list of filenames::
+
+        OCR.options().configs(listOfConfigs)
