@@ -8,20 +8,18 @@ Working with text and using OCR features
 OCR Summary
 -----------
 
-**Important Note ----------------------------------------------** 
-
 .. note::
+	**... important for version 2.0.2+**
+	
 	Though the class names ``TextOCR`` (Python scripts) and ``TextRecognizer`` (Java API level) are still supported, they are deprecated. So you should not use them with new works anymore.
 
 	In both environments it is now the class name ``OCR``.
 
 	On top ``TextOCR.start()`` or ``TextRecognizer.start()`` are no longer needed beforehand (all methods are static). 
 
-	Simply start using the text/OCR features with :py:class:`Region` or :py:class:`Image` (:ref:`see the summary below <reg_img_summary>`).
+	Simply start using the text/OCR features with :py:class:`Region` or :py:class:`Image` (:ref:`see the summary below <reg_img_features>`).
 
-	In special cases, where you need to tweak the OCR engine, you can use the :py:class:`OCR` features directly (:ref:`see the summary below <ocr_summary>`).
-
-**--------------------------------------------------------**
+	In special cases, where you need to tweak the OCR engine, you can use the :py:class:`OCR` features directly (:ref:`see the summary below <ocr_features>`).
 
 SikuliX uses the Java library Tess4j, that allows to use the Tesseract features at the Java level. Internally it depends on Tesseract, 
 
@@ -33,8 +31,8 @@ If you want to know anything about features not mentioned here or supported by S
 There are three feature groups (for method specs follow the links):
 
  - handling general options or settings including those of Tesseract (see below)
- - :ref:`reading the text from a region on screen or from an image (OCR) <>`
- - :ref:`finding the position (Match) of a given text (string/RegEx) in a region on screen or in an image <>`
+ - :ref:`reading the text from a region on screen or from an image (OCR) <reg_img_features>`
+ - :ref:`finding the position (Match) of a given text (string/RegEx) in a region on screen or in an image <reg_img_features>`
 
 `Special Information for SikuliX version 2 - Lessons learned and BestPractices (incl. features under developement and/or evaluation) <https://github.com/RaiMan/SikuliX1/wiki/How-to-get-the-best-from-OCR-and-text-features>`_
 
@@ -66,7 +64,7 @@ Generally it makes sense, to try with a sample before investing in complex code:
 
 		TODO: Example script to be added
 
-If your interested in the reported accuracy (confidence), you have to use `one of the SikuliX features, that return text matches <>`_::
+If your interested in the reported accuracy (confidence), you have to use :ref:`one of the SikuliX features, that return text matches <reg_img_features>`::
 
         match.getScore()
         
@@ -76,7 +74,9 @@ To get the text in such cases, simply use::
 
         match.getText()
 
-**Be aware:** Even if a good confidence is reported, there might still be very few errors in the returned text, though the risk is very small. If you need exact results in case you have to intelligently combine the SikuliX and Tesseract features. Even lower confidence values do not mean, that the text is not correctly recognized. Suggestions and contributions are always very welcome.
+.. note::
+
+	Even if a good confidence is reported, there might still be very few errors in the returned text, though the risk is very small. If you need exact results in case you have to intelligently combine the SikuliX and Tesseract features. Even lower confidence values do not mean, that the text is not correctly recognized. Suggestions and contributions are always very welcome.
 
 Handling OCR options
 --------------------
@@ -87,10 +87,8 @@ Using ``myOptions = OCR.Options()`` you can **create a new options set**, derive
 
 As well you can apply the setters to the global options (``OCR.globalOptions().setXXX(value)``), to run OCR with specific defaults. At any time, you can reset the global options to its initial state using ``OCR.reset()``.
 
-``OCR.status()`` reports the currently used global options::
-            
-... but not everything is shown yet (under development)::
-			
+``OCR.status()`` reports the currently used global options (example for Windows 10 with standard screen settings)::
+            			
 			Global settings OCR.options:
 			data = ...some-path.../tessdata
 			language(eng) oem(3) psm(3) height(15,1) factor(1,99) dpi(96) LINEAR
@@ -113,56 +111,28 @@ or used alone::
 
 .. note::
 
-	**Note on running scripts in the IDE**
+	**... on running scripts in the IDE**
 
 	After a script run, OCR is reset to the defaults of OEM, PSM and text height. If Tesseract variables and/or configs have been set, those are removed as well. So each script run starts with a defined default state of the Tesseract engine.
 
 OCR engine mode (OEM)
 ---------------------
 
-The latest version of Tesseract (namely version 4) internally uses a new detection engine (LSTM), that has again raised accuracy and speed. If the corresponding language models are supplied at runtime (which is the case with SikuliX now), then this engine is used as a default (OEM = 3). There should be no need to run another engine mode::
+The latest version of Tesseract (namely version 4) internally uses a new detection engine (LSTM), that has again raised accuracy and speed. If the corresponding language models are supplied at runtime (which is the case with SikuliX now), then this engine is used as a default (OEM = 3). 
 
-        * OCR Engine modes:
-        * 0    Original Tesseract only. TESSERACT_ONLY
-        * 1    Cube/LSTM only. LSTM_ONLY
-        * 2    Tesseract + Cube/LSTM. TESSERACT_LSTM_COMBINED
-        * 3    Default, based on what is available. DEFAULT
-        
-        OCR.Options().oem(value)
+see :py:method:`OCR.Options().oem(value)`
+
+Normally there should be no need to run another engine mode.
 
 OCR page segmentation mode(PSM)
 -------------------------------
 
 You can set the page segmentation mode (PSM), which tells Tesseract, how to split the given image into rectangles,
-that are supposed to contain readable text::
+that are supposed to contain readable text.
 
-        OCR.options().psm(psm-value)
-
-        * Page segmentation modes:
-        *   0    Orientation and script detection (OSD) only. (needs osd.traineddata)
-        *   1    Automatic page segmentation with OSD.  (needs osd.traineddata)
-        *   2    Automatic page segmentation, but no OSD, or OCR.
-        *   3    Fully automatic page segmentation, but no OSD. (Default)
-        *   4    Assume a single column of text of variable sizes.
-        *   5    Assume a single uniform block of vertically aligned text.
-        *   6    Assume a single uniform block of text.
-        *   7    Treat the image as a single text line.
-        *   8    Treat the image as a single word.
-        *   9    Treat the image as a single word in a circle.
-        *  10    Treat the image as a single character.
-        *  11    Sparse text. Find as much text as possible in no particular order.
-        *  12    Sparse text with OSD.  (needs osd.traineddata)
-        *  13    Raw line. Treat the image as a single text line, bypassing hacks that are Tesseract-specific.
+see :py:method:`OCR.options().psm(psm-value)`
         
 Only in special cases there should be a need to use something else than the default (3).
-
-Functions textXXX, findXXX and readXXX in Region, Image or OCR are internally using::
-
-		XXX as Line: psm 7
-		XXX as Word: psm 8
-		XXX as Char: psm 10
-		
-So with these convenience functions there is no need to fiddle around with OCR.options beforehand.
 
 Switch to another language
 --------------------------
@@ -182,17 +152,13 @@ For earlier Versions up to 1.1.3 use the files for Tesseract 3 (no longer suppor
 
 Step 3: Put the .traineddata files into the tessdata folder (Step 1)
 
-In your script say before using an OCR feature, that should use the language::
-
-        OCR.options().language("xxx")
+In your script say before using an OCR feature, that should use the language: :py:method:`OCR.options().language("xxx")`.
         
-This sets the language globally until changed again or reset, where xxx is the shorthand for the wanted language (the letters in the filename (Step 3) before the .traineddata).
-
-Another way to set a default language to be used after startup::
+Another way to set a default language to be used after startup globally::
 
         Settings.OcrLanguage = "xxx"
         
-This is then recognized with each subsequent script start in the same IDE session (so no need to use ``language()).
+This is then recognized with each subsequent script start in the same IDE session.
         
 Have your own Tesseract datapath
 --------------------------------
@@ -203,13 +169,9 @@ Instead of the above mentioned standard you can have your own folder with all st
                 
 Before starting the Textrecognizer. Take care, that all relevant files are in a subfolder **tessdata**.
 
-This is then recognized with each subsequent script start in the same IDE session (so no need to use start()/setDataPath()).
+This is then recognized with each subsequent script start in the same IDE session.
 
-in your script you can use::
-
-                OCR.options().dataPath("absolute path")
-                
-to switch the path dynamically.
+Use :py:method:`OCR.options().dataPath("absolute path")` to switch the path dynamically.
 
 Other possibilities to tweak the Tesseract OCR process
 ------------------------------------------------------
@@ -219,11 +181,7 @@ About Tesseract variables, configurations, training and other gory details you h
 
 But before you step into Tesseract you should read about `LessonsLearned and BestPractices <https://github.com/RaiMan/SikuliX1/wiki/How-to-get-the-best-from-OCR-and-text-features>`_.
 
-Set a variable as a single Tesseract setting, that controls a specific topic in the OCR process::
-
-        OCR.options().variable(variableKey, variableValue)
+Set a variable as a single Tesseract setting, that controls a specific topic in the OCR process :py:method:`OCR.Options().variable(key, value)`
 
 Set a configuration which is a file containing a set of variables, that configure the behaviour
-of a tailored OCR process. The ``listOfConfigs`` simply is a list of filenames::
-
-        OCR.options().configs(listOfConfigs)
+of a tailored OCR process: :py:method:`OCR.Options().configs(listOfConfigs)`.
