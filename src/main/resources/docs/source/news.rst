@@ -94,6 +94,10 @@ And there are new text functions, that only search once and do not throw findFai
  - ``findWord("a word")`` looks for a word, whose text can be a regular expression
  - ``findLine("some text")`` looks for and returns the line, that contains the text (might be a regular expression)
 
+.. note::
+
+        **Regular expressions for text search** is not yet implemented.
+
 :ref:`For details read about Text and OCR <textandocr>`.
 
 Revision of the findAll feature
@@ -129,18 +133,21 @@ the size/length of the list, that is 0 when empty (not found)::
     result = findLines("some text") # like findLine() but returns all matches in the region
 
     # these return a list of matches (words or lines) in the region top left to bottom right
-    result = collectWords();
-    result = collectLines();
+    result = findWords();
+    result = findLines();
 
     # these return a list of words or lines in the region top left to bottom right (no match info)
-    result = collectWordsText();
-    result = collectLinesText();
+    result = textWords();
+    result = textLines();
 
     # to retrieve the found text from a text match
-    theWordMatch = collectWords[0]
-    theWord = theWordMatch.getText()
+    theLineMatch = textLines[0]
+    theLine = theLineMatch.getText()
 
-For details :ref:`see the function description itself<FindinginsideaRegionandWaitingforaVisualEvent>`.
+For details see the function descriptions itself:
+
+    - :ref:`image related <FindinginsideaRegionandWaitingforaVisualEvent>`.
+    - :ref:`text/OCR related <textandocr>`
 
 **Be Aware** Since version 1.1.2 there are also functions, that search for more than one image at the same time ::
 
@@ -170,11 +177,13 @@ the details on the respective home pages of the packages.
  - `Tess4J <http://tess4j.sourceforge.net>`_
  - `Tesseract <https://github.com/tesseract-ocr/tesseract>`_
 
-**Be aware** The documentation of these packages is in a very basic stage with not much structure and
-little information that focuses on usage. So to dive into these docs only makes sense, if you really want to do
-special things or are not satisfied with the results you get with the SikuliX features.
+.. note::
 
-Request bugs for new features and/or revision/augmentation of existing ones are welcome.
+          The documentation of these packages is in a very basic stage with not much structure and
+          little information that focuses on usage. So to dive into these docs only makes sense, if you really want to do
+          special things or are not satisfied with the results you get with the SikuliX features.
+
+**Request bugs for new features and/or revision/augmentation of existing ones are welcome**
 
 **For detailed information and usage examples** :ref:`look here<textandocr>`.
 
