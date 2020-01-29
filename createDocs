@@ -1,2 +1,3 @@
 #!/bin/sh
+rm -f -R target
 sphinx-build src/main/resources/docs/source target/html
