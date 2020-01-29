@@ -1,7 +1,11 @@
 .. _newsbugs:
 
-Version 1.1.4 - Bugs, known Problems, requests and possible workarounds
+Version 2.0.2 - Bugs, known Problems, requests and possible workarounds
 =======================================================================
+
+.. note::
+
+To be revised - not yet up-to-date - sorry ;-)
 
 **Reported Bugs**
 

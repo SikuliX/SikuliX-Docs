@@ -1,41 +1,29 @@
 .. _NewIn114:
 
-New in version 2.0.0
-====================
-
-**Sorry, Linux users - you have to do a little bit more than Windows/Mac users:** :ref:`look here<newslinux>`.
-    It makes sense to first go there and know what is needed ;-)
-
-**The following is for all**
-
-:ref:`Here is a list of current bugs and requests and possible workarounds<newsbugs>`
-
-`... and this is a list of things already fixed <https://bugs.launchpad.net/sikuli/+bugs?field.searchtext=&orderby=-importance&field.status%3Alist=FIXCOMMITTED&field.importance%3Alist=CRITICAL&assignee_option=any&field.assignee=&field.bug_reporter=&field.bug_commenter=&field.subscriber=&field.structural_subscriber=&field.milestone%3Alist=86164&field.tag=&field.tags_combinator=ANY&field.has_cve.used=&field.omit_dupes.used=&field.omit_dupes=on&field.affects_me.used=&field.has_patch.used=&field.has_branches.used=&field.has_branches=on&field.has_no_branches.used=&field.has_no_branches=on&field.has_blueprints.used=&field.has_blueprints=on&field.has_no_blueprints.used=&field.has_no_blueprints=on&search=Search>`_
+New or revised in version 2.0.2
+===============================
 
 A summary of major aspects:
 
- - **Java-only** most of the stuff implemented in C++ up to version 1.1.3 is now at Java level.
- 
- - **OpenCV 3.4** the latest OpenCV version will now be used always. The needed stuff (Java classes and native library
-   for Java support will be bundled or at least available for download).
- 
  - **Text and OCR features** are now implemented using the Java library Tess4J (current latest version based on
-   Tesseract 3.0.5). All Tesseract options will be available at the Java API level.
-   The Text/OCR features are completely revised and augmented.
- 
+   **Tesseract 4.x**). All Tesseract options are available at the Java API level.
+
  - **Transparency** Images with transparent areas (called masks) are now supported for search (ignoring the parts
    of the rectangles being transparent). Features will be available to create masks and masked images.
 
  - **App class revised** the implementation is now more robust and has some enhancements.
 
- - **Android support** via ``adb`` platform-tool :ref:`is reimplemented - please read<ADBConnection>`.
-
  - **setup no longer needed** You just download the IDE or API pack and simply start using it.
- With the IDE for Jython and/or JRuby support an additional download is needed, since JavaScript support is not yet fully available.
 
- - **the IDE is a little bit revised** and already got / will get some enhancements
+ - With the **IDE for Jython and/or JRuby** support an additional download is needed, since JavaScript support is not yet fully available.
 
-`The new SikuliX Download page, where you can get more info and the needed stuff <https://raiman.github.io/SikuliX1/downloads.html>`_
+ - **the IDE is a little bit revised** and got an **experimental recorder feature**
+
+`Visit the new SikuliX Download page, where you can get more info and the needed stuff <https://raiman.github.io/SikuliX1/downloads.html>`_
+
+.. note::
+
+    ... **for Linux users** it is strongly recommended, to :ref:`first look here<newslinux>`.
 
 Revision of the image find API
 ------------------------------
@@ -106,7 +94,7 @@ And there are new text functions, that only search once and do not throw findFai
  - ``findWord("a word")`` looks for a word, whose text can be a regular expression
  - ``findLine("some text")`` looks for and returns the line, that contains the text (might be a regular expression)
 
-For details :ref:`see the function descriptions <FindinginsideaRegionandWaitingforaVisualEvent>`.
+:ref:`For details read about Text and OCR <textandocr>`.
 
 Revision of the findAll feature
 -------------------------------
@@ -173,17 +161,12 @@ The features are still supported by the library ``Tesseract OCR``. Until version
 was implemented via a C++ interface and the available features based on Tesseract 2.x have not changed for the last 6 years.
 
 Now the Java library ``Tess4j`` is used, that allows to use the Tesseract features at the Java level. Internally it
-depends on ``Tesseract 3.x``, that has some great improvements against Tesseract 2.x according to flexibility and accuracy.
+depends on ``Tesseract 4.x``, that has major improvements in flexibility and accuracy.
 Additionally you will have full access to all options available with Tesseract.
-
-All SikuliX text features are currently used with the standard settings. Before the images are given to Tesseract,
-SikuliX tries to optimize them according to the rules of Tesseract. Currently based on the screen's resolution in DPI,
-the image is only enlarged to somewhere between 200 DPI and 300 DPI. Additional optimizations might be added
-in the future, including options available to the user at runtime, depending on the experiences made with
-the text features.
 
 If you want to know anything about the features available through Tess4J/Tesseract, you have to dive into
 the details on the respective home pages of the packages.
+
  - `Tess4J <http://tess4j.sourceforge.net>`_
  - `Tesseract <https://github.com/tesseract-ocr/tesseract>`_
 
@@ -193,28 +176,7 @@ special things or are not satisfied with the results you get with the SikuliX fe
 
 Request bugs for new features and/or revision/augmentation of existing ones are welcome.
 
-In the standard SikuliX runs the text features with the english language set, which is bundled with SikuliX.
-It is possible **to add more languages to your SikuliX setup** and switch between the installed languages at runtime.
-
-It is possible to **directly access the Tesseract API through Tess4j** (as SikuliX does it).
-
-The Tesseract training features are currently not available in SikuliX directly, but you may add ``traineddata`` stuff
-to your SikuliX environment and activate it with the respective Tesseract options.
-
 **For detailed information and usage examples** :ref:`look here<textandocr>`.
-
-**System specific aspects**
-
-For Mac and Windows the needed native libraries are bundled with SikuliX.
-Since I am testing with macOS 10.13 and Windows 10, there might well be problems with prior system versions, that can be
-reported but might not be solved ;-)
-
-Linux users have to look at the gory details in the special chapter below.
-
-``Lessons learned``
-
- - Windows: Ensure you have latest Visual C++ Redistributable Pack (>=2013) installed
-
 
 Using images with transparent parts (masked images)
 ---------------------------------------------------
