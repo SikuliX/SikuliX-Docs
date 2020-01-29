@@ -76,24 +76,26 @@ search for all following find operations to a smaller region than the whole scre
 This will speed up processing, if the region is significantly smaller than the whole
 screen.
 
-Capturing
+Capturing - taking screenshots
 ---------
 
-Capturing is the feature, to grab a rectangle of pixels from a screenshot and
-optionally save it to a temporary file for later use with find operations: :py:meth:`Screen.capture`.
-Each time, a capturing is done, a new screenshot is taken.
+Capturing is the feature, to grab a rectangle of pixels from a screenshot and save it to a file for later use. Each time, a capturing is done, a new screenshot is taken (:py:meth:`Screen.capture`).
 
 There is an interactive variant :py:meth:`Screen.selectRegion`, that just returns the position and dimension of
-the rectangle selected by the user interactively..
+the rectangle selected by the user interactively.
 
 **Note on IDE:** Both features are available in the IDE via buttons in the toolbar.
-The ``Capture button`` will allow to interactively select the rectangle on the screen,
+The ``Capture button`` interactively selects the rectangle on the screen,
 whose pixel content is saved to the current script's bundlepath and
 then inserted (as thumbnail or the generated filename) at the current edit position in the script.
 
-There are 2 versions with different parameter configurations:
- - the first one always stores the shot to a temporary file
- - the second one allows to specify the name and/or where to store the shot
+**Note on image naming in the IDE** If nothing else is mentioned, the image name is built as a time-stamp with the ending ``.png``. In the IDE you can either change the name later via the ``Preview feature`` or define it before capturing::
+
+		someName = 
+		
+leaving the cursor on the same line after the ``=``. Using the capturebutton now, will end up in an image named ``someImage.png``. This can be used, to implement some naming convention for the captured images.
+
+In the settings of the IDE there is an option, that allows to get a prompt for the imagename (interactive naming).
 
 .. py:class:: Screen
 
@@ -161,18 +163,21 @@ There are 2 versions with different parameter configurations:
     Works principally the same as the normal capture, but directly stores the resulting image
     to the specified location. The ``name`` spec need not have the ``.png`` ending.  
 		
-		If the path specification is omitted, the imagefile
-		is stored in the :ref:`current bundlepath <ImageSearchPath>`.
-		In this case the imagename will finally be ``bundlepath/_name.png``,
-		where the leading underscore is an IDE convention to block the automatic deletion of images,
-		that are not namely referenced somewhere in the script, at the time the script is saved in the IDE.
+    If the path specification is omitted, the imagefile is stored in the :ref:`current bundlepath <ImageSearchPath>`. In this case the imagename will finally be ``bundlepath/_name.png``, where the leading underscore is an IDE convention to block the automatic deletion of images, that are not namely referenced somewhere in the script, at the time the script is saved in the IDE.
 		
 **Note on Java usage or in non-Python**
 
-``String filename = screen.cmdCapture(Object... args).getStoredAt()``
+``String filename = screen.saveCapture(Object... args)``
 
-... where screen is some existing Screen object. The ``args`` are according to the above
-parameter specifications of the two variants.
+``String filename = region.saveCapture(Object... args)``
+
+... where screen/region are some existing Screen/Region objects. 
+
+The ``args`` are according to the above parameter specifications of the two :py:meth:`Screen.capture` variants.
+
+``screen.saveCapture()`` is a shortcut for 
+
+``String filename = screen.cmdCapture(Object... args).getStoredAt()``
 
 The intermediate result of ``cmdCapture`` is a ``ScreenImage`` object,
 that holds the image internally as BufferedImage (accessible using ``ScreenImage.get()``).

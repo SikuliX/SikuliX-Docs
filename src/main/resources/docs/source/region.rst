@@ -606,13 +606,6 @@ file or just plain text) can be used as parameter. A find operation is
 successful, if the given image is found with the given minimum similarity or
 the given text is found as specified. 
 
-.. versionadded:: 2.0.0
-**Revision of the text and OCR features** 
-
-The implementation is now based on the package **Tess4J**, that provides a Java-level API to **Tesseract 3.x**. 
-
-:ref:`All you need to know about can be found here <RegionExtractingText>`
-
 **Similarity** is a value between 0 and 1, that tells us how likely the given image looks like (matches)
 the target (the higher the value the higher the probability of an exact match).
 With most features, the similarity is trimmed to 2 decimals and a value greater
