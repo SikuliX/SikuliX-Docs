@@ -5,7 +5,7 @@ Version 2.0.2 - Special for Linux people
 
 .. note::
 
-To be revised - not yet up-to-date - sorry ;-)
+        To be revised - not yet up-to-date - sorry ;-)
 
 Getting a JDK and the SikuliX packages (IDE and/or API)
 -------------------------------------------------------
