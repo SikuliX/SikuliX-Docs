@@ -185,3 +185,8 @@ Set a variable as a single Tesseract setting, that controls a specific topic in 
 
 Set a configuration which is a file containing a set of variables, that configure the behaviour
 of a tailored OCR process: :py:method:`OCR.Options().configs(listOfConfigs)`.
+
+The Text and OCR features in Detail (Class OCR)
+-----------------------------------------------
+
+.. include:: classDoc_OCR.txt

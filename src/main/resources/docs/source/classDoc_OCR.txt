@@ -1,0 +1,508 @@
+
+.. py:class:: OCR
+
+		| Static helper class for OCR via Tess4J/Tesseract.
+		| 
+		| The methods in this class are not threadsafe.
+		| **see** `SikuliX docs: Text and OCR <https://sikulix-2014.readthedocs.io/en/latest/textandocr.html>`_
+
+
+Global stuff for OCR
+--------------------
+
+		.. py:attribute:: OEM
+
+				| OCR Engine modes.
+				| 
+				| 0  TESSERACT_ONLY  Tesseract Legacy only.
+				| 1  LSTM_ONLY       LSTM only.
+				| 2  TESSERACT_LSTM_COMBINED  LSTM + Legacy.
+				| 3  DEFAULT         Default, based on what is available. (DEFAULT)
+				| 
+				| Usage: OCR.OEM.MODE
+
+		.. py:attribute:: PSM
+
+				| Page segmentation modes.
+				| 
+				| 0  OSD_ONLY   Orientation and script detection (OSD) only.
+				| 1  AUTO_OSD   Automatic page segmentation with OSD.
+				| 2  AUTO_ONLY  Automatic page segmentation, but no OSD, or OCR.
+				| 3  AUTO       Fully automatic page segmentation, but no OSD. (Default)
+				| 4  SINGLE_COLUMN  Assume a single column of text of variable sizes.
+				| 5  SINGLE_BLOCK_VERT_TEXT  Assume a single uniform block of vertically aligned text.
+				| 6  SINGLE_COLUMN  Assume a single uniform block of text.
+				| 7  SINGLE_LINE    Treat the image as a single text line.
+				| 8  SINGLE_WORD    Treat the image as a single word.
+				| 9  CIRCLE_WORD    Treat the image as a single word in a circle.
+				| 10  SINGLE_CHAR   Treat the image as a single character.
+				| 11  SPARSE_TEXT      Sparse text. Find as much text as possible in no particular order.
+				| 12  SPARSE_TEXT_OSD  Sparse text with OSD.
+				| 13  RAW_LINE         Raw line. Treat the image as a single text line, bypassing hacks that are Tesseract-specific.
+				| 
+				| Usage: OCR.PSM.MODE
+
+		.. py:classmethod:: globalOptions()
+
+				| access/get the current global Options (Singleton).
+
+				:return: (Options) the global Options
+
+		.. py:classmethod:: reset()
+
+				| Resets the global options to the initial defaults.
+
+				| **see** :py:meth:`OCR.Options.reset()`
+
+				:return: (Options) the global Options
+
+		.. py:classmethod:: status()
+
+				| prints out the current global options.
+
+
+Read text
+---------
+
+		.. py:classmethod:: readText(SFIRBS from)
+
+				| Reads text from the given source.
+				| Uses the global options.
+
+				:param <SFIRBS>: File name, File, Image, Region, BufferdImage or ScreenImage
+				:param from:     source to read text from
+				:return: (String) text
+
+		.. py:classmethod:: readText(SFIRBS from, Options options)
+
+				| Reads text from the given source.
+				| Uses the given options
+
+				:param <SFIRBS>: File name, File, Image, Region, BufferdImage or ScreenImage
+				:param from:     source to read text from
+				:param options:  Options to be used
+				:return: (String) text
+
+Read or get lines of text
+-------------------------
+
+		.. py:classmethod:: readLine(SFIRBS from)
+
+				| Reads text from the given source (line).
+				| assuming the source contains a single line of text.
+				| Uses the global options.
+
+				:param <SFIRBS>: File name, File, Image, Region, BufferdImage or ScreenImage
+				:param from:     source to read text from
+				:return: (String) text
+
+		.. py:classmethod:: readLine(SFIRBS from, Options options)
+
+				| Reads text from the given source (line).
+				| assuming the source contains a single line of text.
+				| Uses the given options.
+
+				:param <SFIRBS>: File name, File, Image, Region, BufferdImage or ScreenImage
+				:param from:     source to read text from
+				:param options:  options for the used TextRecognizer
+				:return: (String) text
+
+		.. py:classmethod:: readLines(SFIRBS from)
+
+				| Treats text from the given source as lines.
+				| Uses the global options.
+
+				:param <SFIRBS>: File name, File, Image, Region, BufferdImage or ScreenImage
+				:param from:     source to read text from
+				:return: (List<Match>) lines as a list of matches
+
+		.. py:classmethod:: readLines(SFIRBS from, Options options)
+
+				| Treats text from the given source as lines.
+				| Uses the given options.
+
+				:param <SFIRBS>: File name, File, Image, Region, BufferdImage or ScreenImage
+				:param from:     source to read text from
+				:param options:  options for the used TextRecognizer
+				:return: (List<Match>) lines as a list of matches
+
+Read or get words of text
+-------------------------
+
+		.. py:classmethod:: readWord(SFIRBS from)
+
+				| Reads text from the given source (word).
+				| assuming the source contains a single word of text.
+				| Uses the global options.
+
+				:param <SFIRBS>: File name, File, Image, Region, BufferdImage or ScreenImage
+				:param from:     source to read text from
+				:return: (String) text
+
+		.. py:classmethod:: readWord(SFIRBS from, Options options)
+
+				| Reads text from the given source (word).
+				| assuming the source contains a single word of text.
+				| Uses the given options.
+
+				:param <SFIRBS>: File name, File, Image, Region, BufferdImage or ScreenImage
+				:param from:     source to read text from
+				:param options:  options for the used TextRecognizer
+				:return: (String) text
+
+		.. py:classmethod:: readWords(SFIRBS from)
+
+				| Treats text from the given source as words.
+				| Uses the global options.
+
+				:param <SFIRBS>: File name, File, Image, Region, BufferdImage or ScreenImage
+				:param from:     source to read text from
+				:return: (List<Match>) words as alist of matches
+
+		.. py:classmethod:: readWords(SFIRBS from, Options options)
+
+				| Treats text from the given source as words.
+				| Uses the given options.
+
+				:param <SFIRBS>: File name, File, Image, Region, BufferdImage or ScreenImage
+				:param from:     source to read text from
+				:param options:  options for the used TextRecognizer
+				:return: (List<Match>) words as a list of matches
+
+Assume the text is one character
+--------------------------------
+
+		.. py:classmethod:: readChar(SFIRBS from)
+
+				| Reads text from the given source (character).
+				| assuming the source contains a single character.
+				| Uses the global options.
+
+				:param <SFIRBS>: File name, File, Image, Region, BufferdImage or ScreenImage
+				:param from:     source to read text from
+				:return: (String) text
+
+		.. py:classmethod:: readChar(SFIRBS from, Options options)
+
+				| Reads text from the given source (character).
+				| assuming the source contains a single character.
+				| Uses the given options.
+
+				:param <SFIRBS>: File name, File, Image, Region, BufferdImage or ScreenImage
+				:param from:     source to read text from
+				:param options:  options for the used TextRecognizer
+				:return: (String) text
+
+The options set for OCR (OCR.Options)
+-------------------------------------
+
+.. py:class:: OCR.Options
+
+		| A container for the options relevant for using :py:class:`OCR` on
+		| :py:class:`Region`s or :py:class:`Image`s.
+		| Use OCR.:py:meth:`Options()` to get a new option set
+		| use OCR.:py:meth:`globalOptions()` to access the global options
+		| 
+		| In case you have to consult the Tesseract docs
+		| **see** `Tesseract docs <https://github.com/tesseract-ocr/tesseract/wiki/Documentation>`_
+
+
+Global stuff for OCR.Options
+----------------------------
+
+		.. py:method:: Options()
+
+				| create a new Options set from the initial defaults settings.
+				| 
+				| about the default settings see :py:meth:`reset()`
+
+
+		.. py:method:: clone()
+
+				| makes a copy of this Options
+
+				:return: (Options) new Options as copy
+
+		.. py:method:: reset()
+
+				| resets this Options set to the initial defaults.
+				| 
+				| oem = OcrEngineMode.DEFAULT.ordinal();
+				| psm = PageSegMode.AUTO.ordinal();
+				| language = Settings.OcrLanguage;
+				| dataPath = null; //(see comment)
+				| textHeight = getDefaultTextHeight();
+				| variables.clear();
+				| configs.clear();
+				| 
+				| comment on **dataPath==null**: dataPath will be evaluated at the next use of an OCR feature
+				| to the SikuliX default or Settings.OcrDataPath (if set)
+
+				:return: (Options) this
+
+		.. py:method:: toString()
+
+				| Current state of this Options as some formatted lines of text.
+				| 
+				| OCR.Options:
+				| data = ...some-path.../tessdata
+				| language(eng) oem(3) psm(3) height(15,1) factor(1,99) dpi(96)
+				| configs: conf1, conf2, ...
+				| variables: key:value, ...
+
+				:return: (String) a text string as before
+
+Handle OCR Engine Mode (OEM)
+----------------------------
+
+		.. py:method:: oem()
+
+				| get this OEM.
+
+				| **see** :py:class:`OEM`
+
+				:return: (int) oem as int
+
+		.. py:method:: oem(int oem)
+
+				| set this OEM.
+
+				| **see** :py:class:`OEM`
+
+				:param oem: as int
+				:return: (Options) this Options
+
+		.. py:method:: oem(OEM oem)
+
+				| set this OEM.
+
+				| **see** :py:class:`OEM`
+
+				:param oem: as enum constant
+				:return: (Options) this Options
+
+Handle Page Segmentaion Mode (PSM)
+----------------------------------
+
+		.. py:method:: psm()
+
+				| get this PSM.
+
+				| **see** :py:class:`PSM`
+
+				:return: (int) psm as int
+
+		.. py:method:: psm(int psm)
+
+				| set this PSM.
+
+				| **see** :py:class:`PSM`
+
+				:param psm: as int
+				:return: (Options) this Options
+
+		.. py:method:: psm(PSM psm)
+
+				| set this PSM.
+
+				| **see** :py:class:`PSM`
+
+				:param psm: as enum constant
+				:return: (Options) this Options
+
+		.. py:method:: resetPSM()
+
+				| Sets this PSM to -1.
+				| 
+				| This causes Tess4J not to set the PSM at all.
+				| Only use it, if you know what you are doing.
+
+				:return: (Options) this Options
+
+		.. py:method:: asLine()
+
+				| Configure Options to recognize a single line.
+
+				:return: (Options) this Options
+
+		.. py:method:: asWord()
+
+				| Configure Options to recognize a single word.
+
+				:return: (Options) this Options
+
+		.. py:method:: asChar()
+
+				| Configure Options to recognize a single character.
+
+				:return: (Options) this Options
+
+Handle different languages
+--------------------------
+
+		.. py:method:: language()
+
+				| get the cutrrent language
+
+				| **see** :py:meth:`language(String)`
+
+				:return: (String) the language short string
+
+		.. py:method:: language(String language)
+
+				| Set the language short string.
+				| (must not be null or empty,
+				| see :py:meth:`Settings.OcrLanguage` for a useable fallback)
+				| According to the Tesseract rules this is a 3-lowercase-letters string
+				| like eng, deu, fra, rus, ....
+				| For special cases it might be something like xxx_yyy (chi_sim)
+				| or even xxx_yyyy (deu_frak) or even xxx_yyy_zzzz (chi_tra_vert), but always all lowercase.
+				| Take care that you have the corresponding ....traineddata file in the datapath/tessdata folder
+				| latest at time of OCR feature usage
+
+				| **see** `Tesseract language files <https://github.com/tesseract-ocr/tessdata>`_
+
+				:param language: the language string
+				:return: (Options) this Options
+
+Handle the Tesseract datapath
+-----------------------------
+
+		.. py:method:: dataPath()
+
+				| get the current datapath in this Options.
+				| might be null, if no OCR feature was used until now
+				| if null, it will be evaluated at time of OCR feature usage to the default
+				| SikuliX path or to Settings.OcrDataPath (if set)
+
+				:return: (String) the current Tesseract datapath in this Options
+
+		.. py:method:: dataPath(String dataPath)
+
+				| Set folder for Tesseract to find language and configs files.
+				| in the tessdata subfolder (the path spec might be given without the trailing /tessdata)
+				| **TAKE CARE,** that all is in place at time of OCR feature usage
+				| **if null,** it will be evaluated at time of OCR feature usage to the default
+				| SikuliX path or to Settings.OcrDataPath (if set)
+
+				| **see** :py:meth:`language(String)`
+
+				:param dataPath: the absolute filename string
+				:return: (Options) this Options
+
+Handle the pre-OCR image optimization
+-------------------------------------
+
+		.. py:method:: smallFont()
+
+				| Convenience: Configure the Option's optimization.
+				| 
+				| Might give better results in cases with small
+				| fonts with a pixel height lt 12 (font sizes lt 10)
+
+				:return: (Options) this Options
+
+		.. py:method:: textHeight()
+
+				| current base for image optimization before OCR.
+
+				| **see** :py:meth:`textHeight(float)`
+
+				:return: (float) value
+
+		.. py:method:: textHeight(float height)
+
+				| Configure image optimization.
+				| 
+				| should be the (in case average) height in pixels of an uppercase X in the image's text
+				| **NOTE:** should only be tried in cases, where the defaults do not lead to acceptable results
+
+				:param height: a number of pixels
+				:return: (Options) this Options
+
+		.. py:method:: fontSize(int size)
+
+				| Configure the image optimization.
+				| 
+				| should be the (in case average) fontsize as base for internally calculating the :py:meth:`textHeight()`
+				| **NOTE:** should only be tried in cases, where the defaults do not lead to acceptable results
+
+				:param size: of a font
+				:return: (Options) this Options
+
+		.. py:method:: resizeInterpolation(Image.Interpolation method)
+
+				| INTERNAL (under investigation).
+				| should not be used - not supported
+
+				:param method: {@link Image.Interpolation}
+				:return: (Options) this Options
+
+		.. py:method:: bestDPI(int dpi)
+
+				| INTERNAL (under investigation).
+				| should not be used - not supported
+
+				:param dpi: the dpi value
+				:return: (Options) this Options
+
+		.. py:method:: userDPI(int dpi)
+
+				| INTERNAL (under investigation).
+				| should not be used - not supported
+
+				:param dpi: 70 .. 2400
+				:return: (Options) this Options
+
+Handle Tesseract variables
+--------------------------
+
+		.. py:method:: variables()
+
+
+				| **see** :py:meth:`variable(String, String)`
+
+				:return: (Map<String, String>) the currently stored variables
+
+		.. py:method:: variable(String key, String value)
+
+				| set a variable for Tesseract.
+				| 
+				| you should know, what you are doing - consult the Tesseract docs
+
+				| **see** `Tesseract docs <https://github.com/tesseract-ocr/tesseract/wiki/Documentation>`_
+
+				:param key: the key
+				:param value: the value
+				:return: (Options) this Options
+
+Handle Tesseract configs
+------------------------
+
+		.. py:method:: configs()
+
+				| get current configs
+
+				| **see** :py:meth:`configs(String...)`
+
+				:return: (List<String>) currently stored names of configs files
+
+		.. py:method:: configs(String... configs)
+
+				| set one ore more configs file names.
+				| you should know, what you are doing - consult the Tesseract docs
+
+				| **see** `Tesseract docs <https://github.com/tesseract-ocr/tesseract/wiki/Documentation>`_
+
+				:param configs: one or more configs filenames
+				:return: (Options) this Options
+
+		.. py:method:: configs(List<String> configs)
+
+				| set a list of configs file names.
+				| you should know, what you are doing - consult the Tesseract docs
+
+				| **see** `Tesseract docs <https://github.com/tesseract-ocr/tesseract/wiki/Documentation>`_
+
+				:param configs: a list of configs filenames
+				:return: (Options) this Options
