@@ -173,7 +173,7 @@ Before starting the Textrecognizer. Take care, that all relevant files are in a 
 
 This is then recognized with each subsequent script start in the same IDE session.
 
-Use :py:meth:`OCR.Options.dataPath` to switch the path dynamically.
+Use :py:meth:`dataPath` to switch the path dynamically.
 
 Other possibilities to tweak the Tesseract OCR process
 ------------------------------------------------------
@@ -183,10 +183,10 @@ About Tesseract variables, configurations, training and other gory details you h
 
 But before you step into Tesseract you should read about `LessonsLearned and BestPractices <https://github.com/RaiMan/SikuliX1/wiki/How-to-get-the-best-from-OCR-and-text-features>`_.
 
-Set a variable as a single Tesseract setting, that controls a specific topic in the OCR process :py:meth:`OCR.Options.variable`
+Set a variable as a single Tesseract setting, that controls a specific topic in the OCR process :py:meth:`variable`
 
 Set a configuration which is a file containing a set of variables, that configure the behaviour
-of a tailored OCR process: :py:meth:`OCR.Options.configs`.
+of a tailored OCR process: :py:meth:`configs`.
 
 The Text and OCR features in Detail (Class OCR)
 -----------------------------------------------
