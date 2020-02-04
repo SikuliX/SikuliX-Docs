@@ -152,10 +152,10 @@ For earlier Versions up to 1.1.3 use the files for Tesseract 3 (no longer suppor
 
 **Step 3**: Put the .traineddata files into the tessdata folder (Step 1)
 
-In your script, that should use the language, say before using an OCR feature::
+In your script, that should use the language, say before using an OCR feature (:py:meth:`language`)::
 
         OCR.globalOptions().language()
-        
+
 Another way to set a default language to be used after startup globally::
 
         Settings.OcrLanguage = "xxx"
@@ -173,7 +173,9 @@ Before starting the Textrecognizer. Take care, that all relevant files are in a 
 
 This is then recognized with each subsequent script start in the same IDE session.
 
-Use :py:meth:`dataPath` to switch the path dynamically.
+Use :py:meth:`dataPath` to switch the path dynamically::
+
+        OCR.globalOptions().dataPath()
 
 Other possibilities to tweak the Tesseract OCR process
 ------------------------------------------------------
