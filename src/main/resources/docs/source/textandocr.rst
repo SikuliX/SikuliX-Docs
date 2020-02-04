@@ -85,9 +85,9 @@ There is one **global options set** (:py:class:`OCR.Options`), that is used if n
 
 Using ``myOptions = OCR.Options()`` you can **create a new options set**, derived from the initial global options. This can be modified using the setters shown below (``myOptions.XXX(value)``) and later be used with features allowing to specify an option set to use.
 
-As well you can apply the setters to the global options (``OCR.globalOptions().XXX(value)``), to run OCR with specific defaults. At any time, you can reset the global options to its initial state using :py:meth:`OCR.reset`.
+As well you can apply the setters to the global options (``OCR.globalOptions().XXX(value)``), to run OCR with specific defaults. At any time, you can reset the global options to its initial state using :py:func:`OCR.reset`.
 
-:py:meth:`OCR.status` reports the currently used global options (example for Windows 10 with standard screen settings)::
+:py:func:`OCR.status` reports the currently used global options (example for Windows 10 with standard screen settings)::
             			
 			Global settings OCR.options:
 			data = ...some-path.../tessdata
