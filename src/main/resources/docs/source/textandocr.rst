@@ -120,7 +120,7 @@ OCR engine mode (OEM)
 
 The latest version of Tesseract (namely version 4) internally uses a new detection engine (LSTM), that has again raised accuracy and speed. If the corresponding language models are supplied at runtime (which is the case with SikuliX now), then this engine is used as a default (OEM = 3). 
 
-see :py:method:`OCR.Options().oem(value)`
+see :py:meth:`OCR.Options().oem(value)`
 
 Normally there should be no need to run another engine mode.
 
@@ -130,7 +130,7 @@ OCR page segmentation mode(PSM)
 You can set the page segmentation mode (PSM), which tells Tesseract, how to split the given image into rectangles,
 that are supposed to contain readable text.
 
-see :py:method:`OCR.options().psm(psm-value)`
+see :py:meth:`OCR.options().psm(psm-value)`
         
 Only in special cases there should be a need to use something else than the default (3).
 
@@ -152,7 +152,7 @@ For earlier Versions up to 1.1.3 use the files for Tesseract 3 (no longer suppor
 
 Step 3: Put the .traineddata files into the tessdata folder (Step 1)
 
-In your script say before using an OCR feature, that should use the language: :py:method:`OCR.options().language("xxx")`.
+In your script say before using an OCR feature, that should use the language: :py:meth:`OCR.options().language("xxx")`.
         
 Another way to set a default language to be used after startup globally::
 
@@ -171,7 +171,7 @@ Before starting the Textrecognizer. Take care, that all relevant files are in a 
 
 This is then recognized with each subsequent script start in the same IDE session.
 
-Use :py:method:`OCR.options().dataPath("absolute path")` to switch the path dynamically.
+Use :py:meth:`OCR.options().dataPath("absolute path")` to switch the path dynamically.
 
 Other possibilities to tweak the Tesseract OCR process
 ------------------------------------------------------
@@ -181,12 +181,18 @@ About Tesseract variables, configurations, training and other gory details you h
 
 But before you step into Tesseract you should read about `LessonsLearned and BestPractices <https://github.com/RaiMan/SikuliX1/wiki/How-to-get-the-best-from-OCR-and-text-features>`_.
 
-Set a variable as a single Tesseract setting, that controls a specific topic in the OCR process :py:method:`OCR.Options().variable(key, value)`
+Set a variable as a single Tesseract setting, that controls a specific topic in the OCR process :py:meth:`OCR.Options().variable(key, value)`
 
 Set a configuration which is a file containing a set of variables, that configure the behaviour
-of a tailored OCR process: :py:method:`OCR.Options().configs(listOfConfigs)`.
+of a tailored OCR process: :py:meth:`OCR.Options().configs(listOfConfigs)`.
 
 The Text and OCR features in Detail (Class OCR)
 -----------------------------------------------
 
+.. _ocr_features:
+
 .. include:: classDoc_OCR.txt
+
+.. _reg_img_features:
+
+**to be written**
