@@ -214,7 +214,7 @@ Global stuff for OCR.Options
 
 				| create a new Options set from the initial defaults settings.
 				| 
-				| about the default settings see :py:meth:`reset`
+				| about the default settings see :py:meth:`.reset`
 
 
 		.. py:method:: clone()
@@ -344,7 +344,7 @@ Handle different languages
 
 				| get the cutrrent language
 
-				| **see** :py:meth:`language`
+				| **see** :py:meth:`.language`
 
 				:return: (String) the language short string
 
@@ -385,7 +385,7 @@ Handle the Tesseract datapath
 				| **if null,** it will be evaluated at time of OCR feature usage to the default
 				| SikuliX path or to Settings.OcrDataPath (if set)
 
-				| **see** :py:meth:`language`
+				| **see** :py:meth:`.language`
 
 				:param dataPath: the absolute filename string
 				:return: (Options) this Options
@@ -406,7 +406,7 @@ Handle the pre-OCR image optimization
 
 				| current base for image optimization before OCR.
 
-				| **see** :py:meth:`textHeight`
+				| **see** :py:meth:`.textHeight`
 
 				:return: (float) value
 
@@ -424,7 +424,7 @@ Handle the pre-OCR image optimization
 
 				| Configure the image optimization.
 				| 
-				| should be the (in case average) fontsize as base for internally calculating the :py:meth:`textHeight`
+				| should be the (in case average) fontsize as base for internally calculating the :py:meth:`.textHeight`
 				| **NOTE:** should only be tried in cases, where the defaults do not lead to acceptable results
 
 				:param size: of a font
@@ -460,7 +460,7 @@ Handle Tesseract variables
 		.. py:method:: variables()
 
 
-				| **see** :py:meth:`variable`
+				| **see** :py:meth:`.variable`
 
 				:return: (Map<String, String>) the currently stored variables
 
