@@ -52,7 +52,7 @@ Global stuff for OCR
 
 				| Resets the global options to the initial defaults.
 
-				| **see** :py:meth:`OCR.Options.reset`
+				| **see** :py:meth:`.reset`
 
 				:return: (Options) the global Options
 
@@ -201,7 +201,7 @@ The options set for OCR (OCR.Options)
 		| A container for the options relevant for using :py:class:`OCR` on
 		| :py:class:`Region` or :py:class:`Image`.
 		| Use :py:meth:`OCR.Options` to get a new option set
-		| use :py:meth:`OCR.globalOptions` to access the global options
+		| use :py:meth:`.globalOptions` to access the global options
 		| 
 		| In case you have to consult the Tesseract docs
 		| **see** `Tesseract docs <https://github.com/tesseract-ocr/tesseract/wiki/Documentation>`_
