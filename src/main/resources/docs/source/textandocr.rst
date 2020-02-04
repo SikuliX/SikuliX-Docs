@@ -120,7 +120,7 @@ OCR engine mode (OEM)
 
 The latest version of Tesseract (namely version 4) internally uses a new detection engine (LSTM), that has again raised accuracy and speed. If the corresponding language models are supplied at runtime (which is the case with SikuliX now), then this engine is used as a default (OEM = 3). 
 
-see :py:meth:`OCR.Options.oem`
+see :py:meth:`oem`
 
 Normally there should be no need to run another engine mode.
 
@@ -130,7 +130,7 @@ OCR page segmentation mode(PSM)
 You can set the page segmentation mode (PSM), which tells Tesseract, how to split the given image into rectangles,
 that are supposed to contain readable text.
 
-see :py:meth:`OCR.Options.psm`
+see :py:meth:`psm`
         
 Only in special cases there should be a need to use something else than the default (3).
 
@@ -141,18 +141,20 @@ In the standard SikuliX runs the text features with the english language set, wh
 
 These are the steps to switch to another language than the standard english (eng):
 
-Step 1: Find the folder ``SikulixTesseract/tessdata`` in your SikuliX <app-data> folder (see docs)
+**Step 1**: Find the folder ``SikulixTesseract/tessdata`` in your SikuliX <app-data> folder (see docs)
 
-Step 2: Download the languages needed from `Tesseract languages <https://github.com/tesseract-ocr/tessdata>`_
+**Step 2**: Download the languages needed from `Tesseract languages <https://github.com/tesseract-ocr/tessdata>`_
 (only the files with .traineddata)
 
 For SikuliX version 2.0.x+ we use the files for Tesseract 4 (preferably those from **tessdata_fast**)
 
 For earlier Versions up to 1.1.3 use the files for Tesseract 3 (no longer supported).
 
-Step 3: Put the .traineddata files into the tessdata folder (Step 1)
+**Step 3**: Put the .traineddata files into the tessdata folder (Step 1)
 
-In your script say before using an OCR feature, that should use the language: :py:meth:`OCR.Options.language`.
+In your script, that should use the language, say before using an OCR feature::
+
+        OCR.globalOptions().language()
         
 Another way to set a default language to be used after startup globally::
 
