@@ -79,7 +79,7 @@ Read text
 				| Uses the global options.
 
 				:param <SFIRBS>: File name, File, Image, Region, BufferdImage or ScreenImage
-				:param from:     source to read text from
+				:param from: source to read text from
 				:return: (String) text
 
 		.. py:classmethod:: readText(SFIRBS from, Options options)
@@ -88,8 +88,8 @@ Read text
 				| Uses the given options
 
 				:param <SFIRBS>: File name, File, Image, Region, BufferdImage or ScreenImage
-				:param from:     source to read text from
-				:param options:  Options to be used
+				:param from: source to read text from
+				:param options: Options to be used
 				:return: (String) text
 
 Read or get lines of text
@@ -102,7 +102,7 @@ Read or get lines of text
 				| Uses the global options.
 
 				:param <SFIRBS>: File name, File, Image, Region, BufferdImage or ScreenImage
-				:param from:     source to read text from
+				:param from: source to read text from
 				:return: (String) text
 
 		.. py:classmethod:: readLine(SFIRBS from, Options options)
@@ -112,8 +112,8 @@ Read or get lines of text
 				| Uses the given options.
 
 				:param <SFIRBS>: File name, File, Image, Region, BufferdImage or ScreenImage
-				:param from:     source to read text from
-				:param options:  options for the used TextRecognizer
+				:param from: source to read text from
+				:param options: options for the used TextRecognizer
 				:return: (String) text
 
 		.. py:classmethod:: readLines(SFIRBS from)
@@ -122,7 +122,7 @@ Read or get lines of text
 				| Uses the global options.
 
 				:param <SFIRBS>: File name, File, Image, Region, BufferdImage or ScreenImage
-				:param from:     source to read text from
+				:param from: source to read text from
 				:return: (List<Match>) lines as a list of matches
 
 		.. py:classmethod:: readLines(SFIRBS from, Options options)
@@ -131,8 +131,8 @@ Read or get lines of text
 				| Uses the given options.
 
 				:param <SFIRBS>: File name, File, Image, Region, BufferdImage or ScreenImage
-				:param from:     source to read text from
-				:param options:  options for the used TextRecognizer
+				:param from: source to read text from
+				:param options: options for the used TextRecognizer
 				:return: (List<Match>) lines as a list of matches
 
 Read or get words of text
@@ -145,7 +145,7 @@ Read or get words of text
 				| Uses the global options.
 
 				:param <SFIRBS>: File name, File, Image, Region, BufferdImage or ScreenImage
-				:param from:     source to read text from
+				:param from: source to read text from
 				:return: (String) text
 
 		.. py:classmethod:: readWord(SFIRBS from, Options options)
@@ -155,8 +155,8 @@ Read or get words of text
 				| Uses the given options.
 
 				:param <SFIRBS>: File name, File, Image, Region, BufferdImage or ScreenImage
-				:param from:     source to read text from
-				:param options:  options for the used TextRecognizer
+				:param from: source to read text from
+				:param options: options for the used TextRecognizer
 				:return: (String) text
 
 		.. py:classmethod:: readWords(SFIRBS from)
@@ -165,7 +165,7 @@ Read or get words of text
 				| Uses the global options.
 
 				:param <SFIRBS>: File name, File, Image, Region, BufferdImage or ScreenImage
-				:param from:     source to read text from
+				:param from: source to read text from
 				:return: (List<Match>) words as alist of matches
 
 		.. py:classmethod:: readWords(SFIRBS from, Options options)
@@ -174,8 +174,8 @@ Read or get words of text
 				| Uses the given options.
 
 				:param <SFIRBS>: File name, File, Image, Region, BufferdImage or ScreenImage
-				:param from:     source to read text from
-				:param options:  options for the used TextRecognizer
+				:param from: source to read text from
+				:param options: options for the used TextRecognizer
 				:return: (List<Match>) words as a list of matches
 
 Assume the text is one character
@@ -188,7 +188,7 @@ Assume the text is one character
 				| Uses the global options.
 
 				:param <SFIRBS>: File name, File, Image, Region, BufferdImage or ScreenImage
-				:param from:     source to read text from
+				:param from: source to read text from
 				:return: (String) text
 
 		.. py:classmethod:: readChar(SFIRBS from, Options options)
@@ -198,8 +198,8 @@ Assume the text is one character
 				| Uses the given options.
 
 				:param <SFIRBS>: File name, File, Image, Region, BufferdImage or ScreenImage
-				:param from:     source to read text from
-				:param options:  options for the used TextRecognizer
+				:param from: source to read text from
+				:param options: options for the used TextRecognizer
 				:return: (String) text
 
 .. _OCR_Options:
@@ -347,8 +347,8 @@ Handle PSM - Page Segmentaion Mode
 
 .. _OCR_Options_language:
 
-Handle different languages
-**************************
+Handle languages
+****************
 
 		.. py:method:: language()
 
@@ -377,8 +377,8 @@ Handle different languages
 
 .. _OCR_Options_dataPath:
 
-Handle the Tesseract datapath (
-*******************************
+Handle datapath
+***************
 
 		.. py:method:: dataPath()
 
@@ -404,8 +404,8 @@ Handle the Tesseract datapath (
 
 .. _OCR_Options_optimization:
 
-Handle the pre-OCR image optimization (
-***************************************
+Handle the pre-OCR image optimization
+*************************************
 
 		.. py:method:: smallFont()
 
@@ -448,8 +448,9 @@ Handle the pre-OCR image optimization (
 
 				| INTERNAL (under investigation).
 				| should not be used - not supported
+				| see :py:class:`Image.Interpolation` for method options
 
-				:param method: {@link Image.Interpolation}
+				:param method: the interpolation method
 				:return: (Options) this Options
 
 		.. py:method:: bestDPI(int dpi)
