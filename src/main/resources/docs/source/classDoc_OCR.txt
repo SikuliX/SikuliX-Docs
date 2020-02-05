@@ -44,15 +44,24 @@ Global stuff for OCR
 
 		.. py:classmethod:: globalOptions()
 
-				| access/get the current global Options (Singleton).
+				| access/get the current global Options as singleton.
 
 				:return: (Options) the global Options
 
 		.. py:classmethod:: reset()
 
 				| Resets the global options to the initial defaults.
-
-				| **see** :py:meth:`reset`
+				| 
+				| oem = OcrEngineMode.DEFAULT.ordinal();
+				| psm = PageSegMode.AUTO.ordinal();
+				| language = Settings.OcrLanguage;
+				| dataPath = null; //(see comment)
+				| textHeight = getDefaultTextHeight();
+				| variables.clear();
+				| configs.clear();
+				| 
+				| comment on **dataPath==null**: dataPath will be evaluated at the next use of an OCR feature
+				| to the SikuliX default or Settings.OcrDataPath (if set)
 
 				:return: (Options) the global Options
 
@@ -193,19 +202,23 @@ Assume the text is one character
 				:param options:  options for the used TextRecognizer
 				:return: (String) text
 
-The options set for OCR (OCR.Options)
-*************************************
+.. _OCR_Options:
+
+The options set for OCR
+***********************
 
 .. py:class:: OCR.Options
 
 		| A container for the options relevant for using :py:class:`OCR` on
 		| :py:class:`Region` or :py:class:`Image`.
 		| Use :py:meth:`OCR.Options` to get a new option set
-		| use :py:meth:`globalOptions` to access the global options
+		| use :py:meth:`OCR.globalOptions` to access the global options
 		| 
 		| In case you have to consult the Tesseract docs
 		| **see** `Tesseract docs <https://github.com/tesseract-ocr/tesseract/wiki/Documentation>`_
 
+
+.. _OCR_Options_global:
 
 Global stuff for OCR.Options
 ****************************
@@ -214,7 +227,7 @@ Global stuff for OCR.Options
 
 				| create a new Options set from the initial defaults settings.
 				| 
-				| about the default settings see :py:meth:`reset`
+				| about the default settings see :py:meth:`OCR.reset`
 
 
 		.. py:method:: clone()
@@ -226,17 +239,8 @@ Global stuff for OCR.Options
 		.. py:method:: reset()
 
 				| resets this Options set to the initial defaults.
-				| 
-				| oem = OcrEngineMode.DEFAULT.ordinal();
-				| psm = PageSegMode.AUTO.ordinal();
-				| language = Settings.OcrLanguage;
-				| dataPath = null; //(see comment)
-				| textHeight = getDefaultTextHeight();
-				| variables.clear();
-				| configs.clear();
-				| 
-				| comment on **dataPath==null**: dataPath will be evaluated at the next use of an OCR feature
-				| to the SikuliX default or Settings.OcrDataPath (if set)
+
+				| **see** :py:meth:`OCR.reset`
 
 				:return: (Options) this
 
@@ -252,7 +256,9 @@ Global stuff for OCR.Options
 
 				:return: (String) a text string as before
 
-Handle OCR Engine Mode (OEM)
+.. _OCR_Options_oem:
+
+Handle OEM - OCR Engine Mode
 ****************************
 
 		.. py:method:: oem()
@@ -281,7 +287,9 @@ Handle OCR Engine Mode (OEM)
 				:param oem: as enum constant
 				:return: (Options) this Options
 
-Handle Page Segmentaion Mode (PSM)
+.. _OCR_Options_psm:
+
+Handle PSM - Page Segmentaion Mode
 **********************************
 
 		.. py:method:: psm()
@@ -337,6 +345,8 @@ Handle Page Segmentaion Mode (PSM)
 
 				:return: (Options) this Options
 
+.. _OCR_Options_language:
+
 Handle different languages
 **************************
 
@@ -365,8 +375,10 @@ Handle different languages
 				:param language: the language string
 				:return: (Options) this Options
 
-Handle the Tesseract datapath
-*****************************
+.. _OCR_Options_dataPath:
+
+Handle the Tesseract datapath (
+*******************************
 
 		.. py:method:: dataPath()
 
@@ -390,8 +402,10 @@ Handle the Tesseract datapath
 				:param dataPath: the absolute filename string
 				:return: (Options) this Options
 
-Handle the pre-OCR image optimization
-*************************************
+.. _OCR_Options_optimization:
+
+Handle the pre-OCR image optimization (
+***************************************
 
 		.. py:method:: smallFont()
 
@@ -424,7 +438,7 @@ Handle the pre-OCR image optimization
 
 				| Configure the image optimization.
 				| 
-				| should be the (in case average) fontsize as base for internally calculating the :py:meth:`textHeight`
+				| should be the (in case average) fontsize as base for internally calculating the :py:meth:`OCR.Options.textHeight`
 				| **NOTE:** should only be tried in cases, where the defaults do not lead to acceptable results
 
 				:param size: of a font
@@ -454,6 +468,8 @@ Handle the pre-OCR image optimization
 				:param dpi: 70 .. 2400
 				:return: (Options) this Options
 
+.. _OCR_Options_variable:
+
 Handle Tesseract variables
 **************************
 
@@ -475,6 +491,8 @@ Handle Tesseract variables
 				:param key: the key
 				:param value: the value
 				:return: (Options) this Options
+
+.. _OCR_Options_configs:
 
 Handle Tesseract configs
 ************************

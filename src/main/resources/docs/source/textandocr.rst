@@ -56,6 +56,8 @@ To not make usage too complicated in the average, SikuliX comes with the followi
 
 The height of a capital X in the default font used in Java in the current screen environment is taken as the base for the resize to 30 pixel.
 
+There are functions/methods, that allow to tweak this optimization process - **see** :ref:`Options.optimization <OCR_Options_optimization>`.
+
 If you have problems with accuarcy, then before fiddling around with the height/size options have a look at the `Lessons learned and BestPractices <https://github.com/RaiMan/SikuliX1/wiki/How-to-get-the-best-from-OCR-and-text-features>`_.
 
 There are functions/methods (classes Region, Image, OCR), that tell The OCR engine, to treat the image as a single line, a single word or even a single character. In some cases their usage might help to get what you expect.
@@ -120,7 +122,7 @@ OCR engine mode (OEM)
 
 The latest version of Tesseract (namely version 4) internally uses a new detection engine (LSTM), that has again raised accuracy and speed. If the corresponding language models are supplied at runtime (which is the case with SikuliX now), then this engine is used as a default (OEM = 3). 
 
-see :py:meth:`oem`
+**see** :ref:`Options.oem() <OCR_Options_oem>`
 
 Normally there should be no need to run another engine mode.
 
@@ -130,7 +132,7 @@ OCR page segmentation mode(PSM)
 You can set the page segmentation mode (PSM), which tells Tesseract, how to split the given image into rectangles,
 that are supposed to contain readable text.
 
-see :py:meth:`psm`
+**see** :ref:`Options.psm() <OCR_Options_psm>`
         
 Only in special cases there should be a need to use something else than the default (3).
 
@@ -152,9 +154,9 @@ For earlier Versions up to 1.1.3 use the files for Tesseract 3 (no longer suppor
 
 **Step 3**: Put the .traineddata files into the tessdata folder (Step 1)
 
-In your script, that should use the language, say before using an OCR feature (:py:meth:`language`)::
+In your script, that should use the language, say before using an OCR feature (:ref:`Options.language() <OCR_Options_language>`)::
 
-        OCR.globalOptions().language()
+        OCR.globalOptions().language(xxx)
 
 Another way to set a default language to be used after startup globally::
 
@@ -173,9 +175,9 @@ Before starting the Textrecognizer. Take care, that all relevant files are in a 
 
 This is then recognized with each subsequent script start in the same IDE session.
 
-Use :py:meth:`dataPath` to switch the path dynamically::
+**Use** :ref:`Options.dataPath() <OCR_Options_dataPath>` to switch the path dynamically::
 
-        OCR.globalOptions().dataPath()
+        OCR.globalOptions().dataPath(someAbsolutePath)
 
 Other possibilities to tweak the Tesseract OCR process
 ------------------------------------------------------
@@ -185,10 +187,10 @@ About Tesseract variables, configurations, training and other gory details you h
 
 But before you step into Tesseract you should read about `LessonsLearned and BestPractices <https://github.com/RaiMan/SikuliX1/wiki/How-to-get-the-best-from-OCR-and-text-features>`_.
 
-Set a variable as a single Tesseract setting, that controls a specific topic in the OCR process :py:meth:`variable`
+To set a variable as a single Tesseract setting, that controls a specific topic in the OCR process **use** :ref:`Options_variable() <OCR_Options_variable>`
 
-Set a configuration which is a file containing a set of variables, that configure the behaviour
-of a tailored OCR process: :py:meth:`configs`.
+To set a configuration which is a file containing a set of variables, that configure the behaviour
+of a tailored OCR process **use** :ref:`Options_configs() <OCR_Options_configs>`.
 
 The Text and OCR features in Detail (Class OCR)
 -----------------------------------------------
