@@ -8,7 +8,7 @@
 
 
 Global stuff for OCR
---------------------
+********************
 
 		.. py:attribute:: OEM
 
@@ -62,7 +62,7 @@ Global stuff for OCR
 
 
 Read text
----------
+*********
 
 		.. py:classmethod:: readText(SFIRBS from)
 
@@ -84,7 +84,7 @@ Read text
 				:return: (String) text
 
 Read or get lines of text
--------------------------
+*************************
 
 		.. py:classmethod:: readLine(SFIRBS from)
 
@@ -127,7 +127,7 @@ Read or get lines of text
 				:return: (List<Match>) lines as a list of matches
 
 Read or get words of text
--------------------------
+*************************
 
 		.. py:classmethod:: readWord(SFIRBS from)
 
@@ -170,7 +170,7 @@ Read or get words of text
 				:return: (List<Match>) words as a list of matches
 
 Assume the text is one character
---------------------------------
+********************************
 
 		.. py:classmethod:: readChar(SFIRBS from)
 
@@ -194,7 +194,7 @@ Assume the text is one character
 				:return: (String) text
 
 The options set for OCR (OCR.Options)
--------------------------------------
+*************************************
 
 .. py:class:: OCR.Options
 
@@ -208,7 +208,7 @@ The options set for OCR (OCR.Options)
 
 
 Global stuff for OCR.Options
-----------------------------
+****************************
 
 		.. py:method:: Options()
 
@@ -253,7 +253,7 @@ Global stuff for OCR.Options
 				:return: (String) a text string as before
 
 Handle OCR Engine Mode (OEM)
-----------------------------
+****************************
 
 		.. py:method:: oem()
 
@@ -282,7 +282,7 @@ Handle OCR Engine Mode (OEM)
 				:return: (Options) this Options
 
 Handle Page Segmentaion Mode (PSM)
-----------------------------------
+**********************************
 
 		.. py:method:: psm()
 
@@ -338,7 +338,7 @@ Handle Page Segmentaion Mode (PSM)
 				:return: (Options) this Options
 
 Handle different languages
---------------------------
+**************************
 
 		.. py:method:: language()
 
@@ -366,7 +366,7 @@ Handle different languages
 				:return: (Options) this Options
 
 Handle the Tesseract datapath
------------------------------
+*****************************
 
 		.. py:method:: dataPath()
 
@@ -391,7 +391,7 @@ Handle the Tesseract datapath
 				:return: (Options) this Options
 
 Handle the pre-OCR image optimization
--------------------------------------
+*************************************
 
 		.. py:method:: smallFont()
 
@@ -455,7 +455,7 @@ Handle the pre-OCR image optimization
 				:return: (Options) this Options
 
 Handle Tesseract variables
---------------------------
+**************************
 
 		.. py:method:: variables()
 
@@ -477,7 +477,7 @@ Handle Tesseract variables
 				:return: (Options) this Options
 
 Handle Tesseract configs
-------------------------
+************************
 
 		.. py:method:: configs()
 
