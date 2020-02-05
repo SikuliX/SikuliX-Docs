@@ -289,8 +289,8 @@ Handle OEM - OCR Engine Mode
 
 .. _OCR_Options_psm:
 
-Handle PSM - Page Segmentaion Mode
-**********************************
+Handle PSM - Page Segmentation Mode
+***********************************
 
 		.. py:method:: psm()
 
@@ -442,31 +442,6 @@ Handle the pre-OCR image optimization
 				| **NOTE:** should only be tried in cases, where the defaults do not lead to acceptable results
 
 				:param size: of a font
-				:return: (Options) this Options
-
-		.. py:method:: resizeInterpolation(Image.Interpolation method)
-
-				| INTERNAL (under investigation).
-				| should not be used - not supported
-				| see :py:class:`Image.Interpolation` for method options
-
-				:param method: the interpolation method
-				:return: (Options) this Options
-
-		.. py:method:: bestDPI(int dpi)
-
-				| INTERNAL (under investigation).
-				| should not be used - not supported
-
-				:param dpi: the dpi value
-				:return: (Options) this Options
-
-		.. py:method:: userDPI(int dpi)
-
-				| INTERNAL (under investigation).
-				| should not be used - not supported
-
-				:param dpi: 70 .. 2400
 				:return: (Options) this Options
 
 .. _OCR_Options_variable:
