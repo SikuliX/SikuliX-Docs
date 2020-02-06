@@ -36,9 +36,11 @@ Screen: Setting, Getting Attributes and Information
 		script with an error. So you may either use getNumberScreens() or exception
 		handling, to avoid this.
 
-.. note:: 
+.. note::
+
 			If you want to access the default/primary monitor ( Screen(0) ) without creating a new screen object, use the constant reference SCREEN, that is initiated when your script starts: SCREEN=Screen(0). 
 
+..
 
 	.. py:method:: getNumberScreens()
 
