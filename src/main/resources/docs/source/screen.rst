@@ -57,6 +57,16 @@ Screen: Setting, Getting Attributes and Information
 		represented by the screen object. These attributes are obtained from the
 		operating system. They can not be modified using Sikuli script.
 
+	.. py:method:: showMonitors()
+
+        Prints information about the current monitor setup - example::
+
+                *** monitor configuration [ 2 Screen(s)] ***
+                *** Primary is Screen 0
+                Screen 0: R[0,0 1920x1200]@S(0)
+                Screen 1: R[1920,0 1920x1080]@S(1)
+                *** end monitor configuration ***
+
 .. _DefaultScreen:
 
 Screen as (Default) Region
