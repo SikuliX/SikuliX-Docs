@@ -3,15 +3,14 @@ Screen
 
 .. py:class:: Screen
 
-Class Screen is there, to have a representation for a pysical monitor where the
-capturing process (grabbing a rectangle of pixels from a screenshot). For :ref:`Multi Monitor Environments
-<MultimonitorEnvironments>` it contains features to map to the relevant monitor.
+Class Screen represents a pysical monitor mainly for the capturing process (grabbing a rectangle of pixels from a screenshot). 
 
-Since Screen extends class :py:class:`Region`, all methods of 
-class Region can be used with a Screen object.
+For :ref:`Multi Monitor Environments <MultimonitorEnvironments>` it contains features to map to the relevant monitor.
 
-Be aware, that using the whole screen for find
-operations may have an impact on performance. So if possible restrict a find operation to a smaller region object (e.g. ``reg.find()``) to speed up processing.
+Since class Screen extends class :py:class:`Region`, all methods of class Region are available with a Screen object.
+
+.. note::
+        Be Aware that using the whole screen for find operations has an impact on performance. So if possible restrict a find operation to a smaller region object (e.g. ``reg.find()``) to speed up processing.
 
 
 Screen: Setting, Getting Attributes and Information
@@ -37,9 +36,8 @@ Screen: Setting, Getting Attributes and Information
 		script with an error. So you may either use getNumberScreens() or exception
 		handling, to avoid this.
 
-		Note: If you want to access the default/primary monitor ( Screen(0) )
-		without creating a new screen object, use the constant reference SCREEN,
-		that is initiated when your script starts: SCREEN=Screen(0). 
+.. note:: 
+			If you want to access the default/primary monitor ( Screen(0) ) without creating a new screen object, use the constant reference SCREEN, that is initiated when your script starts: SCREEN=Screen(0). 
 
 
 	.. py:method:: getNumberScreens()
@@ -62,38 +60,42 @@ Screen: Setting, Getting Attributes and Information
 Screen as (Default) Region
 --------------------------
 
-All region methods have to be used as ``reg.find(PS)``, where reg is a Region object
+All region methods have to be used as ``someRegion.find(PS)``, where ``someRegion`` is a Region object
 (or a Screen or a Match object). If written as ``find(PS)`` it acts on the default
 screen being the implicit region in this case (mapped to the constant reference
 SCREEN). In Multi Monitor Environments  this is the primary monitor (use the
 constant reference SCREEN, to access it all the time), that normally is Screen(0),
 but might be another Screen() object depending on your platform and settings.
 
-On the other hand this may slow down processing speed, because of time consuming
-searches on the whole screen. So to speed up processing, saying region.find() will restrict the search
-to the specified rectangle. Another possibility is to say setROI() to restrict the
+Using the whole screen for find operations slows down processing speed, because of time consuming
+searches on the whole screen. So to speed up processing, saying ``someRegion.find(PS)`` will restrict the search
+to the specified rectangle. Another possibility is to say ``setROI()`` to restrict the
 search for all following find operations to a smaller region than the whole screen.
 This will speed up processing, if the region is significantly smaller than the whole
 screen.
 
-Capturing - taking screenshots
----------
+Capturing - taking screenshots - create images
+----------------------------------------------
 
 Capturing is the feature, to grab a rectangle of pixels from a screenshot and save it to a file for later use. Each time, a capturing is done, a new screenshot is taken (:py:meth:`Screen.capture`).
 
 There is an interactive variant :py:meth:`Screen.selectRegion`, that just returns the position and dimension of
 the rectangle selected by the user interactively.
 
-**Note on IDE:** Both features are available in the IDE via buttons in the toolbar.
-The ``Capture button`` interactively selects the rectangle on the screen,
-whose pixel content is saved to the current script's bundlepath and
-then inserted (as thumbnail or the generated filename) at the current edit position in the script.
+.. note::
 
-**Note on image naming in the IDE** If nothing else is mentioned, the image name is built as a time-stamp with the ending ``.png``. In the IDE you can either change the name later via the ``Preview feature`` or define it before capturing::
+	**... on IDE:** Both features are available in the IDE via buttons in the toolbar.
+	The ``Capture button`` interactively selects the rectangle on the screen,
+	whose pixel content is saved to the current script's bundlepath and
+	then inserted (as thumbnail or the generated filename) at the current edit position in the script.
+
+.. note::
+
+        **... on image naming in the IDE** If nothing else is mentioned, the image name is built as a time-stamp with the ending ``.png``. In the IDE you can either change the name later via the ``Preview feature`` or define it before capturing::
 
 		someName = 
 		
-leaving the cursor on the same line after the ``=``. Using the capturebutton now, will end up in an image named ``someImage.png``. This can be used, to implement some naming convention for the captured images.
+        leaving the cursor on the same line after the ``=``. Using the capturebutton now, will end up in an image named ``someImage.png``. This can be used, to implement some naming convention for the captured images.
 
 In the settings of the IDE there is an option, that allows to get a prompt for the imagename (interactive naming).
 
@@ -152,35 +154,32 @@ In the settings of the IDE there is an option, that allows to get a prompt for t
 
 	.. py:method:: capture(region | text, [path,] name)
 	
-    only available in Python scripting (MUST be used as such undotted)
+		    only available in Python scripting (MUST be used as such undotted)
 
-    :param region: an existing region object
-    :param text: text to display in the interactive mode.
-    :param path: a path to a folder where the image is stored (bundlepath if omitted)
-    :param name: name of the image file (.png can be omitted)
-    :return: the absolute path of the stored image as ``path/name.png`` or None if no success
-
-    Works principally the same as the normal capture, but directly stores the resulting image
-    to the specified location. The ``name`` spec need not have the ``.png`` ending.  
+                    Works principally the same as the normal capture, but directly stores the resulting image to the specified location. The ``name`` spec need not have the ``.png`` ending.  
 		
-    If the path specification is omitted, the imagefile is stored in the :ref:`current bundlepath <ImageSearchPath>`. In this case the imagename will finally be ``bundlepath/_name.png``, where the leading underscore is an IDE convention to block the automatic deletion of images, that are not namely referenced somewhere in the script, at the time the script is saved in the IDE.
+                    If the path specification is omitted, the imagefile is stored in the :ref:`current bundlepath <ImageSearchPath>`. In this case the imagename will finally be ``bundlepath/_name.png``, where the leading underscore is an IDE convention to block the automatic deletion of images, that are not namely referenced somewhere in the script, at the time the script is saved in the IDE.
+
+                    :param region: an existing region object
+		    :param text: text to display in the interactive mode.
+		    :param path: a path to a folder where the image is stored (bundlepath if omitted)
+		    :param name: name of the image file (.png can be omitted)
+		    :return: the absolute path of the stored image as ``path/name.png`` or None if no success
 		
-**Note on Java usage or in non-Python**
+.. note:: 
 
-``String filename = screen.saveCapture(Object... args)``
+		**...on Java usage or in non-Python** ::
 
-``String filename = region.saveCapture(Object... args)``
+				String filename = screen.saveCapture(Object... args)
+				String filename = region.saveCapture(Object... args)
 
-... where screen/region are some existing Screen/Region objects. 
+		... where screen/region are some existing Screen/Region objects. 
 
-The ``args`` are according to the above parameter specifications of the two :py:meth:`Screen.capture` variants.
+		The ``args`` are according to the above parameter specifications of the two :py:meth:`Screen.capture` variants.
 
-``screen.saveCapture()`` is a shortcut for 
+		``screen.saveCapture()`` is a shortcut for ``String filename = screen.cmdCapture(Object... args).getStoredAt()``
 
-``String filename = screen.cmdCapture(Object... args).getStoredAt()``
-
-The intermediate result of ``cmdCapture`` is a ``ScreenImage`` object,
-that holds the image internally as BufferedImage (accessible using ``ScreenImage.get()``).
+		The intermediate result of ``cmdCapture`` is a ``ScreenImage`` object, that holds the image internally as BufferedImage (accessible using ``ScreenImage.get()``).
 
 .. _MultimonitorEnvironments:
 
