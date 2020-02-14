@@ -11,13 +11,6 @@ Getting a JDK and the SikuliX packages (IDE and/or API)
 -------------------------------------------------------
 
 You need a Java JDK version 8 or later.
-
-Since ``Java 11`` will be available from mid September 2018 on, I used that and had success.
-
-**openJDK 11** using the latest from the `Java 11 EarlyAccess Builds page <http://jdk.java.net/11/>`_
-
- - download the openJDK Linux pack and put the resulting ``jdk11 folder into your home folder``
- - in a Terminal window try ``<home>/jdk11/bin/java -version`` - should show up as Java 11
  
 **Download the SikuliX IDE jar** from the `SikuliX Download page <https://raiman.github.io/SikuliX1/downloads.html>`_
 and put it in your ``home into a folder SikuliX``
@@ -104,9 +97,10 @@ It should look something like that towards the end::
     ... more
 
     --   OpenCV modules:
-    --     To be built:                 core features2d flann imgcodecs imgproc java java_bindings_generator python_bindings_generator
-    --     Disabled:                    calib3d highgui js ml objdetect photo shape stitching superres video videoio videostab world
-    --     Disabled by dependency:      -
+    --     To be built:                 core features2d flann imgcodecs imgproc highgui |... maybe more ...| 
+                                        java java_bindings_generator python_bindings_generator
+    --     Disabled:                    
+    --     Disabled by dependency:      |... see comment below ...|
     --     Unavailable:                 cudaarithm cudabgsegm cudacodec cudafeatures2d cudafilters cudaimgproc cudalegacy cudaobjdetect cudaoptflow cudastereo cudawarping cudev dnn python2 python3 ts viz
 
     ... more
@@ -147,7 +141,9 @@ It should look something like that towards the end::
 **Some notes (top down):**
 
  - ``Built as dynamic libs``: you will have to install the built stuff to your system in a second step.
- - ``OpenCV modules``: the list in the line after ``To be built`` MUST contain ``java``.
+ - ``OpenCV modules``: 
+   - the list in the line after ``To be built`` MUST contain ``java``.
+   - at least core features2d flann imgcodecs imgproc highgui must be there
  - ``Media I/O``: at least ZLib, JPEG and PNG must show a valid entry
  - ``Python (for build)``: must show a valid Python runner
  - ``Java``: ``ant`` and ``JNI`` must show valid entries
@@ -161,161 +157,6 @@ that a Python is not available and a valid JDK is not found in the environment.
 The usual way to solve the problems is to install the relevant packages.
 
 Each time you fixed something simply run ``cmake ..`` again.
-
-You may fine tune, what you get, by editing the file ``CMakeCache.txt`` and run ``cmake ..`` again.
-
-The relevant section near the top of ``CMakeCache.txt``::
-
-    //Build CUDA modules stubs when no CUDA SDK
-    BUILD_CUDA_STUBS:BOOL=OFF
-
-    //Create build rules for OpenCV Documentation
-    BUILD_DOCS:BOOL=OFF
-
-    //Build all examples
-    BUILD_EXAMPLES:BOOL=OFF
-
-    //Create Java wrapper exporting all functions of OpenCV library
-    // (requires static build of OpenCV modules)
-    BUILD_FAT_JAVA_LIB:BOOL=OFF
-
-    //Build IPP IW from source
-    BUILD_IPP_IW:BOOL=ON
-
-    //Build Intel ITT from source
-    BUILD_ITT:BOOL=ON
-
-    //Build libjasper from source
-    BUILD_JASPER:BOOL=OFF
-
-    //Enable Java support
-    BUILD_JAVA:BOOL=ON
-
-    //Build libjpeg from source
-    BUILD_JPEG:BOOL=ON
-
-    //Build only listed modules (comma-separated, e.g. 'videoio,dnn,ts')
-    BUILD_LIST:STRING=
-
-    //Build openexr from source
-    BUILD_OPENEXR:BOOL=OFF
-
-    //Enables 'make package_source' command
-    BUILD_PACKAGE:BOOL=ON
-
-    //Build performance tests
-    BUILD_PERF_TESTS:BOOL=OFF
-
-    //Build libpng from source
-    BUILD_PNG:BOOL=ON
-
-    //Force to build libprotobuf from sources
-    BUILD_PROTOBUF:BOOL=ON
-
-    //Build shared libraries (.dll/.so) instead of static ones (.lib/.a)
-    BUILD_SHARED_LIBS:BOOL=OFF
-
-    //Download and build TBB from source
-    BUILD_TBB:BOOL=OFF
-
-    //Build accuracy & regression tests
-    BUILD_TESTS:BOOL=OFF
-
-    //Build libtiff from source
-    BUILD_TIFF:BOOL=ON
-
-    //Use symlinks instead of files copying during build (and !!INSTALL!!)
-    BUILD_USE_SYMLINKS:BOOL=OFF
-
-    //Build WebP from source
-    BUILD_WEBP:BOOL=ON
-
-    //Include debug info into release binaries ('OFF' means default
-    // settings)
-    BUILD_WITH_DEBUG_INFO:BOOL=OFF
-
-    //Enables dynamic linking of IPP (only for standalone IPP)
-    BUILD_WITH_DYNAMIC_IPP:BOOL=OFF
-
-    //Build zlib from source
-    BUILD_ZLIB:BOOL=ON
-
-    //Build utility applications (used for example to train classifiers)
-    BUILD_opencv_apps:BOOL=OFF
-
-    //Include opencv_calib3d module into the OpenCV build
-    BUILD_opencv_calib3d:BOOL=OFF
-
-    //Include opencv_core module into the OpenCV build
-    BUILD_opencv_core:BOOL=ON
-
-    //Include opencv_dnn module into the OpenCV build
-    BUILD_opencv_dnn:BOOL=OFF
-
-    //Include opencv_features2d module into the OpenCV build
-    BUILD_opencv_features2d:BOOL=ON
-
-    //Include opencv_flann module into the OpenCV build
-    BUILD_opencv_flann:BOOL=ON
-
-    //Include opencv_highgui module into the OpenCV build
-    BUILD_opencv_highgui:BOOL=ON
-
-    //Include opencv_imgcodecs module into the OpenCV build
-    BUILD_opencv_imgcodecs:BOOL=ON
-
-    //Include opencv_imgproc module into the OpenCV build
-    BUILD_opencv_imgproc:BOOL=ON
-
-    //Include opencv_java module into the OpenCV build
-    BUILD_opencv_java:BOOL=ON
-
-    //Include opencv_java_bindings_generator module into the OpenCV
-    // build
-    BUILD_opencv_java_bindings_generator:BOOL=ON
-
-    //Include opencv_js module into the OpenCV build
-    BUILD_opencv_js:BOOL=OFF
-
-    //Include opencv_ml module into the OpenCV build
-    BUILD_opencv_ml:BOOL=OFF
-
-    //Include opencv_objdetect module into the OpenCV build
-    BUILD_opencv_objdetect:BOOL=ON
-
-    //Include opencv_photo module into the OpenCV build
-    BUILD_opencv_photo:BOOL=OFF
-
-    //Include opencv_python_bindings_generator module into the OpenCV
-    // build
-    BUILD_opencv_python_bindings_generator:BOOL=OFF
-
-    //Include opencv_shape module into the OpenCV build
-    BUILD_opencv_shape:BOOL=OFF
-
-    //Include opencv_stitching module into the OpenCV build
-    BUILD_opencv_stitching:BOOL=OFF
-
-    //Include opencv_superres module into the OpenCV build
-    BUILD_opencv_superres:BOOL=OFF
-
-    //Include opencv_ts module into the OpenCV build
-    BUILD_opencv_ts:BOOL=OFF
-
-    //Include opencv_video module into the OpenCV build
-    BUILD_opencv_video:BOOL=OFF
-
-    //Include opencv_videoio module into the OpenCV build
-    BUILD_opencv_videoio:BOOL=OFF
-
-    //Include opencv_videostab module into the OpenCV build
-    BUILD_opencv_videostab:BOOL=OFF
-
-    //Include opencv_world module into the OpenCV build
-    BUILD_opencv_world:BOOL=OFF
-
-This example minimizes what is built, to what SikuliX needs, and builds the media i/o libs from the bundled sources.
-Simply write ON or OFF after the = of an option.
 
 If you made any changes to ``CMakeCache.txt`` just run ``cmake ..`` again.
 
@@ -336,81 +177,18 @@ You have to make sure, that a ``libtesseract....so`` is available on your system
 
 You should first try with your package manager.
 
-**It must be a version 3.x** (preferably 3.0.4+).
-    **Version 4 cannot be used yet** (would be apt-installed on Ubuntu 18.04)
+**It must be a version 4.x** 
 
 To test, what you have on your system, run this::
 
-    tesseract -v
+        tesseract -v
 
-    # should show up with something like that:
-    ...> tesseract 3.05.02
-    ...>    leptonica-1.74.4
-    ...>       libjpeg 8d (libjpeg-turbo 1.5.2) : libpng 1.6.34 : libtiff 4.0.9 : zlib 1.2.11
+        # should show up with something like that:
+        tesseract 4.1.0
+         leptonica-1.78.0
+          libgif 5.1.4 : libjpeg 9c : libpng 1.6.37 : libtiff 4.0.10 : zlib 1.2.11 : libwebp 1.0.3 : libopenjp2 2.3.1
+         Found AVX2
+         Found AVX
+         Found SSE
 
 If anything looks odd, than you have to dive into the gory details.
-
-**On Ubuntu 18.04 the following steps installed a Tesseract 3.0.5**
-
-Be aware: this is not a runnable shell script. Only the used commands are listed::
-
-    # this worked on Ubuntu 18.04 on August 1st, 2018
-    # thanks to https://lucacerone.net/2017/install-tesseract-3-0-5-in-ubuntu-16-04/
-
-    # remove tesseract binaries and languages
-    sudo apt-get remove tesseract-ocr*
-
-    # remove leptonica
-    sudo apt-get remove libleptonica-dev
-
-    # make sure other dependencies are removed too
-    sudo apt-get autoclean
-    sudo apt-get autoremove --purge
-
-    # general preparations
-    sudo apt-get install autoconf automake libtool
-    sudo apt-get install autoconf-archive
-    sudo apt-get install pkg-config
-    #sudo apt-get install libpng12-dev # did not work
-    sudo apt-get install libpng-dev # installs 1.6
-    sudo apt-get install libjpeg8-dev
-    sudo apt-get install libtiff5-dev
-    sudo apt-get install zlib1g-dev
-    sudo apt-get install libicu-dev
-    sudo apt-get install libpango1.0-dev
-    sudo apt-get install libcairo2-dev
-
-    ######################### download/install leptonica 1.74.4
-    # http://www.leptonica.com/source/leptonica-1.74.4.tar.gz
-
-    # extract to folder and go into folder
-    ./configure
-
-    # compile/link: this takes some time
-    sudo make
-
-    sudo make install
-
-    ####################### download/install tesseract 3.05.02
-    # https://github.com/tesseract-ocr/tesseract/archive/3.05.02.tar.gz
-
-    # extract to folder and go into folder
-
-    ./autogen.sh
-    ./configure --enable-debug
-
-    # compile/link: this takes some time
-    LDFLAGS="-L/usr/local/lib" CFLAGS="-I/usr/local/include" make
-
-    sudo make install
-    sudo make install-langs # is a no-op with no additional languages
-    sudo ldconfig
-
-    ################## test
-    tesseract -v
-
-    # should show
-    # tesseract 3.05.02
-    #    leptonica-1.74.4
-    #       libjpeg 8d (libjpeg-turbo 1.5.2) : libpng 1.6.34 : libtiff 4.0.9 : zlib 1.2.11
-
