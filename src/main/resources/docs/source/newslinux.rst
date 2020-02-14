@@ -1,11 +1,7 @@
 .. _newslinux:
 
-Version 2.0.2 - Special for Linux people
+Version 2.0.2+ - Special for Linux people
 ========================================
-
-.. note::
-
-        To be revised - not yet up-to-date - sorry ;-)
 
 Getting a JDK and the SikuliX packages (IDE and/or API)
 -------------------------------------------------------
@@ -41,8 +37,12 @@ in a Maven/Gradle project. In any case you have to make ``OpenCV`` and ``Tessera
 Getting the OpenCV support ready
 --------------------------------
 
-SikuliX needs access to the OpenCV Java/JNI bindings (an OpenCV native library named ``libopencv_java320.so``,
-where 320 is a shortcut for the version).
+.. note:
+
+        SikuliX 2.0.x: needs OpenCV 3.x preferably 3.4.x   ---   SikuliX 2.1.0+: needs OpenCV 4.x
+
+SikuliX needs access to the OpenCV Java/JNI bindings (an OpenCV native library named ``libopencv_javaXYZ.so``,
+where XYZ is a shortcut for the version like 320 or 341).
 
 On Debian systems (like Ubuntu) you should get it with the apt-tool, on other Linux systems you might
 get it with their package-tool. In any case it is possible, to create it from the sources (see below).
@@ -191,4 +191,4 @@ To test, what you have on your system, run this::
          Found AVX
          Found SSE
 
-If anything looks odd, than you have to dive into the gory details.
+If anything looks odd, then you have to dive into the gory details.
