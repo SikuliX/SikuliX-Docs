@@ -128,11 +128,11 @@ Out of the box, SikuliX can be setup with a Jython standalone package, which the
 If you want to use the Jython REPL (interactive commandline) or another IDE like PyCharm, you have to install Jython seperately. In this case no need to have the Jython standalone package,
 but you can tell SikuliX to use your installed Jython environment:
 
+**This only applies to SikuliX 2.0.x+**
 
+Previous versions 1.1.x might make problems and are no longer supported
 
-**This only applies to SikuliX 1.1.4+**
-
-**Strongly recommended: use Jython 2.7.1**
+**MANDATORY: use Jython 2.7.1**
 
 **Make sure you have a valid Java installation (version 8+)**
 
@@ -167,7 +167,6 @@ In a Python IDE you have to setup your project according to the rules.
 
 Prereqisites:
  - ``sikulixapi.jar`` (NOT sikulix.jar!) must be on the Java classpath at runtime. This can be achieved using one of the methods that come with Jython or the IDE.
- - in the main script have as first line ``import org.sikuli.script.SikulixForJython`` (preparation of sys.path)
  - to give access to the images use the appropriate features of ``ImagePath``: ``setBundlePath()`` ``and add()``
 
  If this case is planned to be your main usage, you should decide to use plain .py files according to the Python script/module rules and the ImagePath features to acces your images.
@@ -178,7 +177,12 @@ Prereqisites:
 
 **Usage with SikuliX --- Case 2: Using the installed Jython with SikuliX**
 
-You have to tell SikuliX about your installed Jython by using the Extensions feature.
+You have to tell SikuliX about your installed Jython by using the Extensions feature:
+
+ - start the IDE once and ignore all error messages and close it again
+ - in the ``SikuliX-APP-DATa-folder`` go to the folder ``Extensions``
+ - `edit the file extensions.txt to point to your Jython install <https://github.com/RaiMan/SikuliX1/wiki/How-to-make-Jython-ready-in-the-IDE>`_
+ - start the IDE again - you should get to the normal state (a tab ``Untitled`` with type ``jython``)
  
 Access Python packages from SikuliX scripts run by SikuliX (GUI or commandline)
 -------------------------------------------------------------------------------
@@ -280,6 +284,15 @@ Comments and ideas are welcome and can be posted there as issues.
 Scripting with IntelliJ PyCharm and IDEA with Python plugin
 -----------------------------------------------------------
 
+**BE AWARE**
+ - you will not see any image thumbnails as in the SikuliX IDE
+ - capturing of your images has to be done with the SikuliX IDE separately into special image scripts/folders, that have to be applied to your scripts using the ImagePath features
+ - code completion will not work, since most features are at the Java level and the undotted Region/Screen funtions (find, click, ...) are only created dynamically at runtime of the script and hence not accessible in the static editor environment
+ - so in the end the only advantages over the SikuliX IDE are::
+ 
+         - a full featured editor and at least syntax evaluation
+         - a full featured debugger, where you can even inspect down into the Java level at a breakpoint
+
 Among the free IDE's, that allow to work with Python projects, I made the best experiences over the years with JetBrains's PyCharm (using the free Community Edition) or the Python plugin in JetBrain's IntelliJ IDEA.
 
 PyCharm has a weakness, in that code completion while editing does not look into jar-files nor Java classes, while in the built-in Python console after having imported a Java class, code completion about the class attributes/methods works, so having a console open while editing might help as a workaround for inspecting Java classes.
@@ -318,11 +331,10 @@ As with the step before get the ``Default Preferences`` dialog open.
 
 At the left side select ``Build, Execution, Deployment``... ``Console``... ``Python Console``.
 
-To the ``Environment variables`` add antry ``CLASSPATH``, that points to a valid ``sikulixapi.jar`` (created using setup).
+To the ``Environment variables`` add antry ``CLASSPATH``, that points to a valid ``sikulixapi.jar``.
 
-In the ``Starting script`` you might add the 2 lines
+In the ``Starting script`` you might add the line
 ```
-import org.sikuli.script.SikulixForJython
 from sikuli import *
 ```
 so each time you start a console, the prompt is already prepared to know about SikuliX features.
