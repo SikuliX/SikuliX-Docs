@@ -82,8 +82,20 @@ You can start a new find or findAll operation on the same Finder object at any t
 
     :param path-to-imagefile: the target image to compare with (exactly same size in pixels)
     :return: a list of Region objects (empty, if no changes where detected).
-
-
+    
+    .. note::
+    		Some Information on implementation
+		- both images are converted to grayscale
+		- only pixels whose gray value differs +-3 (PIXEL_DIFF) are looked at
+		- if more than 5 pixels are detected (IMAGE_DIFF) a change is assumed
+		
+		You can set these values as needed after having created the Finder
+		- use ``finder.setFindChangesImageDiff(int value)`` to adjust ``PIXEL_DIFF`` 
+		- use ``finder.setFindChangesImageDiff(int value)`` to adjust ``IMAGE_DIFF`` 
+		
+		With a new Finder object, the values are reset to the default
+		- use ``finder.resetFindChanges()`` to do this on the fly for a Finder object
+	
 Example 1: findAll using a Finder
 
 .. sikulicode::
