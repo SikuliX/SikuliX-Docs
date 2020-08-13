@@ -80,9 +80,8 @@ The support for JavaScript is based on the **Java integrated engine Nashorn** (a
 **BE AWARE**  Since Java 11 Nashorn is marked deprecated and might be removed in a future Java version.
 With Java 13 (available September 2019) it is still there and hence will be there till September 2020.
 
-A candidate to be used with SikuliX and JavaScript scripting in the future will be the GraalVM package. It can surely be
-used with SikuliX (sikulixapi.jar) already now, but probably will have special support in SikuliX 1.1.5 beginning towards end of 2019.
-People who try already now with SikuliX 1.1.4 are welcome to give feedback about their experiences.
+A candidate to be used with SikuliX and JavaScript scripting in the future will be the GraalVM package.
+People who try already now with SikuliX 2.0.4+ are welcome to give feedback about their experiences on GitHub.
 
 The easiest approach for JavaScript scripting:
  - switch a new editor tab in the IDE to type JavaScript (rigt-click on an empty Tab, select ``Set Type`` in the context menü and then select ``javascript`` from the drop down list). 
