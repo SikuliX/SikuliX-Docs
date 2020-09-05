@@ -224,12 +224,19 @@ and it is not possible yet, to bring such a window to front with a compound Siku
 	
 		:return: True if the app is running and has a main window registered, False otherwise
 		
-	.. py:method:: getWindow()
+	.. py:method:: getTitle()
 	
-		*Usage:* ``title = someApp.getWindow()`` 
+		*Usage:* ``title = someApp.getTitle()`` 
 		where App instance ``someApp`` was :ref:`created before <CreateAppInstance>`.
 	
 		:return: the title of the frontmost window of this application, might be an empty string
+		
+	.. py:method:: window()
+	
+		*Usage:* ``windowRegion = someApp.window()`` 
+		where App instance ``someApp`` was :ref:`created before <CreateAppInstance>`.
+	
+		:return: the region of the frontmost window of this application
 		
 	.. py:method:: getPID()
 	
