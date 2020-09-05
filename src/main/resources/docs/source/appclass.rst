@@ -231,13 +231,6 @@ and it is not possible yet, to bring such a window to front with a compound Siku
 	
 		:return: the title of the frontmost window of this application, might be an empty string
 		
-	.. py:method:: window()
-	
-		*Usage:* ``windowRegion = someApp.window()`` 
-		where App instance ``someApp`` was :ref:`created before <CreateAppInstance>`.
-	
-		:return: the region of the frontmost window of this application
-		
 	.. py:method:: getPID()
 	
 		*Usage:* ``pid = someApp.getPID()`` 
@@ -342,6 +335,12 @@ Dealing with Application windows
 				if not w: break # no more windows
 				w.highlight(2) # window highlighted for 2 second
 
+	.. py:method:: getTitle([n])
+	
+		*Usage:* see App.window([n]) 
+	
+		:return: the title of the frontmost/nth window of this application, might be an empty string
+		
 
 General aspects, hints and tipps
 --------------------------------
