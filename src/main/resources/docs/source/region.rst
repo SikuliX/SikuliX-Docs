@@ -1053,6 +1053,9 @@ So parallel clicks in main workflow and handler should do their job correctly, b
 		
 		:return: a string as unique name of this event 
 			 :ref:`to identify this event later <NamedObserveEvents>`
+			 
+		**NOTE** A subsequent ``onChange`` for the ``same Region object`` overwrites an existing
+		``onChange``, while keeping the name of the existing ``onChange``.
 
 		Here is a example that highlights all changes in an observed region.
 		::
