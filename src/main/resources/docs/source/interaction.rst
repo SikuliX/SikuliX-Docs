@@ -217,16 +217,9 @@ Timed (autoclosing) popups
 --------------------------
 .. versionadded:: 1.1.1
 
-As a backport from `SikuliX version 2 <https://github.com/RaiMan/SikuliX2>`_ I added the timed/autoclosing
-versions of ``popup``, ``popAsk``, ``popError`` and ``input``.
-
 General information on using these features:
 
-* the respective methods are implemented in the class ``org.sikuli.script.Do`` (this corresponds to the implementation
-  of all toplevel features in SikuliX version 2 in ``com.sikulix.api.Do``). Hence the usage in scripts is upward compatible.
-  At the Java level at least the import would have to be changed.
-
-* **the usage in all cases** is ``returnValue = Do.function()``. Do not try any other usage, since this might clash with
+* **Jython Scripting: the usage in all cases** is ``returnValue = Do.function()``. Do not try any other usage, since this might clash with
   existing version 1 implementations.
 
 * since the implementation is only on the Java level, there are no named parameters
@@ -238,6 +231,8 @@ General information on using these features:
 * if the dialog is autoclosed by intention, the return value is ``None/null`` in all cases.
 
 * the dialogs can only be displayed on the primary screen
+
+* **Java usage in all cases** is ``returnValue = SX.function()``, since the feature is implemented in ``org.sikuli.script.SX``.
 
 These are the **possible parameters and their defined sequence**:
 
