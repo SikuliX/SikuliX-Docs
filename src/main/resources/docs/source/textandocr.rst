@@ -198,7 +198,3 @@ The Text and OCR features in Detail (Class OCR)
 .. _ocr_features:
 
 .. include:: classDoc_OCR.txt
-
-.. _reg_img_features:
-
-**to be written**
