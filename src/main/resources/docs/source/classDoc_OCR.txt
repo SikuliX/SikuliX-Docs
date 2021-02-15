@@ -444,6 +444,16 @@ Handle the pre-OCR image optimization
 				:param size: of a font
 				:return: (Options) this Options
 
+		.. py:method:: lightFont()
+
+				| Convenience: Configure optimization.
+				| 
+				| Might give better results in cases with 
+				| text in light color on darker background
+				| TAKE CARE: the region should NOT have other background around the darker background containing the text (example is buttons)
+
+				:return: (Options) this Options
+
 .. _OCR_Options_variable:
 
 Handle Tesseract variables
