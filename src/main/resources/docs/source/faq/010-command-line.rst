@@ -56,18 +56,21 @@ Command Line Options (intention: IDE should open)
 Command Line Options (intention: run a script without opening the IDE)
 ----------------------------------------------------------------------
    
-.. option::  -r,--run <sikuli-folder/file>  (one or more entries seperated by space)       
+.. option::  -r,--run <folder/file>  (one or more entries seperated by space)       
 
-   run one or more .sikuli or .skl files or .jar files (1.1.2+) one after the other
+   run one script or more scripts one after the other skipping entries, that do not represent valid scripts.
    
    *<sikuli-folder/file>* can be 
-    * a relative or absolute path with or without dotted parts (e.g. ../some-script) 
+    * a relative or absolute path/filename with or without dotted parts (e.g. ../some-script) 
     * a pointer to a location in the HTTP net (:ref:`for details look here <RunningScripts>`). The contained script file is downloaded and run,
       while the image files are downloaded when used in the script at runtime.
    
-   Having more than one script to run, the folder containing the script folder is remembered and applied 
-   to a following entry, that has a preceding ./ - example
-      sikulix.com:scripts/test1 ./test2 ./test2 will reuse the location sikulix.com:scripts/ for test2 and test3
+   Having more than one script, the folder containing the first script is remembered and applied 
+   to the following entries being a relative path/filename - example:
+      ``- r MyScripts/test1 test2 test2`` will reuse the location ``<working-folder>/MyScripts/`` for test2 and test3
+      
+   A folder (first entry or intermediate) ``you-name-it`` not being a valid script folder (not ending ``.sikuli``, not containing a ``you-name-it.py``)
+   will be taken as such and get the base folder for the following relative paths/filenames.
       
    Having more than one script specified: a return code of -1 will stop the complete execution.
    
