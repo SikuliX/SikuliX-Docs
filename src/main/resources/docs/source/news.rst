@@ -88,6 +88,7 @@ In doubt you have to use the functions, that return all matches in a region and 
   hasText              no                   no
   existsText           yes                  no
   waitVanishText       this function is     not available yet
+  findAllText          no                   no
 ==================   ==================   =====================
 
 And there are new text functions, that only search once and do not throw findFailed:
