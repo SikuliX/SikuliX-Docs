@@ -352,13 +352,13 @@ Image Search Path - where SikuliX looks for image files
 
 SikuliX maintains a list of locations to search for images when they are not found in the current script folder (a.k.a. BundlePath). This list named ``ImagePath`` is maintained internally, but can be inspected and/or modified using the following functions.
 
-.. note::
-	*GENERAL ASPECTS:* 
-	* as long as an image file has the ending .png, this might be omitted.
-	* you might use subfolders as well, to form a relative path to an image file
-	* an image path might point to a location inside a jar file or a location on the Java classpath
-	* an image path might point to a folder in the net, that is accessible via HTTP
-	* SikuliX internally manages a cache for the imagefile content (standard 64 MB), where images are held in memory, thus avoiding a reload on subsequent references to the same image file.
+**GENERAL ASPECTS:** 
+* as long as an image file has the ending .png, this might be omitted.
+* you might use subfolders as well, to form a relative path to an image file
+* an image path might point to a location inside a jar file
+* an image path might point to a location on the Java classpath
+* an image path might point to a folder in the net, that is accessible via HTTP
+* SikuliX internally manages a cache for the imagefile content (standard 64 MB), where images are held in memory, thus avoiding a reload on subsequent references to the same image file.
 
 .. index:: Bundle Path
 
@@ -392,7 +392,7 @@ SikuliX maintains a list of locations to search for images when they are not fou
         Be aware of the :ref:`convenience functions to manipulate paths <FileAndPathHandling>`.
 
 .. note::
-	**Java usage:** Since there is no default BundlePath, when not running a script, like in the situation, when using the Java API in Java program or other situations with the direct use of Java aware scripting languages, you can use this feature to set the one place, where you have all your images.
+	**Java usage:** Since there is no default BundlePath, when not running a script, like in the situation, when using the Java API in Java program or other situations with the direct use of Java aware scripting languages, you can use this feature to provide places, where you have stored your images.
 	
 Example::
   
@@ -402,11 +402,11 @@ Example::
 	screen.find("imageset1/image2"); 
 	//first find omits .png, second find uses a relative path with a subfolder
 
-**Other places, where Sikuli looks for images**, are stored internally in the image path list. 
+**Other places, where Sikuli should look for images**, can be added to the ``ImagePath``. 
 
-When searching images, the path's are scanned in the order of the list. The first image file with a matching image file name is used.
+When searching images, the ``ImagePath list`` is scanned in the order of the list. The first image file with a matching image file name is used.
 
-Use the following functions to work with this list.
+**Use the following functions to work with this list.**
 
 .. py:function:: getImagePath()
 
@@ -422,7 +422,7 @@ Use the following functions to work with this list.
 	Add a new folder path to the end of the current list (avoids double entries)
 	  
 	As a convenience you might use this function also to add a path to a HTTP net folder like so 
-	*sikulix.com:* or *sikulix.com:somefolder/images* (see *addHTTPImagePath*)
+	*sikulix.com:* or *sikulix.com:somefolder/images* (see ``addHTTPImagePath``)
 	 
 .. py:function:: addHTTPImagePath(a-new-path)
 
@@ -435,7 +435,24 @@ Use the following functions to work with this list.
 	The folder must be accessible via HTTP/HTTPS and must allow HTTP-HEAD requests on the contained image files 
 	(this is checked at the time when trying to add the path entry).
 	 
-**NOTE on Java usage: images in a jar**
+.. py:function:: removeImagePath(a-path-already-in-the-list)
+
+	Remove the given path from the current list. Cached images loaded from that path are removed from the cache.
+
+.. py:function:: resetImagePath(a-path)
+
+	Clears the current list and sets the first entry to the given path (hence gets the BundlePath). The image cache is cleared completely..
+
+.. note::
+	Paths must be specified using the correct path separators (slash on Mac
+	and Unix and double blackslashes on Windows). The convenience functions in :ref:`File and Path handling <FileAndPathHandling>` might be helpful.
+
+.. note::
+	This list is **automatically extended with script folders**, that are imported 
+	(see: :ref:`Importing other Sikuli Scripts <ImportingSikuliScripts>`), 
+	so their contained images can be accessed by only using their plain filenames. 
+
+**Java usage: images in a jar**
 
 It is possible to access images, that are stored inside of jar files. So you might develop a Java app, that comes bundled with the needed images in one jar file. 
 
@@ -451,7 +468,7 @@ To support the development cycle in IDE's, you might specify an alternate path, 
 *Usage in other Projects:*
    
   ``ImagePath.add("someClass/images", alternatePath)``
-      where *someClass* is the name of a class contained in a jar on the class path containing the images folder at the root level of the jar.
+      where *someClass* is the name of a class contained in a jar on the class path containing the given ``images`` folder at the root level of the jar.
       
       where *alternatePath* is a valid path specification, where the images are located, when running from inside an IDE.
       
@@ -489,21 +506,6 @@ To support the development cycle in IDE's, you might specify an alternate path, 
 	}
 
 **Be aware:** that you might use the Sikuli IDE, to maintain a script, that only contains the image filenames and then is used as image path in your Java app like ``ImagePath.add("myClass/myImages.sikuli")``, which e.g. in the Maven context will assume as image path ``src/main/ressources/myImages.sikuli``.
-
-.. py:function:: removeImagePath(a-path-already-in-the-list)
-
-	Remove the given path from the current list
-
-.. py:function:: resetImagePath(a-path)
-
-	Clears the current list and sets the first entry to the given path (hence gets the BundlePath). This gets you a fresh image environment.
-
-*Note*: paths must be specified using the correct path separators (slash on Mac
-and Unix and double blackslashes on Windows). The convenience functions in :ref:`File and Path handling <FileAndPathHandling>` might be helpful.
-
-This list is automatically extended by Sikuli with script folders, that are imported 
-(see: :ref:`Importing other Sikuli Scripts <ImportingSikuliScripts>`), 
-so their contained images can be accessed by only using their plain filenames. 
 
 .. index:: import .sikuli
 
