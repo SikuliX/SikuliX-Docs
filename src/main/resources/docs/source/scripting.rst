@@ -350,15 +350,18 @@ In more complex scripting situations it is often necessary to deal with paths to
 Image Search Path - where SikuliX looks for image files
 --------------------------------------------------------------------------
 
+.. versionadded:: 2.0.5
+**Topic is currently revised to reflect the new features of ImagePath**
+
 SikuliX maintains a list of locations to search for images when they are not found in the current script folder (a.k.a. BundlePath). This list named ``ImagePath`` is maintained internally, but can be inspected and/or modified using the following functions.
 
 **GENERAL ASPECTS:** 
-* as long as an image file has the ending .png, this might be omitted.
-* you might use subfolders as well, to form a relative path to an image file
-* an image path might point to a location inside a jar file
-* an image path might point to a location on the Java classpath
-* an image path might point to a folder in the net, that is accessible via HTTP
-* SikuliX internally manages a cache for the imagefile content (standard 64 MB), where images are held in memory, thus avoiding a reload on subsequent references to the same image file.
+	* as long as an image file has the ending .png, this might be omitted.
+	* you might use subfolders as well, to form a relative path to an image file
+	* an image path might point to a location inside a jar file (:py:func:`add jar <addJarImagePath>`)
+	* an image path might point to a location on the Java classpath (:py:func:`add class folder <addClassImagePath>`)
+	* an image path might point to a folder in the net, that is accessible via HTTP (:py:func:`add net folder <addHTTPImagePath>`)
+	* SikuliX internally manages a cache for the imagefile content (standard 64 MB), where images are held in memory, thus avoiding a reload on subsequent references to the same image file.
 
 .. index:: Bundle Path
 
