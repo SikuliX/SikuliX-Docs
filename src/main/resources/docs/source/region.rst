@@ -820,6 +820,8 @@ Internally the searches for the given images are run in parallel against the sam
 
 The result is a list of matches, where each match carries a zero-based index, pointing to the corresponding image in the given list of images. Hence this index is the base information for the post-processing of the matches if any (the list of matches is empty in case none of the given images matched).
 
+Use ``match.getIndex()`` to identify the only matching image (...Best) or the corresponding matching image (...Any) from the images (index left to right, zero-based) or from the given image list (zero-based).
+
 Supposing the variables ``img0, img1, img2, img3`` have been setup before as image filenames or patterns, then the following example would print, if all images are visible in that moment except ``img1``:
 
 ::
@@ -856,7 +858,11 @@ This is an example for ``findBest()``:
 	
 .. versionadded:: X2.0.5
 
-There are variants, that wait for some time, until the first match is found. If the wait time exceeds without finding anything, it fails and returns ``null`` or an empty list accordingly: ``waitBest(), waitBestList(), waitAny(), waitAnyList()``. 
+``waitBest(), waitBestList(), waitAny(), waitAnyList()``
+
+.. note::
+
+These are variants, that wait for some time, until the first match is found. If the wait time exceeds without finding anything, it fails and returns ``null`` or an empty list accordingly. Usage same as the find... variants.
 	
 .. py:class:: Region
 
@@ -865,26 +871,17 @@ There are variants, that wait for some time, until the first match is found. If 
 		:param PS...: one or more image filenames and/or patterns as a variable parameterlist
 		:return: a :py:class:`Match` object that contains the best match or None if no image was found at all
 		
-		Use ``match.getIndex()`` to identify the best image from the images (index left to right, zero-based).
-
-.. versionadded:: X2.0.5
-
 	.. py:method:: waitBest(waitTime, PS...)
 
 		:param PS...: one or more image filenames and/or patterns as a variable parameterlist
 		:param waitTime: the max time to wait in seconds for the first match
 		:return: a :py:class:`Match` object that contains the best match or None if no image was found at all
 		
-		Use ``match.getIndex()`` to identify the best image from the images (index left to right, zero-based).
 		
 	.. py:method:: findBestList(ListPS)
 
 		:param ListPS: a Tuple/List containing one or more image filenames and/or patterns 
 		:return: a :py:class:`Match` object that contains the best match or None if no image was found at all
-
-		Use ``match.getIndex()`` to identify the best image from the image-list (index zero-based).
-
-.. versionadded:: X2.0.5
 
 	.. py:method:: waitBestList(ListPS)
 
@@ -892,45 +889,27 @@ There are variants, that wait for some time, until the first match is found. If 
 		:param waitTime: the max time to wait in seconds for the first match
 		:return: a :py:class:`Match` object that contains the best match or None if no image was found at all
 
-		Use ``match.getIndex()`` to identify the best image from the image-list (index zero-based).
-
 	.. py:method:: findAny(PS...)
 
 		:param PS...: one or more image filenames and/or patterns as a variable parameterlist
 		:return: a list of matches for the images found
 		
-		Use ``match.getIndex()`` to identify the corresponding image from the images (index left to right, zero-based). 
-		    See example above about how to access the returned list.
-
-.. versionadded:: X2.0.5
-
 	.. py:method:: waitAny(waitTime, PS...)
 
 		:param PS...: one or more image filenames and/or patterns as a variable parameterlist
 		:param waitTime: the max time to wait in seconds for the first match
 		:return: a list of matches for the images found
 		
-		Use ``match.getIndex()`` to identify the corresponding image from the list of images (index left to right, zero-based). 
-		    See example above about how to access the returned list.
-
 	.. py:method:: findAnyList(ListPS)
 
 		:param ListPS: a Tuple/List containing one or more image filenames and/or patterns 
 		:return: a list of matches for the images found
-
-		Use ``match.getIndex()`` to identify the best image from the image-list (index zero-based). 
-		    See example above about how to access the returned list.
-
-.. versionadded:: X2.0.5
 
 	.. py:method:: waitAnyList(waitTime, ListPS)
 
 		:param ListPS: a Tuple/List containing one or more image filenames and/or patterns 
 		:param waitTime: the max time to wait in seconds for the first match
 		:return: a list of matches for the images found
-
-		Use ``match.getIndex()`` to identify the best image from the image-list (index zero-based). 
-		    See example above about how to access the returned list.
 
 .. _ObservingVisualEventsinaRegion:
 
