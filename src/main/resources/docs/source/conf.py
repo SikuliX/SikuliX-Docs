@@ -45,7 +45,7 @@ master_doc = 'index'
 
 # General information about the project.
 project = u'SikuliX'
-copyright = u'2020, Raimund Hocke aka RaiMan'
+copyright = u'2021, Raimund Hocke aka RaiMan'
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
@@ -119,7 +119,7 @@ html_short_title = project + " " + version + "+"
 
 # The name of an image file (relative to this directory) to place at the top
 # of the sidebar.
-html_logo = 'ide-icon-64.png'
+html_logo = 'sx64.png'
 
 # The name of an image file (within the static path) to use as favicon of the
 # docs.  This file should be a Windows icon file (.ico) being 16x16 or 32x32
