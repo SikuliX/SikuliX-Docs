@@ -742,7 +742,7 @@ You may run **snippets** by simply issuing
 	
 **Example for Applescript**:
 
-	``returnCode = runScript('applescript tell application "Mail" to activate')``
+	``returnCode = runScript('applescript\n tell application "Mail" to activate')``
 	
 	or like this for a multiline snippet::
 	
@@ -756,7 +756,7 @@ You may run **snippets** by simply issuing
 	
 **Example for PowerShell**:
 
-	``returnCode = runScript('powershell get-process')``
+	``returnCode = runScript('powershell\n get-process')``
 	
 	or like this for a multiline snippet::
 	
