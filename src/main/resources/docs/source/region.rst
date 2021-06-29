@@ -1266,6 +1266,16 @@ The feature ``FindFailed`` and/or ``ImageMissing`` handler allows to specify fun
 		
 		:param waitTime: seconds to pause, taken as 0 if not given
 		
+		.. note::
+			A value of 0 or not given means: take the standard value from ``Settings.RepeatWaitTime``, which is 1.
+			
+			So if you do not want any pause between the repeated observes: ``Settings.RepeatWaitTime = 0`` 
+			or for a specific Region only: ``someRegion.setRepeatWaitTime = 0``.
+			
+			Be aware: The granularity is 1 second (internally handled as integer values).
+			
+			For more fine grained repeats within 1 second, additionally you have to play around with the ``ObserveScanRate``.
+		
 	.. py:method:: getResponse()
 	
 		In case of FINDFAILED or MISSING get the current setting of the FindFailedResponse of the event region
