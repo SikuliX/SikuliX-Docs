@@ -209,7 +209,7 @@ Using SikuliX's preferences store for your own key-value pairs (deprecated versi
 
 .. note::
 
-	** the following functions are deprecated since 2.0.6 - use the ones below instead for new implementations**
+	The following functions are deprecated since 2.0.6 - use the ones below instead for new implementations
 	
 .. note::
 
