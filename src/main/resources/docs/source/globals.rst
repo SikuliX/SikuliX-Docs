@@ -203,15 +203,24 @@ Since the values in the store are strings only, the following functions take car
 	:param key: the key as string of a stored key-value-pair
 	:param value: an valid number value to be stored with the given key
 	:return: the stored value before the change, a 0.0 if the key did not exist yet
+	
+Using SikuliX's preferences store for your own key-value pairs (deprecated version)
+-----------------------------------------------------------------------------------
 
-**The following feature only works on the same machine**
+.. note::
 
-... and has nothing to do with the above feature, but can of course be combined.
+	** the following functions are deprecated since 2.0.6 - use the ones below instead for new implementations**
+	
+.. note::
 
-You might use SikuliX's persistent storage, to **store and reload your own information** 
-accross SikuliX sessions or only across different runs of same or different scripts/programs.
+	The following feature only works on the same machine
 
-There is no feature to preload the store before the first run nor to export your information.
+	... and has nothing to do with the above feature, but can of course be combined.
+
+	You might use SikuliX's persistent storage, to **store and reload your own information** 
+	accross SikuliX sessions or only across different runs of same or different scripts/programs.
+
+	There is no feature to preload the store before the first run nor to export your information.
 
 .. py:method:: Sikulix.prefStore(key, value)
 
@@ -239,8 +248,24 @@ There is no feature to preload the store before the first run nor to export your
 
 	Permanently remove all key-value-pairs stored before using :py:meth:`Sikulix.prefStore`
 
-	:param key: an item name as string
-	:return: the item's content if the item exists, otherwise an empty string
+	:return: a dictionary with the key-value pairs removed (might be empty)
+	
+
+Using SikuliX's preferences store for your own key-value pairs (new version)
+----------------------------------------------------------------------------
+
+.. versionadded:: 2.0.6
+	
+.. note::
+
+	The following feature only works on the same machine
+
+	... and has nothing to do with the Options feature, but can of course be combined.
+
+	You might use SikuliX's persistent storage, to **store and reload your own information** 
+	accross SikuliX sessions or only across different runs of same or different scripts/programs.
+
+	Additionally you might store/reload the complete set to use it on other machines or even share it.
 
 Get Information about the runtime environment
 ---------------------------------------------
@@ -344,48 +369,3 @@ to **check wether we are running on a specific system**:
 	
 	:return: a :py:class:`Location` object of the position of the mouse cursor on the screen.
 	
-
-Advanced Settings for Speed and Robustness
-------------------------------------------
-
-**Note** **It is not recommended, to use this.** 
-
-	With version 1.2 the matching process will be revised anyway and might bring other options.
-	If you really want to speed up the search process, take care, 
-	that you are searching in a region being as small as possible.
-	
-	:ref:`Here you get more information about how to make your workflow fast and robust <BestPractices>`.
-
-.. py:method:: Vision.setParameter(param, value)
-
-	Set the parameter *param* of the vision algorithm to *value*.
-	
-	:parameter param: a string that indicates the parameter to set.
-	:parameter value: a float value.
-
-
-.. py:method:: Vision.getParameter(param)
-
-	Get the parameter *param* of the vision algorithm.
-	
-	:parameter param: a string that indicates the parameter to get.
-	:return: the float value of the specified parameter.
-
-
-.. _min-target-size:
-
-**MinTargetSize**
-
-``MinTargetSize`` is the minimum image size to which Sikuli can resize.
-
-If you feel that Sikuli is running too slow, 
-you might try a smaller value than 12. On the other hand, if you see Sikuli returns a match 
-that is not what you expect, i.e. a false match, 
-try to increase ``MinTargetSize`` to make Sikuli be more robust to small details.
-
-You can tune this parameter using the following Jython code::
-
-   from org.sikuli.natives import Vision
-   Vision.setParameter("MinTargetSize", 6) # the default is 12.
-   
-Setting the size to a smaller value would make the matching algorithm be faster.
