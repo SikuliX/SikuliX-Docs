@@ -258,15 +258,68 @@ Using SikuliX's preferences store for your own key-value pairs (new version)
 	
 .. note::
 
-	The following feature only works on the same machine
+	The following features (except export/import) only works on the same machine
 
 	... and has nothing to do with the Options feature, but can of course be combined.
 
 	You might use SikuliX's persistent storage, to **store and reload your own information** 
 	accross SikuliX sessions or only across different runs of same or different scripts/programs.
 
-	Additionally you might store/reload the complete set to use it on other machines or even share it.
+	Additionally you might store/reload the complete set to use it on other machines or even share it (export/import as a special XML file).
 
+.. py:method:: prefStore(key, value)
+
+	Store a key-value-pair in SikuliX's persistent preferences store
+
+	:param key: an item name as string
+	:param value: a string value to be stored as the item's content
+
+.. py:method:: prefLoad(key[, default])
+
+	Retrieve the value of a previously stored key-value-pair using key as the item's name
+
+	:param key: an item name as string
+	:param default: an optional string value to be returned, if the item was not yet stored (as default)
+	:return: the item's content if the item exists, otherwise an empty string or the given default
+
+.. py:method:: prefAll()
+
+	Get all key-value-pairs stored before using :py:meth:`prefStore` as a dictionary
+
+	:return: a dictionary with the key-value pairs (might be empty)
+
+.. py:method:: prefRemove(key)
+
+	Permanently remove the key-value-pair using key as the item's name
+
+	:param key: an item name as string
+	:return: the item's content if the item exists, otherwise an empty string
+
+.. py:method:: prefRemove()
+
+	Permanently remove all key-value-pairs stored before using :py:meth:`prefStore`
+
+	:return: a dictionary with the key-value pairs removed (might be empty)
+	
+.. note::
+
+	The before mentioned features internally store the given value with the given key preceeded with a prefix USER_, 
+	to avoid a mixup with SikuliX related options. 
+	Hence the XML file created with export will have the keys with this prefix (relevant only when working directly with the XML file).
+
+.. py:method:: prefExport(path)
+
+	Store SikuliX's preference store completely in an XML file with the given path-file specification. 
+
+	:return: True (= success) or False
+	
+.. py:method:: prefImport(path)
+
+	Load SikuliX's preference store completely from an XML file with the given path-file specification, 
+	that was created before by :py:meth:`prefExport`
+
+	:return: True (= success) or False
+	
 Get Information about the runtime environment
 ---------------------------------------------
 
