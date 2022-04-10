@@ -1748,6 +1748,18 @@ application for accepting the action.
 		
 		**SPECIAL macOS Sierra 10.12+** If type does not behave as expected (characters like e or s are not typed)
 		then `look here for explanation and workaround <https://bugs.launchpad.net/sikuli/+bug/1673089>`_.
+		
+		
+.. versionadded:: 2.0.6
+
+	.. py:method:: typex([text, number, hex-string])
+	
+		**type extended --- new feature to type by unicode-representation**
+		
+		`Until added to the docs, look here for more details <https://github.com/RaiMan/SikuliX1/issues/517>`_
+				
+		**NOTE**: before using ``typex()`` you have to activate an input focus somewhere on the screen.
+		
 
 	.. py:method:: paste([PSMRL], text)
 
