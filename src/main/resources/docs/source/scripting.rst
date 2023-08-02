@@ -1,4 +1,4 @@
-General features regarding scripting and image handling
+/General features regarding scripting and image handling
 =======================================================
 
 .. _ControllingSikuliScriptsandtheirBehavior:
@@ -302,7 +302,7 @@ In more complex scripting situations it is often necessary to deal with paths to
 .. py:function:: getBundlePath()
   
   returns the path to the current .sikuli folder without trailing separator.
-    (see also :ref:`SIKULI_IMAGE_PATH <ImageSearchPath>`)
+    (see also :ref:`ImagePath <ImageSearchPath>`)
   
 .. py:function:: getBundleFolder()
   
@@ -342,7 +342,7 @@ In more complex scripting situations it is often necessary to deal with paths to
 	FileManager.unzip(fromFile, toFolder);
  
 .. index:: 
-	pair: Image Search Path; SIKULI_IMAGE_PATH
+	pair: ImagePath; ImageSearchPath
 
 .. _ImageSearchPath:
 
@@ -572,7 +572,7 @@ A basic example::
 
 
 **Note on contained images:** Together with the import, Sikuli internally uses
-the feature :ref:`SIKULI_IMAGE_PATH <ImageSearchPath>` to make sure that images contained in imported .sikuli's are found automatically.
+the feature :ref:`ImagePath <ImageSearchPath>` to make sure that images contained in imported .sikuli's are found automatically.
 
 **Some comments on general rules for Python import**
 
