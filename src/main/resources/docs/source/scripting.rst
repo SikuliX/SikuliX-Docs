@@ -341,8 +341,7 @@ In more complex scripting situations it is often necessary to deal with paths to
 	import org.sikuli.basics.FileManager;
 	FileManager.unzip(fromFile, toFolder);
  
-.. index:: 
-	pair: ImagePath; ImageSearchPath
+.. index:: Image Path
 
 .. _ImageSearchPath:
 
